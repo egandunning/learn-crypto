@@ -11,3 +11,6 @@ Makefile
 *.out
 *.exe
 *.app
+
+#qt build directory
+build.*
