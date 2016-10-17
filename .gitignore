@@ -1,0 +1,13 @@
+#qt files
+*.creator
+*.config
+*.files
+*.includes
+*.user
+
+#cpp object/executable files
+*.o
+Makefile
+*.out
+*.exe
+*.app
