@@ -13,4 +13,4 @@ Makefile
 *.app
 
 #qt build directory
-build.*
+*build-*
