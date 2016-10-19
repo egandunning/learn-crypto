@@ -5,10 +5,7 @@
 #include <cryptopp/tiger.h>
 
 #include <cryptopp/hex.h>
-//#include <cryptopp/stringsource.h>
-//#include <cryptopp/stringsink.h>
 #include <cryptopp/filters.h>
-//#include <cryptopp/hashtransformation.h>
 
 #include <ctime>
 #include <string>
