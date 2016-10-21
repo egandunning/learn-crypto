@@ -18,3 +18,11 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    +=
+
+#added by Egan
+unix:LIBS += -L/usr/local/lib -lcryptopp
+
+#For windows:
+#win32:LIBS += C:/path/to/library
+
+

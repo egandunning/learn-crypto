@@ -28,24 +28,86 @@ MainWindow::~MainWindow()
 
 HashTab::HashTab(QWidget *parent) : QWidget(parent)
 {
-    QLabel *instructionLabel = new QLabel(tr("Enter hash to break:"));
-    QLineEdit *hashEdit = new QLineEdit();
+    chooseHash = new QComboBox;
+    chooseHash->addItem("SHA1");
+    chooseHash->addItem("SHA256");
+    chooseHash->addItem("SHA512");
+    chooseHash->addItem("MD5");
+    chooseHash->addItem("Tiger");
 
-    QLabel *timeInfoLabel = new QLabel(tr("Time to break hash:"));
-    QLineEdit *timeEdit = new QLineEdit();
+    QLabel *instructionLabel = new QLabel(tr("Enter plaintext to hash:"));
+    hashEdit = new QLineEdit();
+    QHBoxLayout *hashEditLayout = new QHBoxLayout();
+    hashEditLayout->addWidget(instructionLabel);
+    hashEditLayout->addWidget(hashEdit);
+
+    timeInfoLabel = new QLabel(tr("Time to compute hash:"));
+    timeEdit = new QLineEdit();
     timeEdit->setReadOnly(true);
-    timeEdit->setText(QString::number((hashEdit->text()).length()));
     QHBoxLayout *timeLayout = new QHBoxLayout();
     timeLayout->addWidget(timeInfoLabel);
     timeLayout->addWidget(timeEdit);
 
+    QLabel *resultLabel = new QLabel(tr("Result of hashing:"));
+    hashResult = new QLineEdit();
+    hashResult->setReadOnly(true);
+    QHBoxLayout *hashResultLayout = new QHBoxLayout();
+    hashResultLayout->addWidget(resultLabel);
+    hashResultLayout->addWidget(hashResult);
+
+    QPushButton *computeButton = new QPushButton("Compute");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(instructionLabel);
-    mainLayout->addWidget(hashEdit);
+    mainLayout->addWidget(chooseHash);
+    mainLayout->addLayout(hashEditLayout);
+    mainLayout->addLayout(hashResultLayout);
     mainLayout->addLayout(timeLayout);
+    mainLayout->addWidget(computeButton);
     mainLayout->addStretch(1); //keeps stuff stuck to the top
     setLayout(mainLayout);
+
+    QObject::connect(computeButton, SIGNAL(clicked()), this, SLOT(computeHash()));
+
+}
+
+void HashTab::computeHash() {
+
+    int hashChoice = chooseHash->currentIndex();
+    double duration;
+    string source = (hashEdit->text()).toUtf8().constData();
+    string result;
+    clock_t start;
+    HashTransformation* hash;
+
+    switch(hashChoice) {
+    case 0:
+        hash = new SHA1;
+        break;
+    case 1:
+        hash = new SHA256;
+        break;
+    case 2:
+        hash = new SHA512;
+        break;
+    case 3:
+        hash = new MD5;
+        break;
+    case 4:
+        hash = new Tiger;
+        break;
+    }
+
+    start = clock();
+    StringSource ss(source, true, new HashFilter(*hash, new HexEncoder(new StringSink(result))));
+    duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+
+    cout << hashChoice << endl;
+    cout << "Plaintext: " << source << endl;
+    cout << "Hash: " << result << endl;
+    cout << "Elapsed time: " << duration << endl;
+
+    hashResult->setText(QString::fromStdString(result));
+    timeEdit->setText(QString::number(duration));
 }
 
 RsaTab::RsaTab(QWidget *parent) : QWidget(parent)
