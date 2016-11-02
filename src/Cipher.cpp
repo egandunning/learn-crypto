@@ -51,6 +51,10 @@ Cipher::Cipher(){
   std::string Cipher::encrypt(std::string in){
     std::string ret = "";
     for(int i = 0; i< in.size(); i++){
+      if(in[i] == ' '){
+        ret+= ' ';
+        continue;
+      }
       char temp = in[i];
       temp = getChar(temp);
       ret += temp;

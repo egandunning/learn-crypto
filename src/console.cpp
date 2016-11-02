@@ -14,7 +14,8 @@ int main() {
 
 	std::cout<<"Please Enter a phrase you would like encrypted using your keyword:"<<std::endl;
 	std::string phrase;
-	std::cin >>phrase;
+	std::cin.ignore();
+	std::getline (std::cin, phrase);
 
 	std::string encrypted = k.encrypt(phrase);
 
