@@ -12,9 +12,9 @@ TARGET = CapstoneCryptography
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += headers/mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += forms/mainwindow.ui
