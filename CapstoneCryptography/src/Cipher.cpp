@@ -9,7 +9,7 @@ Cipher class to test the Keyword Cipher.
 #include<ctime>
 #include<cstdlib>
 #include<sstream>
-#include"Cipher.h"
+#include"headers/Cipher.h"
 
 
 //String holds the name of the Cipher type for reference.
