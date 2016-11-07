@@ -2,7 +2,7 @@
 #include <string>
 #include "headers/Cipher.h"
 
-int main() {
+/*int main() {
 
 	std::cout<<"Please Enter a Keyword for the Cipher using non-repeating letters:"<<std::endl;
 	std::string keyword;
@@ -24,4 +24,4 @@ int main() {
 
 
 	return 0;
-}
+} */
