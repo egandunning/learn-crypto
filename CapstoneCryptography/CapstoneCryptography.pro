@@ -13,11 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp\
-        src/mainwindow.cpp\
+       	src/mainwindow.cpp\
+		src/generateprimes.cpp\
+		src/primefactorization.cpp\
         src/Cipher.cpp\
         src/console.cpp
 
 HEADERS  += headers/mainwindow.h\
-            headers/Cipher.h
+		headers/generateprimes.h\
+		headers/primefactorization.h\
+        headers/Cipher.h
 
 FORMS    += forms/mainwindow.ui
