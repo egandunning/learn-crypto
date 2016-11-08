@@ -7,7 +7,7 @@
 class PrimeFactorization {
 	
 private:
-	
+	long factors[2] = {0,0};
 	
 public:
 	PrimeFactorization();
