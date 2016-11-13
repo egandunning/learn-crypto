@@ -30,17 +30,17 @@ void test() {
 
 int main(int argc, char *argv[])
 {
-	if(argc == 2  && *argv[1] == 't') {
+    /*if(argc == 2  && *argv[1] == 't') {
 		cout<<"Begin testing"<<endl;		
 		test(); //run tests
-	} else {
+    } else { */
 
 		QApplication a(argc, argv);
 		MainWindow w;
 		w.show();
 
 		return a.exec();
-	}
+    //}
 }
 
 

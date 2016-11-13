@@ -25,3 +25,6 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h
 
 FORMS    += forms/mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
