@@ -7,11 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPushButton buttons[5];
 
-    for(int i=0; i<5; i++){
-        buttons[i].show();
-    }
 }
 
 MainWindow::~MainWindow()
