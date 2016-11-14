@@ -21,9 +21,9 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="gameTab">
        <attribute name="title">
         <string>Game</string>
        </attribute>
@@ -37,6 +37,28 @@
        <attribute name="title">
         <string>Factor Primes</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="0">
+         <widget class="QSpinBox" name="enterNumberBox"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="GPUCheckBox">
+          <property name="text">
+           <string>Use GPU</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="factorPrimesButton">
+          <property name="text">
+           <string>Factor Primes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="3">
+         <widget class="QGraphicsView" name="graphicsView"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
