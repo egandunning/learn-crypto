@@ -25,3 +25,9 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h
 
 FORMS    += forms/mainwindow.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/debug/ -lcryptlib
+
+INCLUDEPATH += $$PWD/../../../Desktop/crypto
+DEPENDPATH += $$PWD/../../../Desktop/crypto
