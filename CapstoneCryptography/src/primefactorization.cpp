@@ -22,3 +22,7 @@ long* PrimeFactorization::bruteForceFactor(long composite) {
 		}
 	}
 }
+
+long* PrimeFactorization::numberFieldSieve(long composite) {
+	
+}

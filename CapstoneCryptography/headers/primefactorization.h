@@ -12,6 +12,7 @@ private:
 public:
 	PrimeFactorization();
 	long* bruteForceFactor(long);
+	long* numberFieldSieve(long);
 	
 };
 

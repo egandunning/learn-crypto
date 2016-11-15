@@ -12,5 +12,9 @@ Makefile
 *.exe
 *.app
 
+#jedit backup files
+*.cpp~
+*.h~
+
 #qt build directory
 build-*
