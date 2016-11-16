@@ -6,6 +6,7 @@
 
 GeneratePrimes::GeneratePrimes(long n) {
 	upperBound = n;
+	srand(time(NULL));
 	composites = new bool[n]; //keeps track of composite numbers. If i is prime, 
 	memset(composites, 0, sizeof(composites)); 		//then composites[i]=false
 	composites[0] = 1;
@@ -31,6 +32,12 @@ void GeneratePrimes::generate() {
 			}
 		}
 	}
+}
+
+long GeneratePrimes::randomPrime() {
+	
+	int index = rand() % primes.size();
+	return primes[index];
 }
 
 void GeneratePrimes::printPrimes() {
