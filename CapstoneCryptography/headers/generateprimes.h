@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 using std::cout;
 using std::endl;
@@ -20,6 +22,7 @@ private:
 public:
 	GeneratePrimes(long);
 	void generate();
+	long randomPrime();
 	void printPrimes();
 	vector<long> getPrimes() { return primes; }
 };
