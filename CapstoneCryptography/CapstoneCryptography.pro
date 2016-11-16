@@ -17,12 +17,14 @@ SOURCES += src/main.cpp\
 		src/generateprimes.cpp\
 		src/primefactorization.cpp\
         src/Cipher.cpp\
-        src/console.cpp
+        src/console.cpp \
+        src/cryptogame.cpp
 
 HEADERS  += headers/mainwindow.h\
 		headers/generateprimes.h\
 		headers/primefactorization.h\
-        headers/Cipher.h
+        headers/Cipher.h \
+        headers/cryptogame.h
 
 FORMS    += forms/mainwindow.ui
 

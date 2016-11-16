@@ -1,11 +1,13 @@
 #include "headers/mainwindow.h"
 #include "headers/generateprimes.h"
 #include "headers/primefactorization.h"
+#include "headers/cryptogame.h"
 #include <QApplication>
+#include <string>
 
 void test() {
 
-	cout<<"Testing for generateprimes and primefactorization."<<endl;
+    cout<<"Testing for generateprimes and primefactorization. And the cryptogame class testing."<<endl;
 	GeneratePrimes gp = GeneratePrimes(1000);
 	gp.generate();
 	gp.printPrimes();
@@ -26,6 +28,7 @@ void test() {
 	
 	long* primeFactors4 = pf.bruteForceFactor(99460729); //9973*9973
 	cout<<primeFactors4[0]<<","<<primeFactors4[1]<<endl;
+
 }
 
 int main(int argc, char *argv[])

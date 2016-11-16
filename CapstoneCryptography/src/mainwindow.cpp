@@ -1,4 +1,5 @@
 #include "headers/mainwindow.h"
+#include "headers/cryptogame.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
 

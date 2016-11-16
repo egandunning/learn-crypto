@@ -18,7 +18,7 @@ std::string CipherType;
 //that is in the message.
 std::map<char, char> Key;
 
-  Cipher::Cipher(std::string keyword, std::string name){
+Cipher::Cipher(std::string keyword, std::string name){
 	  //Set the name of the Cipher
 	  CipherType = name;
       //Do something to generate a random Key.
