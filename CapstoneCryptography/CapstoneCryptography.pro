@@ -31,3 +31,6 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto
 
 INCLUDEPATH += $$PWD/../../../Desktop/crypto
 DEPENDPATH += $$PWD/../../../Desktop/crypto
+
+RESOURCES += \
+    resources.qrc

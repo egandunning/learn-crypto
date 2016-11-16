@@ -9,7 +9,7 @@ Cipher class to test the Keyword Cipher.
 #include<ctime>
 #include<cstdlib>
 #include<sstream>
-#include"Cipher.h"
+#include"headers/Cipher.h"
 
 
 //String holds the name of the Cipher type for reference.
@@ -61,11 +61,3 @@ Cipher::Cipher(){
     }
     return ret;
   }
-
-/*
-  Cipher::Cipher(std::map k, std::string name){
-    //Sets the imported map that already has a key to Key.
-    Key = k;
-    CipherType = name;
-  }
-*/
