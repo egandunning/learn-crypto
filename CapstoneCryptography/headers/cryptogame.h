@@ -9,8 +9,7 @@ class cryptogame
 public:
     cryptogame();
     std::string getEncryptedMessage();
-    std::string sendCurrentGuess(Cipher g);
-    bool winCondition();
+    bool sendCurrentGuess(std::string g);
 
 private:
     std::string d_message;

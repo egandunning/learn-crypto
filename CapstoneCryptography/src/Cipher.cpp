@@ -41,7 +41,33 @@ Cipher::Cipher(std::string keyword, std::string name){
 
 }
 Cipher::Cipher(){
+    CipherType = "Random";
+    char currentLetter = 'A';
 
+    //Generate the map with all letters corresponding to themselves.
+    for(int i = 0; i< 26; i++){
+
+        Key['A' + i] = 'A' + i;
+
+    }
+
+    //Switches the letters a lot using random numbers and running the loop 1000 times.
+    //Most likely a more efficient way to do this.
+    for(int i = 0; i <1000; i++){
+        int temp = rand()%25;
+        char cur = 'A' + temp;
+        int temp2 = rand()%25;
+        char cur2 = 'A' + temp2;
+
+        if(cur2 == cur){
+            continue;
+        }
+        else{
+            char t = Key[cur];
+            Key[cur] = Key[cur2];
+            Key[cur2] = t;
+        }
+    }
 }
 
   char Cipher::getChar(char in){

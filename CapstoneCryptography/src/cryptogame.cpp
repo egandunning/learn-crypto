@@ -11,7 +11,7 @@ cryptogame::cryptogame()
     d_message = "FLEE WE ARE DISCOVERED";
 
     //Find another way to create a randomized key
-    messageCipher = Cipher("KEY", "Keyword");
+    messageCipher = Cipher();
 
     //Encrypt the message and add it to the e_message
     e_message = messageCipher.encrypt(d_message);
@@ -31,19 +31,8 @@ std::string cryptogame::getEncryptedMessage(){
  * @brief cryptogame::sendCurrentGuess
  * @param g
  */
-std::string cryptogame::sendCurrentGuess(Cipher g){
-    currentGuess = g.encrypt(d_message);
-    return currentGuess;
-}
+bool cryptogame::sendCurrentGuess(std::string g){
 
-/**
- * @brief cryptogame::winCondition
- * @return
- */
-bool cryptogame::winCondition(){
-    if(currentGuess == d_message)
-        return true;
-    else
-        return false;
+    return currentGuess;
 }
 

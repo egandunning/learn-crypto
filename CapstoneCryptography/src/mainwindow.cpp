@@ -30,6 +30,7 @@ void MainWindow::on_pushButton_clicked()
     std::cout<<"Start the game."<<std::endl;
     cryptogame agame = cryptogame();
     std::cout<<agame.getEncryptedMessage()<<std::endl;
+
 }
 
 void MainWindow::on_factorPrimesButton_clicked()
