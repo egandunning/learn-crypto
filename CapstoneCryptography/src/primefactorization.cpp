@@ -4,9 +4,20 @@ PrimeFactorization::PrimeFactorization() {
 	
 }
 
-long* PrimeFactorization::bruteForceFactor(long composite) {
+bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
+	mpz_class i, upperBound;
+	upperBound = (composite + 1) / 2;
 	
-	GeneratePrimes gp = GeneratePrimes(composite/2 + 100);
+	for(i = 2; i < upperBound; i++ ) {
+		if(composite % i == 0) {
+			p1 = i;
+			p2 = composite / i;
+			return 1;
+		}
+	}
+	return 0;
+	
+	/*GeneratePrimes gp = GeneratePrimes(composite/2 + 100);
 	gp.generate();
 	
 	long bound = gp.getPrimes().size();
@@ -20,9 +31,10 @@ long* PrimeFactorization::bruteForceFactor(long composite) {
 				return factors;
 			}
 		}
-	}
+	}*/
 }
 
-long* PrimeFactorization::numberFieldSieve(long composite) {
-	
+bool PrimeFactorization::numberFieldSieve(mpz_class composite) {
+	return 0;
 }
+
