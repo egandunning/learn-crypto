@@ -38,15 +38,20 @@ void MainWindow::on_factorPrimesButton_clicked()
 	using std::endl;
 	
 	cout<< "'Factor Primes' button pressed" <<endl;
-	
+	mpz_class composite, p, q;
 	GeneratePrimes gp = GeneratePrimes(10000);
 	gp.generate();
-	long composite = gp.randomPrime() * gp.randomPrime();
+	p = gp.randomPrime();
+	q = gp.randomPrime();
+	composite = p * q;
 	
-	cout << "Number to factor: " << endl << composite;
+	cout << p.get_str(10) << " * " << q.get_str(10) << " = " << composite.get_str(10) << endl;
+	
+	cout << "Number to factor: " << composite.get_str(10) << endl;
 	
 	PrimeFactorization pf = PrimeFactorization();
-	long* primes = pf.bruteForceFactor(composite);
+	pf.bruteForceFactor(composite);
 	
-	cout << "=" << primes[0] <<	"*" << primes[1] << endl;
+	cout << "factor 1: " << pf.p1.get_str(10) << endl;
+	cout << "factor 2: " << pf.p2.get_str(10) << endl;
 }
