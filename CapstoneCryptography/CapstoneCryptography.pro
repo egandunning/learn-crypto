@@ -26,9 +26,9 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h \
         headers/cryptogame.h
 
-LIBS	 += -L/usr/local/lib \
+unix:{LIBS	 += -L/usr/local/lib \
 			-lgmp
-			-lgmpxx
+			-lgmpxx}
 
 
 FORMS    += forms/mainwindow.ui
