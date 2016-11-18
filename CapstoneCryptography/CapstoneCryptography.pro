@@ -26,6 +26,11 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h \
         headers/cryptogame.h
 
+LIBS	 += -L/usr/local/lib \
+			-lgmp
+			-lgmpxx
+
+
 FORMS    += forms/mainwindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
