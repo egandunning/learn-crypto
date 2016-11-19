@@ -2,7 +2,8 @@
 #define __PRIMEFACTORIZATION_H_INCLUDED__
 
 #include <gmpxx.h>
-#include "generateprimes.h"
+#include <gmp.h>
+#include <iostream>
 
 class PrimeFactorization {
 	
