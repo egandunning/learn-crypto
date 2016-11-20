@@ -31,8 +31,11 @@ std::string cryptogame::getEncryptedMessage(){
  * @brief cryptogame::sendCurrentGuess
  * @param g
  */
+/*
 bool cryptogame::sendCurrentGuess(std::string g){
 
-    return currentGuess;
+    //return currentGuess;
+    return null;
 }
+*/
 
