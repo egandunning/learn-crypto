@@ -12,9 +12,11 @@ Makefile
 *.exe
 *.app
 
-#jedit backup files
+#jedit, gedit backup files
 *.cpp~
 *.h~
+*.cpp#
+*.h#
 
 #qt build directory
 build-*
