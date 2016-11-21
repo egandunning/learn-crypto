@@ -28,8 +28,8 @@ void MainWindow::on_GPUCheckBox_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
-    cryptogame agame = cryptogame();
-    std::cout<<agame.getEncryptedMessage()<<std::endl;
+//    cryptogame agame = cryptogame();
+//    std::cout<<agame.getEncryptedMessage()<<std::endl;
 
 }
 
@@ -40,10 +40,9 @@ void MainWindow::on_factorPrimesButton_clicked()
 	
 	cout<< "'Factor Primes' button pressed" <<endl;
 	mpz_class composite, p, q;
-	GeneratePrimes gp = GeneratePrimes(10000);
-	gp.generate();
-	p = gp.randomPrime();
-	q = gp.randomPrime();
+	GeneratePrimes gp = GeneratePrimes();
+	p = gp.readRandomPrime("primes.txt");
+	q = gp.readRandomPrime("primes.txt");
 	composite = p * q;
 	
 	cout << p.get_str(10) << " * " << q.get_str(10) << " = " << composite.get_str(10) << endl;
