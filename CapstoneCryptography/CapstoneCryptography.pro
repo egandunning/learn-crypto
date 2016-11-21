@@ -24,13 +24,13 @@ HEADERS  += headers/mainwindow.h\
 		headers/generateprimes.h\
 		headers/primefactorization.h\
         headers/Cipher.h \
-        headers/cryptogame.h
+        headers/cryptogame.h \
 
-unix:{LIBS	 += -L/usr/local/lib \
+unix:{  LIBS	 += -L/usr/local/lib \
 			-lgmp
-			-lgmpxx}
+                        -lgmpxx}
 
-
+INCLUDEPATH += "/usr/local/include/gmp.h"
 FORMS    += forms/mainwindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
