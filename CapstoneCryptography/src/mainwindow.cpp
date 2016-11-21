@@ -38,7 +38,7 @@ void MainWindow::on_factorPrimesButton_clicked()
 	using std::cout;
 	using std::endl;
 	
-	cout<< "'Factor Primes' button pressed" <<endl;
+    /*cout<< "'Factor Primes' button pressed" <<endl;
 	mpz_class composite, p, q;
 	GeneratePrimes gp = GeneratePrimes();
 	p = gp.readRandomPrime("primes.txt");
@@ -53,5 +53,5 @@ void MainWindow::on_factorPrimesButton_clicked()
 	pf.bruteForceFactor(composite);
 	
 	cout << "factor 1: " << pf.p1.get_str(10) << endl;
-	cout << "factor 2: " << pf.p2.get_str(10) << endl;
+    cout << "factor 2: " << pf.p2.get_str(10) << endl; */
 }

@@ -1,6 +1,6 @@
 #include "headers/primefactorization.h"
 
-PrimeFactorization::PrimeFactorization() {
+/*PrimeFactorization::PrimeFactorization() {
 	
 }
 
@@ -32,9 +32,9 @@ bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
 			}
 		}
 	}*/
-}
+//}
 
-bool PrimeFactorization::numberFieldSieve(mpz_class composite) {
+/*bool PrimeFactorization::numberFieldSieve(mpz_class composite) {
 	return 0;
-}
+}*/
 
