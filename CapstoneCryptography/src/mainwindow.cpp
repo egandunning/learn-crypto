@@ -1,5 +1,5 @@
 #include "headers/mainwindow.h"
-//#include "headers/cryptogame.h"
+#include "headers/cryptogame.h"
 #include "headers/primefactorization.h"
 #include "headers/generateprimes.h"
 #include "ui_mainwindow.h"
