@@ -16,6 +16,7 @@ private:
     std::string e_message;
     Cipher messageCipher;
     std::string currentGuess;
+    std::string getRandomMessage();
 
 };
 

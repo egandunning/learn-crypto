@@ -33,11 +33,28 @@ unix:{  LIBS	 += -L/usr/local/lib \
 INCLUDEPATH += "/usr/local/include/gmp.h"
 FORMS    += forms/mainwindow.ui
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/debug/ -lcryptlib
+#Under here is Windows stuff, don't touch!
 
-INCLUDEPATH += $$PWD/../../../Desktop/crypto
-DEPENDPATH += $$PWD/../../../Desktop/crypto
+win32:{
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/debug/ -lcryptlib
 
-RESOURCES += \
-    resources.qrc
+    INCLUDEPATH += $$PWD/../../../Desktop/crypto
+    DEPENDPATH += $$PWD/../../../Desktop/crypto
+
+    RESOURCES += \
+        resources.qrc
+
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmp
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmp
+
+    INCLUDEPATH += $$PWD/../../../Desktop/gmp-6.1.1
+    DEPENDPATH += $$PWD/../../../Desktop/gmp-6.1.1
+
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmpxx
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmpxx
+
+    INCLUDEPATH += $$PWD/../../../Desktop/gmp-6.1.1
+    DEPENDPATH += $$PWD/../../../Desktop/gmp-6.1.1
+
+}

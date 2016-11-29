@@ -31,11 +31,22 @@ std::string cryptogame::getEncryptedMessage(){
  * @brief cryptogame::sendCurrentGuess
  * @param g
  */
-/*
 bool cryptogame::sendCurrentGuess(std::string g){
 
-    //return currentGuess;
-    return null;
+    if(d_message == g){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
-*/
 
+/**
+ * Code to grab a random message for the constructor.
+ * @brief cryptogame::getRandomMessage
+ * @return
+ */
+std::string cryptogame::getRandomMessage(){
+    int randomNumber = rand()*2000;
+    return "";
+}
