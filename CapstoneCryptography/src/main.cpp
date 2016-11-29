@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <string>
 
-/*void test() {
+void test() {
 
     cout<<"Testing for generateprimes and primefactorization. And the cryptogame class testing."<<endl;
 	GeneratePrimes gp = GeneratePrimes();
@@ -38,7 +38,7 @@
 	cout << pf.p1.get_str(10) << " ";
 	cout << pf.p2.get_str(10) << endl;
 	
-	/*long* primeFactors1 = pf.bruteForceFactor(187); //11*17
+    /*long* primeFactors1 = pf.bruteForceFactor(187); //11*17
 	cout<<primeFactors1[0]<<","<<primeFactors1[1]<<endl;
 	
 	long* primeFactors2 = pf.bruteForceFactor(101767); //149*683
@@ -48,14 +48,14 @@
 	cout<<primeFactors3[0]<<","<<primeFactors3[1]<<endl;
 	
 	long* primeFactors4 = pf.bruteForceFactor(99460729); //9973*9973
-	cout<<primeFactors4[0]<<","<<primeFactors4[1]<<endl;*/
+    cout<<primeFactors4[0]<<","<<primeFactors4[1]<<endl;*/
 
-//}
+}
 
 int main(int argc, char *argv[])
 {
 	
- /*   if(argc == 2  && strcmp(argv[1], "test") == 0) {
+    if(argc == 2  && strcmp(argv[1], "test") == 0) {
     	
 		cout<<"Begin testing"<<endl;		
 		test(); //run tests
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 		cout << "Prime numbers are in primes.txt" << endl;
 		return 0;
 		
-    } else { */
+    } else {
 
 		QApplication a(argc, argv);
 		MainWindow w;
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 		w.show();
 
 		return a.exec();
-    //}
+    }
 }
 
 

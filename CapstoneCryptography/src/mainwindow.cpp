@@ -4,6 +4,7 @@
 #include "headers/generateprimes.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
+#include "gmpxx.h"
 
 #include "iostream" //for debugging
 
@@ -34,23 +35,22 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_factorPrimesButton_clicked()
 {
-	using std::cout;
-	using std::endl;
-	
-    /*cout<< "'Factor Primes' button pressed" <<endl;
-	mpz_class composite, p, q;
-	GeneratePrimes gp = GeneratePrimes();
-	p = gp.readRandomPrime("primes.txt");
-	q = gp.readRandomPrime("primes.txt");
-	composite = p * q;
-	
-	cout << p.get_str(10) << " * " << q.get_str(10) << " = " << composite.get_str(10) << endl;
-	
-	cout << "Number to factor: " << composite.get_str(10) << endl;
-	
-	PrimeFactorization pf = PrimeFactorization();
-	pf.bruteForceFactor(composite);
-	
-	cout << "factor 1: " << pf.p1.get_str(10) << endl;
-    cout << "factor 2: " << pf.p2.get_str(10) << endl; */
+    mpz_class composite;
+    string s = ui->compositeTextField->text().toStdString();
+    composite.set_str(s, 10);
+    PrimeFactorization pf = PrimeFactorization();
+    pf.bruteForceFactor(composite);
+    s = pf.p1.get_str(10) + " * " + pf.p2.get_str(10);
+    ui->resultLabel->setText(QString::fromStdString(s));
+}
+
+void MainWindow::on_random_composite_clicked()
+{
+    mpz_class composite, p, q;
+    GeneratePrimes gp = GeneratePrimes();
+    p = gp.readRandomPrime("primes.txt");
+    q = gp.readRandomPrime("primes.txt");
+    composite = p * q;
+    string s = composite.get_str(10);
+    ui->compositeTextField->setText(QString::fromStdString(s));
 }
