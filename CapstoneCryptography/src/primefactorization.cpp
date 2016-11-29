@@ -1,6 +1,6 @@
 #include "headers/primefactorization.h"
 
-/*PrimeFactorization::PrimeFactorization() {
+PrimeFactorization::PrimeFactorization() {
 	
 }
 
@@ -17,7 +17,7 @@ bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
 	}
 	return 0;
 	
-	/*GeneratePrimes gp = GeneratePrimes(composite/2 + 100);
+ /*   GeneratePrimes gp = GeneratePrimes(composite/2 + 100);
 	gp.generate();
 	
 	long bound = gp.getPrimes().size();
@@ -31,8 +31,8 @@ bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
 				return factors;
 			}
 		}
-	}*/
-//}
+    }*/
+}
 
 /*bool PrimeFactorization::numberFieldSieve(mpz_class composite) {
 	return 0;
