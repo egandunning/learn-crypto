@@ -4,7 +4,6 @@
 #include "headers/generateprimes.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
-#include "gmpxx.h"
 
 #include "iostream" //for debugging
 
