@@ -1,6 +1,9 @@
 #ifndef CRYPTOGAME_H
 #define CRYPTOGAME_H
+#include<iostream>
 #include<string>
+#include<fstream>
+#include<vector>
 #include<headers/Cipher.h>
 
 

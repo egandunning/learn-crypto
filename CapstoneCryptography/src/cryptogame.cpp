@@ -7,8 +7,24 @@
  */
 cryptogame::cryptogame()
 {
-    //Find a way to randomize the messages.
-    d_message = "FLEE WE ARE DISCOVERED";
+    //Find a way to randomize the messages. And hold that in l.
+    try {
+
+        std::ifstream fp;
+        fp.open("quotes.txt");
+        std::string line;
+        std::vector<std::string> lines;
+
+        while(getline(fp, line)) {
+            lines.push_back(line);
+        }
+
+        int index = rand() % lines.size();
+        d_message = lines.at(index);
+
+    } catch (int e) {
+        std::cout << "File io execption occurred: " << e << std::endl;
+    }
 
     //Find another way to create a randomized key
     messageCipher = Cipher();

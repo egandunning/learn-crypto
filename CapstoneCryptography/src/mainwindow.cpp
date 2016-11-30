@@ -1,6 +1,6 @@
 #include "headers/mainwindow.h"
-#include "headers/cryptogame.h"
 #include "headers/primefactorization.h"
+#include "headers/cryptogame.h"
 #include "headers/generateprimes.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
@@ -29,7 +29,6 @@ void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
     cryptogame agame = cryptogame();
-    std::cout<<agame.getEncryptedMessage()<<std::endl;
 
 }
 
