@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "headers/cryptogame.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +23,13 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
+    cryptogame *agame;
 };
 
 #endif // MAINWINDOW_H

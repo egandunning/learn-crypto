@@ -28,10 +28,36 @@ void MainWindow::on_GPUCheckBox_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
-    cryptogame agame = cryptogame();
-    QString q = QString::fromStdString(agame.getEncryptedMessage());
+    agame = new cryptogame();
+    QString q = QString::fromStdString(agame->getEncryptedMessage());
     ui->label->setText(q);
 
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString temp = ui->textEdit->toPlainText();
+    std::string send = temp.toStdString();
+
+    bool win = agame->sendCurrentGuess(send);
+
+    /*
+    //Debugging stuffs
+    std::cout<<win<<std::endl;
+    std::cout<<temp.toStdString()<<std::endl;
+    std::cout<<agame->d_message<<std::endl;
+    */
+
+    if(win){
+        //Call a victory condition here. Something nice.
+        ui->textEdit->setText("You won! yay!");
+    }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    //Somehow give a hint to the player.
+    ui->textEdit->setText("Here's a hint: There are no hints");
 }
 
 void MainWindow::on_factorPrimesButton_clicked()

@@ -49,7 +49,7 @@ std::string cryptogame::getEncryptedMessage(){
  */
 bool cryptogame::sendCurrentGuess(std::string g){
 
-    if(d_message == g){
+    if(0 == d_message.compare(g)){
         return true;
     }
     else{
