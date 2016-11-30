@@ -30,7 +30,7 @@ unix:{  LIBS	 += -L/usr/local/lib \
 			-lgmp
                         -lgmpxx}
 
-INCLUDEPATH += "/usr/local/include/gmp.h"
+INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
