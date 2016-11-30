@@ -36,25 +36,23 @@ FORMS    += forms/mainwindow.ui
 #Under here is Windows stuff, don't touch!
 
 win32:{
-    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/release/ -lcryptlib
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/crypto/Win32/Output/debug/ -lcryptlib
 
-    INCLUDEPATH += $$PWD/../../../Desktop/crypto
-    DEPENDPATH += $$PWD/../../../Desktop/crypto
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/release/ -lcryptlib
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/debug/ -lcryptlib
 
-    RESOURCES += \
-        resources.qrc
+    INCLUDEPATH += $$PWD/../../../../../../lib/crypto
+    DEPENDPATH += $$PWD/../../../../../../lib/crypto
 
-    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmp
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmp
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmp
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmp
 
-    INCLUDEPATH += $$PWD/../../../Desktop/gmp-6.1.1
-    DEPENDPATH += $$PWD/../../../Desktop/gmp-6.1.1
+    INCLUDEPATH += $$PWD/../../../../../../lib/gmp-6.1.1
+    DEPENDPATH += $$PWD/../../../../../../lib/gmp-6.1.1
 
-    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmpxx
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Desktop/gmp-6.1.1/.libs/ -lgmpxx
+    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmpxx
+    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmpxx
 
-    INCLUDEPATH += $$PWD/../../../Desktop/gmp-6.1.1
-    DEPENDPATH += $$PWD/../../../Desktop/gmp-6.1.1
+    INCLUDEPATH += $$PWD/../../../../../../lib/gmp-6.1.1
+    DEPENDPATH += $$PWD/../../../../../../lib/gmp-6.1.1
 
 }

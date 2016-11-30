@@ -29,6 +29,8 @@ void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
     cryptogame agame = cryptogame();
+    QString q = QString::fromStdString(agame.getEncryptedMessage());
+    ui->label->setText(q);
 
 }
 
