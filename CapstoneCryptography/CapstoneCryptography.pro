@@ -41,3 +41,10 @@ DEPENDPATH += $$PWD/../../../Desktop/crypto
 
 RESOURCES += \
     resources.qrc
+
+macx: LIBS += -L$$PWD/../../../../../../usr/local/lib/ -lgmp
+
+INCLUDEPATH += $$PWD/../../../../../../usr/local/include
+DEPENDPATH += $$PWD/../../../../../../usr/local/include
+
+macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
