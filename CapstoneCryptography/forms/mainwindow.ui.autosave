@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>426</width>
-    <height>300</height>
+    <width>454</width>
+    <height>307</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,35 +21,31 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-<<<<<<< HEAD
-       <number>0</number>
-=======
        <number>2</number>
->>>>>>> GUITests
       </property>
       <widget class="QWidget" name="gameTab">
        <attribute name="title">
         <string>Game</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="3" column="2">
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="text">
-           <string>Hint</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
+        <item row="1" column="0">
          <widget class="QPushButton" name="pushButton">
           <property name="text">
-           <string>Start Game</string>
+           <string>PushButton</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="1" column="1">
          <widget class="QPushButton" name="pushButton_2">
           <property name="text">
-           <string>Guess</string>
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>PushButton</string>
           </property>
          </widget>
         </item>
@@ -59,9 +55,6 @@
            <string>TextLabel</string>
           </property>
          </widget>
-        </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="QTextEdit" name="textEdit"/>
         </item>
        </layout>
       </widget>
@@ -135,52 +128,24 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="1" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Enter product of two primes:</string>
-          </property>
-         </widget>
+         <widget class="QSpinBox" name="enterNumberBox"/>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="compositeTextField"/>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="random_composite">
-          <property name="text">
-           <string>random</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QPushButton" name="factorPrimesButton">
-          <property name="text">
-           <string>Factor Primes</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+        <item row="0" column="0">
          <widget class="QCheckBox" name="GPUCheckBox">
           <property name="text">
            <string>Use GPU</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="3" rowspan="8">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="factorPrimesButton">
+          <property name="text">
+           <string>Factor Primes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="3">
          <widget class="QGraphicsView" name="graphicsView"/>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLabel" name="resultLabel">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Result:</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -193,13 +158,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-<<<<<<< HEAD
-     <width>401</width>
-     <height>21</height>
-=======
-     <width>426</width>
-     <height>27</height>
->>>>>>> GUITests
+     <width>454</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
