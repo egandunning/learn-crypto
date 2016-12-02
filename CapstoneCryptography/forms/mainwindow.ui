@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>426</width>
-    <height>300</height>
+    <height>317</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,27 +130,24 @@
         <string>Factor Primes</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="GPUCheckBox">
-          <property name="text">
-           <string>Use GPU</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
+        <item row="3" column="1">
          <widget class="QPushButton" name="factorPrimesButton">
           <property name="text">
            <string>Factor Primes</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="4" rowspan="4">
-         <widget class="QGraphicsView" name="graphicsView"/>
-        </item>
-        <item row="3" column="3">
-         <widget class="QLabel" name="label_9">
+        <item row="6" column="1">
+         <widget class="QLabel" name="timeLabel">
           <property name="text">
-           <string/>
+           <string>Time: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="GPUCheckBox">
+          <property name="text">
+           <string>Use GPU</string>
           </property>
          </widget>
         </item>
@@ -161,16 +158,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="compositeTextField"/>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Result:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QPushButton" name="random_composite">
           <property name="text">
@@ -178,12 +165,31 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="compositeTextField"/>
+        </item>
+        <item row="0" column="2" rowspan="6">
+         <widget class="QGraphicsView" name="graphicsView"/>
+        </item>
+        <item row="5" column="1">
          <widget class="QLabel" name="resultLabel">
           <property name="text">
-           <string/>
+           <string>Result:</string>
           </property>
          </widget>
+        </item>
+        <item row="7" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>

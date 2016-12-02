@@ -6,8 +6,8 @@ PrimeFactorization::PrimeFactorization() {
 
 bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
 	mpz_class i, upperBound;
-	upperBound = (composite + 1) / 2;
-	
+    upperBound = sqrt(composite);
+
 	for(i = 2; i < upperBound; i++ ) {
 		if(composite % i == 0) {
 			p1 = i;

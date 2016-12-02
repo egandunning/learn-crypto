@@ -61,12 +61,31 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_factorPrimesButton_clicked()
 {
+    //reset label text
+    ui->resultLabel->setText(QString::fromStdString("Result:"));
+    ui->timeLabel->setText(QString::fromStdString("Time: "));
+    ui->resultLabel->repaint();
+    ui->timeLabel->repaint();
+
+	using std::cout;
+	using std::endl;
+	//set up timer
+	
+	QElapsedTimer timer;
+	
     mpz_class composite;
     string s = ui->compositeTextField->text().toStdString();
     composite.set_str(s, 10);
     PrimeFactorization pf = PrimeFactorization();
+    
+    timer.start();
     pf.bruteForceFactor(composite);
-    s = pf.p1.get_str(10) + " * " + pf.p2.get_str(10);
+    long elapsed = timer.elapsed();
+    
+    string s2 = "Time: " + QString::number(elapsed).toStdString() + " ms";
+    ui->timeLabel->setText(QString::fromStdString(s2));
+    
+    s = "Result: " + pf.p1.get_str(10) + " * " + pf.p2.get_str(10);
     ui->resultLabel->setText(QString::fromStdString(s));
 }
 
