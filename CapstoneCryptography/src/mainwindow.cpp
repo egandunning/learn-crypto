@@ -67,10 +67,6 @@ void MainWindow::on_factorPrimesButton_clicked()
     ui->resultLabel->repaint();
     ui->timeLabel->repaint();
 
-	using std::cout;
-	using std::endl;
-	//set up timer
-	
 	QElapsedTimer timer;
 	
     mpz_class composite;
