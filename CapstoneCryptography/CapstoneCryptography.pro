@@ -32,6 +32,10 @@ unix:{  LIBS	 += -L/usr/local/lib \
 
 INCLUDEPATH += "/usr/local/include/gmp.h"
 FORMS    += forms/mainwindow.ui
+macx:{
+ INCLUDEPATH += "gmp/include"
+ LIBS += -L../CapstoneCryptography/gmp/lib -lgmp -lgmpxx
+}
 
 #Under here is Windows stuff, don't touch!
 
