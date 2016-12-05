@@ -56,3 +56,5 @@ win32:{
     DEPENDPATH += $$PWD/../../../../../../lib/gmp-6.1.1
 
 }
+
+#Present the algorithm that randomizes the cipher, and present
