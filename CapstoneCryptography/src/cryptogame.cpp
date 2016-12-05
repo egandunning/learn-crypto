@@ -11,7 +11,7 @@ cryptogame::cryptogame()
     try {
 
         std::ifstream fp;
-        fp.open("quotes.txt");
+        fp.open("../quotes.txt");
         std::string line;
         std::vector<std::string> lines;
 

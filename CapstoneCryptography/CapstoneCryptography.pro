@@ -14,15 +14,15 @@ TEMPLATE = app
 
 SOURCES += src/main.cpp\
        	src/mainwindow.cpp\
-		src/generateprimes.cpp\
-		src/primefactorization.cpp\
+        src/generateprimes.cpp\
+        src/primefactorization.cpp\
         src/Cipher.cpp\
         src/console.cpp \
         src/cryptogame.cpp
 
 HEADERS  += headers/mainwindow.h\
-		headers/generateprimes.h\
-		headers/primefactorization.h\
+        headers/generateprimes.h\
+        headers/primefactorization.h\
         headers/Cipher.h \
         headers/cryptogame.h \
 
@@ -30,12 +30,17 @@ unix:{  LIBS	 += -L/usr/local/lib \
 			-lgmp
                         -lgmpxx}
 
-INCLUDEPATH += "/usr/local/include/gmp.h"
+INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui
+macx:{
+ INCLUDEPATH += "gmp/include"
+ LIBS += -L../CapstoneCryptography/gmp/lib -lgmp -lgmpxx
+}
 
 #Under here is Windows stuff, don't touch!
 
 win32:{
+
 
     win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/release/ -lcryptlib
     else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/debug/ -lcryptlib
@@ -56,5 +61,12 @@ win32:{
     DEPENDPATH += $$PWD/../../../../../../lib/gmp-6.1.1
 
 }
+RESOURCES += \
+    resources.qrc
 
-#Present the algorithm that randomizes the cipher, and present
+macx: LIBS += -L$$PWD/../../../../../../usr/local/lib/ -lgmp
+
+INCLUDEPATH += $$PWD/../../../../../../usr/local/include
+DEPENDPATH += $$PWD/../../../../../../usr/local/include
+
+macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a

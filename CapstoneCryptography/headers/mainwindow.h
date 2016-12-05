@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QElapsedTimer>
 #include "headers/cryptogame.h"
 
 namespace Ui {
@@ -26,6 +27,8 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
+
+    void on_random_composite_clicked();
 
 private:
     Ui::MainWindow *ui;

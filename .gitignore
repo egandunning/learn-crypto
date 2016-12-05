@@ -20,3 +20,12 @@ Makefile
 
 #qt build directory
 build-*
+
+
+#Library files
+*.a
+*.dylib
+*.la
+*.info
+*.info-1
+*.info-2
