@@ -127,13 +127,13 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>Factor Primes</string>
+        <string>Factoring</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="3" column="1">
          <widget class="QPushButton" name="factorPrimesButton">
           <property name="text">
-           <string>Factor Primes</string>
+           <string>Factor</string>
           </property>
          </widget>
         </item>
