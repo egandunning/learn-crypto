@@ -31,6 +31,7 @@ cryptogame::cryptogame()
 
     //Encrypt the message and add it to the e_message
     e_message = messageCipher.encrypt(d_message);
+    currentGuess = e_message;
 
 
 }
@@ -49,6 +50,18 @@ std::string cryptogame::getEncryptedMessage(){
  */
 bool cryptogame::sendCurrentGuess(std::string g){
 
+    currentGuess = g;
+    int t = 0;
+    for(char& c : currentGuess){
+        if(c == d_message[t]){
+            currentGuess[t] = toupper(c);
+        }
+        else{
+            currentGuess[t] = tolower(c);
+        }
+        t+= 1;
+    }
+
     if(0 == d_message.compare(g)){
         return true;
     }
@@ -65,4 +78,12 @@ bool cryptogame::sendCurrentGuess(std::string g){
 std::string cryptogame::getRandomMessage(){
     int randomNumber = rand()*2000;
     return "";
+}
+
+/**
+ * @brief cryptogame::~cryptogame
+ */
+cryptogame::~cryptogame() {
+    //If there are any pointers in the future delete them here
+
 }

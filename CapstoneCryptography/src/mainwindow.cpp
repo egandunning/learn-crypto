@@ -51,6 +51,10 @@ void MainWindow::on_pushButton_2_clicked()
         //Call a victory condition here. Something nice.
         ui->textEdit->setText("You won! yay!");
     }
+    else{
+        QString t = QString::fromStdString(agame->currentGuess);
+        ui->textEdit->setText(t);
+    }
 }
 
 void MainWindow::on_pushButton_3_clicked()
