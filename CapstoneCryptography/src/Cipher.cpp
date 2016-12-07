@@ -53,7 +53,7 @@ Cipher::Cipher(){
 
     //Switches the letters a lot using random numbers and running the loop 1000 times.
     //Most likely a more efficient way to do this.
-    for(int i = 0; i <1000; i++){
+    for(int i = 0; i <10000; i++){
         int temp = rand()%25;
         char cur = 'A' + temp;
         int temp2 = rand()%25;

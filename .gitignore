@@ -21,5 +21,10 @@ Makefile
 #qt build directory
 build-*
 
-#library install script
-temporary
+#Library files
+*.a
+*.dylib
+*.la
+*.info
+*.info-1
+*.info-2

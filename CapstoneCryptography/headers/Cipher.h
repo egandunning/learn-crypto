@@ -13,11 +13,13 @@ class Cipher {
 
 public:
   std::string CipherType;
-  std::map<char,char> Key;
   //Cipher(std::map k, std::string name);
   Cipher(std::string, std::string);
   Cipher();
   char getChar(char);
   std::string encrypt(std::string);
+
+private:
+  std::map<char,char> Key;
 
 };

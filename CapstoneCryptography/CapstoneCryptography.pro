@@ -32,6 +32,10 @@ unix:{  LIBS	 += -L/usr/local/lib \
 
 INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui
+macx:{
+ INCLUDEPATH += "gmp/include"
+ LIBS += -L../CapstoneCryptography/gmp/lib -lgmp -lgmpxx
+}
 
 #Under here is Windows stuff, don't touch!
 
@@ -57,7 +61,6 @@ win32:{
     DEPENDPATH += $$PWD/../../../../../../lib/gmp-6.1.1
 
 }
-
 RESOURCES += \
     resources.qrc
 
@@ -67,4 +70,3 @@ INCLUDEPATH += $$PWD/../../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../../usr/local/include
 
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
-
