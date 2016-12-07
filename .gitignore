@@ -20,3 +20,6 @@ Makefile
 
 #qt build directory
 build-*
+
+#library install script
+temporary

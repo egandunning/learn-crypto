@@ -2,11 +2,11 @@
 #Downloads and installs required libraries for the learn-crypto repo
 #install location: /usr/local
 
-if [ ! -d ~/temporary ]; then
-	mkdir ~/temporary
+if [ ! -d temporary ]; then
+	mkdir temporary
 fi
 
-cd ~/temporary
+cd temporary
 
 #gmp - GNU Multi Precision library, for big integers.
 #https://gmplib.org/
@@ -17,19 +17,19 @@ if [ ! -d gmp-6.1.1.1 ]; then
 fi
 
 cd gmp-6.1.1
-./configure
+./configure --prefix=../CapstoneCryptography/libs
 make
 make check
 sudo make install
 
 #crypto++ - C++ crypto library
 #https://www.cryptopp.com/
-cd ~/temporary
+cd temporary
 wget -O cryptopp.zip https://www.cryptopp.com/cryptopp565.zip
 unzip cryptopp.zip
 make
 make test
-sudo make install
+sudo make install PREFIX=../CapstoneCryptography/libs
 ./cryptest.exe v
 ./cryptest.exe tv all
 
