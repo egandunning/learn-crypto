@@ -24,7 +24,8 @@ build-*
 #library install script
 temporary
 
-#Library files
+#Library files/directories
+libs
 *.a
 *.dylib
 *.la

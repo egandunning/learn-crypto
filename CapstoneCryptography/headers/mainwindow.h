@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QElapsedTimer>
+#include <QStringRef>
 #include "headers/cryptogame.h"
 
 namespace Ui {

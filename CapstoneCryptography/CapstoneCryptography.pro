@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+CONFIG   += c++11
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = CapstoneCryptography
@@ -18,17 +20,23 @@ SOURCES += src/main.cpp\
         src/primefactorization.cpp\
         src/Cipher.cpp\
         src/console.cpp \
-        src/cryptogame.cpp
+        src/hash.cpp \
+        src/cryptogame.cpp \
+    src/sha512.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
         headers/primefactorization.h\
         headers/Cipher.h \
+        headers/hash.h \
         headers/cryptogame.h \
+    headers/sha512.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
-			-lgmp
-                        -lgmpxx}
+                    -lgmp \
+                    -lgmpxx \
+                    -lcryptopp
+}
 
 INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui

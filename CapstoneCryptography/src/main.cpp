@@ -2,10 +2,30 @@
 #include "headers/generateprimes.h"
 #include "headers/primefactorization.h"
 #include "headers/cryptogame.h"
+#include "headers/sha512.h"
 #include <QApplication>
 #include <string>
 
 void test() {
+
+    Sha512 sha = Sha512();
+    sha.plaintext = "hello there";
+    sha.compute();
+    cout << "Plaintext: " << sha.plaintext << "\nDigest: " << sha.digest << endl;
+
+    sha.plaintext = "Hello there";
+    sha.compute();
+    cout << "Plaintext: " << sha.plaintext << "\nDigest: " << sha.digest << endl;
+
+    Sha512 shaSalt = Sha512();
+    shaSalt.plaintext = "hello there";
+    shaSalt.generateSalt(64);
+    shaSalt.compute();
+    cout << "Plaintext: " << shaSalt.plaintext << "\nDigest: " << shaSalt.digest << endl;
+
+    shaSalt.plaintext = "Hello there";
+    shaSalt.compute();
+    cout << "Plaintext: " << shaSalt.plaintext << "\nDigest: " << shaSalt.digest << endl;
 
     cout<<"Testing for generateprimes and primefactorization. And the cryptogame class testing."<<endl;
 	GeneratePrimes gp = GeneratePrimes();
