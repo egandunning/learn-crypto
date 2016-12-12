@@ -22,7 +22,9 @@ SOURCES += src/main.cpp\
         src/console.cpp \
         src/hash.cpp \
         src/cryptogame.cpp \
-    src/sha512.cpp
+    src/sha512.cpp \
+    src/md5.cpp \
+    src/pbkdf2.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -30,7 +32,9 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h \
         headers/hash.h \
         headers/cryptogame.h \
-    headers/sha512.h
+    headers/sha512.h \
+    headers/md5.h \
+    headers/pbkdf2.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

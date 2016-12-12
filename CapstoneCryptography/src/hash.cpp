@@ -18,15 +18,11 @@ void Hash::compute() {
 }
 
 void Hash::generateSalt(int len) {
-    byte* buf = new byte[len + 1];
+
+    unsigned char* buf = new unsigned char[len+1];
+
     CryptoPP::AutoSeededX917RNG<CryptoPP::DES> securePrg;
     securePrg.GenerateBlock(buf, len);
-
-    char* cbuf = new char[len + 1];
-    for(int i = 0; i < len + 1; i++) {
-        cbuf[i] = (char)buf[i];
-    }
-    cbuf[len] = '\0';
-
-    salt = std::string(cbuf);
+    buf[len] = '\0';
+    salt = std::string((char*)buf);
 }
