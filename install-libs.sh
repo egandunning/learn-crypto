@@ -16,7 +16,7 @@ if [ ! -d gmp-6.1.1.1 ]; then
 	tar -xf gmp.tar
 fi
 
-cd gmp-6.1.1
+cd gmp-6.1.1 --enable-cxx
 ./configure --prefix=../CapstoneCryptography/libs
 make
 make check

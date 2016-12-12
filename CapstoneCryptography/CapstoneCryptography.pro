@@ -32,14 +32,15 @@ HEADERS  += headers/mainwindow.h\
         headers/Cipher.h \
         headers/hash.h \
         headers/cryptogame.h \
-    headers/sha512.h \
-    headers/md5.h \
-    headers/pbkdf2.h
+        headers/sha512.h \
+        headers/md5.h \
+        headers/pbkdf2.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
                     -lgmpxx \
                     -lcryptopp
+
 }
 
 INCLUDEPATH += "/usr/local/include/"
