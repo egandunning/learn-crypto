@@ -165,11 +165,11 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="compositeTextField"/>
-        </item>
         <item row="0" column="2" rowspan="6">
          <widget class="QGraphicsView" name="graphicsView"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="compositeTextField"/>
         </item>
         <item row="5" column="1">
          <widget class="QLabel" name="resultLabel">
@@ -191,6 +191,25 @@
           </property>
          </spacer>
         </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="factorAlgChooser">
+          <item>
+           <property name="text">
+            <string>Brute force (small to big)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Brute force (big to small)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Quadratic sieve</string>
+           </property>
+          </item>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -203,7 +222,7 @@
      <x>0</x>
      <y>0</y>
      <width>426</width>
-     <height>27</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

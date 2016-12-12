@@ -71,7 +71,10 @@ void MainWindow::on_factorPrimesButton_clicked()
     ui->resultLabel->repaint();
     ui->timeLabel->repaint();
 
-	QElapsedTimer timer;
+    //set algorithm
+    ui->factorAlgChooser->currentText();
+
+    QElapsedTimer timer;
 	
     mpz_class composite;
     string s = ui->compositeTextField->text().toStdString();

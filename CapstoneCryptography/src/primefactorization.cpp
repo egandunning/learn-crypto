@@ -4,37 +4,55 @@ PrimeFactorization::PrimeFactorization() {
 	
 }
 
-bool PrimeFactorization::bruteForceFactor(mpz_class composite) {
+/**
+ * Trial division starting with 2.
+ * @brief PrimeFactorization::bruteForceFactor
+ * @param composite
+ * @return A point (number of digits, time to factor(milliseconds))
+ */
+QPointF* PrimeFactorization::bruteForceFactor(mpz_class composite) {
 	mpz_class i, upperBound;
     upperBound = sqrt(composite);
 
+    QElapsedTimer timer;
+    timer.start();
 	for(i = 2; i < upperBound; i++ ) {
 		if(composite % i == 0) {
 			p1 = i;
 			p2 = composite / i;
-			return 1;
+            break;
 		}
 	}
-	return 0;
-	
- /*   GeneratePrimes gp = GeneratePrimes(composite/2 + 100);
-	gp.generate();
-	
-	long bound = gp.getPrimes().size();
-	
-	for(long i = 0; i < bound; i++) {
-		for(long j = 0; j < bound; j++) {
-			
-			if(i * j == composite) {
-				factors[0] = i;
-				factors[1] = j;
-				return factors;
-			}
-		}
-    }*/
+    long elapsed = timer.elapsed();
+
+    return new QPointF(composite.get_str(10).length(), elapsed);
 }
 
-/*bool PrimeFactorization::numberFieldSieve(mpz_class composite) {
-	return 0;
-}*/
+/**
+ * Trial division starting at sqrt(n)
+ * @brief PrimeFactorization::bruteForceFactor2
+ * @param composite
+ * @return
+ */
+QPointF* PrimeFactorization::bruteForceFactor2(mpz_class composite) {
+    mpz_class i, upperBound;
+    upperBound = sqrt(composite);
+
+    QElapsedTimer timer;
+    timer.start();
+    for(i = upperBound; i > 2; i-- ) {
+        if(composite % i == 0) {
+            p1 = i;
+            p2 = composite / i;
+            break;
+        }
+    }
+    long elapsed = timer.elapsed();
+
+    return new QPointF(composite.get_str(10).length(), elapsed);
+}
+
+QPointF* PrimeFactorization::quadraticSieve(mpz_class composite) {
+
+}
 
