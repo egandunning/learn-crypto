@@ -72,17 +72,19 @@ void MainWindow::on_factorPrimesButton_clicked()
     ui->timeLabel->repaint();
 
     //set algorithm
-    ui->factorAlgChooser->currentText();
+    int algChoice = ui->factorAlgChooser->currentIndex();
+    PrimeFactorization pf = PrimeFactorization(algChoice);
+
 
     QElapsedTimer timer;
 	
     mpz_class composite;
     string s = ui->compositeTextField->text().toStdString();
     composite.set_str(s, 10);
-    PrimeFactorization pf = PrimeFactorization();
+
     
     timer.start();
-    pf.bruteForceFactor(composite);
+    pf.factor(composite);
     long elapsed = timer.elapsed();
     
     string s2 = "Time: " + QString::number(elapsed).toStdString() + " ms";

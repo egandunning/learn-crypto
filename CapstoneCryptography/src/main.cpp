@@ -111,13 +111,13 @@ void test() {
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
 
 //////Factoring
-    PrimeFactorization pf = PrimeFactorization();
+    PrimeFactorization pf = PrimeFactorization(0);
 
     mpz_class comp;
     comp = 77;
     cout << "number to factor: " << comp.get_str(10) << endl;
 
-    pf.bruteForceFactor(comp);//7*11
+    pf.factor(comp);//7*11
     cout << "factors: ";
     cout << pf.p1.get_str(10) << " ";
     cout << pf.p2.get_str(10) << endl;
@@ -129,22 +129,22 @@ void test() {
 
     cout << "number to factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
 
-    pf.bruteForceFactor(comp);
+    pf.factor(comp);
     cout << "factors: ";
     cout << pf.p1.get_str(10) << " ";
     cout << pf.p2.get_str(10) << endl;
 
-    /*long* primeFactors1 = pf.bruteForceFactor(187); //11*17
-    cout<<primeFactors1[0]<<","<<primeFactors1[1]<<endl;
+    p = gp.readRandomPrime("primes.txt");
+    q = gp.readRandomPrime("primes.txt");
+    comp = p * q;
 
-    long* primeFactors2 = pf.bruteForceFactor(101767); //149*683
-    cout<<primeFactors2[0]<<","<<primeFactors2[1]<<endl;
+    cout << "number to factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
 
-    long* primeFactors3 = pf.bruteForceFactor(854429); //997*857
-    cout<<primeFactors3[0]<<","<<primeFactors3[1]<<endl;
+    pf.factor(comp);
+    cout << "factors: ";
+    cout << pf.p1.get_str(10) << " ";
+    cout << pf.p2.get_str(10) << endl;
 
-    long* primeFactors4 = pf.bruteForceFactor(99460729); //9973*9973
-    cout<<primeFactors4[0]<<","<<primeFactors4[1]<<endl;*/
 
 //////String conversion
 

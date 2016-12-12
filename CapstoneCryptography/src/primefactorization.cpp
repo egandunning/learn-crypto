@@ -1,7 +1,32 @@
 #include "headers/primefactorization.h"
 
-PrimeFactorization::PrimeFactorization() {
-	
+/**
+ * Algorithm options: enum algorithmTypes {bruteForce, bruteForce2, quadraticSieve} alg;
+ * @brief PrimeFactorization::PrimeFactorization
+ * @param a 0,1,2
+ */
+PrimeFactorization::PrimeFactorization(int a) {
+    algorithm = a;
+}
+
+/**
+ * @brief PrimeFactorization::factor
+ * @param composite
+ * @return
+ */
+QPointF* PrimeFactorization::factor(mpz_class composite) {
+    p1 = 0;
+    p2 = 0;
+    switch(algorithm) {
+    case 0:
+        return bruteForceFactor(composite);
+        break;
+    case 1:
+        return bruteForceFactor2(composite);
+        break;
+    //default:
+      //  return quadraticSieveFactor(composite);
+    }
 }
 
 /**
@@ -52,7 +77,12 @@ QPointF* PrimeFactorization::bruteForceFactor2(mpz_class composite) {
     return new QPointF(composite.get_str(10).length(), elapsed);
 }
 
-QPointF* PrimeFactorization::quadraticSieve(mpz_class composite) {
+/**
+ * @brief PrimeFactorization::quadraticSieveFactor
+ * @param composite
+ * @return
+ */
+QPointF* PrimeFactorization::quadraticSieveFactor(mpz_class composite) {
 
 }
 
