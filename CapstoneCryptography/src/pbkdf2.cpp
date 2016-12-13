@@ -1,4 +1,5 @@
 #include <headers/pbkdf2.h>
+#include <iostream>
 
 Pbkdf2::Pbkdf2(CryptoPP::HashTransformation* h):Hash(h){}
 
@@ -6,19 +7,69 @@ void Pbkdf2::compute(unsigned int iterations = 20000) {
 
     CryptoPP::PKCS5_PBKDF2_HMAC<CryptoPP::SHA1> pbkdf2;
 
+    byte password[] = "password";
+    byte salt[] = "salt";
 
+    int passlen = strlen((const char*)password);
+    int slen = strlen((const char*)salt);
 
-    unsigned char* bufOut = new unsigned char(32); //256-bit output
+    int c = 1;
+
+    byte derived[20];
+
+    pbkdf2.DeriveKey(derived, sizeof(derived), 0, password, passlen, salt, slen, c);
+
+    std::string result;
+    CryptoPP::HexEncoder encoder(new CryptoPP::StringSink(result));
+
+    encoder.Put(derived, sizeof(derived));
+    encoder.MessageEnd();
+
+    std::cout << "\t\t\tDigest: " << result << std::endl;
+/*
+    unsigned char bufOut[32]; //32 -> 256-bit output
 
     int len = plaintext.length();
-    const unsigned char* bufIn = new unsigned char(len);
+    unsigned char bufIn[len];
 
-    bufIn = (unsigned char*)plaintext.c_str();
+
+    std::cout << "\t\t"<<sizeof(bufOut)<<std::endl;
+
+    for(int i = 0; i < plaintext.length(); i++) {
+        bufIn[i] = (unsigned char)plaintext.at(i);
+    }
+
+
+    std::cout << "\t\t"<<sizeof(bufIn)<<" "<<len<<" "<<plaintext<<" ";
+    for(int i = 0; i < sizeof(bufIn); i++) {
+        std::cout << bufIn[i];
+    }
+
+    std::cout << std::endl;
 
     const unsigned char* saltBuf = new unsigned char(saltlen);
     saltBuf = (unsigned char*)salt.c_str();
 
-    pbkdf2.DeriveKey(bufOut, (size_t)32, (byte)0, bufIn, (size_t)len, saltBuf, (size_t)saltlen, iterations);
+    pbkdf2.DeriveKey(bufOut, sizeof(bufOut), 0, bufIn, sizeof(bufIn), saltBuf, sizeof(saltBuf), iterations);
 
-    digest = std::string((char*)bufOut);
+    //hex encoding
+    digest = "";
+    using CryptoPP::StringSource;
+    using CryptoPP::StringSink;
+    using CryptoPP::HexEncoder;
+    StringSource ss(bufOut, sizeof(bufOut), true, new HexEncoder(new StringSink(digest)));
+    std::cout << "\t\tIn pbkdf2::compute() digest:" << digest << std::endl;
+
+    std::cout << "\t\t" << std::string((char*)bufOut);
+    for(int i = 0; i < digest.length(); i++) {
+        std::cout << (digest.at(i));
+    }
+
+    std::cout << std::endl<<"\t\t"<<sizeof(bufOut);
+    std::cout << std::endl<<"\t\t";
+    for(int i = 0; i < sizeof(bufOut); i++) {
+        std::cout << (bufOut[i]);
+    }
+    std::cout << std::endl;
+    */
 }
