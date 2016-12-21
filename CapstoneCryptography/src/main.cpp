@@ -21,10 +21,12 @@ int main(int argc, char *argv[])
 	} else if(argc == 2 && strcmp(argv[1], "init") == 0) {
 		
 		cout << "Begin initialization" << endl;
-		GeneratePrimes gp = GeneratePrimes(500000, 10000000);
-		cout << "constructor done" << endl;
+        int lowerBound = 500000;
+        int upperBound = 10000000;
+        GeneratePrimes gp = GeneratePrimes(lowerBound, upperBound);
 		gp.generate();
-		cout << "generate done" << endl;
+        cout << "generate done: " << endl;
+        cout << " primes from " << lowerBound << " to " << upperBound << " generated." << endl;
 		gp.writePrimes("primes.txt");
 		cout << "Prime numbers are in primes.txt" << endl;
 		return 0;
