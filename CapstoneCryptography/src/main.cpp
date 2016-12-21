@@ -105,11 +105,12 @@ void test() {
     cout << "Salt + Plaintext: " << mdSalt.salt << mdSalt.plaintext << "\nDigest: " << mdSalt.digest << endl;
 
     //pdkdf2
-   /* cout<<"\nPBKDF2"<<endl;
+    cout<<"\nPBKDF2"<<endl;
     Pbkdf2 kdf = Pbkdf2();
+    kdf.salt = "";
     kdf.plaintext = "Hello there";
     kdf.compute(1);
-    cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;*/
+    cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
 
 
 //////Prime number generation
@@ -120,7 +121,7 @@ void test() {
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
-
+/*
 //////Factoring
     PrimeFactorization pf = PrimeFactorization(0);
 
@@ -170,7 +171,7 @@ void test() {
     }
     cout << endl;
 
-
+*/
 }
 
 void init() {

@@ -19,10 +19,15 @@ void Hash::compute() {
 
 void Hash::generateSalt(int len) {
 
-    unsigned char* buf = new unsigned char[len+1];
+    unsigned char* buf = new unsigned char[len];
 
     CryptoPP::AutoSeededX917RNG<CryptoPP::DES> securePrg;
     securePrg.GenerateBlock(buf, len);
-    buf[len] = '\0';
-    salt = std::string((char*)buf);
+
+    //hex encoding
+    salt = "";
+    using CryptoPP::StringSource;
+    using CryptoPP::StringSink;
+    using CryptoPP::HexEncoder;
+    StringSource ss(buf, len, true, new HexEncoder(new StringSink(salt)));
 }
