@@ -9,10 +9,17 @@
 #include <string>
 
 void test();
+void init();
 
 int main(int argc, char *argv[])
 {
-	
+    ifstream fp;
+    fp.open("primes.txt");
+    if(fp == NULL) {
+        cout << "List of prime numbers not found!" << endl;
+        init();
+    }
+
     if(argc == 2  && strcmp(argv[1], "test") == 0) {
     	
 		cout<<"Begin testing"<<endl;		
@@ -20,7 +27,9 @@ int main(int argc, char *argv[])
 		
 	} else if(argc == 2 && strcmp(argv[1], "init") == 0) {
 		
-		cout << "Begin initialization" << endl;
+        init();
+
+        /*cout << "Begin initialization" << endl;
         int lowerBound = 500000;
         int upperBound = 10000000;
         GeneratePrimes gp = GeneratePrimes(lowerBound, upperBound);
@@ -29,7 +38,7 @@ int main(int argc, char *argv[])
         cout << " primes from " << lowerBound << " to " << upperBound << " generated." << endl;
 		gp.writePrimes("primes.txt");
 		cout << "Prime numbers are in primes.txt" << endl;
-		return 0;
+        return 0;*/
 		
     } else {
 
@@ -162,6 +171,18 @@ void test() {
     cout << endl;
 
 
+}
+
+void init() {
+    cout << "Begin initialization" << endl;
+    int lowerBound = 500000;
+    int upperBound = 10000000;
+    GeneratePrimes gp = GeneratePrimes(lowerBound, upperBound);
+    gp.generate();
+    cout << "generate done: " << endl;
+    cout << " primes from " << lowerBound << " to " << upperBound << " generated." << endl;
+    gp.writePrimes("primes.txt");
+    cout << "Prime numbers are in primes.txt" << endl;
 }
 
 
