@@ -4,7 +4,11 @@
 #include <QMainWindow>
 #include <QElapsedTimer>
 #include <QStringRef>
-#include "headers/cryptogame.h"
+#include <headers/cryptogame.h>
+#include <headers/hash.h>
+#include <headers/md5.h>
+#include <headers/sha512.h>
+#include <headers/pbkdf2.h>
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +34,8 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_random_composite_clicked();
+
+    void on_hashButton_clicked();
 
 private:
     Ui::MainWindow *ui;

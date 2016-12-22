@@ -104,3 +104,23 @@ void MainWindow::on_random_composite_clicked()
     string s = composite.get_str(10);
     ui->compositeTextField->setText(QString::fromStdString(s));
 }
+
+void MainWindow::on_hashButton_clicked()
+{
+    Hash h = Hash();
+    switch(ui->hashComboBox->currentIndex()) {
+    case 0:
+        h = Md5();
+        break;
+    case 1:
+        h = Sha512();
+        break;
+    case 2:
+        h = Pbkdf2();
+        break;
+    }
+
+    h.setPlaintext(ui->plaintextField->text());
+    h.compute();
+    ui->digestField->setText(h.getDigest());
+}

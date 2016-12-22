@@ -23,6 +23,7 @@ public:
     CryptoPP::HashTransformation* hashType;
 
     Hash(CryptoPP::HashTransformation*);
+    Hash(){}
     void compute();
 
     void generateSalt(int);

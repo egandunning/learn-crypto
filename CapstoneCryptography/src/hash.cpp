@@ -31,3 +31,11 @@ void Hash::generateSalt(int len) {
     using CryptoPP::HexEncoder;
     StringSource ss(buf, len, true, new HexEncoder(new StringSink(salt)));
 }
+
+void Hash::setPlaintext(QString s) {
+    plaintext = s.toStdString();
+}
+
+QString Hash::getDigest() {
+    return QString::fromStdString(digest);
+}
