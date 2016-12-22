@@ -101,6 +101,10 @@ void test() {
     kdf.compute(1);
     cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
 
+    kdf.generateSalt(64);
+    kdf.plaintext = "Hello there";
+    kdf.compute(1);
+    cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
 
 //////Prime number generation
     cout<<"Testing for generateprimes and primefactorization."<<endl;
