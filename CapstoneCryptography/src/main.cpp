@@ -21,33 +21,22 @@ int main(int argc, char *argv[])
     }
 
     if(argc == 2  && strcmp(argv[1], "test") == 0) {
-    	
-		cout<<"Begin testing"<<endl;		
-		test(); //run tests
-		
-	} else if(argc == 2 && strcmp(argv[1], "init") == 0) {
-		
+
+        cout<<"Begin testing"<<endl;
+        test(); //run tests
+
+    } else if(argc == 2 && strcmp(argv[1], "init") == 0) {
+
         init();
 
-        /*cout << "Begin initialization" << endl;
-        int lowerBound = 500000;
-        int upperBound = 10000000;
-        GeneratePrimes gp = GeneratePrimes(lowerBound, upperBound);
-		gp.generate();
-        cout << "generate done: " << endl;
-        cout << " primes from " << lowerBound << " to " << upperBound << " generated." << endl;
-		gp.writePrimes("primes.txt");
-		cout << "Prime numbers are in primes.txt" << endl;
-        return 0;*/
-		
     } else {
 
-		QApplication a(argc, argv);
-		MainWindow w;
+        QApplication a(argc, argv);
+        MainWindow w;
         w.resize(1000, 1000);
-		w.show();
+        w.show();
 
-		return a.exec();
+        return a.exec();
     }
 }
 
@@ -121,7 +110,7 @@ void test() {
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
-/*
+
 //////Factoring
     PrimeFactorization pf = PrimeFactorization(0);
 
@@ -171,7 +160,7 @@ void test() {
     }
     cout << endl;
 
-*/
+
 }
 
 void init() {

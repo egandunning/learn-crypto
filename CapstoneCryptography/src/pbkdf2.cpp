@@ -7,17 +7,24 @@ void Pbkdf2::compute(unsigned int iterations = 20000) {
 
     CryptoPP::PKCS5_PBKDF2_HMAC<CryptoPP::SHA1> pbkdf2;
 
-    byte password[] = "password";
-    byte salt[] = "salt";
+    byte password[plaintext.size()];
+    for(int i = 0; i < plaintext.size(); i++) {
+        password[i] = plaintext.data()[i];
+    }
+
+    byte saltBuf[salt.size()];
+    for(int i = 0; i < salt.size(); i++) {
+        saltBuf[i] = salt.data()[i];
+    }
 
     int passlen = strlen((const char*)password);
-    int slen = strlen((const char*)salt);
+    int slen = strlen((const char*)saltBuf);
 
     int c = 1;
 
     byte derived[20];
 
-    pbkdf2.DeriveKey(derived, sizeof(derived), 0, password, passlen, salt, slen, c);
+    pbkdf2.DeriveKey(derived, sizeof(derived), 0, password, passlen, saltBuf, slen, c);
 
     std::string result;
     CryptoPP::HexEncoder encoder(new CryptoPP::StringSink(result));
