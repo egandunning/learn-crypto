@@ -28,8 +28,10 @@ public:
 
     void generateSalt(int);
     void setPlaintext(QString);
+    void setSalt(QString);
     QString getPlaintext();
     QString getDigest();
+    QString getSalt();
 
 private:
 

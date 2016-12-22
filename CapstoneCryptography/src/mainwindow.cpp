@@ -98,8 +98,8 @@ void MainWindow::on_random_composite_clicked()
 {
     mpz_class composite, p, q;
     GeneratePrimes gp = GeneratePrimes();
-    p = gp.readRandomPrime("primes.txt");
-    q = gp.readRandomPrime("primes.txt");
+    p = gp.readRandomPrime((char*)"primes.txt");
+    q = gp.readRandomPrime((char*)"primes.txt");
     composite = p * q;
     string s = composite.get_str(10);
     ui->compositeTextField->setText(QString::fromStdString(s));
@@ -107,7 +107,7 @@ void MainWindow::on_random_composite_clicked()
 
 void MainWindow::on_hashButton_clicked()
 {
-    Hash h = Hash();
+    Hash h;
     switch(ui->hashComboBox->currentIndex()) {
     case 0:
         h = Md5();
@@ -121,6 +121,17 @@ void MainWindow::on_hashButton_clicked()
     }
 
     h.setPlaintext(ui->plaintextField->text());
+
+    if(ui->saltField->text() != "") { //if not empty
+        h.setSalt(ui->saltField->text());
+    }
     h.compute();
     ui->digestField->setText(h.getDigest());
+}
+
+void MainWindow::on_randomSaltButton_clicked()
+{
+    Hash h;
+    h.generateSalt(16);
+    ui->saltField->setText(h.getSalt());
 }

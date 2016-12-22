@@ -36,6 +36,18 @@ void Hash::setPlaintext(QString s) {
     plaintext = s.toStdString();
 }
 
+void Hash::setSalt(QString s) {
+    salt = s.toStdString();
+}
+
 QString Hash::getDigest() {
     return QString::fromStdString(digest);
+}
+
+QString Hash::getPlaintext() {
+    return QString::fromStdString(plaintext);
+}
+
+QString Hash::getSalt() {
+    return QString::fromStdString(salt);
 }
