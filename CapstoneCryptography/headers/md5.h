@@ -5,8 +5,8 @@
 #include <headers/hash.h>
 #include <cryptopp/md5.h>
 
-class Md5 : public Hash
-{
+class Md5 : public Hash {
+
 public:
     Md5(CryptoPP::HashTransformation* h = new CryptoPP::Weak::MD5);
 };

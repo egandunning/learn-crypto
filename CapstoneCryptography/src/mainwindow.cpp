@@ -135,3 +135,8 @@ void MainWindow::on_randomSaltButton_clicked()
     h.generateSalt(16);
     ui->saltField->setText(h.getSalt());
 }
+
+void MainWindow::on_crackButton_clicked()
+{
+    std::cout << "here" << std::endl;
+}

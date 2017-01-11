@@ -22,9 +22,11 @@ SOURCES += src/main.cpp\
         src/console.cpp \
         src/hash.cpp \
         src/cryptogame.cpp \
-    src/sha512.cpp \
-    src/md5.cpp \
-    src/pbkdf2.cpp
+        src/sha512.cpp \
+        src/md5.cpp \
+        src/pbkdf2.cpp \
+    src/crack.cpp \
+    src/bruteforcecrack.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -34,7 +36,9 @@ HEADERS  += headers/mainwindow.h\
         headers/cryptogame.h \
         headers/sha512.h \
         headers/md5.h \
-        headers/pbkdf2.h
+        headers/pbkdf2.h \
+        headers/crack.h \
+    headers/bruteforcecrack.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

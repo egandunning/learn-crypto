@@ -2,6 +2,8 @@
 #include <headers/generateprimes.h>
 #include <headers/primefactorization.h>
 #include <headers/cryptogame.h>
+#include <headers/crack.h>
+#include <headers/bruteforcecrack.h>
 #include <headers/sha512.h>
 #include <headers/md5.h>
 #include <headers/pbkdf2.h>
@@ -115,6 +117,17 @@ void test() {
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
 
+//////Hash cracking
+    cout << "\nTesting for hash cracking classes." << endl;
+    Md5 m = Md5();
+    BruteForceCrack c = BruteForceCrack(m);
+    m.plaintext = "hap";
+    m.compute();
+    c.digest = m.digest;
+    c.reverse(3);
+    cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
+
+
 //////Factoring
     PrimeFactorization pf = PrimeFactorization(0);
 
@@ -163,7 +176,6 @@ void test() {
         cout << testByte[i];
     }
     cout << endl;
-
 
 }
 

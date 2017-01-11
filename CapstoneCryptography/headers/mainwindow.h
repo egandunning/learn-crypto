@@ -39,6 +39,8 @@ private slots:
 
     void on_randomSaltButton_clicked();
 
+    void on_crackButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
