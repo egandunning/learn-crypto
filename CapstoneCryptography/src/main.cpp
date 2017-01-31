@@ -121,12 +121,18 @@ void test() {
     cout << "\nTesting for hash cracking classes." << endl;
     Md5 m = Md5();
     BruteForceCrack c = BruteForceCrack(m);
-    m.plaintext = "hap";
+    m.plaintext = "hi";
     m.compute();
     c.digest = m.digest;
-    c.reverse(3);
+    c.reverse(2);
     cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
 
+    /*cout << "permutations: "<< endl;
+    for(unsigned int i = 0; i < 100; i++) {
+        cout << i << " to " << c.baseTenToBaseN(i,16)<<endl;
+    }*/
+
+    cout << endl;
 
 //////Factoring
     PrimeFactorization pf = PrimeFactorization(0);

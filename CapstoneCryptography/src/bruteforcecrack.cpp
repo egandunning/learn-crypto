@@ -1,31 +1,79 @@
 #include <headers/bruteforcecrack.h>
-
 #include <iostream>
+//base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
+/**
+ * Set the desired hash method.
+ * @brief BruteForceCrack::BruteForceCrack
+ * @param h the hash method to use: MD5, SHA, etc.
+ */
 BruteForceCrack::BruteForceCrack(Hash h) {
     hashType = h;
 }
 
+/**
+ * Reverses a hash using brute force. The idea is to count to
+ * (alphabet length)^(password length) in base (alphabet length). This
+ * ensures that every possible combination of the alphabet is guessed.
+ * @brief BruteForceCrack::reverse
+ * @param charCount user-specified password length
+ * @return 1 if successful, 0 if unsuccessful.
+ */
 int BruteForceCrack::reverse(int charCount) {
     std::string plaintextGuess = "";
 
-    for(int i = 0; i < charCount; i++) {
-        plaintextGuess = plaintextGuess + 'a';
+    int range = alphabet.length();
 
-        for(int j = 0; j < plaintextGuess.size(); j++) {
-            for(int k = charRangeMin; k < charRangeMax; k++) {
-                plaintextGuess.replace(j, 1, 1, (char)k);
-                std::cout << plaintextGuess << std::endl;
-                hashType.plaintext = plaintextGuess;
-                hashType.compute();
+    int n = (int)pow(range, charCount);
 
-                if(digest.compare(hashType.digest) == 0) {
-                    plaintext = plaintextGuess;
-                    return 1;
-                }
-            }
+    for(int i = 0; i < n; i++) {
+        plaintextGuess = baseTenToBaseN(i, range);
+        hashType.plaintext = plaintextGuess;
+        hashType.compute();
+
+        if(digest.compare(hashType.digest) == 0) {
+            plaintext = plaintextGuess;
+            std::cout<<"result: " << digest <<std::endl;
+            return 1;
         }
     }
-
     return 0;
+}
+
+/**
+ * Converts decimal number into given base.
+ * @brief BruteForceCrack::baseTenToBaseN
+ * @param num number to convert
+ * @param base base to convert to.
+ * @return number converted to given base.
+ */
+std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base) {
+
+    if(num == 0) {
+        return alphabet.at(0)+"";
+    }
+    std::string result;
+    while(num) {
+        result += alphabet.at(num % base);
+        num /= base;
+    }
+    return std::string(result.rbegin(), result.rend());
+}
+
+void BruteForceCrack::setAlphabet(std::string alph) {
+    alphabet = alph;
+}
+
+void BruteForceCrack::addToAlphabet(std::string alph) {
+    alphabet += alph;
+}
+
+/**
+ * Given min and max ascii values, create the alphabet with all ascii values
+ * between the min and max. Used to quickly create an alphabet, not user friendly.
+ */
+void BruteForceCrack::createAlphabet(int min, int max) {
+    for(int i = min; i < max; i++) {
+        alphabet += (char)i;
+    }
 }
