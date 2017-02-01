@@ -49,9 +49,10 @@ int BruteForceCrack::reverse(int charCount) {
  */
 std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base) {
 
-    if(num == 0) {
-        return alphabet.at(0)+"";
+    if(base == 0) { //lazy fix to avoid divide by zero
+        return "Divide by zero!!!";
     }
+
     std::string result;
     while(num) {
         result += alphabet.at(num % base);

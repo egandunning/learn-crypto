@@ -154,8 +154,8 @@ void MainWindow::on_crackButton_clicked()
         BruteForceCrack c = BruteForceCrack(hashAlg);
 
         c.digest = digest.toStdString();
-        c.setAlphabet("abcdefghijklmnopqrstuvwxyz"); //user should be able to choose alphabet thru dialog box
-        int maxLength = 5;
+        c.setAlphabet(bruteForceOptions()); //user should be able to choose alphabet thru dialog box
+        int maxLength = 3;
 
         timer.start();
         bool success = c.reverse(maxLength);
@@ -171,7 +171,14 @@ void MainWindow::on_crackButton_clicked()
         break;
     }
 
-
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
+    bruteForceOptions();
 }
+
+std::string MainWindow::bruteForceOptions() {
+
+    return "aabcdefghijklmnopqrstuvwxyz";
+}
+
+

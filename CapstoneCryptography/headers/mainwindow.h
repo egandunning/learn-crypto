@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QElapsedTimer>
 #include <QStringRef>
+#include <QInputDialog>
 #include <headers/cryptogame.h>
 #include <headers/hash.h>
 #include <headers/md5.h>
@@ -49,6 +50,8 @@ private:
     cryptogame *agame;
     Hash hashAlg;
     QString digest;
+
+    std::string bruteForceOptions();
 };
 
 #endif // MAINWINDOW_H
