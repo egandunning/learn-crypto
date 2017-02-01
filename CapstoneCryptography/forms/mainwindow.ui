@@ -205,7 +205,7 @@
         <item row="5" column="2">
          <widget class="QLabel" name="crackTimeLabel">
           <property name="text">
-           <string>Time</string>
+           <string>Time:</string>
           </property>
          </widget>
         </item>
