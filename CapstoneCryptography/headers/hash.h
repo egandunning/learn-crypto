@@ -20,10 +20,14 @@ public:
     std::string salt;
     std::string plaintext;
     std::string digest;
+    std::string name;
     CryptoPP::HashTransformation* hashType;
 
     Hash(CryptoPP::HashTransformation*);
     Hash(){}
+    Hash(const Hash& h);
+    Hash& operator=(const Hash& h);
+    ~Hash(){}
     void compute();
 
     void generateSalt(int);

@@ -1,7 +1,9 @@
 #include <headers/pbkdf2.h>
 #include <iostream>
 
-Pbkdf2::Pbkdf2(CryptoPP::HashTransformation* h):Hash(h){}
+Pbkdf2::Pbkdf2(CryptoPP::HashTransformation* h):Hash(h){
+    name = "PBKDF2";
+}
 
 void Pbkdf2::compute(unsigned int iterations = 20000) {
 

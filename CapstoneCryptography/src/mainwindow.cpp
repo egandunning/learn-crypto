@@ -1,7 +1,6 @@
 #include "headers/mainwindow.h"
 #include "headers/primefactorization.h"
 #include "headers/cryptogame.h"
-#include "headers/generateprimes.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
 
@@ -107,26 +106,26 @@ void MainWindow::on_random_composite_clicked()
 
 void MainWindow::on_hashButton_clicked()
 {
-    Hash h;
     switch(ui->hashComboBox->currentIndex()) {
     case 0:
-        h = Md5();
+        hashAlg = Md5();
         break;
     case 1:
-        h = Sha512();
+        hashAlg = Sha512();
         break;
     case 2:
-        h = Pbkdf2();
+        hashAlg = Pbkdf2();
         break;
     }
 
-    h.setPlaintext(ui->plaintextField->text());
+    hashAlg.setPlaintext(ui->plaintextField->text());
 
     if(ui->saltField->text() != "") { //if not empty
-        h.setSalt(ui->saltField->text());
+        hashAlg.setSalt(ui->saltField->text());
     }
-    h.compute();
-    ui->digestField->setText(h.getDigest());
+    hashAlg.compute();
+    digest = hashAlg.getDigest();
+    ui->digestField->setText(digest);
 }
 
 void MainWindow::on_randomSaltButton_clicked()
@@ -138,5 +137,21 @@ void MainWindow::on_randomSaltButton_clicked()
 
 void MainWindow::on_crackButton_clicked()
 {
-    std::cout << "here" << std::endl;
+    switch(ui->crackComboBox->currentIndex()) {
+    case 0:
+
+        BruteForceCrack c = BruteForceCrack(hashAlg);
+
+        c.digest = digest.toStdString();
+        c.setAlphabet("abcdefghijklmnopqrstuvwxyz"); //user should be able to choose alphabet thru dialog box
+
+
+        std::cout << c.reverse(5) << std::endl;
+        std::cout << c.plaintext << std::endl;
+        break;
+    }
+
+
+
+
 }

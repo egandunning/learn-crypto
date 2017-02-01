@@ -9,6 +9,9 @@
 #include <headers/md5.h>
 #include <headers/sha512.h>
 #include <headers/pbkdf2.h>
+#include <headers/generateprimes.h>
+#include <headers/crack.h>
+#include <headers/bruteforcecrack.h>
 
 namespace Ui {
 class MainWindow;
@@ -44,6 +47,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
+    Hash hashAlg;
+    QString digest;
 };
 
 #endif // MAINWINDOW_H

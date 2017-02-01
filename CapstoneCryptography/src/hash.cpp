@@ -8,12 +8,32 @@ Hash::Hash(CryptoPP::HashTransformation* h){
     salt = "";
 }
 
+Hash::Hash(const Hash &h) {
+    saltlen = h.saltlen;
+    salt = h.salt;
+    plaintext = h.plaintext;
+    digest = h.digest;
+    name = h.name;
+    hashType = h.hashType;
+}
+
+Hash& Hash::operator=(const Hash& h) {
+    saltlen = h.saltlen;
+    salt = h.salt;
+    plaintext = h.plaintext;
+    digest = h.digest;
+    name = h.name;
+    hashType = h.hashType;
+    return *this;
+}
+
 void Hash::compute() {
     digest = "";
     using CryptoPP::StringSource;
     using CryptoPP::HashFilter;
     using CryptoPP::HexEncoder;
     using CryptoPP::StringSink;
+
     StringSource(salt + plaintext, true, new HashFilter(*hashType, new HexEncoder(new StringSink(digest))));
 }
 

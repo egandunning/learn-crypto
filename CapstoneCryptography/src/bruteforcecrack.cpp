@@ -20,8 +20,8 @@ BruteForceCrack::BruteForceCrack(Hash h) {
  * @return 1 if successful, 0 if unsuccessful.
  */
 int BruteForceCrack::reverse(int charCount) {
-    std::string plaintextGuess = "";
 
+    std::string plaintextGuess = "";
     int range = alphabet.length();
 
     int n = (int)pow(range, charCount);
@@ -76,4 +76,16 @@ void BruteForceCrack::createAlphabet(int min, int max) {
     for(int i = min; i < max; i++) {
         alphabet += (char)i;
     }
+}
+
+void BruteForceCrack::setDigest(QString d) {
+    digest = d.toStdString();
+}
+
+QString BruteForceCrack::getDigest() {
+    return QString::fromStdString(digest);
+}
+
+QString BruteForceCrack::getPlaintext() {
+    return QString::fromStdString(plaintext);
 }

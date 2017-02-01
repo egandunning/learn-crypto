@@ -9,11 +9,10 @@
  * Class to crack hashes via brute force. The list of possible characters
  * can be given as a range of ascii values or as a string.
  */
-class BruteForceCrack : public Crack {
+class BruteForceCrack {// : public Crack {
 
 public:    
     BruteForceCrack(Hash);
-    int reverse();
     std::string baseTenToBaseN(unsigned int, unsigned int);
     int reverse(int);
     void setMin(int);
@@ -21,8 +20,14 @@ public:
     void setAlphabet(std::string);
     void addToAlphabet(std::string);
     void createAlphabet(int, int);
+    std::string plaintext;
+    std::string digest;
+    void setDigest(QString);
+    //void setAlphabet(std::string);
+    QString getDigest();
+    QString getPlaintext();
+    Hash hashType;
 
-private:
     std::string alphabet;
 };
 
