@@ -126,6 +126,10 @@ void MainWindow::on_hashButton_clicked()
     hashAlg.compute();
     digest = hashAlg.getDigest();
     ui->digestField->setText(digest);
+
+    //remove salt field so that crack doesn't "cheat"
+    //i.e. cracking algorithm doesnt know salt value
+    hashAlg.salt = "";
 }
 
 void MainWindow::on_randomSaltButton_clicked()
@@ -137,6 +141,13 @@ void MainWindow::on_randomSaltButton_clicked()
 
 void MainWindow::on_crackButton_clicked()
 {
+    //reset label text
+    ui->crackTimeLabel->setText("Time: ");
+    ui->crackTimeLabel->repaint();
+
+    QElapsedTimer timer;
+    long elapsed;
+
     switch(ui->crackComboBox->currentIndex()) {
     case 0:
 
@@ -144,14 +155,23 @@ void MainWindow::on_crackButton_clicked()
 
         c.digest = digest.toStdString();
         c.setAlphabet("abcdefghijklmnopqrstuvwxyz"); //user should be able to choose alphabet thru dialog box
+        int maxLength = 5;
 
+        timer.start();
+        bool success = c.reverse(maxLength);
+        elapsed = timer.elapsed();
 
-        std::cout << c.reverse(5) << std::endl;
-        std::cout << c.plaintext << std::endl;
+        ui->crackTimeLabel->setText(QString::number(elapsed));
+
+        if(success) {
+            ui->crackedField->setText(QString::fromStdString(c.plaintext));
+        } else {
+            ui->crackedField->setText("\"Uncrackable!!\"");
+        }
         break;
     }
 
 
-
-
+    string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
+    ui->crackTimeLabel->setText(QString::fromStdString(s));
 }
