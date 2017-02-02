@@ -154,8 +154,8 @@ void MainWindow::on_crackButton_clicked()
         BruteForceCrack c = BruteForceCrack(hashAlg);
 
         c.digest = digest.toStdString();
-        c.setAlphabet(bruteForceOptions()); //user should be able to choose alphabet thru dialog box
-        int maxLength = 3;
+        c.setAlphabet(bruteForceAlphabet()); //user should be able to choose alphabet thru dialog box
+        int maxLength = ui->charCountSpinBox->text().toInt();
 
         timer.start();
         bool success = c.reverse(maxLength);
@@ -173,12 +173,28 @@ void MainWindow::on_crackButton_clicked()
 
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
-    bruteForceOptions();
 }
 
-std::string MainWindow::bruteForceOptions() {
+std::string MainWindow::bruteForceAlphabet() {
 
-    return "aabcdefghijklmnopqrstuvwxyz";
+    std::string alph = " ";
+
+    if(ui->customCheckBox->isChecked()) {
+        return ui->alphabetField->text().toStdString();
+    }
+    if(ui->lettersCheckBox->isChecked()) {
+        alph += "abcdefghijklmnopqrstuvwxyz";
+    }
+    if(ui->upCaseCheckBox->isChecked()) {
+        alph += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    }
+    if(ui->numbersCheckBox->isChecked()) {
+        alph += "1234567890";
+    }
+    if(ui->symbolsCheckBox->isChecked()) {
+        alph += "`~!@#$%^&*()_+-=,.<>/?'[]{}";
+    }
+    return alph;
 }
 
 

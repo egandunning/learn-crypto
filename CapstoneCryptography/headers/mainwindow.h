@@ -51,7 +51,7 @@ private:
     Hash hashAlg;
     QString digest;
 
-    std::string bruteForceOptions();
+    std::string bruteForceAlphabet();
 };
 
 #endif // MAINWINDOW_H

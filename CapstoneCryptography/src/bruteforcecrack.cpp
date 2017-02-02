@@ -33,7 +33,6 @@ int BruteForceCrack::reverse(int charCount) {
 
         if(digest.compare(hashType.digest) == 0) {
             plaintext = plaintextGuess;
-            std::cout<<"result: " << digest <<std::endl;
             return 1;
         }
     }
