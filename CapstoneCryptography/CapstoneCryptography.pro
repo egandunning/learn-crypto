@@ -26,7 +26,8 @@ SOURCES += src/main.cpp\
         src/md5.cpp \
         src/pbkdf2.cpp \
     src/crack.cpp \
-    src/bruteforcecrack.cpp
+    src/bruteforcecrack.cpp \
+    src/dictionarycrack.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -38,7 +39,8 @@ HEADERS  += headers/mainwindow.h\
         headers/md5.h \
         headers/pbkdf2.h \
         headers/crack.h \
-    headers/bruteforcecrack.h
+    headers/bruteforcecrack.h \
+    headers/dictionarycrack.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

@@ -4,6 +4,7 @@
 #include <headers/cryptogame.h>
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
+#include <headers/dictionarycrack.h>
 #include <headers/sha512.h>
 #include <headers/md5.h>
 #include <headers/pbkdf2.h>
@@ -119,6 +120,8 @@ void test() {
 
 //////Hash cracking
     cout << "\nTesting for hash cracking classes." << endl;
+
+    cout<< "Brute force" << endl;
     Md5 m = Md5();
     BruteForceCrack c = BruteForceCrack(m);
     c.setAlphabet("abcdefghijklmnopqrstuvwxyz");
@@ -129,6 +132,17 @@ void test() {
     cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
 
     cout << endl;
+    cout << "Dictionary" << endl;
+
+    DictionaryCrack d(m, "../dictionary.txt");
+    m.plaintext = "gorilla";
+    m.compute();
+    d.digest = m.digest;
+    d.reverse();
+    cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
+
+    cout << endl;
+
 
 //////Factoring
     PrimeFactorization pf = PrimeFactorization(0);
@@ -192,5 +206,3 @@ void init() {
     gp.writePrimes("primes.txt");
     cout << "Prime numbers are in primes.txt" << endl;
 }
-
-
