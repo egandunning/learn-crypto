@@ -134,10 +134,11 @@ void test() {
     cout << endl;
     cout << "Dictionary" << endl;
 
-    DictionaryCrack d(m, "../dictionary.txt");
-    m.plaintext = "gorilla";
-    m.compute();
-    d.digest = m.digest;
+    Md5 m1 = Md5();
+    DictionaryCrack d(m1, "../dictionary.txt");
+    m1.plaintext = "gorilla";
+    m1.compute();
+    d.digest = m1.digest;
     d.reverse();
     cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
 

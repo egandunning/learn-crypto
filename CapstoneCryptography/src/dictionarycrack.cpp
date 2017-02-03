@@ -7,6 +7,7 @@ DictionaryCrack::DictionaryCrack(Hash h, std::string file) {
 }
 
 int DictionaryCrack::reverse() {
+
     try {
         std::ifstream f;
         f.open(filename);
@@ -17,12 +18,13 @@ int DictionaryCrack::reverse() {
 
             if(digest.compare(hashType.digest) == 0) {
                 plaintext = word;
+
                 return 1;
             }
         }
-        return 0;
     } catch(int e) {
         std::cout << "error " << e << std::endl;
     }
+
     return 0;
 }

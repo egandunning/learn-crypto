@@ -147,9 +147,10 @@ void MainWindow::on_crackButton_clicked()
 
     QElapsedTimer timer;
     long elapsed;
+    bool success;
 
     switch(ui->crackComboBox->currentIndex()) {
-    case 0:
+    case 0: {
 
         BruteForceCrack c = BruteForceCrack(hashAlg);
 
@@ -158,7 +159,7 @@ void MainWindow::on_crackButton_clicked()
         int maxLength = ui->charCountSpinBox->text().toInt();
 
         timer.start();
-        bool success = c.reverse(maxLength);
+        success = c.reverse(maxLength);
         elapsed = timer.elapsed();
 
         ui->crackTimeLabel->setText(QString::number(elapsed));
@@ -168,7 +169,22 @@ void MainWindow::on_crackButton_clicked()
         } else {
             ui->crackedField->setText("\"Uncrackable!!\"");
         }
-        break;
+        break;}
+
+    case 1: {
+        DictionaryCrack c = DictionaryCrack(hashAlg, "../dictionary.txt");
+        c.digest = digest.toStdString();
+
+        timer.start();
+        success = c.reverse();
+        elapsed = timer.elapsed();
+
+        if(success) {
+            ui->crackedField->setText(QString::fromStdString(c.plaintext));
+        } else {
+            ui->crackedField->setText("\"Uncrackable!!\"");
+        }
+        break;}
     }
 
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";

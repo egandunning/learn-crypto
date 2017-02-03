@@ -13,6 +13,7 @@
 #include <headers/generateprimes.h>
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
+#include <headers/dictionarycrack.h>
 
 namespace Ui {
 class MainWindow;
