@@ -13,7 +13,7 @@ class BruteForceCrack : public Crack {
 public:    
     BruteForceCrack(Hash, std::string, int);
     std::string baseTenToBaseN(unsigned int, unsigned int);
-    virtual int reverse();
+    virtual int reverse() override;
     void setMin(int);
     void setMax(int);
     void setAlphabet(std::string);
