@@ -5,8 +5,9 @@ Pbkdf2::Pbkdf2(CryptoPP::HashTransformation* h):Hash(h){
     name = "PBKDF2";
 }
 
-void Pbkdf2::compute(unsigned int iterations = 20000) {
-
+void Pbkdf2::compute() {
+std::cout << "here" << std::endl;
+    unsigned int iterations = 20000;
     CryptoPP::PKCS5_PBKDF2_HMAC<CryptoPP::SHA1> pbkdf2;
 
     int passlen = plaintext.size();

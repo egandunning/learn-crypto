@@ -28,7 +28,7 @@ public:
     Hash(const Hash& h);
     Hash& operator=(const Hash& h);
     ~Hash(){}
-    void compute();
+    virtual void compute();
 
     void generateSalt(int);
     void setPlaintext(QString);

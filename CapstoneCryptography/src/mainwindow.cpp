@@ -108,28 +108,28 @@ void MainWindow::on_hashButton_clicked()
 {
     switch(ui->hashComboBox->currentIndex()) {
     case 0:
-        hashAlg = Md5();
+        hashAlg = new Md5();
         break;
     case 1:
-        hashAlg = Sha512();
+        hashAlg = new Sha512();
         break;
     case 2:
-        hashAlg = Pbkdf2();
+        hashAlg = new Pbkdf2();
         break;
     }
 
-    hashAlg.setPlaintext(ui->plaintextField->text());
+    hashAlg->setPlaintext(ui->plaintextField->text());
 
     if(ui->saltField->text() != "") { //if not empty
-        hashAlg.setSalt(ui->saltField->text());
+        hashAlg->setSalt(ui->saltField->text());
     }
-    hashAlg.compute();
-    digest = hashAlg.getDigest();
+    hashAlg->compute();
+    digest = hashAlg->getDigest();
     ui->digestField->setText(digest);
 
     //remove salt field so that crack doesn't "cheat"
     //i.e. cracking algorithm doesnt know salt value
-    hashAlg.salt = "";
+    hashAlg->salt = "";
 }
 
 void MainWindow::on_randomSaltButton_clicked()
@@ -148,43 +148,30 @@ void MainWindow::on_crackButton_clicked()
     QElapsedTimer timer;
     long elapsed;
     bool success;
+    Crack* c;
+
 
     switch(ui->crackComboBox->currentIndex()) {
-    case 0: {
-
-        BruteForceCrack c = BruteForceCrack(hashAlg);
-
-        c.digest = digest.toStdString();
-        c.setAlphabet(bruteForceAlphabet()); //user should be able to choose alphabet thru dialog box
-        int maxLength = ui->charCountSpinBox->text().toInt();
-
-        timer.start();
-        success = c.reverse(maxLength);
-        elapsed = timer.elapsed();
-
-        ui->crackTimeLabel->setText(QString::number(elapsed));
-
-        if(success) {
-            ui->crackedField->setText(QString::fromStdString(c.plaintext));
-        } else {
-            ui->crackedField->setText("\"Uncrackable!!\"");
-        }
+    case 0:
+        {int maxLength = ui->charCountSpinBox->text().toInt();
+        c = new BruteForceCrack(*hashAlg,bruteForceAlphabet(), maxLength);
         break;}
 
-    case 1: {
-        DictionaryCrack c = DictionaryCrack(hashAlg, "../dictionary.txt");
-        c.digest = digest.toStdString();
-
-        timer.start();
-        success = c.reverse();
-        elapsed = timer.elapsed();
-
-        if(success) {
-            ui->crackedField->setText(QString::fromStdString(c.plaintext));
-        } else {
-            ui->crackedField->setText("\"Uncrackable!!\"");
-        }
+    case 1:
+        {c = new DictionaryCrack(*hashAlg, "../dictionary.txt");
         break;}
+    }
+
+    c->digest = digest.toStdString();
+
+    timer.start();
+    success = c->reverse();
+    elapsed = timer.elapsed();
+
+    if(success) {
+        ui->crackedField->setText(QString::fromStdString(c->plaintext));
+    } else {
+        ui->crackedField->setText("\"Uncrackable!!\"");
     }
 
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";

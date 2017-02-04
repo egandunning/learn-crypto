@@ -49,7 +49,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
-    Hash hashAlg;
+    Hash *hashAlg;
     QString digest;
 
     std::string bruteForceAlphabet();

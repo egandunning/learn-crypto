@@ -1,19 +1,17 @@
 #ifndef DICTIONARYCRACK_H
 #define DICTIONARYCRACK_H
 
-#include <iostream>
+#include <headers/crack.h>
 #include <fstream>
-#include <string>
-#include <headers/hash.h>
 
-class DictionaryCrack {
+class DictionaryCrack : public Crack {
 public:
     DictionaryCrack(Hash h, std::string);
-    int reverse();
+    virtual int reverse() override;
 
-    Hash hashType;
+    /*Hash hashType;
     std::string digest;
-    std::string plaintext;
+    std::string plaintext;*/
 private:
     std::string filename;
 };

@@ -4,22 +4,19 @@
 #include <headers/hash.h>
 #include <string>
 #include <QString>
+#include <iostream>
 
 class Crack {
 
 public:
-    Crack(Hash);
     Crack(){}
-    virtual int reverse(int) = 0;
+    virtual int reverse(){}
     std::string plaintext;
     std::string digest;
     void setDigest(QString);
-    //void setAlphabet(std::string);
     QString getDigest();
     QString getPlaintext();
     Hash hashType;
-
-    std::string alphabet;
 };
 
 #endif // CRACK_H

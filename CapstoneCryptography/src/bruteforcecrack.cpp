@@ -1,5 +1,5 @@
 #include <headers/bruteforcecrack.h>
-#include <iostream>
+
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
 /**
@@ -7,8 +7,10 @@
  * @brief BruteForceCrack::BruteForceCrack
  * @param h the hash method to use: MD5, SHA, etc.
  */
-BruteForceCrack::BruteForceCrack(Hash h) {
+BruteForceCrack::BruteForceCrack(Hash h, std::string alph, int chCount) {
     hashType = h;
+    alphabet = alph;
+    charCount = chCount;
 }
 
 /**
@@ -19,7 +21,7 @@ BruteForceCrack::BruteForceCrack(Hash h) {
  * @param charCount user-specified password length
  * @return 1 if successful, 0 if unsuccessful.
  */
-int BruteForceCrack::reverse(int charCount) {
+int BruteForceCrack::reverse() {
 
     std::string plaintextGuess = "";
     int range = alphabet.length();
@@ -60,7 +62,7 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base)
     return std::string(result.rbegin(), result.rend());
 }
 
-void BruteForceCrack::setAlphabet(std::string alph) {
+/*void BruteForceCrack::setAlphabet(std::string alph) {
     alphabet = alph;
 }
 
@@ -72,7 +74,7 @@ void BruteForceCrack::addToAlphabet(std::string alph) {
  * Given min and max ascii values, create the alphabet with all ascii values
  * between the min and max. Used to quickly create an alphabet, not user friendly.
  */
-void BruteForceCrack::createAlphabet(int min, int max) {
+/*void BruteForceCrack::createAlphabet(int min, int max) {
     for(int i = min; i < max; i++) {
         alphabet += (char)i;
     }
@@ -88,4 +90,4 @@ QString BruteForceCrack::getDigest() {
 
 QString BruteForceCrack::getPlaintext() {
     return QString::fromStdString(plaintext);
-}
+}*/

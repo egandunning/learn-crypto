@@ -9,7 +9,7 @@ class Pbkdf2 : public Hash {
 public:
     Pbkdf2(CryptoPP::HashTransformation* h = new CryptoPP::SHA1);
 
-    void compute(unsigned int);
+    virtual void compute() override;
 };
 
 #endif // PBKDF2_H

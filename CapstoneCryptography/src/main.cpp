@@ -2,7 +2,7 @@
 #include <headers/generateprimes.h>
 #include <headers/primefactorization.h>
 #include <headers/cryptogame.h>
-#include <headers/crack.h>
+//#include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
 #include <headers/sha512.h>
@@ -101,12 +101,12 @@ void test() {
     Pbkdf2 kdf = Pbkdf2();
     kdf.salt = "";
     kdf.plaintext = "Hello there";
-    kdf.compute(1);
+    kdf.compute();
     cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
 
     kdf.generateSalt(64);
     kdf.plaintext = "Hello there";
-    kdf.compute(1);
+    kdf.compute();
     cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
 
 //////Prime number generation
@@ -123,13 +123,13 @@ void test() {
 
     cout<< "Brute force" << endl;
     Md5 m = Md5();
-    BruteForceCrack c = BruteForceCrack(m);
-    c.setAlphabet("abcdefghijklmnopqrstuvwxyz");
+    Crack* c = new BruteForceCrack(m,"abcdefghijklmnopqrstuvwxyz", 3);
+
     m.plaintext = "hi";
     m.compute();
-    c.digest = m.digest;
-    c.reverse(2);
-    cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
+    c->digest = m.digest;
+    c->reverse();
+    cout << "Digest: " << c->digest << " Plaintext: " << c->plaintext << endl;
 
     cout << endl;
     cout << "Dictionary" << endl;
