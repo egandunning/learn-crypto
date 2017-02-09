@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 {
     ifstream fp;
     fp.open("primes.txt");
-    if(fp == NULL) {
+    if(!fp.is_open()) {
         cout << "List of prime numbers not found!" << endl;
         init();
     }
