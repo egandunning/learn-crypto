@@ -59,6 +59,6 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base)
         result += alphabet.at(num % base);
         num /= base;
     }
-    return std::string(result.rbegin(), result.rend());
+    return std::string(result.rbegin(), result.rend()); //reverse string
 }
 
