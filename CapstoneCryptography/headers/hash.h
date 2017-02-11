@@ -27,7 +27,7 @@ public:
     Hash(){}
     Hash(const Hash& h);
     Hash& operator=(const Hash& h);
-    ~Hash(){}
+    virtual ~Hash();
     virtual void compute();
 
     void generateSalt(int);

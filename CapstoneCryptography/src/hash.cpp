@@ -27,6 +27,10 @@ Hash& Hash::operator=(const Hash& h) {
     return *this;
 }
 
+Hash::~Hash() {
+    delete hashType;
+}
+
 void Hash::compute() {
     digest = "";
     using CryptoPP::StringSource;

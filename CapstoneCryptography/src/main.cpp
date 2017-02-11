@@ -188,7 +188,7 @@ void test() {
     cout << "after conversion to byte[]: ";
     unsigned char * testByte = new unsigned char(test.length());
     testByte = (unsigned char*)test.c_str();
-    for(int i = 0; i < test.length(); i++) {
+    for(unsigned int i = 0; i < test.length(); i++) {
         cout << testByte[i];
     }
     cout << endl;

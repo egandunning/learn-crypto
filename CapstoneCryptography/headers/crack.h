@@ -10,7 +10,7 @@ class Crack {
 
 public:
     Crack(){}
-    virtual int reverse(){}
+    virtual int reverse();
     std::string plaintext;
     std::string digest;
     void setDigest(QString);
