@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete hashAlg;
 }
 
 void MainWindow::on_GPUCheckBox_clicked()
@@ -71,14 +72,14 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     //set algorithm
     int algChoice = ui->factorAlgChooser->currentIndex();
-    Factor pf;
+    Factor* pf;
 
     switch(algChoice) {
     case 0:
-        pf = BruteForceFactor();
+        pf = new BruteForceFactor(false);
         break;
     case 1:
-        pf = BruteForceFactor(true);
+        pf = new BruteForceFactor(true);
         break;
     }
 
@@ -91,14 +92,15 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     
     timer.start();
-    pf.factor(composite);
+    pf->factor(composite);
     long elapsed = timer.elapsed();
     
     string s2 = "Time: " + QString::number(elapsed).toStdString() + " ms";
     ui->timeLabel->setText(QString::fromStdString(s2));
     
-    s = "Result: " + pf.p1.get_str(10) + " * " + pf.p2.get_str(10);
+    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
     ui->resultLabel->setText(QString::fromStdString(s));
+    delete pf;
 }
 
 void MainWindow::on_random_composite_clicked()

@@ -5,7 +5,8 @@
 
 class BruteForceFactor : public Factor {
 public:
-    BruteForceFactor(bool=false);
+    BruteForceFactor();
+    BruteForceFactor(bool);
     virtual QPointF factor(mpz_class) override;
 private:
     bool decreasing;

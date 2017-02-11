@@ -1,5 +1,9 @@
 #include <headers/bruteforcefactor.h>
 
+BruteForceFactor::BruteForceFactor() {
+    decreasing = false;
+}
+
 BruteForceFactor::BruteForceFactor(bool bigToSmall) {
     decreasing = bigToSmall;
 }
