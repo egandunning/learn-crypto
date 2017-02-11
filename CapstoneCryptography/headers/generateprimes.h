@@ -22,8 +22,8 @@ class GeneratePrimes {
 private:
 	long upperBound;
 	long lowerBound; //used for writing to file
-	vector<long>* primes;
-	bool* composites;
+    vector<long> primes;
+    vector<bool> composites;
 	
 public:
 	GeneratePrimes();
@@ -34,7 +34,7 @@ public:
 	void generate();
 	long randomPrime();
 	void printPrimes();
-	vector<long> getPrimes() { return *primes; }
+    vector<long> getPrimes() { return primes; }
 };
 
 #endif

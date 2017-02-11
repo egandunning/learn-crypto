@@ -1,8 +1,6 @@
 #include <headers/mainwindow.h>
 #include <headers/generateprimes.h>
 #include <headers/primefactorization.h>
-#include <headers/cryptogame.h>
-//#include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
 #include <headers/sha512.h>
@@ -108,6 +106,7 @@ void test() {
     kdf.plaintext = "Hello there";
     kdf.compute();
     cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
+    cout << endl;
 
 //////Prime number generation
     cout<<"Testing for generateprimes and primefactorization."<<endl;
