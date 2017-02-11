@@ -62,32 +62,3 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base)
     return std::string(result.rbegin(), result.rend());
 }
 
-/*void BruteForceCrack::setAlphabet(std::string alph) {
-    alphabet = alph;
-}
-
-void BruteForceCrack::addToAlphabet(std::string alph) {
-    alphabet += alph;
-}
-
-/**
- * Given min and max ascii values, create the alphabet with all ascii values
- * between the min and max. Used to quickly create an alphabet, not user friendly.
- */
-/*void BruteForceCrack::createAlphabet(int min, int max) {
-    for(int i = min; i < max; i++) {
-        alphabet += (char)i;
-    }
-}
-
-void BruteForceCrack::setDigest(QString d) {
-    digest = d.toStdString();
-}
-
-QString BruteForceCrack::getDigest() {
-    return QString::fromStdString(digest);
-}
-
-QString BruteForceCrack::getPlaintext() {
-    return QString::fromStdString(plaintext);
-}*/
