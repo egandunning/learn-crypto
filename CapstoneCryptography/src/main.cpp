@@ -1,6 +1,6 @@
 #include <headers/mainwindow.h>
 #include <headers/generateprimes.h>
-#include <headers/primefactorization.h>
+#include <headers/bruteforcefactor.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
 #include <headers/sha512.h>
@@ -109,7 +109,7 @@ void test() {
     cout << endl;
 
 //////Prime number generation
-    cout<<"Testing for generateprimes and primefactorization."<<endl;
+    cout<<"Testing for generateprimes and Factor."<<endl;
     GeneratePrimes gp = GeneratePrimes();
 
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
@@ -145,11 +145,11 @@ void test() {
 
 
 //////Factoring
-    PrimeFactorization pf = PrimeFactorization(0);
+    BruteForceFactor pf = BruteForceFactor();
 
     mpz_class comp;
     comp = 77;
-    cout << "number to factor: " << comp.get_str(10) << endl;
+    cout << "number to Factor: " << comp.get_str(10) << endl;
 
     pf.factor(comp);//7*11
     cout << "factors: ";
@@ -161,7 +161,7 @@ void test() {
     q = gp.readRandomPrime("primes.txt");
     comp = p * q;
 
-    cout << "number to factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
+    cout << "number to Factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
 
     pf.factor(comp);
     cout << "factors: ";

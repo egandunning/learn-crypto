@@ -1,20 +1,11 @@
-#include "headers/primefactorization.h"
+#include <headers/factor.h>
 
 /**
- * Algorithm options: enum algorithmTypes {bruteForce, bruteForce2, quadraticSieve} alg;
- * @brief PrimeFactorization::PrimeFactorization
- * @param a 0,1,2
- */
-PrimeFactorization::PrimeFactorization(int a) {
-    algorithm = a;
-}
-
-/**
- * @brief PrimeFactorization::factor
+ * @brief Factor::Factor
  * @param composite
  * @return
- */
-QPointF* PrimeFactorization::factor(mpz_class composite) {
+ *//*
+QPointF Factor::factor(mpz_class composite) {
     p1 = 0;
     p2 = 0;
     switch(algorithm) {
@@ -27,15 +18,15 @@ QPointF* PrimeFactorization::factor(mpz_class composite) {
     //default:
       //  return quadraticSieveFactor(composite);
     }
-}
+}*/
 
 /**
  * Trial division starting with 2.
- * @brief PrimeFactorization::bruteForceFactor
+ * @brief Factor::bruteForceFactor
  * @param composite
- * @return A point (number of digits, time to factor(milliseconds))
- */
-QPointF* PrimeFactorization::bruteForceFactor(mpz_class composite) {
+ * @return A point (number of digits, time to Factor(milliseconds))
+ *//*
+QPointF* Factor::bruteForceFactor(mpz_class composite) {
 	mpz_class i, upperBound;
     upperBound = sqrt(composite);
 
@@ -51,15 +42,15 @@ QPointF* PrimeFactorization::bruteForceFactor(mpz_class composite) {
     long elapsed = timer.elapsed();
 
     return new QPointF(composite.get_str(10).length(), elapsed);
-}
+}*/
 
 /**
  * Trial division starting at sqrt(n)
- * @brief PrimeFactorization::bruteForceFactor2
+ * @brief Factor::bruteForceFactor2
  * @param composite
  * @return
- */
-QPointF* PrimeFactorization::bruteForceFactor2(mpz_class composite) {
+ *//*
+QPointF* Factor::bruteForceFactor2(mpz_class composite) {
     mpz_class i, upperBound;
     upperBound = sqrt(composite);
 
@@ -75,14 +66,14 @@ QPointF* PrimeFactorization::bruteForceFactor2(mpz_class composite) {
     long elapsed = timer.elapsed();
 
     return new QPointF(composite.get_str(10).length(), elapsed);
-}
+}*/
 
 /**
- * @brief PrimeFactorization::quadraticSieveFactor
+ * @brief Factor::quadraticSieveFactor
  * @param composite
  * @return
- */
-QPointF* PrimeFactorization::quadraticSieveFactor(mpz_class composite) {
+ *//*
+QPointF* Factor::quadraticSieveFactor(mpz_class composite) {
 
-}
+}*/
 

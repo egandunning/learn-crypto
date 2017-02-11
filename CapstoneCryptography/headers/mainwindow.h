@@ -11,6 +11,7 @@
 #include <headers/sha512.h>
 #include <headers/pbkdf2.h>
 #include <headers/generateprimes.h>
+#include <headers/bruteforcefactor.h>
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>

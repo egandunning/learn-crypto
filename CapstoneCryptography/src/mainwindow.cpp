@@ -1,5 +1,4 @@
 #include "headers/mainwindow.h"
-#include "headers/primefactorization.h"
 #include "headers/cryptogame.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
@@ -72,7 +71,16 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     //set algorithm
     int algChoice = ui->factorAlgChooser->currentIndex();
-    PrimeFactorization pf = PrimeFactorization(algChoice);
+    Factor pf;
+
+    switch(algChoice) {
+    case 0:
+        pf = BruteForceFactor();
+        break;
+    case 1:
+        pf = BruteForceFactor(true);
+        break;
+    }
 
 
     QElapsedTimer timer;
