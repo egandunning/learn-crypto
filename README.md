@@ -13,5 +13,6 @@ Crypto++ Library https://www.cryptopp.com/
 To use the dictionary crack functionality, the user must provide
 thier own dictionary. On linux, generate the dictionary with this
 command (assuming the learn-crypto project is in the home folder): 
+
 `$ cat /usr/share/dict/words | grep -v .*\'s > ~/learn-crypto/dictionary.txt`
 
