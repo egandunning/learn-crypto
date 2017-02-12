@@ -6,7 +6,7 @@ Pbkdf2::Pbkdf2(CryptoPP::HashTransformation* h):Hash(h){
 }
 
 void Pbkdf2::compute() {
-std::cout << "here" << std::endl;
+
     unsigned int iterations = 20000;
     CryptoPP::PKCS5_PBKDF2_HMAC<CryptoPP::SHA1> pbkdf2;
 

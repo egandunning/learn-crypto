@@ -1,7 +1,7 @@
 #include <headers/dictionarycrack.h>
 
 DictionaryCrack::DictionaryCrack(Hash h, std::string file) {
-    hashType = h;
+    hashType = new Hash(h);
     filename = file;
     digest = "";
 }
@@ -13,10 +13,10 @@ int DictionaryCrack::reverse() {
         f.open(filename);
         std::string word;
         while(getline(f, word)) {
-            hashType.plaintext = word;
-            hashType.compute();
+            hashType->plaintext = word;
+            hashType->compute();
 
-            if(digest.compare(hashType.digest) == 0) {
+            if(digest.compare(hashType->digest) == 0) {
                 plaintext = word;
 
                 return 1;

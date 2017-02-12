@@ -7,6 +7,7 @@
 
 #include <QString>
 #include <string>
+#include <iostream>
 #include <cryptopp/hex.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>

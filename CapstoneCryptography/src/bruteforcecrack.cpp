@@ -7,7 +7,7 @@
  * @brief BruteForceCrack::BruteForceCrack
  * @param h the hash method to use: MD5, SHA, etc.
  */
-BruteForceCrack::BruteForceCrack(Hash h, std::string alph, int chCount) {
+BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
     hashType = h;
     alphabet = alph;
     charCount = chCount;
@@ -30,10 +30,10 @@ int BruteForceCrack::reverse() {
 
     for(int i = 0; i < n; i++) {
         plaintextGuess = baseTenToBaseN(i, range);
-        hashType.plaintext = plaintextGuess;
-        hashType.compute();
+        hashType->plaintext = plaintextGuess;
+        hashType->compute();
 
-        if(digest.compare(hashType.digest) == 0) {
+        if(digest.compare(hashType->digest) == 0) {
             plaintext = plaintextGuess;
             return 1;
         }

@@ -122,13 +122,13 @@ void test() {
 
     cout<< "Brute force" << endl;
     Md5 m = Md5();
-    Crack* c = new BruteForceCrack(m,"abcdefghijklmnopqrstuvwxyz", 3);
+    BruteForceCrack c(&m,"abcdefghijklmnopqrstuvwxyz", 3);
 
     m.plaintext = "hi";
     m.compute();
-    c->digest = m.digest;
-    c->reverse();
-    cout << "Digest: " << c->digest << " Plaintext: " << c->plaintext << endl;
+    c.digest = m.digest;
+    c.reverse();
+    cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
 
     cout << endl;
     cout << "Dictionary" << endl;
@@ -140,6 +140,16 @@ void test() {
     d.digest = m1.digest;
     d.reverse();
     cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
+
+    kdf = Pbkdf2();
+    c =  BruteForceCrack(&kdf,"abcdefghijklmnopqrstuvwxyz", 3);
+    kdf.plaintext = "hi";
+    kdf.compute();
+    c.digest = kdf.digest;
+    c.reverse();
+    cout << "PBKDF2 Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
+
+
 
     cout << endl;
 

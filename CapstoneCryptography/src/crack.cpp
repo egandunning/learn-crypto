@@ -1,5 +1,9 @@
 #include <headers/crack.h>
 
+Crack::~Crack() {
+    //delete hashType; why does this segfault?
+}
+
 void Crack::setDigest(QString d) {
     digest = d.toStdString();
 }

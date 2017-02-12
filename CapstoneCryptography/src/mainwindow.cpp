@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete hashAlg;
+    //delete hashAlg;
 }
 
 void MainWindow::on_GPUCheckBox_clicked()
@@ -164,7 +164,7 @@ void MainWindow::on_crackButton_clicked()
     switch(ui->crackComboBox->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
-        c = new BruteForceCrack(*hashAlg,bruteForceAlphabet(), maxLength);
+        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
         break;}
 
     case 1:
