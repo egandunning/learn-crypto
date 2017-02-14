@@ -1,8 +1,8 @@
 #include <headers/dictionarycrack.h>
 
-DictionaryCrack::DictionaryCrack(Hash h, std::string file) {
+DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
 	
-	hashType = new Hash(h);
+	hashType = h;
     filename = file;
     digest = "";
 }

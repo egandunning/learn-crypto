@@ -122,7 +122,7 @@ void test() {
 
     cout<< "Brute force" << endl;
     Md5 m = Md5();
-    BruteForceCrack c(m,"abcdefghijklmnopqrstuvwxyz", 3);
+    BruteForceCrack c(&m,"abcdefghijklmnopqrstuvwxyz", 3);
 
     m.plaintext = "hi";
     m.compute();
@@ -134,7 +134,7 @@ void test() {
     cout << "Dictionary" << endl;
 
     Md5 m1 = Md5();
-    DictionaryCrack d(m1, "../dictionary.txt");
+    DictionaryCrack d(&m1, "../dictionary.txt");
     m1.plaintext = "gorilla";
     m1.compute();
     d.digest = m1.digest;
@@ -142,7 +142,7 @@ void test() {
     cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
 
     kdf = Pbkdf2();
-    c =  BruteForceCrack(kdf,"abcdefghijklmnopqrstuvwxyz", 3);
+    c =  BruteForceCrack(&kdf,"abcdefghijklmnopqrstuvwxyz", 3);
     kdf.plaintext = "hi";
     kdf.compute();
     c.digest = kdf.digest;

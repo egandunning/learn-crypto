@@ -167,11 +167,11 @@ void MainWindow::on_crackButton_clicked()
     switch(ui->crackComboBox->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
-        c = new BruteForceCrack(*hashAlg,bruteForceAlphabet(), maxLength);
+        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
         break;}
 
     case 1:
-        {c = new DictionaryCrack(*hashAlg, "../dictionary.txt");
+        {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
         break;}
     }
 

@@ -7,8 +7,8 @@
  * @brief BruteForceCrack::BruteForceCrack
  * @param h the hash method to use: MD5, SHA, etc.
  */
-BruteForceCrack::BruteForceCrack(Hash h, std::string alph, int chCount) {
-    hashType = new Hash(h);
+BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
+    hashType = h;
     alphabet = alph;
     charCount = chCount;
 }
