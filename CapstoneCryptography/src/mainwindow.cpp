@@ -159,12 +159,15 @@ void MainWindow::on_crackButton_clicked()
     long elapsed;
     bool success;
     Crack* c;
+    if(hashAlg == NULL) {
+    	return;
+    }
 
 
     switch(ui->crackComboBox->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
-        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
+        c = new BruteForceCrack(*hashAlg,bruteForceAlphabet(), maxLength);
         break;}
 
     case 1:

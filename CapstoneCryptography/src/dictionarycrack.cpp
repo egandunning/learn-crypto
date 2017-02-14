@@ -1,13 +1,18 @@
 #include <headers/dictionarycrack.h>
 
 DictionaryCrack::DictionaryCrack(Hash h, std::string file) {
-    hashType = new Hash(h);
+	
+	hashType = new Hash(h);
     filename = file;
     digest = "";
 }
 
 int DictionaryCrack::reverse() {
-
+	
+	if(hashType == NULL) {
+		return 0;
+	}
+	
     try {
         std::ifstream f;
         f.open(filename);
@@ -24,6 +29,7 @@ int DictionaryCrack::reverse() {
         }
     } catch(int e) {
         std::cout << "error " << e << std::endl;
+        return 0;
     }
 
     return 0;

@@ -11,7 +11,7 @@
 class BruteForceCrack : public Crack {
 
 public:    
-    BruteForceCrack(Hash*, std::string, int);
+    BruteForceCrack(Hash, std::string, int);
     std::string baseTenToBaseN(unsigned int, unsigned int);
     virtual int reverse() override;
     void setMin(int);

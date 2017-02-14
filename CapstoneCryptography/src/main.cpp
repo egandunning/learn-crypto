@@ -122,7 +122,7 @@ void test() {
 
     cout<< "Brute force" << endl;
     Md5 m = Md5();
-    BruteForceCrack c(&m,"abcdefghijklmnopqrstuvwxyz", 3);
+    BruteForceCrack c(m,"abcdefghijklmnopqrstuvwxyz", 3);
 
     m.plaintext = "hi";
     m.compute();
@@ -142,7 +142,7 @@ void test() {
     cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
 
     kdf = Pbkdf2();
-    c =  BruteForceCrack(&kdf,"abcdefghijklmnopqrstuvwxyz", 3);
+    c =  BruteForceCrack(kdf,"abcdefghijklmnopqrstuvwxyz", 3);
     kdf.plaintext = "hi";
     kdf.compute();
     c.digest = kdf.digest;
