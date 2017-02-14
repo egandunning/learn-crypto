@@ -31,8 +31,10 @@ bool GeneratePrimes::writePrimes(char* filename) {
 		ofstream fp;
 		fp.open(filename);
 		
-        for(std::vector<long>::iterator it = primes.begin(); it != primes.end(); ++it) {
-            fp << *it << '\n';
+        for(std::vector<long>::iterator it = primes.begin(); it != primes.end(); ++it)  {
+            if(*it > lowerBound) {
+            	fp << *it << '\n';
+            }
 		}
 		
 		fp.close();
