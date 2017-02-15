@@ -1,5 +1,4 @@
 #include "headers/mainwindow.h"
-#include "headers/primefactorization.h"
 #include "headers/cryptogame.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
@@ -16,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    //delete hashAlg;
 }
 
 void MainWindow::on_GPUCheckBox_clicked()
@@ -72,7 +72,16 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     //set algorithm
     int algChoice = ui->factorAlgChooser->currentIndex();
-    PrimeFactorization pf = PrimeFactorization(algChoice);
+    Factor* pf;
+
+    switch(algChoice) {
+    case 0:
+        pf = new BruteForceFactor(false);
+        break;
+    case 1:
+        pf = new BruteForceFactor(true);
+        break;
+    }
 
 
     QElapsedTimer timer;
@@ -83,14 +92,15 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     
     timer.start();
-    pf.factor(composite);
+    pf->factor(composite);
     long elapsed = timer.elapsed();
     
     string s2 = "Time: " + QString::number(elapsed).toStdString() + " ms";
     ui->timeLabel->setText(QString::fromStdString(s2));
     
-    s = "Result: " + pf.p1.get_str(10) + " * " + pf.p2.get_str(10);
+    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
     ui->resultLabel->setText(QString::fromStdString(s));
+    delete pf;
 }
 
 void MainWindow::on_random_composite_clicked()
@@ -149,16 +159,19 @@ void MainWindow::on_crackButton_clicked()
     long elapsed;
     bool success;
     Crack* c;
+    if(hashAlg == NULL) {
+    	return;
+    }
 
 
     switch(ui->crackComboBox->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
-        c = new BruteForceCrack(*hashAlg,bruteForceAlphabet(), maxLength);
+        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
         break;}
 
     case 1:
-        {c = new DictionaryCrack(*hashAlg, "../dictionary.txt");
+        {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
         break;}
     }
 

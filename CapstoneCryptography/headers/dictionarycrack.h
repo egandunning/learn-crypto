@@ -6,12 +6,9 @@
 
 class DictionaryCrack : public Crack {
 public:
-    DictionaryCrack(Hash h, std::string);
+    DictionaryCrack(Hash*, std::string);
     virtual int reverse() override;
 
-    /*Hash hashType;
-    std::string digest;
-    std::string plaintext;*/
 private:
     std::string filename;
 };

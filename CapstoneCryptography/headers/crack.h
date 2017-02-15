@@ -10,13 +10,14 @@ class Crack {
 
 public:
     Crack(){}
-    virtual int reverse(){}
+    virtual ~Crack();
+    virtual int reverse();
     std::string plaintext;
     std::string digest;
     void setDigest(QString);
     QString getDigest();
     QString getPlaintext();
-    Hash hashType;
+    Hash* hashType; //needs to be pointer for inheritance to work?
 };
 
 #endif // CRACK_H

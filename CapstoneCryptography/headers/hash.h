@@ -7,6 +7,7 @@
 
 #include <QString>
 #include <string>
+#include <iostream>
 #include <cryptopp/hex.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
@@ -27,7 +28,7 @@ public:
     Hash(){}
     Hash(const Hash& h);
     Hash& operator=(const Hash& h);
-    ~Hash(){}
+    virtual ~Hash();
     virtual void compute();
 
     void generateSalt(int);

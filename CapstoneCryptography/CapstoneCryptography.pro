@@ -17,7 +17,6 @@ TEMPLATE = app
 SOURCES += src/main.cpp\
        	src/mainwindow.cpp\
         src/generateprimes.cpp\
-        src/primefactorization.cpp\
         src/Cipher.cpp\
         src/console.cpp \
         src/hash.cpp \
@@ -27,11 +26,12 @@ SOURCES += src/main.cpp\
         src/pbkdf2.cpp \
     src/crack.cpp \
     src/bruteforcecrack.cpp \
-    src/dictionarycrack.cpp
+    src/dictionarycrack.cpp \
+    src/factor.cpp \
+    src/bruteforcefactor.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
-        headers/primefactorization.h\
         headers/Cipher.h \
         headers/hash.h \
         headers/cryptogame.h \
@@ -40,7 +40,9 @@ HEADERS  += headers/mainwindow.h\
         headers/pbkdf2.h \
         headers/crack.h \
     headers/bruteforcecrack.h \
-    headers/dictionarycrack.h
+    headers/dictionarycrack.h \
+    headers/bruteforcefactor.h \
+    headers/factor.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

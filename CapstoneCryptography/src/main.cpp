@@ -1,8 +1,6 @@
 #include <headers/mainwindow.h>
 #include <headers/generateprimes.h>
-#include <headers/primefactorization.h>
-#include <headers/cryptogame.h>
-//#include <headers/crack.h>
+#include <headers/bruteforcefactor.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
 #include <headers/sha512.h>
@@ -18,7 +16,7 @@ int main(int argc, char *argv[])
 {
     ifstream fp;
     fp.open("primes.txt");
-    if(fp == NULL) {
+    if(!fp.is_open()) {
         cout << "List of prime numbers not found!" << endl;
         init();
     }
@@ -108,9 +106,10 @@ void test() {
     kdf.plaintext = "Hello there";
     kdf.compute();
     cout << "Plaintext: " << kdf.plaintext << "\nDigest: " << kdf.digest << endl;
+    cout << endl;
 
 //////Prime number generation
-    cout<<"Testing for generateprimes and primefactorization."<<endl;
+    cout<<"Testing for generateprimes and Factor."<<endl;
     GeneratePrimes gp = GeneratePrimes();
 
     cout << "random prime: " << gp.readRandomPrime("primes.txt") << endl;
@@ -123,34 +122,44 @@ void test() {
 
     cout<< "Brute force" << endl;
     Md5 m = Md5();
-    Crack* c = new BruteForceCrack(m,"abcdefghijklmnopqrstuvwxyz", 3);
+    BruteForceCrack c(&m,"abcdefghijklmnopqrstuvwxyz", 3);
 
     m.plaintext = "hi";
     m.compute();
-    c->digest = m.digest;
-    c->reverse();
-    cout << "Digest: " << c->digest << " Plaintext: " << c->plaintext << endl;
+    c.digest = m.digest;
+    c.reverse();
+    cout << "Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
 
     cout << endl;
     cout << "Dictionary" << endl;
 
     Md5 m1 = Md5();
-    DictionaryCrack d(m1, "../dictionary.txt");
+    DictionaryCrack d(&m1, "../dictionary.txt");
     m1.plaintext = "gorilla";
     m1.compute();
     d.digest = m1.digest;
     d.reverse();
     cout << "Digest: " << d.digest << " Plaintext: " << d.plaintext << endl;
 
+    kdf = Pbkdf2();
+    c =  BruteForceCrack(&kdf,"abcdefghijklmnopqrstuvwxyz", 3);
+    kdf.plaintext = "hi";
+    kdf.compute();
+    c.digest = kdf.digest;
+    c.reverse();
+    cout << "PBKDF2 Digest: " << c.digest << " Plaintext: " << c.plaintext << endl;
+
+
+
     cout << endl;
 
 
 //////Factoring
-    PrimeFactorization pf = PrimeFactorization(0);
+    BruteForceFactor pf = BruteForceFactor();
 
     mpz_class comp;
     comp = 77;
-    cout << "number to factor: " << comp.get_str(10) << endl;
+    cout << "number to Factor: " << comp.get_str(10) << endl;
 
     pf.factor(comp);//7*11
     cout << "factors: ";
@@ -162,7 +171,7 @@ void test() {
     q = gp.readRandomPrime("primes.txt");
     comp = p * q;
 
-    cout << "number to factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
+    cout << "number to Factor: " << p.get_str(10) <<" "<< q.get_str(10) << " = " << comp.get_str(10) << endl;
 
     pf.factor(comp);
     cout << "factors: ";
@@ -189,7 +198,7 @@ void test() {
     cout << "after conversion to byte[]: ";
     unsigned char * testByte = new unsigned char(test.length());
     testByte = (unsigned char*)test.c_str();
-    for(int i = 0; i < test.length(); i++) {
+    for(unsigned int i = 0; i < test.length(); i++) {
         cout << testByte[i];
     }
     cout << endl;

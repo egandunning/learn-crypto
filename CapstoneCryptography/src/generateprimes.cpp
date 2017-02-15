@@ -10,36 +10,37 @@ GeneratePrimes::GeneratePrimes() {
 
 GeneratePrimes::GeneratePrimes(long floor, long ceiling) {
 	
-	primes = new vector<long>();
+    primes = vector<long>();
 	lowerBound = floor;
 	upperBound = ceiling;
 	
 	srand(time(NULL));
-	composites = new bool[upperBound]; //keeps track of composite numbers. If i is prime, 
-	memset(composites, 0, sizeof(*composites)); 		//then composites[i]=false
-	composites[0] = 1;
-	composites[1] = 1;
+    composites = vector<bool>(upperBound, 0); //keeps track of composite numbers. If i is prime,
+                                             //then composites[i]=false
+    composites.at(0) = 1; //pretend 0 and 1 are prime for simplicity
+    composites.at(1) = 1;
 }
 
-GeneratePrimes::~GeneratePrimes() {
-	
-}
+GeneratePrimes::~GeneratePrimes() {}
 
 bool GeneratePrimes::writePrimes(char* filename) {
-
+    if(primes.empty()) {
+        return 1;
+    }
 	try {
 		ofstream fp;
 		fp.open(filename);
 		
-		for(int i = lowerBound; i < primes->size(); i++) {
-
-			fp << primes->at(i) << '\n';
+        for(std::vector<long>::iterator it = primes.begin(); it != primes.end(); ++it)  {
+            if(*it > lowerBound) {
+            	fp << *it << '\n';
+            }
 		}
 		
 		fp.close();
 		return 0;
 	} catch (int e) {
-		cerr << "File io execption occurred: " << e << endl;
+        cerr << "File io exception occurred: " << e << endl;
 	}
 	return 1;
 }
@@ -56,6 +57,12 @@ long GeneratePrimes::readRandomPrime(char* filename) {
 			lines.push_back(atol(line.c_str()));
 		}
 		
+        //prevent divide by 0 error
+        if(lines.size() == 0) {
+            cout << filename << " empty. Exiting readRandomPrime()." << endl;
+            return 1;
+        }
+
 		int index = rand() % lines.size();
 		return lines.at(index);
 		
@@ -67,21 +74,19 @@ long GeneratePrimes::readRandomPrime(char* filename) {
 			
 
 void GeneratePrimes::generate() {
-	
-	long prime = 2;
 
 	for(long i = 0; i < upperBound; i++) {
 		
-		if(!composites[i]) {
+        if(!composites.at(i)) {
 
-			primes->push_back(i);
+            primes.push_back(i);
 		
 			for(long j = 0; j < upperBound; j++) {
 				long product = j * i; //find composite numbers
 				if( product >= upperBound ) { //out of bounds
 					break;
 				}
-				composites[j*i] = 1;
+                composites.at(j*i) = 1;
 			}
 		}
 	}
@@ -89,16 +94,22 @@ void GeneratePrimes::generate() {
 
 long GeneratePrimes::randomPrime() {
 	
-	int index = rand() % primes->size();
-	return primes->at(index);
+    //prevent divide by 0 error
+    if(primes.size() == 0) {
+        cout << "List of primes empty. Exiting randomPrime()." << endl;
+        return 1;
+    }
+
+    int index = rand() % primes.size();
+    return primes.at(index);
 }
 
 void GeneratePrimes::printPrimes() {
 	
-	cout << "All prime numbers less than " << upperBound << endl;
+    cout << "All prime numbers less than " << upperBound << endl;
 	
-	for(unsigned long i = 0; i < primes->size(); i++) {
-		cout << primes->at(i) << " ";
+    for(std::vector<long>::iterator it = primes.begin(); it != primes.end(); ++it) {
+        cout << *it << " ";
 	}
 	cout << endl;
 }
