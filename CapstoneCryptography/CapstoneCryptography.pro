@@ -29,7 +29,7 @@ SOURCES += src/main.cpp\
     src/dictionarycrack.cpp \
     src/factor.cpp \
     src/bruteforcefactor.cpp \
-    src/regression.cpp
+    src/graphing.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -44,7 +44,7 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
-    headers/regression.h
+    headers/graphing.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

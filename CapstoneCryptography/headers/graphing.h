@@ -5,9 +5,9 @@
 #include <utility>
 #include <QPoint>
 
-class Regression {
+class Graphing {
 public:
-    Regression();
+    Graphing();
     std::pair<double,double> calculate(std::vector<QPoint>);
 };
 
