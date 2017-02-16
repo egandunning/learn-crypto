@@ -30,7 +30,7 @@ SOURCES += src/main.cpp\
     src/factor.cpp \
     src/bruteforcefactor.cpp \
     src/cipher.cpp \
-    test/testcipher.cpp
+    src/graphing.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -45,6 +45,7 @@ HEADERS  += headers/mainwindow.h\
     headers/bruteforcefactor.h \
     headers/factor.h \
     headers/cipher.h
+    headers/graphing.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
