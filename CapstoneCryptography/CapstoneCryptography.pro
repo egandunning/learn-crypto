@@ -33,6 +33,7 @@ SOURCES += src/main.cpp\
     src/buttonarray.cpp
     src/graphing.cpp
 
+
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
         headers/hash.h \
@@ -45,8 +46,9 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
-    headers/cipher.h
-    src/buttonarray.h
+    headers/cipher.h \
+    headers/buttonarray.h \
+    src/buttonarray.h \
     headers/graphing.h
 
 unix:{  LIBS	 += -L/usr/local/lib \

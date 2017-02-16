@@ -8,18 +8,7 @@ TARGET = test
 INCLUDEPATH += .
 
 # Input
-SOURCES += testcipher.cpp
+SOURCES += testcipher.cpp \
+        ../src/cipher.cpp
 
-HEADERS  += headers/mainwindow.h\
-        headers/generateprimes.h\
-        headers/hash.h \
-        headers/cryptogame.h \
-        headers/sha512.h \
-        headers/md5.h \
-        headers/pbkdf2.h \
-        headers/crack.h \
-    headers/bruteforcecrack.h \
-    headers/dictionarycrack.h \
-    headers/bruteforcefactor.h \
-    headers/factor.h \
-    ../headers/cipher.h
+HEADERS  += ../headers/cipher.h
