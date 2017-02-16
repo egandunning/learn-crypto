@@ -8,7 +8,7 @@
 class Regression {
 public:
     Regression();
-    std::pair<double> calculate(std::vector<QPoint>);
+    std::pair<double,double> calculate(std::vector<QPoint>);
 };
 
 #endif // REGRESSION_H

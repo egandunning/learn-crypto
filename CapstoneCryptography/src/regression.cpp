@@ -5,6 +5,6 @@ Regression::Regression() {
 }
 
 
-std::pair<double> Regression::calculate(std::vector<QPoint>) {
+std::pair<double,double> Regression::calculate(std::vector<QPoint>) {
 
 }
