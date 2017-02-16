@@ -28,7 +28,8 @@ SOURCES += src/main.cpp\
     src/bruteforcecrack.cpp \
     src/dictionarycrack.cpp \
     src/factor.cpp \
-    src/bruteforcefactor.cpp
+    src/bruteforcefactor.cpp \
+    src/buttonarray.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -42,7 +43,8 @@ HEADERS  += headers/mainwindow.h\
     headers/bruteforcecrack.h \
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
-    headers/factor.h
+    headers/factor.h \
+    src/buttonarray.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
