@@ -1,6 +1,6 @@
 
 #include <QtTest/QtTest>
-#include <headers/cipher.h>
+#include </home/onetrueq/learn-crypto/CapstoneCryptography/headers/cipher.h>
 
 
 
@@ -14,8 +14,32 @@ private slots:
 
 
 void TestCipher::findLetters(){
-    QString yo = "Yo";
-    QVERIFY(yo.toUpper() == "YO");
+
+    Cipher tc = new Cipher();
+    int[] count = new int[26];
+
+    for(int i = 0; i<26; i++){
+        count[i] = 0;
+    }
+
+    for(int i = 0; i<26; i++){
+        count[tc.getChar(i) - 65] = count[tc.getChar(i) - 65] + 1;
+    }
+
+    bool check = true;
+
+    for(int i = 0; i<26; i++){
+        if(count[i] > 1){
+            check = false;
+            break;
+        }
+    }
+
+
+
+
+    QVERIFY(check);
+
 }
 
 
