@@ -29,7 +29,11 @@ SOURCES += src/main.cpp\
     src/dictionarycrack.cpp \
     src/factor.cpp \
     src/bruteforcefactor.cpp \
+<<<<<<< HEAD
     src/buttonarray.cpp
+=======
+    src/graphing.cpp
+>>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -44,7 +48,11 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
+<<<<<<< HEAD
     src/buttonarray.h
+=======
+    headers/graphing.h
+>>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
