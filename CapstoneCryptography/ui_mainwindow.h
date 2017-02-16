@@ -95,7 +95,11 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
+<<<<<<< HEAD
+        MainWindow->resize(626, 480);
+=======
         MainWindow->resize(626, 492);
+>>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -354,7 +358,11 @@ public:
 
         retranslateUi(MainWindow);
 
+<<<<<<< HEAD
+        tabWidget->setCurrentIndex(1);
+=======
         tabWidget->setCurrentIndex(0);
+>>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -364,7 +372,11 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
+<<<<<<< HEAD
+        pushButton->setText(QApplication::translate("MainWindow", "Start Game", 0));
+=======
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
+>>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
         pushButton_2->setText(QApplication::translate("MainWindow", "Guess", 0));
         label->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));

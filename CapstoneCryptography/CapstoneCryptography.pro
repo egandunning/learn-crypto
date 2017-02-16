@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+        testlib
 
 CONFIG   += c++11
 
@@ -17,7 +18,6 @@ TEMPLATE = app
 SOURCES += src/main.cpp\
        	src/mainwindow.cpp\
         src/generateprimes.cpp\
-        src/Cipher.cpp\
         src/console.cpp \
         src/hash.cpp \
         src/cryptogame.cpp \
@@ -30,12 +30,13 @@ SOURCES += src/main.cpp\
     src/factor.cpp \
     src/bruteforcefactor.cpp \
     src/buttonarray.cpp \
+    src/cipher.cpp \
+    src/buttonarray.cpp
     src/graphing.cpp
 
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
-        headers/Cipher.h \
         headers/hash.h \
         headers/cryptogame.h \
         headers/sha512.h \
@@ -46,7 +47,16 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
+
     headers/buttonarray.h \
+
+
+    headers/cipher.h \
+
+
+    src/buttonarray.h \
+
+
     headers/graphing.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
@@ -56,7 +66,8 @@ unix:{  LIBS	 += -L/usr/local/lib \
 
 }
 
-INCLUDEPATH += "/usr/local/include/"
+
+INCLUDEPATH += "/usr/local/include/" \
 FORMS    += forms/mainwindow.ui
 macx:{
  INCLUDEPATH += "gmp/include"
@@ -96,3 +107,6 @@ INCLUDEPATH += $$PWD/../../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../../usr/local/include
 
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
+
+FORMS += \
+    forms/mainwindow.ui
