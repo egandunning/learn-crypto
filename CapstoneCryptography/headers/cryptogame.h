@@ -5,7 +5,7 @@
 #include<fstream>
 #include<vector>
 #include<stdio.h>
-#include<headers/Cipher.h>
+#include<headers/cipher.h>
 
 
 class cryptogame

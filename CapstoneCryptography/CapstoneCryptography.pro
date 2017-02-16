@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+        testlib
 
 CONFIG   += c++11
 
@@ -17,7 +18,6 @@ TEMPLATE = app
 SOURCES += src/main.cpp\
        	src/mainwindow.cpp\
         src/generateprimes.cpp\
-        src/Cipher.cpp\
         src/console.cpp \
         src/hash.cpp \
         src/cryptogame.cpp \
@@ -28,11 +28,12 @@ SOURCES += src/main.cpp\
     src/bruteforcecrack.cpp \
     src/dictionarycrack.cpp \
     src/factor.cpp \
-    src/bruteforcefactor.cpp
+    src/bruteforcefactor.cpp \
+    src/cipher.cpp \
+    test/testcipher.cpp
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
-        headers/Cipher.h \
         headers/hash.h \
         headers/cryptogame.h \
         headers/sha512.h \
@@ -42,7 +43,8 @@ HEADERS  += headers/mainwindow.h\
     headers/bruteforcecrack.h \
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
-    headers/factor.h
+    headers/factor.h \
+    headers/cipher.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
@@ -92,3 +94,6 @@ INCLUDEPATH += $$PWD/../../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../../usr/local/include
 
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
+
+FORMS += \
+    forms/mainwindow.ui

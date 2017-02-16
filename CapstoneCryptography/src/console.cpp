@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "headers/Cipher.h"
+#include "headers/cipher.h"
 
 /*int main() {
 
