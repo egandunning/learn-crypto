@@ -24,6 +24,7 @@ SOURCES += src/main.cpp\
         src/sha512.cpp \
         src/md5.cpp \
         src/pbkdf2.cpp \
+        src/buttonarray.cpp\
     src/crack.cpp \
     src/bruteforcecrack.cpp \
     src/dictionarycrack.cpp \
@@ -44,11 +45,13 @@ HEADERS  += headers/mainwindow.h\
         headers/md5.h \
         headers/pbkdf2.h \
         headers/crack.h \
+        headers/buttonarray.h \
     headers/bruteforcecrack.h \
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
-<<<<<<< HEAD
+<<<<<<< HEAD \
+    headers/buttonarray.h
     src/buttonarray.h
 =======
     headers/graphing.h
