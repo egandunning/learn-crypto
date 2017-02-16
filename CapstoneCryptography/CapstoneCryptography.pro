@@ -24,17 +24,14 @@ SOURCES += src/main.cpp\
         src/sha512.cpp \
         src/md5.cpp \
         src/pbkdf2.cpp \
-        src/buttonarray.cpp\
     src/crack.cpp \
     src/bruteforcecrack.cpp \
     src/dictionarycrack.cpp \
     src/factor.cpp \
     src/bruteforcefactor.cpp \
-<<<<<<< HEAD
-    src/buttonarray.cpp
-=======
+    src/buttonarray.cpp \
     src/graphing.cpp
->>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
+
 
 HEADERS  += headers/mainwindow.h\
         headers/generateprimes.h\
@@ -45,17 +42,12 @@ HEADERS  += headers/mainwindow.h\
         headers/md5.h \
         headers/pbkdf2.h \
         headers/crack.h \
-        headers/buttonarray.h \
     headers/bruteforcecrack.h \
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
-<<<<<<< HEAD \
-    headers/buttonarray.h
-    src/buttonarray.h
-=======
+    headers/buttonarray.h \
     headers/graphing.h
->>>>>>> 2925be4e6679e3a8b6f3fb7107bd050292c41522
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
