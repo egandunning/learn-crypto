@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <cmath>
 #include <QPoint>
 
 class Graphing {
