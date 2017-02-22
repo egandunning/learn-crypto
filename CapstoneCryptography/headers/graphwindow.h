@@ -3,16 +3,23 @@
 
 #include <QWidget>
 #include <QFrame>
-#include "ui_graphwindow.h"
+#include <QPoint>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <vector>
 
-class graphwindow
+class GraphWindow
 {
 public:
-    graphwindow(QWidget *parent);
+    GraphWindow();
 
 
 private:
     QFrame *ui;
+    QGraphicsView* view;
+    QGraphicsScene* scene;
+    std::vector<QPoint> points;
+    void draw();
 };
 
 #endif // GRAPHWINDOW_H

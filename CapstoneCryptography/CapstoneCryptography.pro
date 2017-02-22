@@ -66,6 +66,9 @@ unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmpxx \
                     -lcryptopp
 
+        LIBS    += -L/usr/lib/fglrx \
+                   -lGL
+
 }
 
 
@@ -111,5 +114,4 @@ DEPENDPATH += $$PWD/../../../../../../usr/local/include
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
 
 FORMS += \
-    forms/mainwindow.ui \
-    forms/graphwindow.ui
+    forms/mainwindow.ui
