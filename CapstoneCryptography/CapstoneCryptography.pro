@@ -31,7 +31,8 @@ SOURCES += src/main.cpp\
     src/bruteforcefactor.cpp \
     src/buttonarray.cpp \
     src/cipher.cpp \
-    src/buttonarray.cpp
+    src/buttonarray.cpp \
+    src/graphwindow.cpp
     src/graphing.cpp
 
 
@@ -47,6 +48,7 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
+    headers/graphwindow.h
 
     headers/buttonarray.h \
 
@@ -109,4 +111,5 @@ DEPENDPATH += $$PWD/../../../../../../usr/local/include
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
 
 FORMS += \
-    forms/mainwindow.ui
+    forms/mainwindow.ui \
+    forms/graphwindow.ui

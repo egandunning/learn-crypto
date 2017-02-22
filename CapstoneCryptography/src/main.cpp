@@ -6,6 +6,7 @@
 #include <headers/sha512.h>
 #include <headers/md5.h>
 #include <headers/pbkdf2.h>
+#include <headers/graphwindow.h>
 #include <QApplication>
 #include <string>
 
@@ -35,6 +36,8 @@ int main(int argc, char *argv[])
         QApplication a(argc, argv);
         MainWindow w;
         w.resize(1000, 1000);
+        QWidget wid;
+        wid.show();
         w.show();
 
         return a.exec();
