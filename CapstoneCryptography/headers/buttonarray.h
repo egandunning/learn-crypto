@@ -7,8 +7,9 @@ private:
     QPushButton *buttonArray;
 
 pubic:
-    ButtonArray(std::string);
+    ButtonArray(std::string, QWidget*);
     std::string makeGuess(std::char, std::char);
+    void displayButtons();
 };
 
 #endif // BUTTONARRAY_H
