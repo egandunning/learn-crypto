@@ -19,8 +19,3 @@ string ButtonArray::makeGuess(char original, char guess){
     return "";
 }
 
-void displayButtons(){
-    for(int i=0; i<buttonArray.size(); i++){
-        buttonArray[i]->display;
-    }
-}

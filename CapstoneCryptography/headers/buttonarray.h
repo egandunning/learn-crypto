@@ -6,10 +6,9 @@ class ButtonArray{
 private:
     QPushButton *buttonArray;
 
-pubic:
+public:
     ButtonArray(std::string, QWidget*);
-    std::string makeGuess(std::char, std::char);
-    void displayButtons();
+    std::string makeGuess(char, char);
 };
 
 #endif // BUTTONARRAY_H
