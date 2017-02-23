@@ -2,13 +2,15 @@
 #define BUTTONARRAY_H
 
 #include <string>
-#include "QPushButton"
-#include "QWidget"
+#include <vector>
+#include <QPushButton>
+#include <QWidget>
+#include <QVector>
 
 class ButtonArray{
 
 private:
-    QPushButton *buttonArray;
+    QVector<QPushButton> buttonVector;
     std::string scrambledWord;
 
 public:
