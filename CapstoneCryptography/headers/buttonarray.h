@@ -10,12 +10,12 @@
 class ButtonArray{
 
 private:
-    QVector<QPushButton> buttonVector;
+    QVector<QPushButton *> buttonVector;
     std::string scrambledWord;
 
 public:
     ButtonArray(std::string, QWidget*);
-    std::string makeGuess(char, char);
+    std::string makeGuess(char);
 };
 
 #endif // BUTTONARRAY_H
