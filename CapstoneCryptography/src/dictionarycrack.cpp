@@ -15,7 +15,7 @@ int DictionaryCrack::reverse() {
 	
     try {
         std::ifstream f;
-        f.open(filename);
+        f.open(filename.c_str());
         std::string word;
         while(getline(f, word)) {
             hashType->plaintext = word;
