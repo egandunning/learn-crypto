@@ -65,10 +65,6 @@ unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
                     -lgmpxx \
                     -lcryptopp
-
-        LIBS    += -L/usr/lib/fglrx \
-                   -lGL
-
 }
 
 
@@ -115,3 +111,8 @@ macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
 
 FORMS += \
     forms/mainwindow.ui
+
+unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa/ -lGL
+
+INCLUDEPATH += $$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa
+DEPENDPATH += $$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa
