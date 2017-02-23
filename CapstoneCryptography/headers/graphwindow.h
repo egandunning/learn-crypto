@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include <QFrame>
-#include <QPoint>
+#include <QPointF>
+#include <QLine>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <vector>
@@ -11,15 +12,16 @@
 class GraphWindow
 {
 public:
-    GraphWindow();
+    GraphWindow(std::vector<QPointF>);
 
 
 private:
     QFrame *ui;
     QGraphicsView* view;
     QGraphicsScene* scene;
-    std::vector<QPoint> points;
+    std::vector<QPointF> points;
     void draw();
+    QPointF transform(QPointF);
 };
 
 #endif // GRAPHWINDOW_H
