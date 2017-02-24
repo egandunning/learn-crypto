@@ -6,15 +6,16 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QVector>
+#include <QString>
 
 class ButtonArray{
 
 private:
     QVector<QPushButton *> buttonPointerVector;
-    std::string scrambledWord;
+    QString scrambledWord;
 
 public:
-    ButtonArray(std::string, QWidget*);
+    ButtonArray(QString, QWidget*);
     std::string makeGuess(char);
 };
 

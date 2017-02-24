@@ -6,17 +6,17 @@
 #include <QChar>
 #include <QVector>
 
-ButtonArray::ButtonArray(std::string s, QWidget* ui){
+ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
-    scrambledWord = s;
+    scrambledWord = qS;
 
-    for(int i=0; i<s.length(); i++){
+    for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
-        QString qS = QChar(s.at(i));
+        QString qSTemp = QChar(qS.at(i));
         //Make QString size one
-        qS.resize(1);
+        qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
-        QPushButton *p = new QPushButton(qS, ui);
+        QPushButton *p = new QPushButton(qSTemp, ui);
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
