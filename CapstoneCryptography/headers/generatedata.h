@@ -9,7 +9,7 @@
 #include <gmpxx.h>
 
 class GenerateData {
-    static std::vector<QPointF> generate(std::function<QPointF (mpz_class)>, std::vector<mpz_class>);
+    static std::vector<QPointF> generate(std::function<QPointF(mpz_class)>, std::vector<mpz_class>);
 };
 
 #endif

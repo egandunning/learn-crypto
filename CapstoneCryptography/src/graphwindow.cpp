@@ -1,6 +1,9 @@
 #include <headers/graphwindow.h>
 #include <iostream>
 
+#include <headers/bruteforcefactor.h>
+#include <headers/generatedata.h>
+
 GraphWindow::GraphWindow(std::vector<QPointF> pts)
 {
     points = pts;
@@ -22,7 +25,19 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
     view->show();
 }
 
+/*QPointF fact(mpz_class n) {
+    BruteForceFactor b = BruteForceFactor();
+    return b.factor(n);
+}*/
+
 void GraphWindow::draw() {
+
+    std::vector<mpz_class> vec;
+    vec.push_back(100);
+    vec.push_back(300);
+    BruteForceFactor* b = new BruteForceFactor();
+
+    //GenerateData::generate(b->factor, vec);
 
     for(int i = 0; i <= 10; i++) {
         points.push_back(QPointF(i,i*i));

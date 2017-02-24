@@ -52,14 +52,8 @@ HEADERS  += headers/mainwindow.h\
     headers/graphwindow.h \
 	headers/generatedata.h \
     headers/buttonarray.h \
-
-
     headers/cipher.h \
-
-
     src/buttonarray.h \
-
-
     headers/graphing.h
 
 unix:{  LIBS	 += -L/usr/local/lib \

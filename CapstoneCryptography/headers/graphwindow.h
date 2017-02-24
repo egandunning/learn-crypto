@@ -7,7 +7,10 @@
 #include <QLine>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+
 #include <vector>
+
+#include <headers/generatedata.h>
 
 class GraphWindow
 {
