@@ -30,7 +30,10 @@ void MainWindow::on_pushButton_clicked()
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
     ui->label->setText(q);
-   // ButtonArray *ptr = new ButtonArray(q, ui->MainWindow);
+    ButtonArray *ptr = new ButtonArray(q, ui->tabWidget);
+    for(int i=0; i<q.size(); i++){
+        ui->layoutForButtons->addWidget(ptr->get(i));
+    }
 
 }
 

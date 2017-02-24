@@ -23,7 +23,7 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
 }
 
-std::string ButtonArray::makeGuess(char guess){
+QString ButtonArray::makeGuess(char guess){
     //Convert guess to a QString
     QString qGuess = QChar(guess);
     //Make QString size one
@@ -34,5 +34,9 @@ std::string ButtonArray::makeGuess(char guess){
         }
     }
     return "";
+}
+
+QPushButton* ButtonArray::get(int i){
+    return buttonPointerVector.at(i);
 }
 
