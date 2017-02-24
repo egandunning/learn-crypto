@@ -10,7 +10,7 @@ Graphing::Graphing() {
  * @param points
  * @return
  */
-std::pair<double,double> Graphing::calculate(std::vector<QPoint> points) {
+/*std::pair<double,double> Graphing::calculate(std::vector<QPoint> points) {
 
     std::vector<double> constants(points.size());
     for(unsigned int i = 0; i < points.size(); i++) {
@@ -22,4 +22,4 @@ std::pair<double,double> Graphing::calculate(std::vector<QPoint> points) {
         double y = points.at(i).y;
         constants.push_back(pow(y, 1/x));
     }
-}
+}*/

@@ -7,6 +7,7 @@
 #include <headers/md5.h>
 #include <headers/pbkdf2.h>
 #include <headers/graphwindow.h>
+#include <headers/generatedata.h>
 #include <QApplication>
 #include <string>
 
