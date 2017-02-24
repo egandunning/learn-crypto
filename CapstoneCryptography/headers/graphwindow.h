@@ -7,6 +7,7 @@
 #include <QLine>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QGraphicsTextItem>
 #include <vector>
 
 class GraphWindow
@@ -21,7 +22,8 @@ private:
     QGraphicsScene* scene;
     std::vector<QPointF> points;
     void draw();
-    void addTicks(int yMax, int xMax, int numTicks);
+    void addTicks(int yMax, int xMax, int ticksX, int ticksY);
+    void addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax);
     QPointF transform(QPointF);
 };
 
