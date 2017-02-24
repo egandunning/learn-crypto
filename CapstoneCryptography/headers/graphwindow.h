@@ -21,6 +21,7 @@ private:
     QGraphicsScene* scene;
     std::vector<QPointF> points;
     void draw();
+    void addTicks(int yMax, int xMax, int numTicks);
     QPointF transform(QPointF);
 };
 

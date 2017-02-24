@@ -33,11 +33,36 @@ void GraphWindow::draw() {
     scene->addLine(yAxis);
     scene->addLine(xAxis);
 
+    //Add the tick marks to the line.
+    addTicks(100, 100, 10);
+
+
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = transform(*it);
         scene->addEllipse(current.x()+3, current.y()-3, 3, 3);
     }
 
+}
+
+void GraphWindow::addTicks(int yMax, int xMax, int numTicks) {
+
+    /*
+     * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
+     * It also takes in the number of ticks that should appear on the the graph.
+     *
+     */
+
+
+    int y = yMax / numTicks ;
+    int x = xMax / numTicks ;
+
+    for(int i = 1; i<= numTicks; i++){
+        scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
+    }
+
+    for(int i = 1; i<=numTicks; i++){
+        scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
+    }
 }
 
 QPointF GraphWindow::transform(QPointF original) {
