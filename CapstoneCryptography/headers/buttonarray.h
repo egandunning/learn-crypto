@@ -10,7 +10,7 @@
 class ButtonArray{
 
 private:
-    QVector<QPushButton *> buttonVector;
+    QVector<QPushButton *> buttonPointerVector;
     std::string scrambledWord;
 
 public:

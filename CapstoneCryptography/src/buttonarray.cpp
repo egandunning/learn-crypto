@@ -11,18 +11,26 @@ ButtonArray::ButtonArray(std::string s, QWidget* ui){
     scrambledWord = s;
 
     for(int i=0; i<s.length(); i++){
-        QPushButton *p = new QPushButton("philip", ui);
-       buttonVector.append(p);
+        //Convert i character of s to a QString
+        QString qS = QChar(s.at(i));
+        //Make QString size one
+        qS.resize(1);
+        //Make new pushbutton, have pointer p point to it
+        QPushButton *p = new QPushButton(qS, ui);
+        //Add pointer p to the QVector
+        buttonPointerVector.append(p);
     }
 
 }
 
 std::string ButtonArray::makeGuess(char guess){
+    //Convert guess to a QString
     QString qGuess = QChar(guess);
+    //Make QString size one
     qGuess.resize(1);
     for(int i=0; i<scrambledWord.length(); i++){
-        if(buttonVector.at(i)->text().at(0) == guess){
-           buttonVector.at(i)->setText(qGuess);
+        if(buttonPointerVector.at(i)->text().at(0) == guess){
+           buttonPointerVector.at(i)->setText(qGuess);
         }
     }
     return "";
