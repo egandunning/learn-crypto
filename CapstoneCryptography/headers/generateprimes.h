@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <random>
+#include <gmpxx.h>
 
 using std::cout;
 using std::cerr;
@@ -33,6 +35,7 @@ public:
 	long readRandomPrime(char*);
 	void generate();
 	long randomPrime();
+    static mpz_class randomPrime(unsigned int numDigits);
 	void printPrimes();
     vector<long> getPrimes() { return primes; }
 };

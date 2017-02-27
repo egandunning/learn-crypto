@@ -8,8 +8,16 @@
 #include <QPointF>
 #include <gmpxx.h>
 
+#include <headers/generateprimes.h>
+
+template <class T>
 class GenerateData {
-    static std::vector<QPointF> generate(std::function<QPointF(mpz_class)>, std::vector<mpz_class>);
+public:
+
+    static std::vector<mpz_class> composites(int startDigits, int count);
+
+    static QPointF factor(std::vector<mpz_class>);
+    static QPointF crack(std::vector<mpz_class>);
 };
 
 #endif

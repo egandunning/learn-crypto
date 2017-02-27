@@ -35,9 +35,8 @@ void GraphWindow::draw() {
     std::vector<mpz_class> vec;
     vec.push_back(100);
     vec.push_back(300);
-    BruteForceFactor* b = new BruteForceFactor();
 
-    //GenerateData::generate(b->factor, vec);
+    //GenerateData<BruteForceFactor>::factor(vec);
 
     for(int i = 0; i <= 10; i++) {
         points.push_back(QPointF(i,i*i));
