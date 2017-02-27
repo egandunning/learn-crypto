@@ -48,7 +48,10 @@ void GraphWindow::draw() {
     scene->addLine(xAxis);
 
     //Add the tick marks to the line.
-    addTicks(100, 100, 10);
+    addTicks(100, 100, 10, 10);
+
+    //Adds the chosen labels
+    addLabels("Seconds", "something", 100,100);
 
 
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
@@ -58,7 +61,7 @@ void GraphWindow::draw() {
 
 }
 
-void GraphWindow::addTicks(int yMax, int xMax, int numTicks) {
+void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
 
     /*
      * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
@@ -67,16 +70,34 @@ void GraphWindow::addTicks(int yMax, int xMax, int numTicks) {
      */
 
 
-    int y = yMax / numTicks ;
-    int x = xMax / numTicks ;
+    int y = yMax / ticksX ;
+    int x = xMax / ticksY ;
 
-    for(int i = 1; i<= numTicks; i++){
+    for(int i = 1; i<= ticksY; i++){
         scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
     }
 
-    for(int i = 1; i<=numTicks; i++){
+    for(int i = 1; i<= ticksX; i++){
         scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
     }
+}
+
+
+void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax){
+
+    /*
+     * addLabels, adds two custom strings to label the y-axis and the x-axis on the graph.
+     * Also include the maximum y value, and the maximum x value.
+     */
+
+    QString str = QString::fromStdString(xlabel);
+    QGraphicsTextItem *txt = scene->addText(str, QFont());
+    txt->setPos(xMax /5,-10);
+
+    QString stry = QString::fromStdString(ylabel);
+    QGraphicsTextItem *txty = scene->addText(stry, QFont());
+    txt->setPos(-30, -yMax/ 7);
+    txt->setRotation(270);
 }
 
 QPointF GraphWindow::transform(QPointF original) {
