@@ -2,6 +2,7 @@
 #include "headers/cryptogame.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
+#include "headers/buttonarray.h"
 
 #include "iostream" //for debugging
 
@@ -29,6 +30,7 @@ void MainWindow::on_pushButton_clicked()
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
     ui->label->setText(q);
+   // ButtonArray *ptr = new ButtonArray(q, ui->MainWindow);
 
 }
 

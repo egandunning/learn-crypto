@@ -29,7 +29,6 @@ SOURCES += src/main.cpp\
     src/dictionarycrack.cpp \
     src/factor.cpp \
     src/bruteforcefactor.cpp \
-    src/buttonarray.cpp \
     src/cipher.cpp \
     src/buttonarray.cpp \
     src/graphwindow.cpp \
@@ -51,8 +50,8 @@ HEADERS  += headers/mainwindow.h\
     headers/factor.h \
     headers/graphwindow.h \
 	headers/generatedata.h \
-    headers/buttonarray.h \
     headers/cipher.h \
+    headers/buttonarray.h \
     src/buttonarray.h \
     headers/graphing.h
 

@@ -95,7 +95,6 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(626, 480);
         MainWindow->resize(626, 492);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -277,7 +276,7 @@ public:
         charCountSpinBox = new QSpinBox(tab_3);
         charCountSpinBox->setObjectName(QStringLiteral("charCountSpinBox"));
         charCountSpinBox->setMinimum(1);
-        charCountSpinBox->setValue(3);
+        charCountSpinBox->setValue(30);
 
         gridLayout_4->addWidget(charCountSpinBox, 9, 1, 1, 1);
 
@@ -344,7 +343,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 626, 27));
+        menuBar->setGeometry(QRect(0, 0, 626, 19));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -355,11 +354,7 @@ public:
 
         retranslateUi(MainWindow);
 
-
-        tabWidget->setCurrentIndex(1);
-
         tabWidget->setCurrentIndex(0);
-
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -369,11 +364,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
-
-        pushButton->setText(QApplication::translate("MainWindow", "Start Game", 0));
-
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
-
         pushButton_2->setText(QApplication::translate("MainWindow", "Guess", 0));
         label->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
