@@ -1,7 +1,6 @@
 #include <headers/generatedata.h>
 
-template <class T>
-std::vector<mpz_class> GenerateData<T>::composites(int startDigits, int count) {
+std::vector<mpz_class> GenerateData::composites(int startDigits, int count) {
 
     std::vector<mpz_class> composites;
 
@@ -21,5 +20,18 @@ std::vector<mpz_class> GenerateData<T>::composites(int startDigits, int count) {
     }
 
     return composites;
+}
+
+std::vector<QPointF> GenerateData::factor(std::vector<mpz_class> nums, Factor* alg) {
+
+    std::vector<QPointF> points;
+
+    for(std::vector<mpz_class>::iterator it = nums.begin(); it != nums.end(); it++) {
+        //QPointF point;
+        //point.setX(it->get_str(10).size()); //number of digits
+        //point.setY(alg->factor(*it));
+        points.push_back(alg->factor(*it));
+    }
+    return points;
 }
 

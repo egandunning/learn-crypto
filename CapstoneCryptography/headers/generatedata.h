@@ -3,21 +3,21 @@
 
 #include <vector>
 #include <iostream>
-#include <functional>
 
 #include <QPointF>
 #include <gmpxx.h>
 
 #include <headers/generateprimes.h>
+#include <headers/factor.h>
+#include <headers/crack.h>
 
-template <class T>
 class GenerateData {
 public:
 
-    static std::vector<mpz_class> composites(int startDigits, int count);
+    static std::vector<mpz_class> composites(int, int);
 
-    static QPointF factor(std::vector<mpz_class>);
-    static QPointF crack(std::vector<mpz_class>);
+    static std::vector<QPointF> factor(std::vector<mpz_class>, Factor*);
+    static std::vector<QPointF> crack(std::vector<mpz_class>, Crack*);
 };
 
 #endif

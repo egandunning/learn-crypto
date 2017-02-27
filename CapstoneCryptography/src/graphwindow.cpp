@@ -25,10 +25,6 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
     view->show();
 }
 
-/*QPointF fact(mpz_class n) {
-    BruteForceFactor b = BruteForceFactor();
-    return b.factor(n);
-}*/
 
 void GraphWindow::draw() {
 
@@ -36,11 +32,15 @@ void GraphWindow::draw() {
     vec.push_back(100);
     vec.push_back(300);
 
+    BruteForceFactor* bf = new BruteForceFactor();
+
+    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
+    points = GenerateData::factor(comps, bf);
     //GenerateData<BruteForceFactor>::factor(vec);
 
-    for(int i = 0; i <= 10; i++) {
+    /*for(int i = 0; i <= 10; i++) {
         points.push_back(QPointF(i,i*i));
-    }
+    }*/
 
     QLine yAxis(QPoint(0,0),QPoint(0,-100));
     QLine xAxis(QPoint(0,0),QPoint(100,0));
