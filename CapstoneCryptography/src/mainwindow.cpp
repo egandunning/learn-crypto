@@ -180,7 +180,9 @@ void MainWindow::on_crackButton_clicked()
     c->digest = digest.toStdString();
 
     timer.start();
-    success = c->reverse();
+    c->reverse();
+    success = c->getPlaintext().length();
+    std::cout << c->plaintext << std::endl;
     elapsed = timer.elapsed();
 
     if(success) {

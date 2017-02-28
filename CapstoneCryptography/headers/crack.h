@@ -2,16 +2,19 @@
 #define CRACK_H
 
 #include <headers/hash.h>
+
 #include <string>
-#include <QString>
 #include <iostream>
+
+#include <QString>
+#include <QPointF>
 
 class Crack {
 
 public:
     Crack(){}
     virtual ~Crack();
-    virtual int reverse();
+    virtual QPointF reverse();
     std::string plaintext;
     std::string digest;
     void setDigest(QString);

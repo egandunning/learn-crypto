@@ -7,12 +7,18 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
     digest = "";
 }
 
-int DictionaryCrack::reverse() {
+QPointF DictionaryCrack::reverse() {
 	
+    plaintext = "";
+
 	if(hashType == NULL) {
-		return 0;
+        return QPointF(-1,-1);
 	}
 	
+    QElapsedTimer timer;
+    long elapsed;
+    timer.start();
+
     try {
         std::ifstream f;
         f.open(filename.c_str());
@@ -24,13 +30,15 @@ int DictionaryCrack::reverse() {
             if(digest.compare(hashType->digest) == 0) {
                 plaintext = word;
 
-                return 1;
+                elapsed = timer.elapsed();
+                return QPointF(word.length(), elapsed);
             }
         }
     } catch(int e) {
         std::cout << "error " << e << std::endl;
-        return 0;
+        return QPointF(-1,-1);
     }
 
-    return 0;
+    elapsed = timer.elapsed();
+    return QPointF(0, elapsed);
 }

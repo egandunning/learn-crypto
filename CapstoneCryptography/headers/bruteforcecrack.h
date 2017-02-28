@@ -2,7 +2,11 @@
 #define BRUTEFORCE_H
 
 #include <headers/crack.h>
+
 #include <math.h>
+#include <gmpxx.h>
+
+#include <QElapsedTimer>
 
 /**
  * Class to crack hashes via brute force. The list of possible characters
@@ -12,8 +16,8 @@ class BruteForceCrack : public Crack {
 
 public:    
     BruteForceCrack(Hash*, std::string, int);
-    std::string baseTenToBaseN(unsigned int, unsigned int);
-    virtual int reverse() override;
+    std::string baseTenToBaseN(unsigned long, unsigned int);
+    virtual QPointF reverse() override;
     void setMin(int);
     void setMax(int);
     void setAlphabet(std::string);

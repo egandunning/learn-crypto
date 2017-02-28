@@ -1,9 +1,10 @@
 #include <headers/graphwindow.h>
-#include <iostream>
-
 #include <headers/bruteforcefactor.h>
 #include <headers/generatedata.h>
+#include <headers/bruteforcecrack.h>
+#include <headers/md5.h>
 
+#include <iostream>
 GraphWindow::GraphWindow(std::vector<QPointF> pts)
 {
     points = pts;
@@ -34,13 +35,16 @@ void GraphWindow::draw() {
 
     BruteForceFactor* bf = new BruteForceFactor();
 
-    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
-    points = GenerateData::factor(comps, bf);
-    //GenerateData<BruteForceFactor>::factor(vec);
+    Md5* md5 = new Md5();
+    std::string alphabet = " abcdefghijklmnopqrstuvwxyz";
+    BruteForceCrack* bc = new BruteForceCrack(md5, alphabet, 6);
 
-    /*for(int i = 0; i <= 10; i++) {
-        points.push_back(QPointF(i,i*i));
-    }*/
+    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
+    std::vector<std::string> words = GenerateData::plaintexts(1,5);
+    std::vector<std::string> digests = GenerateData::getHashes(words, md5);
+
+    points = GenerateData::factor(comps, bf);
+    //points = GenerateData::crack(digests, bc);
 
     QLine yAxis(QPoint(0,0),QPoint(0,-100));
     QLine xAxis(QPoint(0,0),QPoint(100,0));
@@ -56,6 +60,7 @@ void GraphWindow::draw() {
 
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = transform(*it);
+        std::cout << current.x() << "," << current.y() << std::endl;
         scene->addEllipse(current.x()+3, current.y()-3, 3, 3);
     }
 
