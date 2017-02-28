@@ -29,10 +29,6 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
 
 void GraphWindow::draw() {
 
-    std::vector<mpz_class> vec;
-    vec.push_back(100);
-    vec.push_back(300);
-
     BruteForceFactor* bf = new BruteForceFactor();
 
     Md5* md5 = new Md5();

@@ -1,5 +1,13 @@
 #include <headers/generatedata.h>
 
+/**
+ * @brief GenerateData::composites
+ * Generates a vector of composite numbers with count elements.
+ * @param startDigits number of digits for the first composite number. Must be
+ * greater than 2.
+ * @param count number of composites to generate.
+ * @return vector containing bignums
+ */
 std::vector<mpz_class> GenerateData::composites(unsigned int startDigits, unsigned int count) {
 
     std::vector<mpz_class> composites;
@@ -25,6 +33,13 @@ std::vector<mpz_class> GenerateData::composites(unsigned int startDigits, unsign
     return composites;
 }
 
+/**
+ * @brief GenerateData::plaintexts
+ * Generate a vector of strings with this format: "a", "aa" "a...a" ...
+ * @param startLength number of characters in the first string
+ * @param count how many strings to generate
+ * @return vector containing strings
+ */
 std::vector<std::string> GenerateData::plaintexts(unsigned int startLength, unsigned int count) {
 
     std::vector<std::string> plaintexts;
