@@ -16,7 +16,8 @@ private:
 
 public:
     ButtonArray(QString, QWidget*);
-    std::string makeGuess(char);
+    QString makeGuess(char);
+    QPushButton* get(int);
 };
 
 #endif // BUTTONARRAY_H
