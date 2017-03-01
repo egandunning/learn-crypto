@@ -64,7 +64,7 @@ void MainWindow::on_pushButton_2_clicked()
     if(win){
         //Call a victory condition here. Something nice.
         QMessageBox winningMessage;
-        winningMessage.setText("You won! Yay!");
+        winningMessage.setText("You won! Yay!                                               ");
         winningMessage.exec();
         ui->textEdit->setText("You won! yay!");
     }
