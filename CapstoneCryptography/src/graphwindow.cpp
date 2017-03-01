@@ -74,12 +74,30 @@ void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
     int y = yMax / ticksX ;
     int x = xMax / ticksY ;
 
+    QFont font("Times", 8);
+
     for(int i = 1; i<= ticksY; i++){
         scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
+
+        if(i%2 == 0){
+            string number = std::to_string(i);
+
+            QString str = QString::fromStdString(number);
+            QGraphicsTextItem *temp = scene->addText(str, font);
+            temp->setPos(-16, (i* -y) - 3);
+        }
     }
 
     for(int i = 1; i<= ticksX; i++){
         scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
+
+        if(i%2 == 0){
+            string number = std::to_string(i);
+
+            QString str = QString::fromStdString(number);
+            QGraphicsTextItem *temp = scene->addText(str, font);
+            temp->setPos(i * x, -5);
+        }
     }
 }
 
@@ -93,11 +111,11 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, in
 
     QString str = QString::fromStdString(xlabel);
     QGraphicsTextItem *txt = scene->addText(str, QFont());
-    txt->setPos(xMax /5,-10);
+    txt->setPos(xMax /5,-20);
 
     QString stry = QString::fromStdString(ylabel);
     QGraphicsTextItem *txty = scene->addText(stry, QFont());
-    txt->setPos(-30, -yMax/ 7);
+    txt->setPos(-35, -yMax/ 7);
     txt->setRotation(270);
 }
 
