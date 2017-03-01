@@ -2,6 +2,8 @@
 #include "headers/cryptogame.h"
 #include "ui_mainwindow.h"
 #include "QPushButton"
+#include <QLayoutItem>
+#include <QMessageBox>
 #include "headers/buttonarray.h"
 
 #include "iostream" //for debugging
@@ -27,6 +29,14 @@ void MainWindow::on_GPUCheckBox_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
+
+    //Delete all buttons in the layoutForButtons if there are existing buttons in the layout
+    while(ui->layoutForButtons->count() > 0){
+        QLayoutItem *button = ui->layoutForButtons->takeAt(0);
+        delete button->widget();
+        delete button;
+    }
+
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
     ui->label->setText(q);
@@ -53,6 +63,9 @@ void MainWindow::on_pushButton_2_clicked()
 
     if(win){
         //Call a victory condition here. Something nice.
+        QMessageBox winningMessage;
+        winningMessage.setText("You won! Yay!");
+        winningMessage.exec();
         ui->textEdit->setText("You won! yay!");
     }
     else{

@@ -20,6 +20,7 @@ cryptogame::cryptogame()
         }
 
         int index = rand() % lines.size();
+        //std::cout << "index is"  << index << std::endl;
         d_message = lines.at(index);
 
     } catch (int e) {
