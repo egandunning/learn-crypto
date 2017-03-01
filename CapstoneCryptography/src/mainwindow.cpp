@@ -77,6 +77,9 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
     //Somehow give a hint to the player.
+    QMessageBox winningMessage;
+    winningMessage.setText("Here's a hint: There are no hints                                               ");
+    winningMessage.exec();
     ui->textEdit->setText("Here's a hint: There are no hints");
 }
 
