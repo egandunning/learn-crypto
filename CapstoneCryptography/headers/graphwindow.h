@@ -23,10 +23,13 @@ private:
     QGraphicsView* view;
     QGraphicsScene* scene;
     std::vector<QPointF> points;
+    int hSize;
+    int vSize;
     void draw();
     void addTicks(int yMax, int xMax, int ticksX, int ticksY);
     void addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax);
     QPointF transform(QPointF);
+    std::vector<QPointF> scalePoints(std::vector<QPointF>);
 };
 
 #endif // GRAPHWINDOW_H

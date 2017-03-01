@@ -13,8 +13,8 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
     view = new QGraphicsView();
     scene = new QGraphicsScene();
 
-    int hSize = 500;
-    int vSize = 500;
+    hSize = 500;
+    vSize = 500;
 
     scene->setSceneRect(0,0,hSize-50,-vSize+50); //I dont know why this works
     view->setScene(scene);
@@ -35,24 +35,26 @@ void GraphWindow::draw() {
     std::string alphabet = " abcdefghijklmnopqrstuvwxyz";
     BruteForceCrack* bc = new BruteForceCrack(md5, alphabet, 6);
 
-    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
+    std::vector<mpz_class> comps = GenerateData::composites(2, 8);
     std::vector<std::string> words = GenerateData::plaintexts(1,5);
     std::vector<std::string> digests = GenerateData::getHashes(words, md5);
 
     points = GenerateData::factor(comps, bf);
     //points = GenerateData::crack(digests, bc);
 
-    QLine yAxis(QPoint(0,0),QPoint(0,-100));
-    QLine xAxis(QPoint(0,0),QPoint(100,0));
+    QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
+    QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
     scene->addLine(yAxis);
     scene->addLine(xAxis);
 
     //Add the tick marks to the line.
-    addTicks(100, 100, 10, 10);
+    addTicks(vSize - 100, hSize - 100, 10, 10);
 
     //Adds the chosen labels
-    addLabels("Seconds", "something", 100,100);
+    addLabels("Seconds", "something", vSize - 100, hSize - 100);
 
+
+    points = scalePoints(points);
 
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = transform(*it);
@@ -119,11 +121,49 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, in
     txt->setRotation(270);
 }
 
+std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
+
+    //Find point with highest value for x and y.
+    // -Assume this point is the last in vector
+
+    double scaleFactor = 1;
+
+    //scale
+    QPointF last = points.at(points.size()-1);
+    QPointF current;
+
+    //scale down graph so the y's fit if neccesary
+    if(last.y() != (vSize-100) && last.y() != 0) {
+        scaleFactor = (vSize-100) / last.y();
+
+        for(unsigned int i = 0; i < points.size(); i++) {
+            current = points.at(i);
+            //current.setX(current.x() * scaleFactor);
+            current.setY(current.y() * scaleFactor);
+            points.at(i) = current;
+
+        }
+    }
+
+    //scale down graph so the x's fit if neccesary
+    if(last.x() != (hSize-100) && last.x() != 0) {
+        scaleFactor = (hSize-100) / last.x();
+
+        for(unsigned int i = 0; i < points.size(); i++) {
+            current = points.at(i);
+            current.setX(current.x() * scaleFactor);
+            //current.setY(current.y() * scaleFactor);
+            points.at(i) = current;
+        }
+    }
+
+    return points;
+
+}
+
 QPointF GraphWindow::transform(QPointF original) {
     double x = original.x();
     double y = original.y();
-
-    int windowSize = view->size().width();
 
     QPointF transformed(x, y*-1);
     return transformed;
