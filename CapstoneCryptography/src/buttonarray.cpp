@@ -17,6 +17,8 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
         QPushButton *p = new QPushButton(qSTemp, ui);
+        //Set Maximum Width to 25
+        p->setMaximumWidth(25);
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
