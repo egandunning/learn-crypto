@@ -18,6 +18,9 @@ public:
     ButtonArray(QString, QWidget*);
     QString makeGuess(char);
     QPushButton* get(int);
+
+public slots:
+    void show_input_box();
 };
 
 #endif // BUTTONARRAY_H

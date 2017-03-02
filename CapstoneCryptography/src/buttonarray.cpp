@@ -5,6 +5,7 @@
 #include <QString>
 #include <QChar>
 #include <QVector>
+#include <QCoreApplication>
 
 ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
@@ -19,6 +20,8 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         QPushButton *p = new QPushButton(qSTemp, ui);
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
+//fix this
+        //connect(p, SIGNAL(clicked(bool)), ui, SLOT(show_input_box()));
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
