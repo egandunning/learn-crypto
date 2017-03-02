@@ -13,8 +13,8 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
     view = new QGraphicsView();
     scene = new QGraphicsScene();
 
-    hSize = 500;
-    vSize = 500;
+    hSize = 600;
+    vSize = 600;
 
     scene->setSceneRect(0,0,hSize-50,-vSize+50); //I dont know why this works
     view->setScene(scene);
@@ -35,7 +35,7 @@ void GraphWindow::draw() {
     std::string alphabet = " abcdefghijklmnopqrstuvwxyz";
     BruteForceCrack* bc = new BruteForceCrack(md5, alphabet, 6);
 
-    std::vector<mpz_class> comps = GenerateData::composites(2, 8);
+    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
     std::vector<std::string> words = GenerateData::plaintexts(1,5);
     std::vector<std::string> digests = GenerateData::getHashes(words, md5);
 
@@ -51,15 +51,23 @@ void GraphWindow::draw() {
     addTicks(vSize - 100, hSize - 100, 10, 10);
 
     //Adds the chosen labels
-    addLabels("Seconds", "something", vSize - 100, hSize - 100);
+    addLabels("Seconds", "Number of digits", vSize - 100, hSize - 100);
+    //addTitle("Factoring Semiprime Numbers");
 
 
     points = scalePoints(points);
 
+    QPointF previous;
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = transform(*it);
         std::cout << current.x() << "," << current.y() << std::endl;
-        scene->addEllipse(current.x()+3, current.y()-3, 3, 3);
+        scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
+        if(!previous.isNull()) {
+            QPoint a((int)current.x(), (int)current.y());
+            QPoint b((int)previous.x(), (int)previous.y());
+            scene->addLine(QLine(a,b));
+        }
+        previous = current;
     }
 
 }
@@ -113,12 +121,13 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, in
 
     QString str = QString::fromStdString(xlabel);
     QGraphicsTextItem *txt = scene->addText(str, QFont());
-    txt->setPos(xMax /5,-20);
+    txt->setPos((xMax - 5*xlabel.length()) /2, 0);
 
     QString stry = QString::fromStdString(ylabel);
     QGraphicsTextItem *txty = scene->addText(stry, QFont());
-    txt->setPos(-35, -yMax/ 7);
-    txt->setRotation(270);
+    txty->setPos(-30, -(yMax - (int)(5*ylabel.length()))/ 2);
+    std::cout << (-1*(yMax - 5*ylabel.length())/ 2) << std::endl;
+    txty->setRotation(270);
 }
 
 std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
