@@ -3,6 +3,8 @@
 
 #include <headers/factor.h>
 
+#include <QElapsedTimer>
+
 class BruteForceFactor : public Factor {
 public:
     BruteForceFactor();

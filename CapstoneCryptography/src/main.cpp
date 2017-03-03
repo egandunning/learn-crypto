@@ -6,6 +6,8 @@
 #include <headers/sha512.h>
 #include <headers/md5.h>
 #include <headers/pbkdf2.h>
+#include <headers/graphwindow.h>
+#include <headers/generatedata.h>
 #include <QApplication>
 #include <string>
 
@@ -34,7 +36,11 @@ int main(int argc, char *argv[])
         QApplication a(argc, argv);
         MainWindow w;
         w.resize(1000, 1000);
-        w.show();
+        //w.show();
+
+        GraphWindow* g = new GraphWindow(std::vector<QPointF>());
+
+
 
         return a.exec();
     }

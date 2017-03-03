@@ -19,30 +19,45 @@ BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
  * ensures that every possible combination of the alphabet is guessed.
  * @brief BruteForceCrack::reverse
  * @param charCount user-specified password length
- * @return 1 if successful, 0 if unsuccessful.
+ * @return length,time pair if successful, max length,time if unsuccessful.
  */
-int BruteForceCrack::reverse() {
+QPointF BruteForceCrack::reverse() {
+
+    plaintext = "";
 
 	if(hashType == NULL) {
-		return 0;
+        return QPointF(-1,-1);
 	}
 	
     std::string plaintextGuess = "";
     int range = alphabet.length();
 
-    int n = (int)pow(range, charCount);
-
-    for(int i = 0; i < n; i++) {
+    //watch out for overflow errors here
+    unsigned long n = (unsigned long)pow(range, charCount);
+    if(n == 0) {
+        std::cout << "Overflow error! Setting n to max value" << std::endl;
+        n = std::numeric_limits<unsigned long>::max();
+    }
+    QElapsedTimer timer;
+    long elapsed;
+    timer.start();
+    for(unsigned long i = 0; i < n; i++) {
         plaintextGuess = baseTenToBaseN(i, range);
         hashType->plaintext = plaintextGuess;
+
         hashType->compute();
 
         if(digest.compare(hashType->digest) == 0) {
             plaintext = plaintextGuess;
-            return 1;
+            std::cout << digest << std::endl;
+            elapsed = timer.elapsed();
+            return QPointF(plaintext.length(), elapsed);
         }
     }
-    return 0;
+
+    elapsed = timer.elapsed();
+
+    return QPointF(charCount, elapsed);
 }
 
 /**
@@ -52,7 +67,7 @@ int BruteForceCrack::reverse() {
  * @param base base to convert to.
  * @return number converted to given base.
  */
-std::string BruteForceCrack::baseTenToBaseN(unsigned int num, unsigned int base) {
+std::string BruteForceCrack::baseTenToBaseN(unsigned long num, unsigned int base) {
 
     if(base == 0) { //lazy fix to avoid divide by zero
         return "Divide by zero!!!";
