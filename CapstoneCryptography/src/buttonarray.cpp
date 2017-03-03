@@ -32,9 +32,9 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
 }
 
-QString ButtonArray::makeGuess(char guess){
+QString ButtonArray::makeGuess(QChar guess){
     //Convert guess to a QString
-    QString qGuess = QChar(guess);
+    QString qGuess = guess;
     //Make QString size one
     qGuess.resize(1);
     for(int i=0; i<scrambledWord.length(); i++){

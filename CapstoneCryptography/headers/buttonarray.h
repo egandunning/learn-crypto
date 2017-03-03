@@ -17,7 +17,7 @@ private:
 
 public:
     ButtonArray(QString, QWidget*);
-    QString makeGuess(char);
+    QString makeGuess(QChar);
     QPushButton* get(int);
 
 public slots:
