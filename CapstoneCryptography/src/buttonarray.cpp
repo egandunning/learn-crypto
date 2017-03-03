@@ -6,10 +6,14 @@
 #include <QChar>
 #include <QVector>
 #include <QCoreApplication>
+#include <QInputDialog>
+#include <QDir>
+
 
 ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
     scrambledWord = qS;
+    parent = ui;
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
@@ -43,5 +47,18 @@ QString ButtonArray::makeGuess(char guess){
 
 QPushButton* ButtonArray::get(int i){
     return buttonPointerVector.at(i);
+}
+
+void ButtonArray::show_input_box(){
+
+    bool changed;
+    std::string title = "Guess a Letter";
+    std::string label = "Guess";
+    std::string defaultGuess = " ";
+    QString letter = NULL;//QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QString::fromStdString(defaultGuess), &changed);
+
+    if(changed && !letter.isEmpty()){
+
+    }
 }
 

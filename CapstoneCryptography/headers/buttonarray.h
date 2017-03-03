@@ -13,6 +13,7 @@ class ButtonArray{
 private:
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
+    QWidget *parent;
 
 public:
     ButtonArray(QString, QWidget*);
