@@ -30,8 +30,10 @@ SOURCES += src/main.cpp\
     src/factor.cpp \
     src/bruteforcefactor.cpp \
     src/cipher.cpp \
-    src/buttonarray.cpp
-    src/graphing.cpp
+    src/buttonarray.cpp \
+    src/graphwindow.cpp \
+    src/graphing.cpp \
+	src/generatedata.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -46,6 +48,8 @@ HEADERS  += headers/mainwindow.h\
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
     headers/factor.h \
+    headers/graphwindow.h \
+	headers/generatedata.h \
     headers/cipher.h \
     headers/buttonarray.h \
     src/buttonarray.h \
@@ -55,7 +59,6 @@ unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
                     -lgmpxx \
                     -lcryptopp
-
 }
 
 
@@ -102,3 +105,8 @@ macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
 
 FORMS += \
     forms/mainwindow.ui
+
+unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa/ -lGL
+
+INCLUDEPATH += $$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa
+DEPENDPATH += $$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa

@@ -2,12 +2,15 @@
 #define DICTIONARYCRACK_H
 
 #include <headers/crack.h>
+
 #include <fstream>
+
+#include <QElapsedTimer>
 
 class DictionaryCrack : public Crack {
 public:
     DictionaryCrack(Hash*, std::string);
-    virtual int reverse() override;
+    virtual QPointF reverse() override;
 
 private:
     std::string filename;

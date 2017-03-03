@@ -8,9 +8,9 @@ void Crack::setDigest(QString d) {
     digest = d.toStdString();
 }
 
-int Crack::reverse() {
+QPointF Crack::reverse() {
     std::cout << "Incorrect usage of crack class. Needs \"Crack* c = new X\" where X is a subclass of Crack." << std::endl;
-    return -1;
+    return QPointF(-1, -1);
 }
 
 QString Crack::getDigest() {

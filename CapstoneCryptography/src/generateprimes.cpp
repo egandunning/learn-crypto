@@ -104,6 +104,50 @@ long GeneratePrimes::randomPrime() {
     return primes.at(index);
 }
 
+/**
+ * @brief GeneratePrimes::randomPrime generates a random prime number with
+ * numDigits digits
+ * @param numDigits
+ * @return
+ */
+mpz_class GeneratePrimes::randomPrime(unsigned int numDigits) {
+
+    begin: //use goto, while loop implementation is unneccessarily complex
+
+    //create random string of numDigits characters
+    std::random_device r;
+    std::mt19937 gen(r());
+    std::uniform_int_distribution<short> dist(0,9);
+
+    std::string number = "";
+
+    for(unsigned int i = 0; i < numDigits-1; i++) {
+        number += std::to_string(dist(gen));
+    }
+    //make sure the last digit is odd
+    std::uniform_int_distribution<short> oddDist(1,5);
+    short lastDigit = oddDist(gen);
+    lastDigit = (lastDigit*2) - 1;
+    number += std::to_string(lastDigit);
+
+    //convert string to big num
+    mpz_class primeCandidate(number,10);
+
+    //check if num is prime
+    for(mpz_class i = 2; i <= sqrt(primeCandidate); i++) {
+        if(primeCandidate % i == 0) {
+
+            //primeCandidate has a factor, try again.
+            goto begin;
+        }
+    }
+    if(primeCandidate < 2) {
+        goto begin;
+    }
+    // primeCandidate has no factors, must be prime
+    return primeCandidate;
+}
+
 void GeneratePrimes::printPrimes() {
 	
     cout << "All prime numbers less than " << upperBound << endl;
