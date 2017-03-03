@@ -8,6 +8,8 @@
 #include <QCoreApplication>
 #include <QInputDialog>
 #include <QDir>
+#include <QLineEdit>
+#include <QObject>
 
 
 ButtonArray::ButtonArray(QString qS, QWidget* ui){
@@ -25,7 +27,7 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
 //fix this
-        //connect(p, SIGNAL(clicked(bool)), ui, SLOT(show_input_box()));
+        QObject::connect(p, SIGNAL(clicked(bool)), ui, SLOT(hide()));
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
@@ -55,7 +57,7 @@ void ButtonArray::show_input_box(){
     std::string title = "Guess a Letter";
     std::string label = "Guess";
     std::string defaultGuess = " ";
-    QString letter = NULL;//QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QString::fromStdString(defaultGuess), &changed);
+    QString letter = QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QLineEdit::Normal, QString::fromStdString(defaultGuess), &changed);
 
     if(changed && !letter.isEmpty()){
 
