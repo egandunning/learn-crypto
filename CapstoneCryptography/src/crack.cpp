@@ -2,6 +2,7 @@
 
 Crack::~Crack() {
     //delete hashType; why does this segfault?
+    delete hashType;
 }
 
 void Crack::setDigest(QString d) {

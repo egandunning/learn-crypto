@@ -201,11 +201,11 @@ void MainWindow::on_crackButton_clicked()
     timer.start();
     c->reverse();
     success = c->getPlaintext().length();
-    std::cout << c->plaintext << std::endl;
     elapsed = timer.elapsed();
 
+    //if
     if(success) {
-        ui->crackedField->setText(QString::fromStdString(c->plaintext));
+        ui->crackedField->setText(c->getPlaintext());
     } else {
         ui->crackedField->setText("\"Uncrackable!!\"");
     }
@@ -216,7 +216,7 @@ void MainWindow::on_crackButton_clicked()
 
 std::string MainWindow::bruteForceAlphabet() {
 
-    std::string alph = " ";
+    std::string alph = " ";//weird bug "fix"
 
     if(ui->customCheckBox->isChecked()) {
         return ui->alphabetField->text().toStdString();
