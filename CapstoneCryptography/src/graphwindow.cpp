@@ -5,12 +5,12 @@
 #include <headers/md5.h>
 
 #include <iostream>
-GraphWindow::GraphWindow(std::vector<QPointF> pts)
+GraphWindow::GraphWindow(QGraphicsView* graphicsView)
 {
-    points = pts;
+    points = std::vector<QPointF>();
 
     //Set up graph GUI
-    view = new QGraphicsView();
+    view = graphicsView;
     scene = new QGraphicsScene();
 
     hSize = 600;

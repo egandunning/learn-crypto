@@ -15,7 +15,7 @@
 class GraphWindow
 {
 public:
-    GraphWindow(std::vector<QPointF>);
+    GraphWindow(QGraphicsView*);
 
 
 private:

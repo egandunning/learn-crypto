@@ -15,6 +15,7 @@
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
+#include <headers/graphwindow.h>
 
 namespace Ui {
 class MainWindow;
@@ -46,6 +47,8 @@ private slots:
     void on_randomSaltButton_clicked();
 
     void on_crackButton_clicked();
+
+    void on_drawFactoring_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -237,3 +237,8 @@ std::string MainWindow::bruteForceAlphabet() {
 }
 
 
+
+void MainWindow::on_drawFactoring_clicked()
+{
+    GraphWindow* g = new GraphWindow(ui->factoringGraphicsView);
+}
