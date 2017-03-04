@@ -22,25 +22,9 @@ GraphWindow::GraphWindow(QGraphicsView* graphicsView)
 
     //Draw points
     GraphWindow::draw();
-
-    view->show();
 }
 
-
 void GraphWindow::draw() {
-
-    BruteForceFactor* bf = new BruteForceFactor();
-
-    Md5* md5 = new Md5();
-    std::string alphabet = " abcdefghijklmnopqrstuvwxyz";
-    BruteForceCrack* bc = new BruteForceCrack(md5, alphabet, 6);
-
-    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
-    std::vector<std::string> words = GenerateData::plaintexts(1,5);
-    std::vector<std::string> digests = GenerateData::getHashes(words, md5);
-
-    points = GenerateData::factor(comps, bf);
-    //points = GenerateData::crack(digests, bc);
 
     QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
     QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
@@ -135,15 +119,25 @@ std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
     //Find point with highest value for x and y.
     // -Assume this point is the last in vector
 
+    QPointF maxY(0,0);
+    QPointF maxX(0,0);
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).x() > maxX.x()) {
+            maxX = points.at(i);
+        }
+        if(points.at(i).y() > maxY.y()) {
+            maxY = points.at(i);
+        }
+    }
+
     double scaleFactor = 1;
 
     //scale
-    QPointF last = points.at(points.size()-1);
     QPointF current;
 
     //scale down graph so the y's fit if neccesary
-    if(last.y() != (vSize-100) && last.y() != 0) {
-        scaleFactor = (vSize-100) / last.y();
+    if(maxY.y() != (vSize-100) && maxY.y() != 0) {
+        scaleFactor = (vSize-100) / maxY.y();
 
         for(unsigned int i = 0; i < points.size(); i++) {
             current = points.at(i);
@@ -155,8 +149,8 @@ std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
     }
 
     //scale down graph so the x's fit if neccesary
-    if(last.x() != (hSize-100) && last.x() != 0) {
-        scaleFactor = (hSize-100) / last.x();
+    if(maxX.x() != (hSize-100) && maxX.x() != 0) {
+        scaleFactor = (hSize-100) / maxX.x();
 
         for(unsigned int i = 0; i < points.size(); i++) {
             current = points.at(i);

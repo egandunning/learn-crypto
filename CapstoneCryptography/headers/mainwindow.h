@@ -16,6 +16,7 @@
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
 #include <headers/graphwindow.h>
+#include <headers/generatedata.h>
 
 namespace Ui {
 class MainWindow;
@@ -30,8 +31,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_GPUCheckBox_clicked();
-
     void on_factorPrimesButton_clicked();
 
     void on_pushButton_clicked();

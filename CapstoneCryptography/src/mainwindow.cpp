@@ -21,11 +21,6 @@ MainWindow::~MainWindow()
     //delete hashAlg;
 }
 
-void MainWindow::on_GPUCheckBox_clicked()
-{
-
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
@@ -241,4 +236,11 @@ std::string MainWindow::bruteForceAlphabet() {
 void MainWindow::on_drawFactoring_clicked()
 {
     GraphWindow* g = new GraphWindow(ui->factoringGraphicsView);
+    int beginDigits = ui->startDigitsSpinBox->text().toInt();
+    int count = ui->dataPointsSpinBox->text().toInt();
+    std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
+    std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
+    g->points = pts;
+    g->draw();
+    g->view->show();
 }
