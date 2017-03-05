@@ -236,10 +236,60 @@ std::string MainWindow::bruteForceAlphabet() {
 void MainWindow::on_drawFactoring_clicked()
 {
     GraphWindow* g = new GraphWindow(ui->factoringGraphicsView);
+    g->vSize = 600;
+    g->hSize = 600;
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
     int count = ui->dataPointsSpinBox->text().toInt();
     std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
     std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
+    g->points = pts;
+    g->draw();
+    g->view->show();
+}
+
+void MainWindow::on_plotCrackButton_clicked()
+{
+    //grab hashing and cracking algorithms
+
+    switch(ui->hashComboBox->currentIndex()) {
+    case 0:
+        hashAlg = new Md5();
+        break;
+    case 1:
+        hashAlg = new Sha512();
+        break;
+    case 2:
+        hashAlg = new Pbkdf2();
+        break;
+    }
+
+    Crack* c;
+    if(hashAlg == NULL) {
+        return;
+    }
+
+    switch(ui->crackComboBox->currentIndex()) {
+    case 0:
+        {int maxLength = ui->charCountSpinBox->text().toInt();
+        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
+        break;}
+
+    case 1:
+        {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
+        break;}
+    }
+
+    //begin graphing
+    GraphWindow* g = new GraphWindow(ui->crackGraphicsView);
+    g->vSize = 600;
+    g->hSize = 600;
+    int beginChars = ui->charCountSpinBox_2->text().toInt();
+    int count = ui->crackPointCountSpinBox->text().toInt();
+
+    std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
+    std::vector<std::string> digests = GenerateData::getHashes(strings, hashAlg);
+    std::vector<QPointF> pts = GenerateData::crack(digests, c);
+
     g->points = pts;
     g->draw();
     g->view->show();

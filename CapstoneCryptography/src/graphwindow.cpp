@@ -19,9 +19,6 @@ GraphWindow::GraphWindow(QGraphicsView* graphicsView)
     scene->setSceneRect(0,0,hSize-50,-vSize+50); //I dont know why this works
     view->setScene(scene);
     view->resize(hSize,vSize);
-
-    //Draw points
-    GraphWindow::draw();
 }
 
 void GraphWindow::draw() {
@@ -36,8 +33,6 @@ void GraphWindow::draw() {
 
     //Adds the chosen labels
     addLabels("Seconds", "Number of digits", vSize - 100, hSize - 100);
-    //addTitle("Factoring Semiprime Numbers");
-
 
     points = scalePoints(points);
 

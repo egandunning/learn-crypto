@@ -49,6 +49,8 @@ private slots:
 
     void on_drawFactoring_clicked();
 
+    void on_plotCrackButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;

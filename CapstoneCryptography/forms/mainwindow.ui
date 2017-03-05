@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
+    <width>1014</width>
     <height>583</height>
    </rect>
   </property>
@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -71,17 +71,20 @@
           <string>Hash</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="10" column="1">
-           <widget class="QCheckBox" name="numbersCheckBox">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Numbers</string>
+             <string>Hash Function</string>
             </property>
            </widget>
           </item>
-          <item row="8" column="0" alignment="Qt::AlignBottom">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Alphabet Settings for Brute Force</string>
+          <item row="0" column="3" rowspan="12">
+           <widget class="QGraphicsView" name="crackGraphicsView">
+            <property name="minimumSize">
+             <size>
+              <width>600</width>
+              <height>0</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -104,38 +107,18 @@
             </item>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="hashButton">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>Hash!</string>
+             <string>Crack algorithm</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="plaintextField"/>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="randomSaltButton">
-            <property name="text">
-             <string>Random</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="0">
-           <widget class="QCheckBox" name="lettersCheckBox">
-            <property name="text">
-             <string>Letters</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
+          <item row="3" column="1" colspan="2">
            <widget class="QTextEdit" name="digestField">
             <property name="minimumSize">
              <size>
-              <width>290</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
@@ -147,6 +130,13 @@
             </property>
            </widget>
           </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Hashed text:</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
@@ -154,10 +144,200 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Salt:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QSpinBox" name="charCountSpinBox_2">
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="0" colspan="3">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QTabWidget" name="crackTabWidget">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <widget class="QWidget" name="tab">
+               <attribute name="title">
+                <string>Brute force settings</string>
+               </attribute>
+               <widget class="QLabel" name="label_10">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>0</y>
+                  <width>138</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Character Count:</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="lettersCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>30</y>
+                  <width>138</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Letters</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QSpinBox" name="charCountSpinBox">
+                <property name="geometry">
+                 <rect>
+                  <x>140</x>
+                  <y>0</y>
+                  <width>131</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>30</number>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="upCaseCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>50</y>
+                  <width>138</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Include uppercase</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="numbersCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>160</x>
+                  <y>30</y>
+                  <width>135</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Numbers</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="customCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>70</y>
+                  <width>134</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Custom alphabet:</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="symbolsCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>160</x>
+                  <y>50</y>
+                  <width>173</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Symbols</string>
+                </property>
+               </widget>
+               <widget class="QLineEdit" name="alphabetField">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>70</y>
+                  <width>173</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="tab_2">
+               <attribute name="title">
+                <string>Dictionary crack settings</string>
+               </attribute>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Result:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="crackPlotLabel">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Plot data points&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
           <item row="5" column="1">
            <widget class="QLineEdit" name="crackedField">
             <property name="readOnly">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="saltField"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="plaintextField"/>
+          </item>
+          <item row="4" column="2">
+           <widget class="QPushButton" name="crackButton">
+            <property name="text">
+             <string>Reverse!</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QSpinBox" name="crackPointCountSpinBox">
+            <property name="value">
+             <number>3</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="randomSaltButton">
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="hashButton">
+            <property name="text">
+             <string>Hash!</string>
             </property>
            </widget>
           </item>
@@ -186,20 +366,6 @@
             </item>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Choose hash cracking algorithm</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Character representation of Hash</string>
-            </property>
-           </widget>
-          </item>
           <item row="5" column="2">
            <widget class="QLabel" name="crackTimeLabel">
             <property name="text">
@@ -207,75 +373,24 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Result:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Choose a Hash Function</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Salt:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
-           <widget class="QCheckBox" name="upCaseCheckBox">
-            <property name="text">
-             <string>Include uppercase</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QPushButton" name="crackButton">
-            <property name="text">
-             <string>Reverse!</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="saltField"/>
-          </item>
-          <item row="11" column="1">
-           <widget class="QCheckBox" name="symbolsCheckBox">
-            <property name="text">
-             <string>Symbols</string>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="0">
-           <widget class="QCheckBox" name="customCheckBox">
-            <property name="text">
-             <string>Custom alphabet:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="1">
-           <widget class="QLineEdit" name="alphabetField"/>
-          </item>
           <item row="9" column="0">
-           <widget class="QLabel" name="label_10">
+           <widget class="QLabel" name="pointCountLabel">
             <property name="text">
-             <string>Character Count:</string>
+             <string>Number of points</string>
             </property>
            </widget>
           </item>
-          <item row="9" column="1">
-           <widget class="QSpinBox" name="charCountSpinBox">
-            <property name="minimum">
-             <number>1</number>
+          <item row="8" column="0">
+           <widget class="QLabel" name="charCountLabel">
+            <property name="text">
+             <string>Starting characters</string>
             </property>
-            <property name="value">
-             <number>30</number>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QPushButton" name="plotCrackButton">
+            <property name="text">
+             <string>Draw points</string>
             </property>
            </widget>
           </item>
@@ -333,7 +448,7 @@
            <widget class="QGraphicsView" name="factoringGraphicsView">
             <property name="minimumSize">
              <size>
-              <width>700</width>
+              <width>600</width>
               <height>0</height>
              </size>
             </property>
@@ -416,7 +531,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>928</width>
+     <width>1014</width>
      <height>25</height>
     </rect>
    </property>
