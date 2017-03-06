@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1014</width>
-    <height>583</height>
+    <height>648</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -163,7 +163,7 @@
             <item>
              <widget class="QTabWidget" name="crackTabWidget">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">
@@ -281,8 +281,112 @@
                <attribute name="title">
                 <string>Dictionary crack settings</string>
                </attribute>
+               <widget class="QLabel" name="label_5">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>10</y>
+                  <width>111</width>
+                  <height>17</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Number of words:</string>
+                </property>
+               </widget>
+               <widget class="QSpinBox" name="wordCountSpinBox">
+                <property name="geometry">
+                 <rect>
+                  <x>120</x>
+                  <y>0</y>
+                  <width>44</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_11">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>40</y>
+                  <width>121</width>
+                  <height>17</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Add numbers to end</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="appendCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>130</x>
+                  <y>40</y>
+                  <width>88</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_12">
+                <property name="geometry">
+                 <rect>
+                  <x>160</x>
+                  <y>40</y>
+                  <width>59</width>
+                  <height>17</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>beginning</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="prependCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>220</x>
+                  <y>40</y>
+                  <width>88</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_13">
+                <property name="geometry">
+                 <rect>
+                  <x>250</x>
+                  <y>40</y>
+                  <width>59</width>
+                  <height>17</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Digits:</string>
+                </property>
+               </widget>
+               <widget class="QSpinBox" name="digitCountSpinBox">
+                <property name="geometry">
+                 <rect>
+                  <x>290</x>
+                  <y>30</y>
+                  <width>44</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+               </widget>
               </widget>
              </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5"/>
             </item>
            </layout>
           </item>
@@ -373,6 +477,13 @@
             </property>
            </widget>
           </item>
+          <item row="10" column="0">
+           <widget class="QPushButton" name="plotCrackButton">
+            <property name="text">
+             <string>Draw points</string>
+            </property>
+           </widget>
+          </item>
           <item row="9" column="0">
            <widget class="QLabel" name="pointCountLabel">
             <property name="text">
@@ -384,13 +495,6 @@
            <widget class="QLabel" name="charCountLabel">
             <property name="text">
              <string>Starting characters</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="0">
-           <widget class="QPushButton" name="plotCrackButton">
-            <property name="text">
-             <string>Draw points</string>
             </property>
            </widget>
           </item>

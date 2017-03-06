@@ -73,6 +73,15 @@ public:
     QCheckBox *symbolsCheckBox;
     QLineEdit *alphabetField;
     QWidget *tab_2;
+    QLabel *label_5;
+    QSpinBox *wordCountSpinBox;
+    QLabel *label_11;
+    QCheckBox *appendCheckBox;
+    QLabel *label_12;
+    QCheckBox *prependCheckBox;
+    QLabel *label_13;
+    QSpinBox *digitCountSpinBox;
+    QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
     QLabel *crackPlotLabel;
     QLineEdit *crackedField;
@@ -84,9 +93,9 @@ public:
     QPushButton *hashButton;
     QComboBox *hashComboBox;
     QLabel *crackTimeLabel;
+    QPushButton *plotCrackButton;
     QLabel *pointCountLabel;
     QLabel *charCountLabel;
-    QPushButton *plotCrackButton;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
     QPushButton *random_composite;
@@ -113,7 +122,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1014, 583);
+        MainWindow->resize(1014, 648);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -261,9 +270,40 @@ public:
         crackTabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
+        label_5 = new QLabel(tab_2);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(10, 10, 111, 17));
+        wordCountSpinBox = new QSpinBox(tab_2);
+        wordCountSpinBox->setObjectName(QStringLiteral("wordCountSpinBox"));
+        wordCountSpinBox->setGeometry(QRect(120, 0, 44, 27));
+        wordCountSpinBox->setValue(1);
+        label_11 = new QLabel(tab_2);
+        label_11->setObjectName(QStringLiteral("label_11"));
+        label_11->setGeometry(QRect(10, 40, 121, 17));
+        appendCheckBox = new QCheckBox(tab_2);
+        appendCheckBox->setObjectName(QStringLiteral("appendCheckBox"));
+        appendCheckBox->setGeometry(QRect(130, 40, 88, 22));
+        label_12 = new QLabel(tab_2);
+        label_12->setObjectName(QStringLiteral("label_12"));
+        label_12->setGeometry(QRect(160, 40, 59, 17));
+        prependCheckBox = new QCheckBox(tab_2);
+        prependCheckBox->setObjectName(QStringLiteral("prependCheckBox"));
+        prependCheckBox->setGeometry(QRect(220, 40, 88, 22));
+        label_13 = new QLabel(tab_2);
+        label_13->setObjectName(QStringLiteral("label_13"));
+        label_13->setGeometry(QRect(250, 40, 59, 17));
+        digitCountSpinBox = new QSpinBox(tab_2);
+        digitCountSpinBox->setObjectName(QStringLiteral("digitCountSpinBox"));
+        digitCountSpinBox->setGeometry(QRect(290, 30, 44, 27));
         crackTabWidget->addTab(tab_2, QString());
 
         verticalLayout->addWidget(crackTabWidget);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+
+        verticalLayout->addLayout(horizontalLayout_5);
 
 
         gridLayout_4->addLayout(verticalLayout, 11, 0, 1, 3);
@@ -326,6 +366,11 @@ public:
 
         gridLayout_4->addWidget(crackTimeLabel, 5, 2, 1, 1);
 
+        plotCrackButton = new QPushButton(tab_3);
+        plotCrackButton->setObjectName(QStringLiteral("plotCrackButton"));
+
+        gridLayout_4->addWidget(plotCrackButton, 10, 0, 1, 1);
+
         pointCountLabel = new QLabel(tab_3);
         pointCountLabel->setObjectName(QStringLiteral("pointCountLabel"));
 
@@ -335,11 +380,6 @@ public:
         charCountLabel->setObjectName(QStringLiteral("charCountLabel"));
 
         gridLayout_4->addWidget(charCountLabel, 8, 0, 1, 1);
-
-        plotCrackButton = new QPushButton(tab_3);
-        plotCrackButton->setObjectName(QStringLiteral("plotCrackButton"));
-
-        gridLayout_4->addWidget(plotCrackButton, 10, 0, 1, 1);
 
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
@@ -455,7 +495,7 @@ public:
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(1);
-        crackTabWidget->setCurrentIndex(0);
+        crackTabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -487,6 +527,12 @@ public:
         customCheckBox->setText(QApplication::translate("MainWindow", "Custom alphabet:", 0));
         symbolsCheckBox->setText(QApplication::translate("MainWindow", "Symbols", 0));
         crackTabWidget->setTabText(crackTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Brute force settings", 0));
+        label_5->setText(QApplication::translate("MainWindow", "Number of words:", 0));
+        label_11->setText(QApplication::translate("MainWindow", "Add numbers to end", 0));
+        appendCheckBox->setText(QString());
+        label_12->setText(QApplication::translate("MainWindow", "beginning", 0));
+        prependCheckBox->setText(QString());
+        label_13->setText(QApplication::translate("MainWindow", "Digits:", 0));
         crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary crack settings", 0));
         label_4->setText(QApplication::translate("MainWindow", "Result:", 0));
         crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
@@ -500,9 +546,9 @@ public:
          << QApplication::translate("MainWindow", "PBKDF2", 0)
         );
         crackTimeLabel->setText(QApplication::translate("MainWindow", "Time:", 0));
+        plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
         pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
         charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
-        plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
         drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));

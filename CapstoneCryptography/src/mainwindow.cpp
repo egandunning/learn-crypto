@@ -188,6 +188,7 @@ void MainWindow::on_crackButton_clicked()
 
     case 1:
         {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
+        dictionaryOptions(c);
         break;}
     }
 
@@ -231,7 +232,22 @@ std::string MainWindow::bruteForceAlphabet() {
     return alph;
 }
 
+void MainWindow::dictionaryOptions(Crack* d) {
 
+    unsigned int numWords = ui->wordCountSpinBox->text().toInt();
+    unsigned int appendedDigits = 0;
+    if(ui->appendCheckBox->isChecked()) {
+        appendedDigits = ui->digitCountSpinBox->text().toInt();
+    }
+    unsigned int prependedDigits = 0;
+    if(ui->prependCheckBox->isChecked()) {
+        prependedDigits = ui->digitCountSpinBox->text().toInt();
+    }
+    unsigned int symbols = 0;
+    unsigned int cap = false;
+
+    d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap);
+}
 
 void MainWindow::on_drawFactoring_clicked()
 {

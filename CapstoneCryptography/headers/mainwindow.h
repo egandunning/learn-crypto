@@ -58,6 +58,7 @@ private:
     QString digest;
 
     std::string bruteForceAlphabet();
+    void dictionaryOptions(Crack *);
 };
 
 #endif // MAINWINDOW_H
