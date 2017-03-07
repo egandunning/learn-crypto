@@ -96,6 +96,7 @@ public:
     QPushButton *plotCrackButton;
     QLabel *pointCountLabel;
     QLabel *charCountLabel;
+    QCheckBox *logScaleCheckBox;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
     QPushButton *random_composite;
@@ -381,6 +382,11 @@ public:
 
         gridLayout_4->addWidget(charCountLabel, 8, 0, 1, 1);
 
+        logScaleCheckBox = new QCheckBox(tab_3);
+        logScaleCheckBox->setObjectName(QStringLiteral("logScaleCheckBox"));
+
+        gridLayout_4->addWidget(logScaleCheckBox, 10, 1, 1, 1);
+
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
@@ -549,6 +555,7 @@ public:
         plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
         pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
         charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
+        logScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
         drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));

@@ -251,7 +251,7 @@ void MainWindow::dictionaryOptions(Crack* d) {
 
 void MainWindow::on_drawFactoring_clicked()
 {
-    GraphWindow* g = new GraphWindow(ui->factoringGraphicsView);
+    g = new GraphWindow(ui->factoringGraphicsView);
     g->vSize = 600;
     g->hSize = 600;
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
@@ -259,6 +259,9 @@ void MainWindow::on_drawFactoring_clicked()
     std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
     std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
     g->points = pts;
+    if(ui->logScaleCheckBox->isChecked()) {
+        g->logScale();
+    }
     g->draw();
     g->view->show();
 }
@@ -296,7 +299,7 @@ void MainWindow::on_plotCrackButton_clicked()
     }
 
     //begin graphing
-    GraphWindow* g = new GraphWindow(ui->crackGraphicsView);
+    g = new GraphWindow(ui->crackGraphicsView);
     g->vSize = 600;
     g->hSize = 600;
     int beginChars = ui->charCountSpinBox_2->text().toInt();
@@ -307,6 +310,9 @@ void MainWindow::on_plotCrackButton_clicked()
     std::vector<QPointF> pts = GenerateData::crack(digests, c);
 
     g->points = pts;
+    if(ui->logScaleCheckBox->isChecked()) {
+        g->logScale();
+    }
     g->draw();
     g->view->show();
 }

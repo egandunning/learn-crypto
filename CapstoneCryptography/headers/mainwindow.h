@@ -56,6 +56,7 @@ private:
     cryptogame *agame;
     Hash *hashAlg;
     QString digest;
+    GraphWindow* g;
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);

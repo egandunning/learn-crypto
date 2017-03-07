@@ -20,12 +20,14 @@ public:
     int hSize;
     int vSize;
     QGraphicsView* view;
+    QGraphicsScene* scene;
     void draw();
     void addTicks(int yMax, int xMax, int ticksX, int ticksY);
     void addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax);
+    void logScale(int base = 10);
+    void undoLogScale(int base = 10);
 private:
     QFrame *ui;
-    QGraphicsScene* scene;
     QPointF transform(QPointF);
     std::vector<QPointF> scalePoints(std::vector<QPointF>);
 };

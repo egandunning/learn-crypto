@@ -51,6 +51,28 @@ void GraphWindow::draw() {
 
 }
 
+void GraphWindow::logScale(int base) {
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() > 0) {
+            current.setY( log(current.y()) / log(base));
+        }
+        *it = current;
+    }
+}
+
+void GraphWindow::undoLogScale(int base) {
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() != 0) {
+            current.setY( pow(base,current.y()) );
+        }
+        *it = current;
+    }
+}
+
 void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
 
     /*
