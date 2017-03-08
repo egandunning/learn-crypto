@@ -261,7 +261,7 @@ void MainWindow::on_drawFactoring_clicked()
     std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
     std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
     g->points = pts;
-    if(ui->logScaleCheckBox->isChecked()) {
+    if(ui->factorLogScaleCheckBox->isChecked()) {
         g->logScale();
     }
     g->addLabels("Milliseconds", "Number of digits");
@@ -313,7 +313,7 @@ void MainWindow::on_plotCrackButton_clicked()
     std::vector<QPointF> pts = GenerateData::crack(digests, c);
 
     g->points = pts;
-    if(ui->logScaleCheckBox->isChecked()) {
+    if(ui->hashLogScaleCheckBox->isChecked()) {
         g->logScale();
     }
     g->addLabels("Milliseconds", "Number of characters");

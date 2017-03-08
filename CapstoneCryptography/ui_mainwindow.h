@@ -96,17 +96,16 @@ public:
     QPushButton *plotCrackButton;
     QLabel *pointCountLabel;
     QLabel *charCountLabel;
-    QCheckBox *logScaleCheckBox;
+    QCheckBox *hashLogScaleCheckBox;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
-    QPushButton *random_composite;
-    QPushButton *drawFactoring;
     QLabel *timeLabel;
+    QPushButton *random_composite;
     QLineEdit *compositeTextField;
     QComboBox *factorAlgChooser;
+    QPushButton *factorPrimesButton;
     QGraphicsView *factoringGraphicsView;
     QLabel *resultLabel;
-    QPushButton *factorPrimesButton;
     QLabel *label_7;
     QHBoxLayout *horizontalLayout_4;
     QLabel *dataCountLabel;
@@ -115,6 +114,9 @@ public:
     QLabel *dataStartLabel;
     QSpinBox *startDigitsSpinBox;
     QLabel *plotLabel;
+    QHBoxLayout *horizontalLayout_3;
+    QPushButton *drawFactoring;
+    QCheckBox *factorLogScaleCheckBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -342,7 +344,7 @@ public:
 
         crackPointCountSpinBox = new QSpinBox(tab_3);
         crackPointCountSpinBox->setObjectName(QStringLiteral("crackPointCountSpinBox"));
-        crackPointCountSpinBox->setValue(3);
+        crackPointCountSpinBox->setValue(5);
 
         gridLayout_4->addWidget(crackPointCountSpinBox, 9, 1, 1, 1);
 
@@ -382,10 +384,10 @@ public:
 
         gridLayout_4->addWidget(charCountLabel, 8, 0, 1, 1);
 
-        logScaleCheckBox = new QCheckBox(tab_3);
-        logScaleCheckBox->setObjectName(QStringLiteral("logScaleCheckBox"));
+        hashLogScaleCheckBox = new QCheckBox(tab_3);
+        hashLogScaleCheckBox->setObjectName(QStringLiteral("hashLogScaleCheckBox"));
 
-        gridLayout_4->addWidget(logScaleCheckBox, 10, 1, 1, 1);
+        gridLayout_4->addWidget(hashLogScaleCheckBox, 10, 1, 1, 1);
 
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
@@ -394,20 +396,15 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        random_composite = new QPushButton(tab_4);
-        random_composite->setObjectName(QStringLiteral("random_composite"));
-
-        gridLayout_2->addWidget(random_composite, 3, 0, 1, 1);
-
-        drawFactoring = new QPushButton(tab_4);
-        drawFactoring->setObjectName(QStringLiteral("drawFactoring"));
-
-        gridLayout_2->addWidget(drawFactoring, 16, 0, 2, 1);
-
         timeLabel = new QLabel(tab_4);
         timeLabel->setObjectName(QStringLiteral("timeLabel"));
 
         gridLayout_2->addWidget(timeLabel, 7, 0, 1, 1);
+
+        random_composite = new QPushButton(tab_4);
+        random_composite->setObjectName(QStringLiteral("random_composite"));
+
+        gridLayout_2->addWidget(random_composite, 3, 0, 1, 1);
 
         compositeTextField = new QLineEdit(tab_4);
         compositeTextField->setObjectName(QStringLiteral("compositeTextField"));
@@ -419,21 +416,21 @@ public:
 
         gridLayout_2->addWidget(factorAlgChooser, 0, 0, 1, 1);
 
+        factorPrimesButton = new QPushButton(tab_4);
+        factorPrimesButton->setObjectName(QStringLiteral("factorPrimesButton"));
+
+        gridLayout_2->addWidget(factorPrimesButton, 4, 0, 2, 1);
+
         factoringGraphicsView = new QGraphicsView(tab_4);
         factoringGraphicsView->setObjectName(QStringLiteral("factoringGraphicsView"));
         factoringGraphicsView->setMinimumSize(QSize(600, 0));
 
-        gridLayout_2->addWidget(factoringGraphicsView, 0, 2, 28, 1);
+        gridLayout_2->addWidget(factoringGraphicsView, 0, 2, 30, 1);
 
         resultLabel = new QLabel(tab_4);
         resultLabel->setObjectName(QStringLiteral("resultLabel"));
 
         gridLayout_2->addWidget(resultLabel, 6, 0, 1, 1);
-
-        factorPrimesButton = new QPushButton(tab_4);
-        factorPrimesButton->setObjectName(QStringLiteral("factorPrimesButton"));
-
-        gridLayout_2->addWidget(factorPrimesButton, 4, 0, 2, 1);
 
         label_7 = new QLabel(tab_4);
         label_7->setObjectName(QStringLiteral("label_7"));
@@ -479,6 +476,22 @@ public:
 
         gridLayout_2->addWidget(plotLabel, 10, 0, 1, 1);
 
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        drawFactoring = new QPushButton(tab_4);
+        drawFactoring->setObjectName(QStringLiteral("drawFactoring"));
+
+        horizontalLayout_3->addWidget(drawFactoring);
+
+        factorLogScaleCheckBox = new QCheckBox(tab_4);
+        factorLogScaleCheckBox->setObjectName(QStringLiteral("factorLogScaleCheckBox"));
+
+        horizontalLayout_3->addWidget(factorLogScaleCheckBox);
+
+
+        gridLayout_2->addLayout(horizontalLayout_3, 16, 0, 1, 1);
+
         tabWidget->addTab(tab_4, QString());
 
         horizontalLayout->addWidget(tabWidget);
@@ -501,7 +514,7 @@ public:
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(1);
-        crackTabWidget->setCurrentIndex(1);
+        crackTabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -520,7 +533,6 @@ public:
         crackComboBox->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Brute force", 0)
          << QApplication::translate("MainWindow", "Dictionary attack", 0)
-         << QApplication::translate("MainWindow", "Lookup tables", 0)
         );
         label_9->setText(QApplication::translate("MainWindow", "Crack algorithm", 0));
         label_6->setText(QApplication::translate("MainWindow", "Hashed text:", 0));
@@ -555,23 +567,24 @@ public:
         plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
         pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
         charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
-        logScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
+        hashLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
-        random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
-        drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));
         timeLabel->setText(QApplication::translate("MainWindow", "Time: ", 0));
+        random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
         factorAlgChooser->clear();
         factorAlgChooser->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Brute force (small to big)", 0)
          << QApplication::translate("MainWindow", "Brute force (big to small)", 0)
          << QApplication::translate("MainWindow", "Quadratic sieve", 0)
         );
-        resultLabel->setText(QApplication::translate("MainWindow", "Result:", 0));
         factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));
+        resultLabel->setText(QApplication::translate("MainWindow", "Result:", 0));
         label_7->setText(QApplication::translate("MainWindow", "Enter a product of two primes:", 0));
         dataCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
         dataStartLabel->setText(QApplication::translate("MainWindow", "Starting digits", 0));
         plotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
+        drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));
+        factorLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Factoring", 0));
     } // retranslateUi
 
