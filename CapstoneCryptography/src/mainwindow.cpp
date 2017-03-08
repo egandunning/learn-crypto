@@ -170,6 +170,8 @@ void MainWindow::on_crackButton_clicked()
     //reset label text
     ui->crackTimeLabel->setText("Time: ");
     ui->crackTimeLabel->repaint();
+    ui->crackedField->setText("");
+    ui->crackedField->repaint();
 
     QElapsedTimer timer;
     long elapsed;
