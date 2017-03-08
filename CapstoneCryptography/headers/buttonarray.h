@@ -7,8 +7,11 @@
 #include <QWidget>
 #include <QVector>
 #include <QString>
+#include <QObject>
 
-class ButtonArray{
+class ButtonArray: public QObject{
+
+   // Q_OBJECT
 
 private:
     QVector<QPushButton *> buttonPointerVector;

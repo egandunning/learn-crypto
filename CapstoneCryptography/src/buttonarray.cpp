@@ -27,7 +27,7 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
 //fix this
-        QObject::connect(p, SIGNAL(clicked(bool)), ui, SLOT(hide()));
+        QObject::connect(p, SIGNAL(clicked(bool)), ui, SLOT(show_input_box()));
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
