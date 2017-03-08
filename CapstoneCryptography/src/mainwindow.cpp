@@ -264,6 +264,7 @@ void MainWindow::on_drawFactoring_clicked()
     if(ui->logScaleCheckBox->isChecked()) {
         g->logScale();
     }
+    g->addLabels("Milliseconds", "Number of digits");
     g->draw();
     g->view->show();
 }
@@ -315,6 +316,7 @@ void MainWindow::on_plotCrackButton_clicked()
     if(ui->logScaleCheckBox->isChecked()) {
         g->logScale();
     }
+    g->addLabels("Milliseconds", "Number of characters");
     g->draw();
     g->view->show();
 }

@@ -28,11 +28,18 @@ void GraphWindow::draw() {
     scene->addLine(yAxis);
     scene->addLine(xAxis);
 
-    //Add the tick marks to the line.
-    addTicks(vSize - 100, hSize - 100, 10, 10);
 
-    //Adds the chosen labels
-    addLabels("Seconds", "Number of digits", vSize - 100, hSize - 100);
+
+    //Add the tick marks to the line.
+    int xLimit = (int)points.at(points.size()-1).x();
+    //find largest y-value
+    double yLimit = 0;
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).y() > yLimit) {
+            yLimit = points.at(i).y();
+        }
+    }
+    addTicks(vSize - 100, hSize - 100, 10, 10, xLimit, (int)yLimit);
 
     points = scalePoints(points);
 
@@ -48,7 +55,6 @@ void GraphWindow::draw() {
         }
         previous = current;
     }
-
 }
 
 void GraphWindow::logScale(int base) {
@@ -73,7 +79,7 @@ void GraphWindow::undoLogScale(int base) {
     }
 }
 
-void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
+void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY, int xValue, int yValue) {
 
     /*
      * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
@@ -81,44 +87,42 @@ void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
      *
      */
 
-
-    int y = yMax / ticksX ;
-    int x = xMax / ticksY ;
+    int y = yMax / ticksY;
+    int x = xMax / ticksX;
 
     QFont font("Times", 8);
 
-    for(int i = 1; i<= ticksY; i++){
-        scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
+    int xIncrement = xValue / ticksX;
+    int yIncrement = yValue / ticksY;
 
-        if(i%2 == 0){
-            string number = std::to_string(i);
+    for(int i = 0; i<= ticksY; i++){
+        scene->addLine(QLine(QPoint(0, -i*y), QPoint(2, -i*y)));
 
-            QString str = QString::fromStdString(number);
-            QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos(-16, (i* -y) - 3);
-        }
+        QGraphicsTextItem *temp = scene->addText(QString::number(i*yIncrement), font);
+        temp->setPos(-16, -i*y + 10);
+        temp->setRotation(270);
+
     }
 
-    for(int i = 1; i<= ticksX; i++){
-        scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
+    /*for(int i = 0; i<= xValue; i++){
+        scene->addLine(QLine(QPoint(i*x, 0), QPoint(i*x, -2)));
 
-        if(i%2 == 0){
-            string number = std::to_string(i);
+        QGraphicsTextItem *temp = scene->addText(QString::number(i*xIncrement), font);
+        temp->setPos(i*x - 5, -5);
 
-            QString str = QString::fromStdString(number);
-            QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos(i * x, -5);
-        }
-    }
+    }*/
 }
 
 
-void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax){
+void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
 
     /*
      * addLabels, adds two custom strings to label the y-axis and the x-axis on the graph.
      * Also include the maximum y value, and the maximum x value.
      */
+
+    int xMax = hSize - 100;
+    int yMax = vSize - 100;
 
     QString str = QString::fromStdString(xlabel);
     QGraphicsTextItem *txt = scene->addText(str, QFont());
@@ -171,9 +175,16 @@ std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
 
         for(unsigned int i = 0; i < points.size(); i++) {
             current = points.at(i);
-            current.setX(current.x() * scaleFactor);
-            //current.setY(current.y() * scaleFactor);
+            double tempX = current.x();
+            current.setX(tempX * scaleFactor);
             points.at(i) = current;
+
+
+            scene->addLine(QLine(QPoint((int)current.x(), 0), QPoint((int)current.x(), -2)));
+
+            QGraphicsTextItem *temp = scene->addText(QString::number((int)tempX), QFont("times",8));
+            temp->setPos((int)current.x() - 5, -3);
+
         }
     }
 
