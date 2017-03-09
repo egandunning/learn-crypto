@@ -434,6 +434,7 @@ public:
 
         dataPointsSpinBox = new QSpinBox(tab_4);
         dataPointsSpinBox->setObjectName(QStringLiteral("dataPointsSpinBox"));
+        dataPointsSpinBox->setMinimum(1);
         dataPointsSpinBox->setValue(10);
 
         horizontalLayout_4->addWidget(dataPointsSpinBox);
@@ -451,7 +452,8 @@ public:
 
         startDigitsSpinBox = new QSpinBox(tab_4);
         startDigitsSpinBox->setObjectName(QStringLiteral("startDigitsSpinBox"));
-        startDigitsSpinBox->setValue(2);
+        startDigitsSpinBox->setMinimum(3);
+        startDigitsSpinBox->setValue(3);
 
         horizontalLayout_2->addWidget(startDigitsSpinBox);
 
@@ -489,7 +491,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1014, 27));
+        menuBar->setGeometry(QRect(0, 0, 1014, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
