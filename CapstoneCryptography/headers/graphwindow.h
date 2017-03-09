@@ -15,18 +15,23 @@
 class GraphWindow
 {
 public:
-    GraphWindow(QGraphicsView*);
-    std::vector<QPointF> points;
+    GraphWindow(QGraphicsView*, std::vector<QPointF> pts);
+
     int hSize;
     int vSize;
+
+    double maximumY;
+
     QGraphicsView* view;
     QGraphicsScene* scene;
     void draw();
     void addTicksY(int yMax, int ticksY, int yValue);
+    void addTicksY(std::vector<QString>);
     void addLabels(std::string ylabel, std::string xlabel);
-    void logScale(int base = 10);
+    void logScaleDraw(int base = 10);
     void undoLogScale(int base = 10);
 private:
+    std::vector<QPointF> points;
     QFrame *ui;
     QPointF transform(QPointF);
     std::vector<QPointF> scalePoints(std::vector<QPointF>);

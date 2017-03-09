@@ -26,7 +26,7 @@ std::vector<mpz_class> GenerateData::composites(unsigned int startDigits, unsign
 
         //to get a composite number with n digits, the factors can have x,y digits where n=x+y+1
         while(composite.get_str().length() != startDigits-1) {
-            std::cout << composite.get_str().length() << " " << startDigits << std::endl;
+
             int digitCount1;
             int digitCount2;
             //startDigits odd

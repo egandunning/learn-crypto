@@ -253,19 +253,24 @@ void MainWindow::dictionaryOptions(Crack* d) {
 
 void MainWindow::on_drawFactoring_clicked()
 {
-    g = new GraphWindow(ui->factoringGraphicsView);
-    g->vSize = 600;
-    g->hSize = 600;
+    //generate data
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
     int count = ui->dataPointsSpinBox->text().toInt();
     std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
     std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
-    g->points = pts;
+
+    //draw points
+    g = new GraphWindow(ui->factoringGraphicsView, pts);
+    g->vSize = 600;
+    g->hSize = 600;
+
     if(ui->factorLogScaleCheckBox->isChecked()) {
-        g->logScale();
+        g->logScaleDraw();
+    } else {
+        g->draw();
     }
     g->addLabels("Milliseconds", "Number of digits");
-    g->draw();
+
     g->view->show();
 }
 
@@ -301,22 +306,26 @@ void MainWindow::on_plotCrackButton_clicked()
         break;}
     }
 
-    //begin graphing
-    g = new GraphWindow(ui->crackGraphicsView);
-    g->vSize = 600;
-    g->hSize = 600;
+
+
+    //generate data
     int beginChars = ui->charCountSpinBox_2->text().toInt();
     int count = ui->crackPointCountSpinBox->text().toInt();
-
     std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
     std::vector<std::string> digests = GenerateData::getHashes(strings, hashAlg);
     std::vector<QPointF> pts = GenerateData::crack(digests, c);
 
-    g->points = pts;
+    //begin graphing
+    g = new GraphWindow(ui->crackGraphicsView, pts);
+    g->vSize = 600;
+    g->hSize = 600;
+
     if(ui->hashLogScaleCheckBox->isChecked()) {
-        g->logScale();
+        g->logScaleDraw();
+    } else {
+        g->draw();
     }
     g->addLabels("Milliseconds", "Number of characters");
-    g->draw();
+
     g->view->show();
 }

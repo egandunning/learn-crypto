@@ -5,9 +5,16 @@
 #include <headers/md5.h>
 
 #include <iostream>
-GraphWindow::GraphWindow(QGraphicsView* graphicsView)
+GraphWindow::GraphWindow(QGraphicsView* graphicsView, std::vector<QPointF> pts)
 {
-    points = std::vector<QPointF>();
+    points = pts;
+    //We need to know the maximum y-value
+    maximumY = 0;
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).y() > maximumY) {
+            maximumY = points.at(i).y();
+        }
+    }
 
     //Set up graph GUI
     view = graphicsView;
@@ -31,22 +38,14 @@ void GraphWindow::draw() {
 
 
     //Add the tick marks to the line.
-    int xLimit = (int)points.at(points.size()-1).x();
-    //find largest y-value
-    double yLimit = 0;
-    for(unsigned int i = 0; i < points.size(); i++) {
-        if(points.at(i).y() > yLimit) {
-            yLimit = points.at(i).y();
-        }
-    }
-    addTicksY(vSize - 100, 10, (int)yLimit);
+    addTicksY(vSize - 100, 10, floor(maximumY));
 
     points = scalePoints(points);
 
     QPointF previous;
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = transform(*it);
-        std::cout << current.x() << "," << current.y() << std::endl;
+
         scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
         if(!previous.isNull()) {
             QPoint a((int)current.x(), (int)current.y());
@@ -57,15 +56,43 @@ void GraphWindow::draw() {
     }
 }
 
-void GraphWindow::logScale(int base) {
+void GraphWindow::logScaleDraw(int base) {
 
+    base = 2;
+
+    QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
+    QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
+    scene->addLine(yAxis);
+    scene->addLine(xAxis);
+
+    QPointF previous;
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = *it;
         if(current.y() > 0) {
             current.setY( log(current.y()) / log(base));
         }
-        *it = current;
+        current = transform(current);
+        scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
+        if(!previous.isNull()) {
+            QPoint a((int)current.x(), (int)current.y());
+            QPoint b((int)previous.x(), (int)previous.y());
+            scene->addLine(QLine(a,b));
+        }
+        previous = current;
     }
+
+    //find labels
+    int max = 1;
+    while(pow(base,max) < maximumY) {
+        max++;
+    }
+
+    std::vector<QString> yLabels;
+    //start at 1 because pow(x,0) = 1 is not helpful - or is it? need to play with this
+    for(int i = 1; i <= max; i++) {
+        yLabels.push_back(QString::number(pow(base, i)));
+    }
+    addTicksY(yLabels);
 }
 
 void GraphWindow::undoLogScale(int base) {
@@ -103,6 +130,23 @@ void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
     }
 }
 
+void GraphWindow::addTicksY(std::vector<QString> labels) {
+
+    int y = (vSize-100) / labels.size();
+
+    QFont font("Times", 8);
+
+    for(unsigned int i = 0; i < labels.size(); i++){
+        int pos = -i*y;
+        scene->addLine(QLine(QPoint(0, pos), QPoint(2, pos)));
+
+        QGraphicsTextItem *temp = scene->addText(labels.at(i), font);
+        temp->setPos(-16, pos + 10);
+        temp->setRotation(270);
+
+    }
+    std::cout << std::endl;
+}
 
 void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
 
@@ -121,7 +165,7 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
     QString stry = QString::fromStdString(ylabel);
     QGraphicsTextItem *txty = scene->addText(stry, QFont());
     txty->setPos(-30, -(yMax - (int)(5*ylabel.length()))/ 2);
-    std::cout << (-1*(yMax - 5*ylabel.length())/ 2) << std::endl;
+
     txty->setRotation(270);
 }
 
