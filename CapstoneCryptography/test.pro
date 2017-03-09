@@ -4,6 +4,7 @@
 
 QT += widgets testlib
 TEMPLATE = app
+CONFIG   += c++11
 TARGET = test
 CONFIG   += c++11
 INCLUDEPATH += .
@@ -19,6 +20,7 @@ HEADERS += headers/generateprimes.h\
     headers/bruteforcecrack.h \
     headers/dictionarycrack.h \
     headers/bruteforcefactor.h \
+    headers/buttonarray.h \
     headers/factor.h \
     headers/cipher.h \
     headers/mainwindow.h
@@ -36,6 +38,7 @@ SOURCES  += testcipher.cpp \
     src/factor.cpp \
     src/bruteforcefactor.cpp \
     src/cipher.cpp \
+    src/buttonarray.cpp \
     src/mainwindow.cpp
 
 

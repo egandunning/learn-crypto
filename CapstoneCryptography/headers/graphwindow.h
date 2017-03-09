@@ -15,19 +15,19 @@
 class GraphWindow
 {
 public:
-    GraphWindow(std::vector<QPointF>);
-
-
-private:
-    QFrame *ui;
-    QGraphicsView* view;
-    QGraphicsScene* scene;
+    GraphWindow(QGraphicsView*);
     std::vector<QPointF> points;
     int hSize;
     int vSize;
+    QGraphicsView* view;
+    QGraphicsScene* scene;
     void draw();
-    void addTicks(int yMax, int xMax, int ticksX, int ticksY, int xMaxValue, int yMaxValue);
-    void addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax);
+    void addTicksY(int yMax, int ticksY, int yValue);
+    void addLabels(std::string ylabel, std::string xlabel);
+    void logScale(int base = 10);
+    void undoLogScale(int base = 10);
+private:
+    QFrame *ui;
     QPointF transform(QPointF);
     std::vector<QPointF> scalePoints(std::vector<QPointF>);
 };

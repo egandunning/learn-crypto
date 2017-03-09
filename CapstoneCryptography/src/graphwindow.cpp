@@ -5,12 +5,12 @@
 #include <headers/md5.h>
 
 #include <iostream>
-GraphWindow::GraphWindow(std::vector<QPointF> pts)
+GraphWindow::GraphWindow(QGraphicsView* graphicsView)
 {
-    points = pts;
+    points = std::vector<QPointF>();
 
     //Set up graph GUI
-    view = new QGraphicsView();
+    view = graphicsView;
     scene = new QGraphicsScene();
 
     hSize = 600;
@@ -19,28 +19,9 @@ GraphWindow::GraphWindow(std::vector<QPointF> pts)
     scene->setSceneRect(0,0,hSize-50,-vSize+50); //I dont know why this works
     view->setScene(scene);
     view->resize(hSize,vSize);
-
-    //Draw points
-    GraphWindow::draw();
-
-    view->show();
 }
 
-
 void GraphWindow::draw() {
-
-    BruteForceFactor* bf = new BruteForceFactor();
-
-    Md5* md5 = new Md5();
-    std::string alphabet = " abcdefghijklmnopqrstuvwxyz";
-    BruteForceCrack* bc = new BruteForceCrack(md5, alphabet, 6);
-
-    std::vector<mpz_class> comps = GenerateData::composites(2, 7);
-    std::vector<std::string> words = GenerateData::plaintexts(1,5);
-    std::vector<std::string> digests = GenerateData::getHashes(words, md5);
-
-    points = GenerateData::factor(comps, bf);
-    //points = GenerateData::crack(digests, bc);
 
     QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
     QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
@@ -48,12 +29,15 @@ void GraphWindow::draw() {
     scene->addLine(xAxis);
 
     //Add the tick marks to the line.
-    addTicks(vSize - 100, hSize - 100, 10, 10, 100, 100);
-
-    //Adds the chosen labels
-    addLabels("Seconds", "Number of digits", vSize - 100, hSize - 100);
-    //addTitle("Factoring Semiprime Numbers");
-
+    int xLimit = (int)points.at(points.size()-1).x();
+    //find largest y-value
+    double yLimit = 0;
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).y() > yLimit) {
+            yLimit = points.at(i).y();
+        }
+    }
+    addTicksY(vSize - 100, 10, (int)yLimit);
 
     points = scalePoints(points);
 
@@ -69,55 +53,65 @@ void GraphWindow::draw() {
         }
         previous = current;
     }
-
 }
 
-void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY, int xMaxValue, int yMaxValue) {
+void GraphWindow::logScale(int base) {
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() > 0) {
+            current.setY( log(current.y()) / log(base));
+        }
+        *it = current;
+    }
+}
+
+void GraphWindow::undoLogScale(int base) {
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() != 0) {
+            current.setY( pow(base,current.y()) );
+        }
+        *it = current;
+    }
+}
+
+void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
+
 
     /*
-     * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
+     * addTicks takes in yMax as the maximum value of the y axis.
      * It also takes in the number of ticks that should appear on the the graph.
      *
      */
 
-
-    int y = yMax / ticksX ;
-    int x = xMax / ticksY ;
+    int y = yMax / ticksY;
 
     QFont font("Times", 8);
 
-    for(int i = 1; i<= ticksY; i++){
-        scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
 
-        if(i%2 == 0){
-            string number = std::to_string(yMaxValue / i);
+    int yIncrement = yValue / ticksY;
 
-            QString str = QString::fromStdString(number);
-            QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos(-16, (i* -y) -10);
-        }
-    }
+    for(int i = 0; i<= ticksY; i++){
+        scene->addLine(QLine(QPoint(0, -i*y), QPoint(2, -i*y)));
 
-    for(int i = 1; i<= ticksX; i++){
-        scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
-
-        if(i%2 == 0){
-            string number = std::to_string(xMaxValue % i);
-
-            QString str = QString::fromStdString(number);
-            QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos((i * x) -8, -5);
-        }
+        QGraphicsTextItem *temp = scene->addText(QString::number(i*yIncrement), font);
+        temp->setPos(-16, -i*y + 10);
+        temp->setRotation(270);
     }
 }
 
 
-void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax){
+void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
 
     /*
      * addLabels, adds two custom strings to label the y-axis and the x-axis on the graph.
      * Also include the maximum y value, and the maximum x value.
      */
+
+    int xMax = hSize - 100;
+    int yMax = vSize - 100;
 
     QString str = QString::fromStdString(xlabel);
     QGraphicsTextItem *txt = scene->addText(str, QFont());
@@ -130,20 +124,36 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, in
     txty->setRotation(270);
 }
 
+/**
+ * Make sure all points fit in the window, and draw the x axis labels.
+ * @brief GraphWindow::scalePoints
+ * @param points
+ * @return
+ */
 std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
 
     //Find point with highest value for x and y.
     // -Assume this point is the last in vector
 
+    QPointF maxY(0,0);
+    QPointF maxX(0,0);
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).x() > maxX.x()) {
+            maxX = points.at(i);
+        }
+        if(points.at(i).y() > maxY.y()) {
+            maxY = points.at(i);
+        }
+    }
+
     double scaleFactor = 1;
 
     //scale
-    QPointF last = points.at(points.size()-1);
     QPointF current;
 
     //scale down graph so the y's fit if neccesary
-    if(last.y() != (vSize-100) && last.y() != 0) {
-        scaleFactor = (vSize-100) / last.y();
+    if(maxY.y() != (vSize-100) && maxY.y() != 0) {
+        scaleFactor = (vSize-100) / maxY.y();
 
         for(unsigned int i = 0; i < points.size(); i++) {
             current = points.at(i);
@@ -155,14 +165,21 @@ std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
     }
 
     //scale down graph so the x's fit if neccesary
-    if(last.x() != (hSize-100) && last.x() != 0) {
-        scaleFactor = (hSize-100) / last.x();
+    if(maxX.x() != (hSize-100) && maxX.x() != 0) {
+        scaleFactor = (hSize-100) / maxX.x();
 
         for(unsigned int i = 0; i < points.size(); i++) {
             current = points.at(i);
-            current.setX(current.x() * scaleFactor);
-            //current.setY(current.y() * scaleFactor);
+            double tempX = current.x();
+            current.setX(tempX * scaleFactor);
             points.at(i) = current;
+
+            //draw x axis labels
+            scene->addLine(QLine(QPoint((int)current.x(), 0), QPoint((int)current.x(), -2)));
+
+            QGraphicsTextItem *temp = scene->addText(QString::number((int)tempX), QFont("times",8));
+            temp->setPos((int)current.x() - 5, -3);
+
         }
     }
 

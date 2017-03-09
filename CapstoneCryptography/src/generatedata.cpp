@@ -12,19 +12,36 @@ std::vector<mpz_class> GenerateData::composites(unsigned int startDigits, unsign
 
     std::vector<mpz_class> composites;
 
-    //startDigits must be at least 2.
-    if(startDigits < 2) {
+    //startDigits must be at least 3.
+    if(startDigits < 3) {
         std::cout << "in GenerateData::composites() - startDigits was set to ";
-        std::cout << startDigits << " but must be greater than 2. startDigits reassigned to 2";
+        std::cout << startDigits << " but must be greater than 3. startDigits reassigned to 3";
         std::cout << std::endl;
-        startDigits = 2;
+        startDigits = 3;
     }
-
+    startDigits++; // offset later subtraction
+    mpz_class composite = 0;
     for(unsigned int i = 0; i < count; i++) {
-        //to get a composite number with n digits, each factor can have n-1 digits
-        mpz_class prime1 = GeneratePrimes::randomPrime(startDigits - 1);
-        mpz_class prime2 = GeneratePrimes::randomPrime(startDigits - 1);
-        composites.push_back(prime1 * prime2);
+
+
+        //to get a composite number with n digits, the factors can have x,y digits where n=x+y+1
+        while(composite.get_str().length() != startDigits-1) {
+            std::cout << composite.get_str().length() << " " << startDigits << std::endl;
+            int digitCount1;
+            int digitCount2;
+            //startDigits odd
+            if(startDigits % 2 == 1) {
+                digitCount1 = (startDigits - 1)/2;
+                digitCount2 = digitCount1;
+            } else { //startDigits even
+                digitCount1 = startDigits/2;
+                digitCount2 = digitCount1 - 1;
+            }
+            mpz_class prime1 = GeneratePrimes::randomPrime(digitCount1);
+            mpz_class prime2 = GeneratePrimes::randomPrime(digitCount2);
+            composite = prime1 * prime2;
+        }
+        composites.push_back(composite);
 
         //increment number of digits
         startDigits++;

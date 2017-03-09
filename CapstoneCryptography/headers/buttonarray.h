@@ -7,16 +7,20 @@
 #include <QWidget>
 #include <QVector>
 #include <QString>
+#include <QObject>
 
-class ButtonArray{
+class ButtonArray: public QObject{
+
+   // Q_OBJECT
 
 private:
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
+    QWidget *parent;
 
 public:
     ButtonArray(QString, QWidget*);
-    QString makeGuess(char);
+    QString makeGuess(QChar);
     QPushButton* get(int);
 
 public slots:

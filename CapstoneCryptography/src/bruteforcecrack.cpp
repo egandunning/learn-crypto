@@ -35,7 +35,7 @@ QPointF BruteForceCrack::reverse() {
     //watch out for overflow errors here
     unsigned long n = (unsigned long)pow(range, charCount);
     if(n == 0) {
-        std::cout << "Overflow error! Setting n to max value" << std::endl;
+        std::cout << "Avoiding overflow error! Setting n to max value: " << std::numeric_limits<unsigned long>::max() << std::endl;
         n = std::numeric_limits<unsigned long>::max();
     }
     QElapsedTimer timer;
@@ -49,7 +49,6 @@ QPointF BruteForceCrack::reverse() {
 
         if(digest.compare(hashType->digest) == 0) {
             plaintext = plaintextGuess;
-            std::cout << digest << std::endl;
             elapsed = timer.elapsed();
             return QPointF(plaintext.length(), elapsed);
         }
@@ -81,3 +80,6 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned long num, unsigned int base
     return std::string(result.rbegin(), result.rend()); //reverse string
 }
 
+void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, unsigned int cap) {
+    std::cout << "Incorrect usage of crack class. This method is for DictionaryCrack." << std::endl;
+}

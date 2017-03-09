@@ -15,6 +15,8 @@
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>
+#include <headers/graphwindow.h>
+#include <headers/generatedata.h>
 
 namespace Ui {
 class MainWindow;
@@ -29,8 +31,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_GPUCheckBox_clicked();
-
     void on_factorPrimesButton_clicked();
 
     void on_pushButton_clicked();
@@ -47,13 +47,19 @@ private slots:
 
     void on_crackButton_clicked();
 
+    void on_drawFactoring_clicked();
+
+    void on_plotCrackButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
     Hash *hashAlg;
     QString digest;
+    GraphWindow* g;
 
     std::string bruteForceAlphabet();
+    void dictionaryOptions(Crack *);
 };
 
 #endif // MAINWINDOW_H

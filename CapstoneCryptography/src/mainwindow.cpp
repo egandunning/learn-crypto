@@ -21,11 +21,6 @@ MainWindow::~MainWindow()
     //delete hashAlg;
 }
 
-void MainWindow::on_GPUCheckBox_clicked()
-{
-
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
@@ -175,6 +170,8 @@ void MainWindow::on_crackButton_clicked()
     //reset label text
     ui->crackTimeLabel->setText("Time: ");
     ui->crackTimeLabel->repaint();
+    ui->crackedField->setText("");
+    ui->crackedField->repaint();
 
     QElapsedTimer timer;
     long elapsed;
@@ -193,6 +190,7 @@ void MainWindow::on_crackButton_clicked()
 
     case 1:
         {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
+        dictionaryOptions(c);
         break;}
     }
 
@@ -201,11 +199,11 @@ void MainWindow::on_crackButton_clicked()
     timer.start();
     c->reverse();
     success = c->getPlaintext().length();
-    std::cout << c->plaintext << std::endl;
     elapsed = timer.elapsed();
 
+    //if
     if(success) {
-        ui->crackedField->setText(QString::fromStdString(c->plaintext));
+        ui->crackedField->setText(c->getPlaintext());
     } else {
         ui->crackedField->setText("\"Uncrackable!!\"");
     }
@@ -216,7 +214,7 @@ void MainWindow::on_crackButton_clicked()
 
 std::string MainWindow::bruteForceAlphabet() {
 
-    std::string alph = " ";
+    std::string alph = " ";//weird bug "fix"
 
     if(ui->customCheckBox->isChecked()) {
         return ui->alphabetField->text().toStdString();
@@ -236,4 +234,89 @@ std::string MainWindow::bruteForceAlphabet() {
     return alph;
 }
 
+void MainWindow::dictionaryOptions(Crack* d) {
 
+    unsigned int numWords = ui->wordCountSpinBox->text().toInt();
+    unsigned int appendedDigits = 0;
+    if(ui->appendCheckBox->isChecked()) {
+        appendedDigits = ui->digitCountSpinBox->text().toInt();
+    }
+    unsigned int prependedDigits = 0;
+    if(ui->prependCheckBox->isChecked()) {
+        prependedDigits = ui->digitCountSpinBox->text().toInt();
+    }
+    unsigned int symbols = 0;
+    unsigned int cap = false;
+
+    d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap);
+}
+
+void MainWindow::on_drawFactoring_clicked()
+{
+    g = new GraphWindow(ui->factoringGraphicsView);
+    g->vSize = 600;
+    g->hSize = 600;
+    int beginDigits = ui->startDigitsSpinBox->text().toInt();
+    int count = ui->dataPointsSpinBox->text().toInt();
+    std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
+    std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
+    g->points = pts;
+    if(ui->factorLogScaleCheckBox->isChecked()) {
+        g->logScale();
+    }
+    g->addLabels("Milliseconds", "Number of digits");
+    g->draw();
+    g->view->show();
+}
+
+void MainWindow::on_plotCrackButton_clicked()
+{
+    //grab hashing and cracking algorithms
+
+    switch(ui->hashComboBox->currentIndex()) {
+    case 0:
+        hashAlg = new Md5();
+        break;
+    case 1:
+        hashAlg = new Sha512();
+        break;
+    case 2:
+        hashAlg = new Pbkdf2();
+        break;
+    }
+
+    Crack* c;
+    if(hashAlg == NULL) {
+        return;
+    }
+
+    switch(ui->crackComboBox->currentIndex()) {
+    case 0:
+        {int maxLength = ui->charCountSpinBox->text().toInt();
+        c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
+        break;}
+
+    case 1:
+        {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
+        break;}
+    }
+
+    //begin graphing
+    g = new GraphWindow(ui->crackGraphicsView);
+    g->vSize = 600;
+    g->hSize = 600;
+    int beginChars = ui->charCountSpinBox_2->text().toInt();
+    int count = ui->crackPointCountSpinBox->text().toInt();
+
+    std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
+    std::vector<std::string> digests = GenerateData::getHashes(strings, hashAlg);
+    std::vector<QPointF> pts = GenerateData::crack(digests, c);
+
+    g->points = pts;
+    if(ui->hashLogScaleCheckBox->isChecked()) {
+        g->logScale();
+    }
+    g->addLabels("Milliseconds", "Number of characters");
+    g->draw();
+    g->view->show();
+}
