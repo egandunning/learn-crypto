@@ -39,7 +39,7 @@ void GraphWindow::draw() {
             yLimit = points.at(i).y();
         }
     }
-    addTicks(vSize - 100, hSize - 100, 10, 10, xLimit, (int)yLimit);
+    addTicksY(vSize - 100, 10, (int)yLimit);
 
     points = scalePoints(points);
 
@@ -79,20 +79,18 @@ void GraphWindow::undoLogScale(int base) {
     }
 }
 
-void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY, int xValue, int yValue) {
+void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
 
     /*
-     * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
+     * addTicks takes in yMax as the maximum value of the y axis.
      * It also takes in the number of ticks that should appear on the the graph.
      *
      */
 
     int y = yMax / ticksY;
-    int x = xMax / ticksX;
 
     QFont font("Times", 8);
 
-    int xIncrement = xValue / ticksX;
     int yIncrement = yValue / ticksY;
 
     for(int i = 0; i<= ticksY; i++){
@@ -103,14 +101,6 @@ void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY, int xValu
         temp->setRotation(270);
 
     }
-
-    /*for(int i = 0; i<= xValue; i++){
-        scene->addLine(QLine(QPoint(i*x, 0), QPoint(i*x, -2)));
-
-        QGraphicsTextItem *temp = scene->addText(QString::number(i*xIncrement), font);
-        temp->setPos(i*x - 5, -5);
-
-    }*/
 }
 
 
@@ -135,6 +125,12 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
     txty->setRotation(270);
 }
 
+/**
+ * Make sure all points fit in the window, and draw the x axis labels.
+ * @brief GraphWindow::scalePoints
+ * @param points
+ * @return
+ */
 std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
 
     //Find point with highest value for x and y.
@@ -179,7 +175,7 @@ std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
             current.setX(tempX * scaleFactor);
             points.at(i) = current;
 
-
+            //draw x axis labels
             scene->addLine(QLine(QPoint((int)current.x(), 0), QPoint((int)current.x(), -2)));
 
             QGraphicsTextItem *temp = scene->addText(QString::number((int)tempX), QFont("times",8));

@@ -22,7 +22,7 @@ public:
     QGraphicsView* view;
     QGraphicsScene* scene;
     void draw();
-    void addTicks(int yMax, int xMax, int ticksX, int ticksY, int xValue, int yValue);
+    void addTicksY(int yMax, int ticksY, int yValue);
     void addLabels(std::string ylabel, std::string xlabel);
     void logScale(int base = 10);
     void undoLogScale(int base = 10);
