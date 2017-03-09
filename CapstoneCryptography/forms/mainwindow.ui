@@ -579,6 +579,9 @@
             </item>
             <item>
              <widget class="QSpinBox" name="dataPointsSpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
               <property name="value">
                <number>10</number>
               </property>
@@ -597,8 +600,11 @@
             </item>
             <item>
              <widget class="QSpinBox" name="startDigitsSpinBox">
+              <property name="minimum">
+               <number>3</number>
+              </property>
               <property name="value">
-               <number>2</number>
+               <number>3</number>
               </property>
              </widget>
             </item>
@@ -643,7 +649,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>27</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
