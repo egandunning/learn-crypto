@@ -5,6 +5,7 @@
 QT += widgets testlib
 TEMPLATE = app
 TARGET = test
+CONFIG   += c++11
 INCLUDEPATH += .
 
 # Input

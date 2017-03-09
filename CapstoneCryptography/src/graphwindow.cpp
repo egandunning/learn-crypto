@@ -48,7 +48,7 @@ void GraphWindow::draw() {
     scene->addLine(xAxis);
 
     //Add the tick marks to the line.
-    addTicks(vSize - 100, hSize - 100, 10, 10);
+    addTicks(vSize - 100, hSize - 100, 10, 10, 100, 100);
 
     //Adds the chosen labels
     addLabels("Seconds", "Number of digits", vSize - 100, hSize - 100);
@@ -72,7 +72,7 @@ void GraphWindow::draw() {
 
 }
 
-void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
+void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY, int xMaxValue, int yMaxValue) {
 
     /*
      * addTicks takes in yMax, and xMax as the maximum value of the y and x axises.
@@ -90,11 +90,11 @@ void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
         scene->addLine(QLine(QPoint(0, i * -y), QPoint(2, i * -y)));
 
         if(i%2 == 0){
-            string number = std::to_string(i);
+            string number = std::to_string(yMaxValue / i);
 
             QString str = QString::fromStdString(number);
             QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos(-16, (i* -y) - 3);
+            temp->setPos(-16, (i* -y) -10);
         }
     }
 
@@ -102,11 +102,11 @@ void GraphWindow::addTicks(int yMax, int xMax, int ticksX, int ticksY) {
         scene->addLine(QLine(QPoint(i * x, 0), QPoint(i * x, -2)));
 
         if(i%2 == 0){
-            string number = std::to_string(i);
+            string number = std::to_string(xMaxValue % i);
 
             QString str = QString::fromStdString(number);
             QGraphicsTextItem *temp = scene->addText(str, font);
-            temp->setPos(i * x, -5);
+            temp->setPos((i * x) -8, -5);
         }
     }
 }
@@ -121,7 +121,7 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel, int yMax, in
 
     QString str = QString::fromStdString(xlabel);
     QGraphicsTextItem *txt = scene->addText(str, QFont());
-    txt->setPos((xMax - 5*xlabel.length()) /2, 0);
+    txt->setPos((xMax - 5*xlabel.length()) /2, 5);
 
     QString stry = QString::fromStdString(ylabel);
     QGraphicsTextItem *txty = scene->addText(stry, QFont());

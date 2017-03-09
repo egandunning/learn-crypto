@@ -26,7 +26,7 @@ private:
     int hSize;
     int vSize;
     void draw();
-    void addTicks(int yMax, int xMax, int ticksX, int ticksY);
+    void addTicks(int yMax, int xMax, int ticksX, int ticksY, int xMaxValue, int yMaxValue);
     void addLabels(std::string ylabel, std::string xlabel, int yMax, int xMax);
     QPointF transform(QPointF);
     std::vector<QPointF> scalePoints(std::vector<QPointF>);
