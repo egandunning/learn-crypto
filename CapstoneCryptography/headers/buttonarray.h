@@ -9,22 +9,22 @@
 #include <QString>
 #include <QObject>
 
-class ButtonArray: public QObject{
+class ButtonArray : public QObject{
 
-   // Q_OBJECT
-
-private:
-    QVector<QPushButton *> buttonPointerVector;
-    QString scrambledWord;
-    QWidget *parent;
+   Q_OBJECT
 
 public:
     ButtonArray(QString, QWidget*);
     QString makeGuess(QChar);
     QPushButton* get(int);
 
-public slots:
+private slots:
     void show_input_box();
+
+private:
+    QVector<QPushButton *> buttonPointerVector;
+    QString scrambledWord;
+    QWidget *parent;
 };
 
 #endif // BUTTONARRAY_H
