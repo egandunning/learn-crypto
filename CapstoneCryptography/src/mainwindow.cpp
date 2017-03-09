@@ -44,10 +44,10 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    QString temp = ui->textEdit->toPlainText();
+   /* QString temp = ui->textEdit->toPlainText();
     std::string send = temp.toStdString();
 
-    bool win = agame->sendCurrentGuess(send);
+    bool win = agame->sendCurrentGuess(send); */
 
     /*
     //Debugging stuffs
@@ -55,18 +55,18 @@ void MainWindow::on_pushButton_2_clicked()
     std::cout<<temp.toStdString()<<std::endl;
     std::cout<<agame->d_message<<std::endl;
     */
-
+/*
     if(win){
         //Call a victory condition here. Something nice.
         QMessageBox winningMessage;
         winningMessage.setText("You won! Yay!                                               ");
         winningMessage.exec();
-        ui->textEdit->setText("You won! yay!");
+        //ui->textEdit->setText("You won! yay!");
     }
     else{
         QString t = QString::fromStdString(agame->currentGuess);
-        ui->textEdit->setText(t);
-    }
+        //ui->textEdit->setText(t);
+    } */
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -75,7 +75,7 @@ void MainWindow::on_pushButton_3_clicked()
     QMessageBox winningMessage;
     winningMessage.setText("Here's a hint: There are no hints                                               ");
     winningMessage.exec();
-    ui->textEdit->setText("Here's a hint: There are no hints");
+   // ui->textEdit->setText("Here's a hint: There are no hints");
 }
 
 void MainWindow::on_factorPrimesButton_clicked()
