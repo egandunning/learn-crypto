@@ -111,14 +111,8 @@ std::vector<QPointF> GenerateData::crack(std::vector<std::string> strings, Crack
         return points;
     }
 
-    /*for(std::vector<std::string>::iterator it = strings.begin(); it != strings.end(); it++) {
-        alg->digest = *it;
-        points.push_back(alg->reverse());
-    }*/
-
     for(unsigned int i = 0; i < strings.size(); i++) {
         alg->digest = strings.at(i);
-        std::cout << "in generatedata::crack()" << std::endl;
         points.push_back(alg->reverse());
     }
 

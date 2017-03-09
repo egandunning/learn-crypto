@@ -58,19 +58,45 @@ void GraphWindow::draw() {
 
 void GraphWindow::logScaleDraw(int base) {
 
-    base = 2;
+    //find labels
+    int max = 1;
+    while(pow(base,max) <= maximumY) {
+        max++;
+    }
 
+    std::vector<QString> yLabels;
+    //add 0,0
+    yLabels.push_back(QString::number(0));
+    for(int i = 0; i < max; i++) {
+        yLabels.push_back(QString::number(pow(base, i)));
+    }
+    addTicksY(yLabels);
+
+    //log transform
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() > 0) {
+            current.setY( log(current.y()) / log(base));
+            *it = current;
+        } else {
+            std::cout << "log(" << current.y() << ") is undefined! Skipping log transform for this point." << std::endl;
+        }
+    }
+
+    //scale points
+    points = scalePoints(points);
+
+    //draw x and y axes
     QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
     QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
     scene->addLine(yAxis);
     scene->addLine(xAxis);
 
+    //draw points
     QPointF previous;
     for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
         QPointF current = *it;
-        if(current.y() > 0) {
-            current.setY( log(current.y()) / log(base));
-        }
+
         current = transform(current);
         scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
         if(!previous.isNull()) {
@@ -81,18 +107,7 @@ void GraphWindow::logScaleDraw(int base) {
         previous = current;
     }
 
-    //find labels
-    int max = 1;
-    while(pow(base,max) < maximumY) {
-        max++;
-    }
 
-    std::vector<QString> yLabels;
-    //start at 1 because pow(x,0) = 1 is not helpful - or is it? need to play with this
-    for(int i = 1; i <= max; i++) {
-        yLabels.push_back(QString::number(pow(base, i)));
-    }
-    addTicksY(yLabels);
 }
 
 void GraphWindow::undoLogScale(int base) {
@@ -132,7 +147,12 @@ void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
 
 void GraphWindow::addTicksY(std::vector<QString> labels) {
 
-    int y = (vSize-100) / labels.size();
+    double scaleFactor = (labels.back().toInt())/maximumY;
+    std::cout << labels.back().toInt() << std::endl;
+    std::cout << maximumY << std::endl;
+    std::cout << scaleFactor << std::endl;
+
+    int y = (int)((vSize-100)*scaleFactor);
 
     QFont font("Times", 8);
 
