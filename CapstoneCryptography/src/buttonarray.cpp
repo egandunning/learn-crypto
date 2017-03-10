@@ -37,10 +37,10 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
 QString ButtonArray::makeGuess(QString guess){
     //Make QString size one
-    qGuess.resize(1);
+    guess.resize(1);
     for(int i=0; i<scrambledWord.length(); i++){
         if(buttonPointerVector.at(i)->text().at(0) == guess){
-           buttonPointerVector.at(i)->setText(qGuess);
+           buttonPointerVector.at(i)->setText(guess);
         }
     }
     return "";
