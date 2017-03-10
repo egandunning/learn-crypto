@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QLineEdit>
 #include <QObject>
+#include <QMessageBox>
 
 
 ButtonArray::ButtonArray(QString qS, QWidget* ui){
@@ -60,7 +61,17 @@ void ButtonArray::show_input_box(){
     QString letter = QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QLineEdit::Normal, QString::fromStdString(defaultGuess), &changed);
 
     if(changed && !letter.isEmpty()){
-
+        //Make QString size one
+        letter.resize(1);
+        for(int i=0; i<scrambledWord.length(); i++){
+            if(buttonPointerVector.at(i)->text().at(0) == letter){
+                QMessageBox invalidEntry;
+                //Note: there are tabs in the QString in the next sentence
+                invalidEntry.setText("You have already used this letter: " + letter);
+                invalidEntry.exec();
+                return;
+            }
+        }
     }
 }
 

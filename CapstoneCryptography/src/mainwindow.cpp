@@ -73,7 +73,8 @@ void MainWindow::on_pushButton_3_clicked()
 {
     //Somehow give a hint to the player.
     QMessageBox winningMessage;
-    winningMessage.setText("Here's a hint: There are no hints                                               ");
+    //Note: there are tabs in the QString in the next sentence
+    winningMessage.setText("Here's a hint: There are no hints                                             ");
     winningMessage.exec();
    // ui->textEdit->setText("Here's a hint: There are no hints");
 }
