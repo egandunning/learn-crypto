@@ -15,13 +15,13 @@ class ButtonArray : public QObject{
 
 public:
     ButtonArray(QString, QWidget*);
-    QString makeGuess(QChar);
     QPushButton* get(int);
 
 private slots:
     void show_input_box();
 
 private:
+    QString makeGuess(QString);
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
     QWidget *parent;
