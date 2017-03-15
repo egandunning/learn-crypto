@@ -46,8 +46,9 @@ public:
     QPushButton *pushButton_3;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QLabel *label;
     QHBoxLayout *layoutForButtons;
+    QGridLayout *gridLayout_5;
+    QLabel *label;
     QWidget *tab_3;
     QGridLayout *gridLayout_4;
     QLabel *label_2;
@@ -144,28 +145,34 @@ public:
         pushButton_3 = new QPushButton(gameTab);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
 
-        gridLayout_3->addWidget(pushButton_3, 3, 2, 1, 1);
+        gridLayout_3->addWidget(pushButton_3, 4, 2, 1, 1);
 
         pushButton = new QPushButton(gameTab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
-        gridLayout_3->addWidget(pushButton, 3, 0, 1, 1);
+        gridLayout_3->addWidget(pushButton, 4, 0, 1, 1);
 
         pushButton_2 = new QPushButton(gameTab);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
 
-        gridLayout_3->addWidget(pushButton_2, 3, 1, 1, 1);
-
-        label = new QLabel(gameTab);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout_3->addWidget(label, 0, 0, 1, 3);
+        gridLayout_3->addWidget(pushButton_2, 4, 1, 1, 1);
 
         layoutForButtons = new QHBoxLayout();
         layoutForButtons->setSpacing(6);
         layoutForButtons->setObjectName(QStringLiteral("layoutForButtons"));
 
-        gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 3);
+        gridLayout_3->addLayout(layoutForButtons, 2, 0, 2, 3);
+
+        gridLayout_5 = new QGridLayout();
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
+        label = new QLabel(gameTab);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout_5->addWidget(label, 0, 0, 1, 1);
+
+
+        gridLayout_3->addLayout(gridLayout_5, 1, 0, 1, 3);
 
         tabWidget->addTab(gameTab, QString());
         tab_3 = new QWidget();
@@ -491,7 +498,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1014, 25));
+        menuBar->setGeometry(QRect(0, 0, 1014, 27));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
