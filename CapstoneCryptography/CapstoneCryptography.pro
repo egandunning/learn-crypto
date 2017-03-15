@@ -33,7 +33,8 @@ SOURCES += src/main.cpp\
     src/buttonarray.cpp \
     src/graphwindow.cpp \
     src/graphing.cpp \
-	src/generatedata.cpp
+	src/generatedata.cpp \
+    src/labelarray.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -52,7 +53,8 @@ HEADERS  += headers/mainwindow.h\
 	headers/generatedata.h \
     headers/cipher.h \
     headers/buttonarray.h \
-    headers/graphing.h
+    headers/graphing.h \
+    headers/labelarray.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

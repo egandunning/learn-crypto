@@ -5,6 +5,7 @@
 #include <QLayoutItem>
 #include <QMessageBox>
 #include "headers/buttonarray.h"
+#include "headers/labelarray.h"
 
 #include "iostream" //for debugging
 
