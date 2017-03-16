@@ -27,7 +27,6 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         QPushButton *p = new QPushButton(qSTemp, ui);
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
-//fix this
         //Object, then related signal, object, then related slot
         connect(p, SIGNAL(clicked(bool)), this, SLOT(show_input_box()));
         //Add pointer p to the QVector
@@ -36,11 +35,12 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
 }
 
-QString ButtonArray::makeGuess(QString guess){
+QString ButtonArray::makeGuess(QString original, QString guess){
     //Make QString size one
+    original.resize(1);
     guess.resize(1);
     for(int i=0; i<scrambledWord.length(); i++){
-        if(buttonPointerVector.at(i)->text().at(0) == guess){
+        if(buttonPointerVector.at(i)->text().at(0) == original){
            buttonPointerVector.at(i)->setText(guess);
         }
     }
@@ -65,13 +65,12 @@ void ButtonArray::show_input_box(){
         for(int i=0; i<scrambledWord.length(); i++){
             if(buttonPointerVector.at(i)->text().at(0) == letter){
                 QMessageBox invalidEntry;
-                //Note: there are tabs in the QString in the next sentence
                 invalidEntry.setText("You have already used this letter: " + letter);
                 invalidEntry.exec();
                 return;
             }
         }
-        ButtonArray::makeGuess(letter);
+        ButtonArray::makeGuess(buttonPointerVector.at(1)->text(), letter);
     }
 }
 

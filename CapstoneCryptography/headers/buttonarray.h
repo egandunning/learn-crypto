@@ -21,7 +21,7 @@ private slots:
     void show_input_box();
 
 private:
-    QString makeGuess(QString);
+    QString makeGuess(QString, QString);
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
     QWidget *parent;
