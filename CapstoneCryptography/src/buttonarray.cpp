@@ -64,7 +64,7 @@ void ButtonArray::show_input_box(int index){
     std::string defaultGuess = " ";
     QString letter = QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QLineEdit::Normal, QString::fromStdString(defaultGuess), &changed);
 
-    if(changed && !letter.isEmpty()){
+    if(changed && !letter.isEmpty() && letter.at(0).isLetter()){
         //Make QString size one
         letter.resize(1);
         for(int i=0; i<scrambledWord.length(); i++){
