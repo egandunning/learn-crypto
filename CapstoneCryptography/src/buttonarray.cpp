@@ -22,7 +22,7 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
-        QString qSTemp = QChar(qS.at(i));
+        QString qSTemp = " ";//QChar(qS.at(i));
         //Make QString size one
         qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
@@ -45,7 +45,7 @@ QString ButtonArray::makeGuess(QString original, QString guess){
     original.resize(1);
     guess.resize(1);
     for(int i=0; i<scrambledWord.length(); i++){
-        if(buttonPointerVector.at(i)->text().at(0) == original){
+        if(scrambledWord.at(i) == original){
            buttonPointerVector.at(i)->setText(guess);
         }
     }
@@ -75,7 +75,7 @@ void ButtonArray::show_input_box(int index){
                 return;
             }
         }
-        ButtonArray::makeGuess(buttonPointerVector.at(index)->text(), letter);
+        ButtonArray::makeGuess(QString(scrambledWord.at(index)), letter);
     }
 }
 
