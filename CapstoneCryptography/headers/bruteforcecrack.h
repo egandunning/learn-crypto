@@ -25,6 +25,9 @@ public:
     void addToAlphabet(std::string);
     void createAlphabet(int, int);
 
+    QPointF bruteLoopRunBig();
+    QPointF bruteLoopRunSmall();
+
     std::string alphabet;
     int charCount;
 };

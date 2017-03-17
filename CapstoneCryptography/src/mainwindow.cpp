@@ -4,6 +4,8 @@
 #include "QPushButton"
 #include <QLayoutItem>
 #include <QMessageBox>
+#include <QtConcurrent/QtConcurrent>
+#include <QFuture>
 #include "headers/buttonarray.h"
 
 #include "iostream" //for debugging

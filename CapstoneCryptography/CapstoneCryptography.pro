@@ -5,7 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui\
-        testlib
+        testlib \
+        concurrent
 
 CONFIG   += c++11
 
