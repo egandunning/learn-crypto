@@ -20,21 +20,37 @@ public:
     int hSize;
     int vSize;
 
-    double maximumY;
+    double xLimit;
+    double yLimit;
+    double yLogLimit;
+
+    double logMax;
+    std::vector<QString> logLabelsY;
+    std::vector<QString> labelsY;
+    std::vector<QString> labelsX;
+
+    QPointF maximum;
 
     QGraphicsView* view;
     QGraphicsScene* scene;
+
     void draw();
-    void addTicksY(int yMax, int ticksY, int yValue);
     void addTicksY(std::vector<QString>);
+    void addTicksX(std::vector<QString>);
     void addLabels(std::string ylabel, std::string xlabel);
-    void logScaleDraw(int base = 10);
-    void undoLogScale(int base = 10);
+    void logScaleDraw();
+
 private:
     std::vector<QPointF> points;
     QFrame *ui;
-    QPointF transform(QPointF);
-    std::vector<QPointF> scalePoints(std::vector<QPointF>);
+    QPoint transform(QPointF);
+    std::vector<QPointF> getScaledPoints(std::vector<QPointF>, double);
+    std::vector<QPointF> getLogPoints();
+    void setMaxPoint();
+    void setLimits();
+    void setLabelsX();
+    void setLabelsY(unsigned int count = 10);
+    void setLogLabelsY();
 };
 
 #endif // GRAPHWINDOW_H
