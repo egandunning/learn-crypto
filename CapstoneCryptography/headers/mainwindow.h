@@ -61,7 +61,8 @@ private:
     Hash *hashAlg;
     QString digest;
     QString guessedWord;
-    GraphWindow* g;
+    GraphWindow* fg; //for factoring
+    GraphWindow* cg; //for hash cracking
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;

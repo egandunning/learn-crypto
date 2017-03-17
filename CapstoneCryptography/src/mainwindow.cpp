@@ -111,6 +111,8 @@ void MainWindow::on_factorPrimesButton_clicked()
         break;
     case 1:
         //Quadratic sieve here
+        std::cout<<"Quadratic sieve feature is in progress!"<<std::endl;
+        return;
         break;
     }
 
@@ -275,18 +277,18 @@ void MainWindow::on_drawFactoring_clicked()
     factorDataPoints = GenerateData::factor(comps, new BruteForceFactor);
 
     //draw points
-    g = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
-    g->vSize = 600;
-    g->hSize = 600;
+    fg = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
+    fg->vSize = 600;
+    fg->hSize = 600;
 
     if(ui->factorLogScaleCheckBox->isChecked()) {
-        g->logScaleDraw();
+        fg->logScaleDraw();
     } else {
-        g->draw();
+        fg->draw();
     }
-    g->addLabels("Milliseconds", "Number of digits");
+    fg->addLabels("Milliseconds", "Number of digits");
 
-    g->view->show();
+    fg->view->show();
 }
 
 void MainWindow::on_plotCrackButton_clicked()
@@ -331,23 +333,23 @@ void MainWindow::on_plotCrackButton_clicked()
     crackDataPoints = GenerateData::crack(digests, c);
 
     //begin graphing
-    g = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
-    g->vSize = 600;
-    g->hSize = 600;
+    cg = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
+    cg->vSize = 600;
+    cg->hSize = 600;
 
     if(ui->hashLogScaleCheckBox->isChecked()) {
-        g->logScaleDraw();
+        cg->logScaleDraw();
     } else {
-        g->draw();
+        cg->draw();
     }
-    g->addLabels("Milliseconds", "Number of characters");
+    cg->addLabels("Milliseconds", "Number of characters");
 
-    g->view->show();
+    cg->view->show();
 }
 
 void MainWindow::on_hashLogScaleCheckBox_clicked()
 {
-    if(g == NULL) {
+    if(cg == NULL) {
         std::cout << "graphwindow object not initialized. No action to take." << std::endl;
         return;
     }
@@ -356,24 +358,24 @@ void MainWindow::on_hashLogScaleCheckBox_clicked()
         return;
     }
 
-    g = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
-    g->vSize = 600;
-    g->hSize = 600;
+    cg = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
+    cg->vSize = 600;
+    cg->hSize = 600;
 
     if(ui->hashLogScaleCheckBox->isChecked()) {
-        g->logScaleDraw();
+        cg->logScaleDraw();
     } else {
-        g->draw();
+        cg->draw();
     }
-    g->addLabels("Milliseconds", "Number of characters");
+    cg->addLabels("Milliseconds", "Number of characters");
 
-    g->view->show();
+    cg->view->show();
 
 }
 
 void MainWindow::on_factorLogScaleCheckBox_clicked()
 {
-    if(g == NULL) {
+    if(fg == NULL) {
         std::cout << "graphwindow object not initialized. No action to take." << std::endl;
         return;
     }
@@ -382,16 +384,16 @@ void MainWindow::on_factorLogScaleCheckBox_clicked()
         return;
     }
 
-    g = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
-    g->vSize = 600;
-    g->hSize = 600;
+    fg = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
+    fg->vSize = 600;
+    fg->hSize = 600;
 
     if(ui->factorLogScaleCheckBox->isChecked()) {
-        g->logScaleDraw();
+        fg->logScaleDraw();
     } else {
-        g->draw();
+        fg->draw();
     }
-    g->addLabels("Milliseconds", "Number of characters");
+    fg->addLabels("Milliseconds", "Number of characters");
 
-    g->view->show();
+    fg->view->show();
 }
