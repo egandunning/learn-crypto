@@ -51,6 +51,10 @@ private slots:
 
     void on_plotCrackButton_clicked();
 
+    void on_hashLogScaleCheckBox_clicked();
+
+    void on_factorLogScaleCheckBox_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
@@ -58,6 +62,9 @@ private:
     QString digest;
     QString guessedWord;
     GraphWindow* g;
+
+    std::vector<QPointF> crackDataPoints;
+    std::vector<QPointF> factorDataPoints;
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);

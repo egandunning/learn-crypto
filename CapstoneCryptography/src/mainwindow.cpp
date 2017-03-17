@@ -272,10 +272,10 @@ void MainWindow::on_drawFactoring_clicked()
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
     int count = ui->dataPointsSpinBox->text().toInt();
     std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
-    std::vector<QPointF> pts = GenerateData::factor(comps, new BruteForceFactor);
+    factorDataPoints = GenerateData::factor(comps, new BruteForceFactor);
 
     //draw points
-    g = new GraphWindow(ui->factoringGraphicsView, pts);
+    g = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
     g->vSize = 600;
     g->hSize = 600;
 
@@ -328,14 +328,65 @@ void MainWindow::on_plotCrackButton_clicked()
     int count = ui->crackPointCountSpinBox->text().toInt();
     std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
     std::vector<std::string> digests = GenerateData::getHashes(strings, hashAlg);
-    std::vector<QPointF> pts = GenerateData::crack(digests, c);
+    crackDataPoints = GenerateData::crack(digests, c);
 
     //begin graphing
-    g = new GraphWindow(ui->crackGraphicsView, pts);
+    g = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
     g->vSize = 600;
     g->hSize = 600;
 
     if(ui->hashLogScaleCheckBox->isChecked()) {
+        g->logScaleDraw();
+    } else {
+        g->draw();
+    }
+    g->addLabels("Milliseconds", "Number of characters");
+
+    g->view->show();
+}
+
+void MainWindow::on_hashLogScaleCheckBox_clicked()
+{
+    if(g == NULL) {
+        std::cout << "graphwindow object not initialized. No action to take." << std::endl;
+        return;
+    }
+    if(crackDataPoints.size() == 0) {
+        std::cout << "No points to graph." << std::endl;
+        return;
+    }
+
+    g = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
+    g->vSize = 600;
+    g->hSize = 600;
+
+    if(ui->hashLogScaleCheckBox->isChecked()) {
+        g->logScaleDraw();
+    } else {
+        g->draw();
+    }
+    g->addLabels("Milliseconds", "Number of characters");
+
+    g->view->show();
+
+}
+
+void MainWindow::on_factorLogScaleCheckBox_clicked()
+{
+    if(g == NULL) {
+        std::cout << "graphwindow object not initialized. No action to take." << std::endl;
+        return;
+    }
+    if(factorDataPoints.size() == 0) {
+        std::cout << "No points to graph." << std::endl;
+        return;
+    }
+
+    g = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
+    g->vSize = 600;
+    g->hSize = 600;
+
+    if(ui->factorLogScaleCheckBox->isChecked()) {
         g->logScaleDraw();
     } else {
         g->draw();
