@@ -49,15 +49,18 @@ void MainWindow::on_pushButton_clicked()
         ui->layoutForLabels->addWidget(lptr->get(i));
         ui->layoutForButtons->addWidget(ptr->get(i));
     }
+    guessedWord.clear();
+    guessedWord = ptr->checkGuess();
 
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-   /* QString temp = ui->textEdit->toPlainText();
+
+    QString temp = guessedWord;
     std::string send = temp.toStdString();
 
-    bool win = agame->sendCurrentGuess(send); */
+    bool win = agame->sendCurrentGuess(send);
 
     /*
     //Debugging stuffs
@@ -65,7 +68,7 @@ void MainWindow::on_pushButton_2_clicked()
     std::cout<<temp.toStdString()<<std::endl;
     std::cout<<agame->d_message<<std::endl;
     */
-/*
+
     if(win){
         //Call a victory condition here. Something nice.
         QMessageBox winningMessage;
@@ -74,9 +77,10 @@ void MainWindow::on_pushButton_2_clicked()
         //ui->textEdit->setText("You won! yay!");
     }
     else{
-        QString t = QString::fromStdString(agame->currentGuess);
-        //ui->textEdit->setText(t);
-    } */
+        QMessageBox winningMessage;
+        winningMessage.setText("You are not correct.                                               ");
+        winningMessage.exec();
+    }
 }
 
 void MainWindow::on_pushButton_3_clicked()

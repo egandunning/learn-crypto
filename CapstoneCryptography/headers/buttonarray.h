@@ -17,16 +17,18 @@ class ButtonArray : public QObject{
 public:
     ButtonArray(QString, QWidget*);
     QPushButton* get(int);
+    QString checkGuess();
 
 private slots:
     void show_input_box(int);
 
 private:
-    QString makeGuess(QString, QString);
+    void makeGuess(QString, QString);
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
     QWidget *parent;
     QSignalMapper *mapper;
+    QString newWord;
 };
 
 #endif // BUTTONARRAY_H

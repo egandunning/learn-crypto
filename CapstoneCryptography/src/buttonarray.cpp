@@ -19,6 +19,7 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
     scrambledWord = qS;
     parent = ui;
     mapper = new QSignalMapper(this);
+    newWord.append(" ");
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
@@ -40,16 +41,22 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
 }
 
-QString ButtonArray::makeGuess(QString original, QString guess){
+void ButtonArray::makeGuess(QString original, QString guess){
     //Make QString size one
     original.resize(1);
     guess.resize(1);
+    newWord.clear();
     for(int i=0; i<scrambledWord.length(); i++){
         if(scrambledWord.at(i) == original){
            buttonPointerVector.at(i)->setText(guess);
         }
+        newWord.append(buttonPointerVector.at(i)->text());
     }
-    return "";
+
+}
+
+QString ButtonArray::checkGuess(){
+    return newWord;
 }
 
 QPushButton* ButtonArray::get(int i){
@@ -64,6 +71,7 @@ void ButtonArray::show_input_box(int index){
     std::string defaultGuess = " ";
     QString letter = QInputDialog::getText(parent, QString::fromStdString(title), QString::fromStdString(label), QLineEdit::Normal, QString::fromStdString(defaultGuess), &changed);
 
+    //make sure that a letter was guessed and that the input character is actually a letter
     if(changed && !letter.isEmpty() && letter.at(0).isLetter()){
         //Make QString size one
         letter.resize(1);

@@ -56,6 +56,7 @@ private:
     cryptogame *agame;
     Hash *hashAlg;
     QString digest;
+    QString guessedWord;
     GraphWindow* g;
 
     std::string bruteForceAlphabet();
