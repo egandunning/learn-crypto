@@ -52,10 +52,10 @@ static const uint qt_meta_data_ButtonArray[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+       1,    1,   19,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    2,
 
        0        // eod
 };
@@ -66,11 +66,10 @@ void ButtonArray::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         ButtonArray *_t = static_cast<ButtonArray *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->show_input_box(); break;
+        case 0: _t->show_input_box((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject ButtonArray::staticMetaObject = {

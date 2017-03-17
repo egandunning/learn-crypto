@@ -11,12 +11,14 @@
 #include <QLineEdit>
 #include <QObject>
 #include <QMessageBox>
+#include <QSignalMapper>
 
 
 ButtonArray::ButtonArray(QString qS, QWidget* ui){
 
     scrambledWord = qS;
     parent = ui;
+    mapper = new QSignalMapper(this);
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
@@ -28,10 +30,13 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui){
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
         //Object, then related signal, object, then related slot
-        connect(p, SIGNAL(clicked(bool)), this, SLOT(show_input_box()));
+        connect(p, SIGNAL(clicked(bool)), mapper, SLOT(map()));
+        mapper->setMapping(p, i);
         //Add pointer p to the QVector
         buttonPointerVector.append(p);
     }
+
+    connect(mapper, SIGNAL(mapped(int)), this, SLOT(show_input_box(int)));
 
 }
 
@@ -51,7 +56,7 @@ QPushButton* ButtonArray::get(int i){
     return buttonPointerVector.at(i);
 }
 
-void ButtonArray::show_input_box(){
+void ButtonArray::show_input_box(int index){
 
     bool changed;
     std::string title = "Guess a Letter";
@@ -70,7 +75,7 @@ void ButtonArray::show_input_box(){
                 return;
             }
         }
-        ButtonArray::makeGuess(buttonPointerVector.at(1)->text(), letter);
+        ButtonArray::makeGuess(buttonPointerVector.at(index)->text(), letter);
     }
 }
 

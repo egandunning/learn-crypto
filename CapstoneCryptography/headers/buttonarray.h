@@ -8,6 +8,7 @@
 #include <QVector>
 #include <QString>
 #include <QObject>
+#include <QSignalMapper>
 
 class ButtonArray : public QObject{
 
@@ -18,13 +19,14 @@ public:
     QPushButton* get(int);
 
 private slots:
-    void show_input_box();
+    void show_input_box(int);
 
 private:
     QString makeGuess(QString, QString);
     QVector<QPushButton *> buttonPointerVector;
     QString scrambledWord;
     QWidget *parent;
+    QSignalMapper *mapper;
 };
 
 #endif // BUTTONARRAY_H
