@@ -9,7 +9,7 @@
 unsigned long n;
 unsigned long N;
 
-Hash* HASH;
+Hash* HASHTYPE;
 std::string ALPHABET;
 std::string DIGEST;
 std::string PLAINTEXT;
@@ -21,13 +21,11 @@ int CHARCOUNT;
  */
 BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
     hashType = h;
-    HASH = h;
+    HASHTYPE = h;
     alphabet = alph;
     ALPHABET = alph;
     charCount = chCount;
     CHARCOUNT = chCount;
-    DIGEST = digest;
-    PLAINTEXT = plaintext;
 
 }
 
@@ -39,7 +37,7 @@ QPointF BruteForceCrack::bruteLoopRunSmall(){
     QElapsedTimer timer;
     long elapsed;
     timer.start();
-    for(unsigned long i = 0; i < n/2; i++) {
+    for(unsigned long i = 0; i < n; i++) {
         plaintextGuess = baseTenToBaseN(i, range);
         hashType->plaintext = plaintextGuess;
 
@@ -66,15 +64,17 @@ QPointF BruteForceCrack::bruteLoopRunBig(){
     QElapsedTimer timer;
     long elapsed;
     timer.start();
-    for(unsigned long i = N; i >= N/2; i--) {
+    for(unsigned long i = N; i > 0; i--) {
         plaintextGuess = baseTenToBaseN(i, range);
-        HASH->plaintext = plaintextGuess;
+        HASHTYPE->plaintext = plaintextGuess;
 
-        HASH->compute();
+        HASHTYPE->compute();
 
-        if(DIGEST.compare(HASH->digest) == 0) {
+        if(DIGEST.compare(HASHTYPE->digest) == 0) {
             PLAINTEXT = plaintextGuess;
             elapsed = timer.elapsed();
+            std::cout<<"DONE"<<std::endl;
+            std::cout<<DIGEST<<" "<<HASHTYPE->digest<<std::endl;
             return QPointF(PLAINTEXT.length(), elapsed);
         }
     }
@@ -95,6 +95,8 @@ QPointF BruteForceCrack::bruteLoopRunBig(){
 QPointF BruteForceCrack::reverse() {
 
     plaintext = "";
+    DIGEST = digest;
+    PLAINTEXT = "";
 
 	if(hashType == NULL) {
         return QPointF(-1,-1);
@@ -113,32 +115,23 @@ QPointF BruteForceCrack::reverse() {
 
 
     //Thread initialization
-    QFuture<QPointF> small = QtConcurrent::run(this, &BruteForceCrack::bruteLoopRunSmall);
     QFuture<QPointF> big = QtConcurrent::run(this, &BruteForceCrack::bruteLoopRunBig);
+    QFuture<QPointF> small = QtConcurrent::run(this, &BruteForceCrack::bruteLoopRunSmall);
 
     //Busy wait
-    while(!big.isFinished() || !small.isFinished());
-
-    if(small.isFinished()){
-
-        std::cout<<"SMALL"<<std::endl;
-    }
-    else if(big.isFinished()){
-        std::cout<<"BIG"<<std::endl;
-    }
-
-    //End both of the threads
-    small.cancel();
-    big.cancel();
-
-    if(small.isFinished()){
-        return small.result();
-    }
-    else{
-        return big.result();
+    while(!big.isFinished() || !small.isFinished()){
+        if(small.isFinished()){
+            big.cancel();
+            return small.result();
+        }
+        else if(big.isFinished()){
+            small.cancel();
+            plaintext = PLAINTEXT;
+            return big.result();
+        }
     }
 
-
+    return big.result();
 
 }
 
