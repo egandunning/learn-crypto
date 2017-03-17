@@ -518,12 +518,7 @@
            <widget class="QComboBox" name="factorAlgChooser">
             <item>
              <property name="text">
-              <string>Brute force (small to big)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Brute force (big to small)</string>
+              <string>Brute force (trial division)</string>
              </property>
             </item>
             <item>

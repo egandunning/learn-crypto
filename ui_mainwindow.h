@@ -1,13 +1,13 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_MAINWINDOW_H
-#define UI_MAINWINDOW_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -46,8 +46,8 @@ public:
     QPushButton *pushButton_3;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QLabel *label;
     QHBoxLayout *layoutForButtons;
+    QHBoxLayout *layoutForLabels;
     QWidget *tab_3;
     QGridLayout *gridLayout_4;
     QLabel *label_2;
@@ -156,16 +156,17 @@ public:
 
         gridLayout_3->addWidget(pushButton_2, 3, 1, 1, 1);
 
-        label = new QLabel(gameTab);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout_3->addWidget(label, 0, 0, 1, 3);
-
         layoutForButtons = new QHBoxLayout();
         layoutForButtons->setSpacing(6);
         layoutForButtons->setObjectName(QStringLiteral("layoutForButtons"));
 
         gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 3);
+
+        layoutForLabels = new QHBoxLayout();
+        layoutForLabels->setSpacing(6);
+        layoutForLabels->setObjectName(QStringLiteral("layoutForLabels"));
+
+        gridLayout_3->addLayout(layoutForLabels, 0, 0, 1, 3);
 
         tabWidget->addTab(gameTab, QString());
         tab_3 = new QWidget();
@@ -515,7 +516,6 @@ public:
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Guess", 0));
-        label->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
         label_2->setText(QApplication::translate("MainWindow", "Hash Function", 0));
         crackComboBox->clear();
@@ -562,8 +562,7 @@ public:
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
         factorAlgChooser->clear();
         factorAlgChooser->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Brute force (small to big)", 0)
-         << QApplication::translate("MainWindow", "Brute force (big to small)", 0)
+         << QApplication::translate("MainWindow", "Brute force (trial division)", 0)
          << QApplication::translate("MainWindow", "Quadratic sieve", 0)
         );
         factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));
@@ -585,4 +584,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_MAINWINDOW_H
+#endif // MAINWINDOW_H

@@ -492,7 +492,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1014, 27));
+        menuBar->setGeometry(QRect(0, 0, 1014, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -562,8 +562,7 @@ public:
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
         factorAlgChooser->clear();
         factorAlgChooser->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Brute force (small to big)", 0)
-         << QApplication::translate("MainWindow", "Brute force (big to small)", 0)
+         << QApplication::translate("MainWindow", "Brute force (trial division)", 0)
          << QApplication::translate("MainWindow", "Quadratic sieve", 0)
         );
         factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));

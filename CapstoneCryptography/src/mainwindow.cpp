@@ -107,10 +107,10 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     switch(algChoice) {
     case 0:
-        pf = new BruteForceFactor(false);
+        pf = new BruteForceFactor();
         break;
     case 1:
-        pf = new BruteForceFactor(true);
+        //Quadratic sieve here
         break;
     }
 

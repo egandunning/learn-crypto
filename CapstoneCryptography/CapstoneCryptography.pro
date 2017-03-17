@@ -63,7 +63,7 @@ unix:{  LIBS	 += -L/usr/local/lib \
 }
 
 
-INCLUDEPATH += "/usr/local/include/" \
+INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui
 macx:{
  INCLUDEPATH += "gmp/include"
@@ -103,9 +103,6 @@ INCLUDEPATH += $$PWD/../../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../../usr/local/include
 
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
-
-FORMS += \
-    forms/mainwindow.ui
 
 unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa/ -lGL
 
