@@ -54,23 +54,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
-
-    QString temp = guessedWord;
-    std::string send = temp.toStdString();
-
-    bool win = agame->sendCurrentGuess(send);
-
-
-    //Debugging stuffs
-    std::cout<<win<<std::endl;
-    std::cout<<temp.toStdString()<<std::endl;
-    std::cout<<agame->d_message<<std::endl;
-
-
-
-}
+void MainWindow::on_pushButton_2_clicked(){}
 
 void MainWindow::on_pushButton_3_clicked()
 {
