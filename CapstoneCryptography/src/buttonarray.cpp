@@ -12,14 +12,16 @@
 #include <QObject>
 #include <QMessageBox>
 #include <QSignalMapper>
+#include "headers/cryptogame.h"
 
 
-ButtonArray::ButtonArray(QString qS, QWidget* ui){
+ButtonArray::ButtonArray(QString qS, QWidget* ui, cryptogame *agame){
 
     scrambledWord = qS;
     parent = ui;
     mapper = new QSignalMapper(this);
     newWord.append(" ");
+    game = agame;
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
@@ -51,6 +53,12 @@ void ButtonArray::makeGuess(QString original, QString guess){
            buttonPointerVector.at(i)->setText(guess);
         }
         newWord.append(buttonPointerVector.at(i)->text());
+    }
+
+    if(game->sendCurrentGuess(newWord.toStdString())){
+        QMessageBox winningMessage;
+        winningMessage.setText("You won! Yay!                                               ");
+        winningMessage.exec();
     }
 
 }

@@ -45,7 +45,6 @@ public:
     QGridLayout *gridLayout_3;
     QPushButton *pushButton_3;
     QPushButton *pushButton;
-    QPushButton *pushButton_2;
     QHBoxLayout *layoutForButtons;
     QHBoxLayout *layoutForLabels;
     QWidget *tab_3;
@@ -144,29 +143,24 @@ public:
         pushButton_3 = new QPushButton(gameTab);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
 
-        gridLayout_3->addWidget(pushButton_3, 3, 2, 1, 1);
+        gridLayout_3->addWidget(pushButton_3, 3, 1, 1, 1);
 
         pushButton = new QPushButton(gameTab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
         gridLayout_3->addWidget(pushButton, 3, 0, 1, 1);
 
-        pushButton_2 = new QPushButton(gameTab);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-
-        gridLayout_3->addWidget(pushButton_2, 3, 1, 1, 1);
-
         layoutForButtons = new QHBoxLayout();
         layoutForButtons->setSpacing(6);
         layoutForButtons->setObjectName(QStringLiteral("layoutForButtons"));
 
-        gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 3);
+        gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 2);
 
         layoutForLabels = new QHBoxLayout();
         layoutForLabels->setSpacing(6);
         layoutForLabels->setObjectName(QStringLiteral("layoutForLabels"));
 
-        gridLayout_3->addLayout(layoutForLabels, 0, 0, 1, 3);
+        gridLayout_3->addLayout(layoutForLabels, 0, 0, 1, 2);
 
         tabWidget->addTab(gameTab, QString());
         tab_3 = new QWidget();
@@ -492,7 +486,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1014, 25));
+        menuBar->setGeometry(QRect(0, 0, 1014, 27));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -515,7 +509,6 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Guess", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
         label_2->setText(QApplication::translate("MainWindow", "Hash Function", 0));
         crackComboBox->clear();
