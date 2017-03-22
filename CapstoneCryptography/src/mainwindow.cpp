@@ -44,7 +44,7 @@ void MainWindow::on_pushButton_clicked()
     QString q = QString::fromStdString(agame->getEncryptedMessage());
     //ui->label->setText(q);
     LabelArray *lptr = new LabelArray(q, ui->tabWidget);
-    ButtonArray *ptr = new ButtonArray(q, ui->tabWidget);
+    ButtonArray *ptr = new ButtonArray(q, ui->tabWidget, agame);
     for(int i=0; i<q.size(); i++){
         ui->layoutForLabels->addWidget(lptr->get(i));
         ui->layoutForButtons->addWidget(ptr->get(i));
@@ -54,34 +54,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
-
-    QString temp = guessedWord;
-    std::string send = temp.toStdString();
-
-    bool win = agame->sendCurrentGuess(send);
-
-    /*
-    //Debugging stuffs
-    std::cout<<win<<std::endl;
-    std::cout<<temp.toStdString()<<std::endl;
-    std::cout<<agame->d_message<<std::endl;
-    */
-
-    if(win){
-        //Call a victory condition here. Something nice.
-        QMessageBox winningMessage;
-        winningMessage.setText("You won! Yay!                                               ");
-        winningMessage.exec();
-        //ui->textEdit->setText("You won! yay!");
-    }
-    else{
-        QMessageBox winningMessage;
-        winningMessage.setText("You are not correct.                                               ");
-        winningMessage.exec();
-    }
-}
+void MainWindow::on_pushButton_2_clicked(){}
 
 void MainWindow::on_pushButton_3_clicked()
 {

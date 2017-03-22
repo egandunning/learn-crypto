@@ -27,7 +27,7 @@
           <string>Game</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="3" column="2">
+          <item row="3" column="1">
            <widget class="QPushButton" name="pushButton_3">
             <property name="text">
              <string>Hint</string>
@@ -41,17 +41,10 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>Guess</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" rowspan="2" colspan="3">
+          <item row="1" column="0" rowspan="2" colspan="2">
            <layout class="QHBoxLayout" name="layoutForButtons"/>
           </item>
-          <item row="0" column="0" colspan="3">
+          <item row="0" column="0" colspan="2">
            <layout class="QHBoxLayout" name="layoutForLabels"/>
           </item>
          </layout>
@@ -653,7 +646,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>

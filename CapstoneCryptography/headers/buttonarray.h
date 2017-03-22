@@ -9,13 +9,14 @@
 #include <QString>
 #include <QObject>
 #include <QSignalMapper>
+#include "headers/cryptogame.h"
 
 class ButtonArray : public QObject{
 
    Q_OBJECT
 
 public:
-    ButtonArray(QString, QWidget*);
+    ButtonArray(QString, QWidget*, cryptogame*);
     QPushButton* get(int);
     QString checkGuess();
 
@@ -29,6 +30,7 @@ private:
     QWidget *parent;
     QSignalMapper *mapper;
     QString newWord;
+    cryptogame *game;
 };
 
 #endif // BUTTONARRAY_H
