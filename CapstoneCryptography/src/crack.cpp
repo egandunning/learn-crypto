@@ -13,7 +13,7 @@ QPointF Crack::reverse() {
     return QPointF(-1, -1);
 }
 
-void Crack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, unsigned int cap) {
+void Crack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, bool cap) {
     std::cout << "Incorrect usage of crack class. Needs \"Crack* c = new X\" where X is an instance of DictionaryCrack." << std::endl;
 }
 

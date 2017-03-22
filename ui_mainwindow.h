@@ -1,13 +1,13 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef UI_MAINWINDOW_H
+#define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -59,6 +59,7 @@ public:
     QLabel *label_3;
     QLabel *label_8;
     QSpinBox *charCountSpinBox_2;
+    QLineEdit *saltField;
     QVBoxLayout *verticalLayout;
     QTabWidget *crackTabWidget;
     QWidget *tab;
@@ -79,14 +80,15 @@ public:
     QCheckBox *prependCheckBox;
     QLabel *label_13;
     QSpinBox *digitCountSpinBox;
+    QLabel *label;
+    QSpinBox *capCountSpinBox;
     QHBoxLayout *horizontalLayout_5;
+    QLineEdit *crackedField;
     QLabel *label_4;
     QLabel *crackPlotLabel;
-    QLineEdit *crackedField;
-    QLineEdit *saltField;
     QLineEdit *plaintextField;
-    QPushButton *crackButton;
     QSpinBox *crackPointCountSpinBox;
+    QPushButton *crackButton;
     QPushButton *randomSaltButton;
     QPushButton *hashButton;
     QComboBox *hashComboBox;
@@ -224,6 +226,11 @@ public:
 
         gridLayout_4->addWidget(charCountSpinBox_2, 8, 1, 1, 1);
 
+        saltField = new QLineEdit(tab_3);
+        saltField->setObjectName(QStringLiteral("saltField"));
+
+        gridLayout_4->addWidget(saltField, 2, 1, 1, 1);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -286,6 +293,12 @@ public:
         digitCountSpinBox = new QSpinBox(tab_2);
         digitCountSpinBox->setObjectName(QStringLiteral("digitCountSpinBox"));
         digitCountSpinBox->setGeometry(QRect(290, 30, 44, 27));
+        label = new QLabel(tab_2);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 70, 181, 17));
+        capCountSpinBox = new QSpinBox(tab_2);
+        capCountSpinBox->setObjectName(QStringLiteral("capCountSpinBox"));
+        capCountSpinBox->setGeometry(QRect(170, 60, 44, 27));
         crackTabWidget->addTab(tab_2, QString());
 
         verticalLayout->addWidget(crackTabWidget);
@@ -299,6 +312,12 @@ public:
 
         gridLayout_4->addLayout(verticalLayout, 11, 0, 1, 3);
 
+        crackedField = new QLineEdit(tab_3);
+        crackedField->setObjectName(QStringLiteral("crackedField"));
+        crackedField->setReadOnly(true);
+
+        gridLayout_4->addWidget(crackedField, 5, 1, 1, 1);
+
         label_4 = new QLabel(tab_3);
         label_4->setObjectName(QStringLiteral("label_4"));
 
@@ -309,32 +328,21 @@ public:
 
         gridLayout_4->addWidget(crackPlotLabel, 7, 0, 1, 1);
 
-        crackedField = new QLineEdit(tab_3);
-        crackedField->setObjectName(QStringLiteral("crackedField"));
-        crackedField->setReadOnly(true);
-
-        gridLayout_4->addWidget(crackedField, 5, 1, 1, 1);
-
-        saltField = new QLineEdit(tab_3);
-        saltField->setObjectName(QStringLiteral("saltField"));
-
-        gridLayout_4->addWidget(saltField, 2, 1, 1, 1);
-
         plaintextField = new QLineEdit(tab_3);
         plaintextField->setObjectName(QStringLiteral("plaintextField"));
 
         gridLayout_4->addWidget(plaintextField, 1, 1, 1, 1);
-
-        crackButton = new QPushButton(tab_3);
-        crackButton->setObjectName(QStringLiteral("crackButton"));
-
-        gridLayout_4->addWidget(crackButton, 4, 2, 1, 1);
 
         crackPointCountSpinBox = new QSpinBox(tab_3);
         crackPointCountSpinBox->setObjectName(QStringLiteral("crackPointCountSpinBox"));
         crackPointCountSpinBox->setValue(5);
 
         gridLayout_4->addWidget(crackPointCountSpinBox, 9, 1, 1, 1);
+
+        crackButton = new QPushButton(tab_3);
+        crackButton->setObjectName(QStringLiteral("crackButton"));
+
+        gridLayout_4->addWidget(crackButton, 4, 2, 1, 1);
 
         randomSaltButton = new QPushButton(tab_3);
         randomSaltButton->setObjectName(QStringLiteral("randomSaltButton"));
@@ -503,8 +511,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
-        crackTabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
+        crackTabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -540,6 +548,7 @@ public:
         label_12->setText(QApplication::translate("MainWindow", "beginning", 0));
         prependCheckBox->setText(QString());
         label_13->setText(QApplication::translate("MainWindow", "Digits:", 0));
+        label->setText(QApplication::translate("MainWindow", "Number of capitalizations:", 0));
         crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary crack settings", 0));
         label_4->setText(QApplication::translate("MainWindow", "Result:", 0));
         crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
@@ -584,4 +593,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOW_H
+#endif // UI_MAINWINDOW_H

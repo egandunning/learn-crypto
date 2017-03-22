@@ -263,7 +263,7 @@ void MainWindow::dictionaryOptions(Crack* d) {
         prependedDigits = ui->digitCountSpinBox->text().toInt();
     }
     unsigned int symbols = 0;
-    unsigned int cap = false;
+    bool cap = ui->capCheckBox->isChecked();
 
     d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap);
 }

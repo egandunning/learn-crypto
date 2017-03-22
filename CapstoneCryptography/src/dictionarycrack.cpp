@@ -5,6 +5,7 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
 	hashType = h;
     filename = file;
     digest = "";
+    //load dictionary into vector
     std::ifstream f;
     try {
 
@@ -28,14 +29,11 @@ QPointF DictionaryCrack::reverse() {
 	if(hashType == NULL) {
         return QPointF(-1,-1);
 	}
-	
-    //load dictionary into vector
 
     QElapsedTimer timer;
     long elapsed;
     timer.start();
 
-    std::string word = "";
     for(mpz_class i = 0; i < mpz_class(pow(words.size(),numWords)); i++) {
 
         std::string guess = getWordCombo(i);
@@ -45,6 +43,22 @@ QPointF DictionaryCrack::reverse() {
         if(plaintextLength != 0) {
             elapsed = timer.elapsed();
             return QPointF(plaintextLength, elapsed);
+        }
+
+        if(capWords) {
+            if(guess.size() > 0) {
+                std::string temp = guess;
+                if(temp[0] > 96 && temp[0] < 123) {
+                    temp[0] = temp[0] - 32;
+                    hashType->plaintext = temp;
+
+                    int plaintextLength = verifyGuess();
+                    if(plaintextLength != 0) {
+                        elapsed = timer.elapsed();
+                        return QPointF(plaintextLength, elapsed);
+                    }
+                }
+            }
         }
 
         if(appendedDigits > 0) {
@@ -61,7 +75,7 @@ QPointF DictionaryCrack::reverse() {
         }
 
         if(prependedDigits > 0) {
-            for(unsigned int i = 0; i < (unsigned int)pow(10,appendedDigits); i++) {
+            for(unsigned int i = 0; i < (unsigned int)pow(10,prependedDigits); i++) {
 
                 hashType->plaintext = std::to_string(i) + guess;
 
@@ -72,13 +86,6 @@ QPointF DictionaryCrack::reverse() {
                 }
             }
         }
-
-        if(capCount > 0) {
-
-        }
-
-
-
     }
 
 
@@ -120,10 +127,10 @@ std::string DictionaryCrack::getWordCombo(mpz_class num) {
 
 void DictionaryCrack::setOptions(unsigned int words, unsigned int endDigits,
                                  unsigned int preDigits, unsigned int symb,
-                                 unsigned int cap) {
+                                 bool cap) {
     numWords = words;
     appendedDigits = endDigits;
     prependedDigits = preDigits;
     symbols = symb;
-    capCount = cap;
+    capWords = cap;
 }

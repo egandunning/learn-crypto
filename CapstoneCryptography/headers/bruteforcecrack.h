@@ -18,7 +18,7 @@ public:
     BruteForceCrack(Hash*, std::string, int);
     std::string baseTenToBaseN(unsigned long, unsigned int);
     virtual QPointF reverse() override;
-    void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, unsigned int cap) override;
+    void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, bool cap) override;
     void setMin(int);
     void setMax(int);
     void setAlphabet(std::string);

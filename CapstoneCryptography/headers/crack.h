@@ -15,7 +15,7 @@ public:
     Crack(){}
     virtual ~Crack();
     virtual QPointF reverse();
-    virtual void setOptions(unsigned int words=1, unsigned int endDigits=0, unsigned int preDigits=0, unsigned int symb=0, unsigned int cap=0);
+    virtual void setOptions(unsigned int words=1, unsigned int endDigits=0, unsigned int preDigits=0, unsigned int symb=0, bool cap=false);
     std::string plaintext;
     std::string digest;
     void setDigest(QString);

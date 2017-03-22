@@ -12,13 +12,13 @@ class DictionaryCrack : public Crack {
 public:
     DictionaryCrack(Hash*, std::string);
     virtual QPointF reverse() override;
-    virtual void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, unsigned int cap) override;
+    virtual void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, bool cap) override;
 
     unsigned int numWords = 1;
     unsigned int appendedDigits = 0;
     unsigned int prependedDigits = 0;
     unsigned int symbols = 0;
-    unsigned int capCount = 0;
+    bool capWords = false;
 
 private:
     std::string filename;
