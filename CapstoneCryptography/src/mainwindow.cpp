@@ -26,19 +26,22 @@ void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
 
-    //Delete all buttons in the and labels inthe gameGrid
-   /* while(ui->gameGrid->rowCount() > 0 || ui->gameGrid->columnCount() > 0){
+    std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
+    std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
 
-        QLayoutItem *button = ui->gameGrid->itemAtPosition(1,0);
+    //Delete all buttons in the and labels inthe gameGrid
+   for(int i=0; i<ui->gameGrid->columnCount(); i++){
+
+       /*QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
         delete button->widget();
         delete button;
 
 
-        QLayoutItem *label = ui->gameGrid->itemAtPosition(0,0);
+        QLayoutItem *label = ui->gameGrid->itemAtPosition(0,i);
         delete label->widget();
-        delete label;
+        delete label;*/
 
-    }*/
+    }
 
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
