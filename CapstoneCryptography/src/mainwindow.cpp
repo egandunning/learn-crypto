@@ -26,19 +26,19 @@ void MainWindow::on_pushButton_clicked()
 {
     std::cout<<"Start the game."<<std::endl;
 
-    //Delete all buttons in the layoutForButtons if there are existing buttons in the layout
-    while(ui->layoutForButtons->count() > 0 || ui->layoutForLabels->count() > 0){
-        if(ui->layoutForButtons->count() > 0){
-        QLayoutItem *button = ui->layoutForButtons->takeAt(0);
+    //Delete all buttons in the and labels inthe gameGrid
+   /* while(ui->gameGrid->rowCount() > 0 || ui->gameGrid->columnCount() > 0){
+
+        QLayoutItem *button = ui->gameGrid->itemAtPosition(1,0);
         delete button->widget();
         delete button;
-        }
-        if(ui->layoutForLabels->count() > 0){
-        QLayoutItem *label = ui->layoutForLabels->takeAt(0);
+
+
+        QLayoutItem *label = ui->gameGrid->itemAtPosition(0,0);
         delete label->widget();
         delete label;
-        }
-    }
+
+    }*/
 
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
@@ -46,8 +46,8 @@ void MainWindow::on_pushButton_clicked()
     LabelArray *lptr = new LabelArray(q, ui->tabWidget);
     ButtonArray *ptr = new ButtonArray(q, ui->tabWidget, agame);
     for(int i=0; i<q.size(); i++){
-        ui->layoutForLabels->addWidget(lptr->get(i));
-        ui->layoutForButtons->addWidget(ptr->get(i));
+        ui->gameGrid->addWidget(lptr->get(i), 0, i);
+        ui->gameGrid->addWidget(ptr->get(i), 1, i);
     }
     guessedWord.clear();
     guessedWord = ptr->checkGuess();
