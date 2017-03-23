@@ -4,6 +4,7 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
 	
 	hashType = h;
     filename = file;
+
     digest = "";
     //load dictionary into vector
     std::ifstream f;
@@ -15,6 +16,11 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
             words.push_back(word);
         }
         f.close();
+
+        //used for counting indices
+        wordIndex = std::vector<std::vector<std::string>::iterator>();
+        wordIndex.push_back(words.begin());
+
     } catch(int e) {
         f.close();
         std::cout << "error " << e << std::endl;
@@ -36,7 +42,8 @@ QPointF DictionaryCrack::reverse() {
 
     for(mpz_class i = 0; i < mpz_class(pow(words.size(),numWords)); i++) {
 
-        std::string guess = getWordCombo(i);
+        //std::string guess = getWordCombo(i);
+        std::string guess = getNextWord();
         hashType->plaintext = guess;
 
         int plaintextLength = verifyGuess();
@@ -124,6 +131,53 @@ std::string DictionaryCrack::getWordCombo(mpz_class num) {
     }
     return result; //reverse string
 }
+
+std::string DictionaryCrack::getNextWord() {
+
+    //find the words to combine
+    std::string word = "";
+    for(unsigned int i = 0; i < wordIndex.size(); i++) {
+        word += *wordIndex.at(i);
+    }
+
+    //increment index
+    bool carry = true;
+    int index = 0;
+    while(carry) {
+        if(index > wordIndex.size() - 1) {
+            wordIndex.push_back(words.begin());
+        }
+        if(wordIndex.at(index)+1 == words.end()) {
+            wordIndex.at(index) = words.begin();
+        } else {
+            wordIndex.at(index)++;
+            carry = false;
+            break;
+        }
+        index++;
+    }
+
+    return word;
+}
+
+/*void DictionaryCrack::incrementWordIndex() {
+    bool carry = true;
+    int index = 0;
+    while(carry) {
+        if(index > wordIndices.size() - 1) {
+            wordIndices.push_back(0);
+        }
+        if(wordIndices.at(index) == words.size()) {
+            wordIndices.at(index) = 0;
+        } else {
+            wordIndices.at(index)++;
+            carry = false;
+            break;
+        }
+        index++;
+    }
+
+}*/
 
 void DictionaryCrack::setOptions(unsigned int words, unsigned int endDigits,
                                  unsigned int preDigits, unsigned int symb,

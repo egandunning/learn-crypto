@@ -23,8 +23,10 @@ public:
 private:
     std::string filename;
     std::vector<std::string> words;
+    std::vector<std::vector<std::string>::iterator> wordIndex;
     unsigned int verifyGuess();
     std::string getWordCombo(mpz_class);
+    std::string getNextWord();
 };
 
 #endif // DICTIONARYCRACK_H
