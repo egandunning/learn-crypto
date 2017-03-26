@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    connect(&thread, SIGNAL(finished()), this, SLOT(update_crack_result()));
     ui->setupUi(this);
 }
 
@@ -163,9 +164,9 @@ void MainWindow::on_crackButton_clicked()
     ui->crackedField->setText("");
     ui->crackedField->repaint();
 
-    QElapsedTimer timer;
-    long elapsed;
-    bool success;
+    //QElapsedTimer timer;
+    //long elapsed;
+    //bool success;
     Crack* c;
     if(hashAlg == NULL) {
     	return;
@@ -186,8 +187,15 @@ void MainWindow::on_crackButton_clicked()
 
     c->digest = digest.toStdString();
 
-    timer.start();
-    c->reverse();
+
+    thread.setCrackType(c);
+
+    //timer.start();
+    //c->reverse();
+
+    thread.work();
+
+    /*c = thread.getResult();
     success = c->getPlaintext().length();
     elapsed = timer.elapsed();
 
@@ -199,6 +207,26 @@ void MainWindow::on_crackButton_clicked()
     }
 
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
+    ui->crackTimeLabel->setText(QString::fromStdString(s));*/
+}
+
+void MainWindow::update_crack_result() {
+
+    long elapsed;
+    bool success;
+
+    elapsed = thread.getResult();
+    Crack* c = thread.getCrack();
+    success = c->getPlaintext().length();
+
+
+    if(success) {
+        ui->crackedField->setText(c->getPlaintext());
+    } else {
+        ui->crackedField->setText("\"Uncrackable!!\"");
+    }
+
+    string s = "Time: " + std::to_string(elapsed) + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
 }
 
