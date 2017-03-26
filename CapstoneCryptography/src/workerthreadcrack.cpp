@@ -18,9 +18,7 @@ void WorkerThreadCrack::work() {
 
 void WorkerThreadCrack::run() {
     QMutexLocker locker(&mutex);
-    std::cout << "here" << std::endl;
     elapsed = c->reverse().y();
-    std::cout << "here2" << std::endl;
 }
 
 void WorkerThreadCrack::setCrackType(Crack* cr) {

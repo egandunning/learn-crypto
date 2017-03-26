@@ -159,9 +159,8 @@ void MainWindow::on_hashButton_clicked()
     digest = hashAlg->getDigest();
     ui->digestField->setText(digest);
 
-    //remove salt field so that crack doesn't "cheat"
-    //i.e. cracking algorithm doesnt know salt value
-    hashAlg->salt = "";
+    //Perhaps make this an option?
+    //hashAlg->salt = "";
 }
 
 void MainWindow::on_randomSaltButton_clicked()
@@ -202,27 +201,8 @@ void MainWindow::on_crackButton_clicked()
 
     c->digest = digest.toStdString();
 
-
     thread.setCrackType(c);
-
-    //timer.start();
-    //c->reverse();
-
     thread.work();
-
-    /*c = thread.getResult();
-    success = c->getPlaintext().length();
-    elapsed = timer.elapsed();
-
-    //if
-    if(success) {
-        ui->crackedField->setText(c->getPlaintext());
-    } else {
-        ui->crackedField->setText("\"Uncrackable!!\"");
-    }
-
-    string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
-    ui->crackTimeLabel->setText(QString::fromStdString(s));*/
 }
 
 void MainWindow::update_crack_result() {
@@ -233,7 +213,6 @@ void MainWindow::update_crack_result() {
     elapsed = thread.getResult();
     Crack* c = thread.getCrack();
     success = c->getPlaintext().length();
-
 
     if(success) {
         ui->crackedField->setText(c->getPlaintext());
