@@ -45,8 +45,7 @@ public:
     QGridLayout *gridLayout_3;
     QPushButton *pushButton_3;
     QPushButton *pushButton;
-    QHBoxLayout *layoutForButtons;
-    QHBoxLayout *layoutForLabels;
+    QGridLayout *gameGrid;
     QWidget *tab_3;
     QGridLayout *gridLayout_4;
     QLabel *label_2;
@@ -143,25 +142,17 @@ public:
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         pushButton_3 = new QPushButton(gameTab);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-
-        gridLayout_3->addWidget(pushButton_3, 3, 1, 1, 1);
-
+        gridLayout_3->addWidget(pushButton_3, 1, 1, 1, 1);
         pushButton = new QPushButton(gameTab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
+        gridLayout_3->addWidget(pushButton, 1, 0, 1, 1);
 
-        gridLayout_3->addWidget(pushButton, 3, 0, 1, 1);
+        gameGrid = new QGridLayout();
+        gameGrid->setSpacing(6);
+        gameGrid->setObjectName(QStringLiteral("gameGrid"));
+        gameGrid->setContentsMargins(-1, 20, -1, 20);
 
-        layoutForButtons = new QHBoxLayout();
-        layoutForButtons->setSpacing(6);
-        layoutForButtons->setObjectName(QStringLiteral("layoutForButtons"));
-
-        gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 2);
-
-        layoutForLabels = new QHBoxLayout();
-        layoutForLabels->setSpacing(6);
-        layoutForLabels->setObjectName(QStringLiteral("layoutForLabels"));
-
-        gridLayout_3->addLayout(layoutForLabels, 0, 0, 1, 2);
+        gridLayout_3->addLayout(gameGrid, 0, 0, 1, 2);
 
         tabWidget->addTab(gameTab, QString());
         tab_3 = new QWidget();
@@ -500,8 +491,7 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
-
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         crackTabWidget->setCurrentIndex(1);
 
 

@@ -43,6 +43,13 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui, cryptogame *agame){
 
 }
 
+ButtonArray::~ButtonArray(){
+    for(int i = 0; i<buttonPointerVector.length(); i++){
+        delete buttonPointerVector.at(i);
+    }
+    //delete buttonPointerVector;
+}
+
 void ButtonArray::makeGuess(QString original, QString guess){
     //Make QString size one
     original.resize(1);

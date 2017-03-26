@@ -17,6 +17,7 @@ class ButtonArray : public QObject{
 
 public:
     ButtonArray(QString, QWidget*, cryptogame*);
+    ~ButtonArray();
     QPushButton* get(int);
     QString checkGuess();
 

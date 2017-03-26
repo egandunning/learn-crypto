@@ -18,6 +18,7 @@
 #include <headers/graphwindow.h>
 #include <headers/generatedata.h>
 #include <headers/workerthreadcrack.h>
+#include <headers/buttonarray.h>
 
 namespace Ui {
 class MainWindow;
@@ -70,6 +71,8 @@ private:
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;
+
+    ButtonArray *buttonPtrs;
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);
