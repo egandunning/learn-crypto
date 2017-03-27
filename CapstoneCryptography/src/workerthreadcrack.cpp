@@ -1,7 +1,8 @@
 #include <headers/workerthreadcrack.h>
 
 WorkerThreadCrack::WorkerThreadCrack(QObject *parent) : QThread(parent) {
-
+    elapsed = -1;
+    stop = false;
 }
 
 WorkerThreadCrack::~WorkerThreadCrack() {

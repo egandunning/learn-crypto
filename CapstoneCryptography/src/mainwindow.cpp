@@ -13,13 +13,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    connect(&thread, SIGNAL(finished()), this, SLOT(update_crack_result()));
+    connect(&threadCrack, SIGNAL(finished()), this, SLOT(update_crack_result()));
+    connect(&threadFactor, SIGNAL(finished()), this, SLOT(update_factor_result()));
     ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    threadCrack.quit();
+    threadFactor.quit();
     //delete hashAlg;
 }
 
@@ -104,25 +107,13 @@ void MainWindow::on_factorPrimesButton_clicked()
         return;
         break;
     }
-
-
-    QElapsedTimer timer;
 	
     mpz_class composite;
     string s = ui->compositeTextField->text().toStdString();
     composite.set_str(s, 10);
 
-    
-    timer.start();
-    pf->factor(composite);
-    long elapsed = timer.elapsed();
-    
-    string s2 = "Time: " + QString::number(elapsed).toStdString() + " ms";
-    ui->timeLabel->setText(QString::fromStdString(s2));
-    
-    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
-    ui->resultLabel->setText(QString::fromStdString(s));
-    delete pf;
+    threadFactor.setFactor(pf, composite);
+    threadFactor.work();
 }
 
 void MainWindow::on_random_composite_clicked()
@@ -178,9 +169,6 @@ void MainWindow::on_crackButton_clicked()
     ui->crackedField->setText("");
     ui->crackedField->repaint();
 
-    //QElapsedTimer timer;
-    //long elapsed;
-    //bool success;
     Crack* c;
     if(hashAlg == NULL) {
     	return;
@@ -201,8 +189,8 @@ void MainWindow::on_crackButton_clicked()
 
     c->digest = digest.toStdString();
 
-    thread.setCrackType(c);
-    thread.work();
+    threadCrack.setCrackType(c);
+    threadCrack.work();
 }
 
 void MainWindow::update_crack_result() {
@@ -210,8 +198,8 @@ void MainWindow::update_crack_result() {
     long elapsed;
     bool success;
 
-    elapsed = thread.getResult();
-    Crack* c = thread.getCrack();
+    elapsed = threadCrack.getResult();
+    Crack* c = threadCrack.getCrack();
     success = c->getPlaintext().length();
 
     if(success) {
@@ -222,6 +210,18 @@ void MainWindow::update_crack_result() {
 
     string s = "Time: " + std::to_string(elapsed) + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
+}
+
+void MainWindow::update_factor_result() {
+
+    long elapsed = threadFactor.getResult();
+    Factor* pf = threadFactor.getFactor();
+
+    string s = "Time: " + std::to_string(elapsed) + " ms";
+    ui->timeLabel->setText(QString::fromStdString(s));
+
+    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
+    ui->resultLabel->setText(QString::fromStdString(s));
 }
 
 std::string MainWindow::bruteForceAlphabet() {
