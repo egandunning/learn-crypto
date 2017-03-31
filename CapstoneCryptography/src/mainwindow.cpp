@@ -33,20 +33,20 @@ void MainWindow::on_pushButton_clicked()
     std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
     std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
 
-    if(!buttonPtrs){
+    /*if(buttonPtrs){
         delete buttonPtrs;
-    }
+    } */
 
     //QLayoutItem *nullLayout = NULL;
     //Delete all buttons in the and labels in the gameGrid
-   /*for(int i=0; i<ui->gameGrid->columnCount(); i++){
+   for(int i=0; i<ui->gameGrid->columnCount(); i++){
 
        QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
        if(button){
           delete button->widget();
-           delete button;
+           //delete button;
            //QLayoutItem::~QLayoutItem();
-        std::cout<<"Deleting buttin number: " << i<<std::endl;
+        std::cout<<"Deleting button number: " << i<<std::endl;
        }
 
 
@@ -57,13 +57,13 @@ void MainWindow::on_pushButton_clicked()
        /* delete label->widget();
         delete label;*/
 
-    //}
+    }
 
     agame = new cryptogame();
     QString q = QString::fromStdString(agame->getEncryptedMessage());
     //ui->label->setText(q);
     LabelArray *lptr = new LabelArray(q, ui->tabWidget);
-    buttonPtrs = new ButtonArray(q, ui->tabWidget, agame);
+    ButtonArray *buttonPtrs = new ButtonArray(q, ui->tabWidget, agame);
     for(int i=0; i<q.size(); i++){
         ui->gameGrid->addWidget(lptr->get(i), 0, i);
         ui->gameGrid->addWidget(buttonPtrs->get(i), 1, i);
