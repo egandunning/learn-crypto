@@ -80,6 +80,6 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned long num, unsigned int base
     return std::string(result.rbegin(), result.rend()); //reverse string
 }
 
-void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, bool cap) {
+void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap) {
     std::cout << "Incorrect usage of crack class. This method is for DictionaryCrack." << std::endl;
 }

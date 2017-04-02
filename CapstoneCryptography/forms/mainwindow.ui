@@ -377,7 +377,20 @@
                  </rect>
                 </property>
                 <property name="text">
-                 <string>Capitalize words</string>
+                 <string>Capitalize letters</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="dictSymbolsCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>60</y>
+                  <width>201</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Replace letters with symbols</string>
                 </property>
                </widget>
               </widget>
@@ -650,7 +663,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>27</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -257,8 +257,9 @@ void MainWindow::dictionaryOptions(Crack* d) {
     if(ui->prependCheckBox->isChecked()) {
         prependedDigits = ui->digitCountSpinBox->text().toInt();
     }
-    unsigned int symbols = 0;
+
     bool cap = ui->capCheckBox->isChecked();
+    bool symbols = ui->dictSymbolsCheckBox->isChecked();
 
     d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap);
 }
