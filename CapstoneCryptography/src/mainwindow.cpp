@@ -196,7 +196,7 @@ void MainWindow::on_crackButton_clicked()
         break;}
     }
 
-    c->digest = digest.toStdString();
+    c->setDigest(digest);
 
     timer.start();
     c->reverse();

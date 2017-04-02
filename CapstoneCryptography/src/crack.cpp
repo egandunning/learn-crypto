@@ -6,6 +6,7 @@ Crack::~Crack() {
 
 void Crack::setDigest(QString d) {
     digest = d.toStdString();
+    DIGEST = d.toStdString();
 }
 
 QPointF Crack::reverse() {

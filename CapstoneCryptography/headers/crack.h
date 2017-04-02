@@ -18,6 +18,7 @@ public:
     virtual void setOptions(unsigned int words=1, unsigned int endDigits=0, unsigned int preDigits=0, unsigned int symb=0, unsigned int cap=0);
     std::string plaintext;
     std::string digest;
+    std::string DIGEST;
     void setDigest(QString);
     QString getDigest();
     QString getPlaintext();
