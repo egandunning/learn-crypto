@@ -76,7 +76,6 @@ private:
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;
 
-    ButtonArray *buttonPtrs;
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);
