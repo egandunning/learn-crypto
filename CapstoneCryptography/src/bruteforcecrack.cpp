@@ -31,20 +31,21 @@ static std::string incrementStringW(std::string in){
     }
 }
 
-static void worker(std::string begin, std::string end, Hash* whash, std::string d){
+static void worker(std::string begin, std::string end, Hash whash, std::string d){
 
     std::string plaintextGuess = begin;
 
-    bool check = true;
+    bool working = true;
 
-    while(check) {
-        whash->plaintext = plaintextGuess;
+    while(working) {
+        whash.plaintext = plaintextGuess;
 
-        whash->compute();
+        whash.compute();
 
-        if(d.compare(whash->digest) == 0) {
+        if(d.compare(whash.digest) == 0) {
             foundValue = plaintextGuess;
             finished = true;
+            working = false;
         }
         plaintextGuess = incrementStringW(plaintextGuess);
         std::cout<<plaintextGuess<<std::endl;
@@ -108,14 +109,23 @@ QPointF BruteForceCrack::reverse() {
 
     std::vector<QFuture<void>> t;
 
+    int tot = threads;
+    int amtChar = 30 / threads;
+    std::string a = "a";
+
     while(threads != 0){
 
-        std::string a = "a";
-        std::string b = "aaaaaaaaaaa";
+        std::string b = "";
 
-        QFuture<void> temp = QtConcurrent::run(::worker, a, b, hashType ,digest);
+        for( int i = 0; i < amtChar; i++){
+            b = b + "a";
+        }
+
+        QFuture<void> temp = QtConcurrent::run(::worker, a, b, *hashType ,digest);
 
         t.assign(1, temp);
+
+        a = b;
 
         threads--;
     }
@@ -126,6 +136,8 @@ QPointF BruteForceCrack::reverse() {
 
 
     elapsed = timer.elapsed();
+
+    plaintext = foundValue;
 
     return QPointF(charCount, elapsed);
 
