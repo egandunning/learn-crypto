@@ -1,6 +1,61 @@
 #include <headers/bruteforcecrack.h>
+#include <headers/md5.h>
+#include <QFuture>
+#include <QThread>
+#include <QtConcurrent/QtConcurrent>
+#include <QtConcurrent/QtConcurrentRun>
+#include <QtConcurrent/qtconcurrentrun.h>
 
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
+
+std::string foundValue;
+bool finished;
+
+std::string incrementStringW(std::string in){
+
+    char z = 'z';
+
+    if(!in.compare("")){
+        return in.append("a");
+    }
+    else if(in[in.length()-1] == z){
+        in.resize(in.length()-1);
+        in = ::incrementStringW(in);
+        in.append("a");
+        return in;
+
+    }
+    else{
+        char r = in[in.length()-1] +1;
+        in[in.length()-1] = r;
+        return in;
+    }
+}
+
+void worker(std::string begin, std::string end, Hash *whash, std::string d){
+
+    std::string plaintextGuess = begin;
+
+    while(!finished) {
+        whash->plaintext = plaintextGuess;
+
+        whash->compute();
+
+        if(d.compare(whash->digest) == 0) {
+            foundValue = plaintextGuess;
+            finished = true;
+            break;
+        }
+        plaintextGuess = incrementStringW(plaintextGuess);
+        std::cout<<plaintextGuess<<std::endl;
+
+        if(plaintextGuess.compare(end) == 0){
+            break;
+        }
+    }
+}
+
+
 
 /**
  * Set the desired hash method.
@@ -8,9 +63,11 @@
  * @param h the hash method to use: MD5, SHA, etc.
  */
 BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
+
     hashType = h;
     alphabet = alph;
     charCount = chCount;
+
 }
 
 /**
@@ -25,38 +82,69 @@ QPointF BruteForceCrack::reverse() {
 
     plaintext = "";
 
+    foundValue = "";
+    finished = false;
+
 	if(hashType == NULL) {
         return QPointF(-1,-1);
 	}
-	
-    std::string plaintextGuess = "";
+
     int range = alphabet.length();
 
     //watch out for overflow errors here
-    unsigned long n = (unsigned long)pow(range, charCount);
+    n = (unsigned long)pow(range, charCount);
     if(n == 0) {
         std::cout << "Avoiding overflow error! Setting n to max value: " << std::numeric_limits<unsigned long>::max() << std::endl;
         n = std::numeric_limits<unsigned long>::max();
     }
+
+    std::string plaintextGuess = begin;
+
     QElapsedTimer timer;
     long elapsed;
-    timer.start();
-    for(unsigned long i = 0; i < n; i++) {
-        plaintextGuess = baseTenToBaseN(i, range);
-        hashType->plaintext = plaintextGuess;
 
-        hashType->compute();
+    //Thread stuff starts here.
+    int threads = QThread::idealThreadCount();
 
-        if(digest.compare(hashType->digest) == 0) {
-            plaintext = plaintextGuess;
-            elapsed = timer.elapsed();
-            return QPointF(plaintext.length(), elapsed);
+    std::vector<QFuture<void>> t;
+
+    int tot = threads;
+    //threads = 1;
+    int amtChar = range / threads;
+    std::string a = "a";
+
+    while(threads != 0){
+
+        std::string b = "";
+
+        for( int i = 0; i < amtChar; i++){
+            b = b + "a";
         }
+
+        Hash* newH = new Md5();
+
+        /*QFuture<void> temp = */QtConcurrent::run(::worker, a, b, newH ,digest);
+
+        //t.assign(1, temp);
+
+        a = b;
+
+        threads--;
     }
+
+    timer.start();
+
+    while(!finished);
+
 
     elapsed = timer.elapsed();
 
+    plaintext = foundValue;
+
+    std::cout<<"Hi"<<std::endl;
+
     return QPointF(charCount, elapsed);
+
 }
 
 /**
@@ -80,6 +168,35 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned long num, unsigned int base
     return std::string(result.rbegin(), result.rend()); //reverse string
 }
 
-void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap) {
-    std::cout << "Incorrect usage of crack class. This method is for DictionaryCrack." << std::endl;
+
+/**
+ * Increments a stirng by the next lowercase character.
+ * @brief BruteForceCrack::incrementString
+ * @param in
+ * @return
+ */
+std::string BruteForceCrack::incrementString(std::string in){
+
+    char z = 'z';
+
+    if(!in.compare("")){
+        return in.append("a");
+    }
+    else if(in[in.length()-1] == z){
+        in.resize(in.length()-1);
+        in = BruteForceCrack::incrementString(in);
+        in.append("a");
+        return in;
+
+    }
+    else{
+        char r = in[in.length()-1] +1;
+        in[in.length()-1] = r;
+        return in;
+    }
 }
+
+
+
+
+
