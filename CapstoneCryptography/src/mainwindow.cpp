@@ -200,15 +200,20 @@ void MainWindow::on_crackButton_clicked()
 
     timer.start();
     c->reverse();
-    success = c->getPlaintext().length();
+    std::cout<<"I GOT HERE"<<std::endl;
+    QString str = c->getPlaintext();
+    success = str.length();
+    std::cout<<"CHECKMATE"<<std::endl;
     elapsed = timer.elapsed();
 
     //if
     if(success) {
-        ui->crackedField->setText(c->getPlaintext());
+        ui->crackedField->setText(str);
     } else {
         ui->crackedField->setText("\"Uncrackable!!\"");
     }
+
+    std::cout<<"CHECKPOINT"<<std::endl;
 
     string s = "Time: " + QString::number(elapsed).toStdString() + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
