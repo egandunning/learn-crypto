@@ -26,7 +26,7 @@ std::vector<mpz_class> GenerateData::composites(unsigned int startDigits, unsign
 
         //to get a composite number with n digits, the factors can have x,y digits where n=x+y+1
         while(composite.get_str().length() != startDigits-1) {
-            std::cout << composite.get_str().length() << " " << startDigits << std::endl;
+
             int digitCount1;
             int digitCount2;
             //startDigits odd
@@ -111,14 +111,8 @@ std::vector<QPointF> GenerateData::crack(std::vector<std::string> strings, Crack
         return points;
     }
 
-    /*for(std::vector<std::string>::iterator it = strings.begin(); it != strings.end(); it++) {
-        alg->digest = *it;
-        points.push_back(alg->reverse());
-    }*/
-
     for(unsigned int i = 0; i < strings.size(); i++) {
         alg->digest = strings.at(i);
-        std::cout << "in generatedata::crack()" << std::endl;
         points.push_back(alg->reverse());
     }
 

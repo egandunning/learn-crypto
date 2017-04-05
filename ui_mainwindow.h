@@ -45,7 +45,9 @@ public:
     QGridLayout *gridLayout_3;
     QPushButton *pushButton_3;
     QPushButton *pushButton;
-    QGridLayout *gameGrid;
+    QPushButton *pushButton_2;
+    QHBoxLayout *layoutForButtons;
+    QHBoxLayout *layoutForLabels;
     QWidget *tab_3;
     QGridLayout *gridLayout_4;
     QLabel *label_2;
@@ -78,8 +80,8 @@ public:
     QCheckBox *prependCheckBox;
     QLabel *label_13;
     QSpinBox *digitCountSpinBox;
-    QCheckBox *capCheckBox;
-    QCheckBox *dictSymbolsCheckBox;
+    QLabel *label;
+    QSpinBox *capCountSpinBox;
     QHBoxLayout *horizontalLayout_5;
     QLineEdit *crackedField;
     QLabel *label_4;
@@ -144,19 +146,29 @@ public:
         pushButton_3 = new QPushButton(gameTab);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
 
-        gridLayout_3->addWidget(pushButton_3, 1, 1, 1, 1);
+        gridLayout_3->addWidget(pushButton_3, 3, 2, 1, 1);
 
         pushButton = new QPushButton(gameTab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
-        gridLayout_3->addWidget(pushButton, 1, 0, 1, 1);
+        gridLayout_3->addWidget(pushButton, 3, 0, 1, 1);
 
-        gameGrid = new QGridLayout();
-        gameGrid->setSpacing(6);
-        gameGrid->setObjectName(QStringLiteral("gameGrid"));
-        gameGrid->setContentsMargins(-1, 20, -1, 20);
+        pushButton_2 = new QPushButton(gameTab);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
 
-        gridLayout_3->addLayout(gameGrid, 0, 0, 1, 2);
+        gridLayout_3->addWidget(pushButton_2, 3, 1, 1, 1);
+
+        layoutForButtons = new QHBoxLayout();
+        layoutForButtons->setSpacing(6);
+        layoutForButtons->setObjectName(QStringLiteral("layoutForButtons"));
+
+        gridLayout_3->addLayout(layoutForButtons, 1, 0, 2, 3);
+
+        layoutForLabels = new QHBoxLayout();
+        layoutForLabels->setSpacing(6);
+        layoutForLabels->setObjectName(QStringLiteral("layoutForLabels"));
+
+        gridLayout_3->addLayout(layoutForLabels, 0, 0, 1, 3);
 
         tabWidget->addTab(gameTab, QString());
         tab_3 = new QWidget();
@@ -281,12 +293,12 @@ public:
         digitCountSpinBox = new QSpinBox(tab_2);
         digitCountSpinBox->setObjectName(QStringLiteral("digitCountSpinBox"));
         digitCountSpinBox->setGeometry(QRect(290, 30, 44, 27));
-        capCheckBox = new QCheckBox(tab_2);
-        capCheckBox->setObjectName(QStringLiteral("capCheckBox"));
-        capCheckBox->setGeometry(QRect(10, 60, 131, 22));
-        dictSymbolsCheckBox = new QCheckBox(tab_2);
-        dictSymbolsCheckBox->setObjectName(QStringLiteral("dictSymbolsCheckBox"));
-        dictSymbolsCheckBox->setGeometry(QRect(150, 60, 201, 22));
+        label = new QLabel(tab_2);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 70, 181, 17));
+        capCountSpinBox = new QSpinBox(tab_2);
+        capCountSpinBox->setObjectName(QStringLiteral("capCountSpinBox"));
+        capCountSpinBox->setGeometry(QRect(170, 60, 44, 27));
         crackTabWidget->addTab(tab_2, QString());
 
         verticalLayout->addWidget(crackTabWidget);
@@ -499,7 +511,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         crackTabWidget->setCurrentIndex(1);
 
 
@@ -511,6 +523,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Guess", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
         label_2->setText(QApplication::translate("MainWindow", "Hash Function", 0));
         crackComboBox->clear();
@@ -535,8 +548,7 @@ public:
         label_12->setText(QApplication::translate("MainWindow", "beginning", 0));
         prependCheckBox->setText(QString());
         label_13->setText(QApplication::translate("MainWindow", "Digits:", 0));
-        capCheckBox->setText(QApplication::translate("MainWindow", "Capitalize letters", 0));
-        dictSymbolsCheckBox->setText(QApplication::translate("MainWindow", "Replace letters with symbols", 0));
+        label->setText(QApplication::translate("MainWindow", "Number of capitalizations:", 0));
         crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary crack settings", 0));
         label_4->setText(QApplication::translate("MainWindow", "Result:", 0));
         crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));

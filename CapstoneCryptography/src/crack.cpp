@@ -1,5 +1,18 @@
 #include <headers/crack.h>
 
+Crack::Crack(const Crack& c) {
+    plaintext = c.plaintext;
+    digest = c.digest;
+    hashType = c.hashType;
+}
+
+Crack& Crack::operator=(const Crack& c) {
+    plaintext = c.plaintext;
+    digest = c.digest;
+    hashType = c.hashType;
+    return *this;
+}
+
 Crack::~Crack() {
     delete hashType;
 }
@@ -13,7 +26,7 @@ QPointF Crack::reverse() {
     return QPointF(-1, -1);
 }
 
-void Crack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, unsigned int symb, unsigned int cap) {
+void Crack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap) {
     std::cout << "Incorrect usage of crack class. Needs \"Crack* c = new X\" where X is an instance of DictionaryCrack." << std::endl;
 }
 

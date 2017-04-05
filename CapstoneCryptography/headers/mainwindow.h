@@ -17,6 +17,9 @@
 #include <headers/dictionarycrack.h>
 #include <headers/graphwindow.h>
 #include <headers/generatedata.h>
+#include <headers/workerthreadcrack.h>
+#include <headers/workerthreadfactor.h>
+#include <headers/buttonarray.h>
 
 namespace Ui {
 class MainWindow;
@@ -47,16 +50,32 @@ private slots:
 
     void on_crackButton_clicked();
 
+    void update_crack_result();
+
+    void update_factor_result();
+
     void on_drawFactoring_clicked();
 
     void on_plotCrackButton_clicked();
+
+    void on_hashLogScaleCheckBox_clicked();
+
+    void on_factorLogScaleCheckBox_clicked();
 
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
     Hash *hashAlg;
     QString digest;
-    GraphWindow* g;
+    QString guessedWord;
+    GraphWindow* fg; //for factoring
+    GraphWindow* cg; //for hash cracking
+    WorkerThreadCrack threadCrack;
+    WorkerThreadFactor threadFactor;
+
+    std::vector<QPointF> crackDataPoints;
+    std::vector<QPointF> factorDataPoints;
+
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);

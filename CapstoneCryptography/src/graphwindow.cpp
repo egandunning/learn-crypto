@@ -5,9 +5,15 @@
 #include <headers/md5.h>
 
 #include <iostream>
-GraphWindow::GraphWindow(QGraphicsView* graphicsView)
+GraphWindow::GraphWindow(QGraphicsView* graphicsView, std::vector<QPointF> pts)
 {
-    points = std::vector<QPointF>();
+    points = pts;
+    setMaxPoint();
+    setLimits();
+    yLogLimit = log(yLimit);
+
+    setLabelsX();
+    setLabelsY();
 
     //Set up graph GUI
     view = graphicsView;
@@ -16,12 +22,13 @@ GraphWindow::GraphWindow(QGraphicsView* graphicsView)
     hSize = 600;
     vSize = 600;
 
-    scene->setSceneRect(0,0,hSize-50,-vSize+50); //I dont know why this works
+    scene->setSceneRect(0,0,hSize-50,-vSize+50);
     view->setScene(scene);
     view->resize(hSize,vSize);
 }
 
 void GraphWindow::draw() {
+
 
     QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
     QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
@@ -37,47 +44,64 @@ void GraphWindow::draw() {
             yLimit = points.at(i).y();
         }
     }
-    addTicksY(vSize - 100, 10, (int)yLimit);
 
-    points = scalePoints(points);
+    std::vector<QPointF> scaledPoints = getScaledPoints(points,yLimit);
+
+    //draw labels
+    addTicksX(labelsX);
+    addTicksY(labelsY);
 
     QPointF previous;
-    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+    int i = 0;
+    for(std::vector<QPointF>::iterator it = scaledPoints.begin(); it != scaledPoints.end(); it++) {
         QPointF current = transform(*it);
-        std::cout << current.x() << "," << current.y() << std::endl;
+
         scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
+        std::cout<<"("<<points.at(i).x()<<","<<points.at(i).y()<<"),  ";
         if(!previous.isNull()) {
             QPoint a((int)current.x(), (int)current.y());
             QPoint b((int)previous.x(), (int)previous.y());
             scene->addLine(QLine(a,b));
         }
+        i++;
         previous = current;
     }
+    std::cout<<std::endl;
 }
 
-void GraphWindow::logScale(int base) {
+void GraphWindow::logScaleDraw() {
 
-    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+    //get y axis labels
+    setLogLabelsY();
+    addTicksY(logLabelsY);
+    addTicksX(labelsX);
+
+    //scale points
+    std::vector<QPointF> scaledPoints = getScaledPoints(getLogPoints(),yLogLimit);
+
+    //draw points
+    QPointF previous;
+    int i = 0;
+    for(std::vector<QPointF>::iterator it = scaledPoints.begin(); it != scaledPoints.end(); it++) {
         QPointF current = *it;
-        if(current.y() > 0) {
-            current.setY( log(current.y()) / log(base));
+
+        current = transform(current);
+        scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(Qt::black), QBrush(Qt::black));
+        std::cout<<"("<<points.at(i).x()<<","<<points.at(i).y()<<"),  ";
+        if(!previous.isNull()) {
+            QPoint a((int)current.x(), (int)current.y());
+            QPoint b((int)previous.x(), (int)previous.y());
+            scene->addLine(QLine(a,b));
         }
-        *it = current;
+        i++;
+        previous = current;
     }
+    std::cout<<std::endl;
+
 }
 
-void GraphWindow::undoLogScale(int base) {
+void GraphWindow::addTicksY(std::vector<QString> labels) {
 
-    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
-        QPointF current = *it;
-        if(current.y() != 0) {
-            current.setY( pow(base,current.y()) );
-        }
-        *it = current;
-    }
-}
-
-void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
 
 
     /*
@@ -85,23 +109,53 @@ void GraphWindow::addTicksY(int yMax, int ticksY, int yValue) {
      * It also takes in the number of ticks that should appear on the the graph.
      *
      */
+    //draw y axis
+    QLine yAxis(QPoint(0,0),QPoint(0,-vSize + 100));
+    scene->addLine(yAxis);
 
-    int y = yMax / ticksY;
+    if(labels.size() == 0) {
+        std::cout << "Tried to draw x-labels, but the labels have not been created yet. Exiting graphwindow::addTicksY" << std::endl;
+        return;
+    }
+
+    //draw axis labels
+    int y = (vSize-100) / labels.size();
+
 
     QFont font("Times", 8);
 
+    for(unsigned int i = 0; i < labels.size(); i++){
+        int pos = -i*y;
+        scene->addLine(QLine(QPoint(0, pos), QPoint(2, pos)));
 
-    int yIncrement = yValue / ticksY;
-
-    for(int i = 0; i<= ticksY; i++){
-        scene->addLine(QLine(QPoint(0, -i*y), QPoint(2, -i*y)));
-
-        QGraphicsTextItem *temp = scene->addText(QString::number(i*yIncrement), font);
-        temp->setPos(-16, -i*y + 10);
+        QGraphicsTextItem *temp = scene->addText(labels.at(i), font);
+        temp->setPos(-16, pos + 10);
         temp->setRotation(270);
     }
 }
 
+void GraphWindow::addTicksX(std::vector<QString> labels) {
+
+    //draw x axis
+    QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
+    scene->addLine(xAxis);
+
+    if(labels.size() == 0 || points.size() == 0) {
+        std::cout << "Tried to draw x-labels, but the labels have not been created yet or there are no points to draw. Exiting graphwindow::addTicksX" << std::endl;
+        return;
+    }
+
+    QFont font("Times", 8);
+
+    std::vector<QPointF> scaledPoints = getScaledPoints(points, yLimit);
+    for(unsigned int i = 0; i < labels.size(); i ++) {
+        QPointF current = scaledPoints.at(i);
+        scene->addLine(QLine(QPoint((int)current.x(), 0), QPoint((int)current.x(), -2)));
+
+        QGraphicsTextItem *temp = scene->addText(labels.at(i), font);
+        temp->setPos((int)current.x() - 5, -3);
+    }
+}
 
 void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
 
@@ -120,7 +174,7 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
     QString stry = QString::fromStdString(ylabel);
     QGraphicsTextItem *txty = scene->addText(stry, QFont());
     txty->setPos(-30, -(yMax - (int)(5*ylabel.length()))/ 2);
-    std::cout << (-1*(yMax - 5*ylabel.length())/ 2) << std::endl;
+
     txty->setRotation(270);
 }
 
@@ -130,67 +184,151 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
  * @param points
  * @return
  */
-std::vector<QPointF> GraphWindow::scalePoints(std::vector<QPointF> points) {
+std::vector<QPointF> GraphWindow::getScaledPoints(std::vector<QPointF> pts, double maxY) {
 
-    //Find point with highest value for x and y.
-    // -Assume this point is the last in vector
-
-    QPointF maxY(0,0);
-    QPointF maxX(0,0);
-    for(unsigned int i = 0; i < points.size(); i++) {
-        if(points.at(i).x() > maxX.x()) {
-            maxX = points.at(i);
-        }
-        if(points.at(i).y() > maxY.y()) {
-            maxY = points.at(i);
-        }
-    }
+    std::vector<QPointF> scaledPoints(pts);
 
     double scaleFactor = 1;
 
-    //scale
+    //scale points to fit in window
     QPointF current;
 
     //scale down graph so the y's fit if neccesary
-    if(maxY.y() != (vSize-100) && maxY.y() != 0) {
-        scaleFactor = (vSize-100) / maxY.y();
+    if(yLimit != (vSize-100) && maxY != 0) {
+        scaleFactor = (vSize-100) / maxY;
 
-        for(unsigned int i = 0; i < points.size(); i++) {
-            current = points.at(i);
-            //current.setX(current.x() * scaleFactor);
+        for(unsigned int i = 0; i < pts.size(); i++) {
+            current = pts.at(i);
             current.setY(current.y() * scaleFactor);
-            points.at(i) = current;
-
+            scaledPoints.at(i) = current;
         }
     }
 
     //scale down graph so the x's fit if neccesary
-    if(maxX.x() != (hSize-100) && maxX.x() != 0) {
-        scaleFactor = (hSize-100) / maxX.x();
+    if(xLimit != (hSize-100) && xLimit != 0) {
+        scaleFactor = (hSize-100) / xLimit;
 
-        for(unsigned int i = 0; i < points.size(); i++) {
-            current = points.at(i);
-            double tempX = current.x();
-            current.setX(tempX * scaleFactor);
-            points.at(i) = current;
-
-            //draw x axis labels
-            scene->addLine(QLine(QPoint((int)current.x(), 0), QPoint((int)current.x(), -2)));
-
-            QGraphicsTextItem *temp = scene->addText(QString::number((int)tempX), QFont("times",8));
-            temp->setPos((int)current.x() - 5, -3);
+        for(unsigned int i = 0; i < pts.size(); i++) {
+            current = pts.at(i);
+            scaledPoints.at(i).setX(current.x() * scaleFactor);
 
         }
     }
 
-    return points;
+    return scaledPoints;
 
 }
 
-QPointF GraphWindow::transform(QPointF original) {
-    double x = original.x();
-    double y = original.y();
+/**
+ * Trivial transformation to flip y coord and cast to int
+ * @brief GraphWindow::transform
+ * @param original point to transform
+ * @return
+ */
+QPoint GraphWindow::transform(QPointF original) {
 
-    QPointF transformed(x, y*-1);
-    return transformed;
+    return QPoint((int)original.x(), -1 * (int)original.y());
+}
+
+/**
+ * Find the point with the maximum y-value and assign it to maximum
+ * @brief GraphWindow::setMaxPoint
+ */
+void GraphWindow::setMaxPoint() {
+
+    QPointF maxY(0,0);
+    for(unsigned int i = 0; i < points.size(); i++) {
+        if(points.at(i).y() > maxY.y()) {
+            maxY = points.at(i);
+        }
+    }
+    maximum = maxY;
+}
+
+/**
+ * Set the maximum value that the graph will show on x,y axes
+ * @brief GraphWindow::setLimits
+ */
+void GraphWindow::setLimits() {
+
+    xLimit = points.back().x();
+    yLimit = maximum.y();
+}
+
+/**
+ * Set x labels for graph
+ * @brief GraphWindow::setLabelsX
+ */
+void GraphWindow::setLabelsX() {
+
+    labelsX = std::vector<QString>();
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF temp = *it;
+        labelsX.push_back(QString::number(temp.x()));
+
+    }
+}
+
+/**
+ * Set y labels for graph
+ * @brief GraphWindow::setLabelsY
+ */
+void GraphWindow::setLabelsY(unsigned int count) {
+
+    labelsY = std::vector<QString>();
+
+    if(count == 0) {
+        std::cout << "Generated zero y-labels as requested." << std::endl;
+        return;
+    }
+
+    int increment = yLimit / count;
+
+    for(unsigned int i = 0; i < count; i++) {
+        labelsY.push_back(QString::number(i*increment));
+    }
+}
+
+/**
+ * Set labels for log scale graph
+ * @brief GraphWindow::setLogLabelsY
+ */
+void GraphWindow::setLogLabelsY() {
+
+    logLabelsY.clear();
+
+    logLabelsY.push_back(QString::number(0));
+    logLabelsY.push_back(QString::number(1));
+
+    int max = 1;
+    while(true) {
+        max *= 10;
+        if(max > yLimit) {
+            break;
+        }
+        logLabelsY.push_back(QString::number(max));
+    }
+}
+
+/**
+ * Log transform data points if possible
+ * @brief GraphWindow::getLogPoints
+ * @return
+ */
+std::vector<QPointF> GraphWindow::getLogPoints() {
+
+    std::vector<QPointF> logPoints;
+
+    for(std::vector<QPointF>::iterator it = points.begin(); it != points.end(); it++) {
+        QPointF current = *it;
+        if(current.y() > 0) {
+            current.setY(log(current.y()));
+
+        } else {
+            std::cout << "log(" << current.y() << ") is undefined! Skipping log transform for this point." << std::endl;
+        }
+        logPoints.push_back(current);
+    }
+    return logPoints;
 }

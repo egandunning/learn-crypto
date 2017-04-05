@@ -20,49 +20,36 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
           <string>Game</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="5" column="2">
+          <item row="1" column="1">
            <widget class="QPushButton" name="pushButton_3">
             <property name="text">
              <string>Hint</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="1" column="0">
            <widget class="QPushButton" name="pushButton">
             <property name="text">
              <string>New Game</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>Guess</string>
+          <item row="0" column="0" colspan="2">
+           <layout class="QGridLayout" name="gameGrid">
+            <property name="topMargin">
+             <number>20</number>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>TextLabel</string>
+            <property name="bottomMargin">
+             <number>20</number>
             </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <layout class="QGridLayout" name="gridLayout_5"/>
-          </item>
-          <item row="3" column="0" rowspan="2">
-           <layout class="QHBoxLayout" name="layoutForButtons"/>
-          </item>
-          <item row="2" column="0" colspan="3">
-           <widget class="QTextEdit" name="textEdit"/>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -153,12 +140,15 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="saltField"/>
+          </item>
           <item row="11" column="0" colspan="3">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QTabWidget" name="crackTabWidget">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">
@@ -377,6 +367,32 @@
                  </rect>
                 </property>
                </widget>
+               <widget class="QCheckBox" name="capCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>60</y>
+                  <width>131</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Capitalize letters</string>
+                </property>
+               </widget>
+               <widget class="QCheckBox" name="dictSymbolsCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>60</y>
+                  <width>201</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Replace letters with symbols</string>
+                </property>
+               </widget>
               </widget>
              </widget>
             </item>
@@ -384,6 +400,13 @@
              <layout class="QHBoxLayout" name="horizontalLayout_5"/>
             </item>
            </layout>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="crackedField">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_4">
@@ -399,30 +422,20 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="crackedField">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="saltField"/>
-          </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="plaintextField"/>
-          </item>
-          <item row="4" column="2">
-           <widget class="QPushButton" name="crackButton">
-            <property name="text">
-             <string>Reverse!</string>
-            </property>
-           </widget>
           </item>
           <item row="9" column="1">
            <widget class="QSpinBox" name="crackPointCountSpinBox">
             <property name="value">
              <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QPushButton" name="crackButton">
+            <property name="text">
+             <string>Reverse!</string>
             </property>
            </widget>
           </item>
@@ -528,12 +541,7 @@
            <widget class="QComboBox" name="factorAlgChooser">
             <item>
              <property name="text">
-              <string>Brute force (small to big)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Brute force (big to small)</string>
+              <string>Brute force (trial division)</string>
              </property>
             </item>
             <item>
@@ -585,6 +593,9 @@
             </item>
             <item>
              <widget class="QSpinBox" name="dataPointsSpinBox">
+              <property name="minimum">
+               <number>1</number>
+              </property>
               <property name="value">
                <number>10</number>
               </property>
@@ -603,8 +614,11 @@
             </item>
             <item>
              <widget class="QSpinBox" name="startDigitsSpinBox">
+              <property name="minimum">
+               <number>3</number>
+              </property>
               <property name="value">
-               <number>2</number>
+               <number>3</number>
               </property>
              </widget>
             </item>

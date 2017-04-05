@@ -33,7 +33,10 @@ SOURCES += src/main.cpp\
     src/buttonarray.cpp \
     src/graphwindow.cpp \
     src/graphing.cpp \
-	src/generatedata.cpp
+	src/generatedata.cpp \
+    src/labelarray.cpp \
+    src/workerthreadcrack.cpp \
+    src/workerthreadfactor.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -52,8 +55,10 @@ HEADERS  += headers/mainwindow.h\
 	headers/generatedata.h \
     headers/cipher.h \
     headers/buttonarray.h \
-    src/buttonarray.h \
-    headers/graphing.h
+    headers/graphing.h \
+    headers/labelarray.h \
+    headers/workerthreadcrack.h \
+    headers/workerthreadfactor.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \
@@ -62,7 +67,7 @@ unix:{  LIBS	 += -L/usr/local/lib \
 }
 
 
-INCLUDEPATH += "/usr/local/include/" \
+INCLUDEPATH += "/usr/local/include/"
 FORMS    += forms/mainwindow.ui
 macx:{
  INCLUDEPATH += "gmp/include"
@@ -102,9 +107,6 @@ INCLUDEPATH += $$PWD/../../../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../../../usr/local/include
 
 macx: PRE_TARGETDEPS += $$PWD/../../../../../../usr/local/lib/libgmp.a
-
-FORMS += \
-    forms/mainwindow.ui
 
 unix:!macx: LIBS += -L$$PWD/../../../../../usr/lib/x86_64-linux-gnu/mesa/ -lGL
 
