@@ -50,8 +50,6 @@ public:
     QGridLayout *gridLayout_4;
     QLabel *label_2;
     QGraphicsView *crackGraphicsView;
-    QComboBox *crackComboBox;
-    QLabel *label_9;
     QTextEdit *digestField;
     QLabel *label_6;
     QLabel *label_3;
@@ -80,13 +78,13 @@ public:
     QSpinBox *digitCountSpinBox;
     QCheckBox *capCheckBox;
     QCheckBox *dictSymbolsCheckBox;
+    QCheckBox *completeModeCheckBox;
     QHBoxLayout *horizontalLayout_5;
     QLineEdit *crackedField;
     QLabel *label_4;
     QLabel *crackPlotLabel;
     QLineEdit *plaintextField;
     QSpinBox *crackPointCountSpinBox;
-    QPushButton *crackButton;
     QPushButton *randomSaltButton;
     QPushButton *hashButton;
     QComboBox *hashComboBox;
@@ -95,6 +93,7 @@ public:
     QLabel *pointCountLabel;
     QLabel *charCountLabel;
     QCheckBox *hashLogScaleCheckBox;
+    QPushButton *crackButton;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
     QLabel *timeLabel;
@@ -175,16 +174,6 @@ public:
         crackGraphicsView->setMinimumSize(QSize(600, 0));
 
         gridLayout_4->addWidget(crackGraphicsView, 0, 3, 12, 1);
-
-        crackComboBox = new QComboBox(tab_3);
-        crackComboBox->setObjectName(QStringLiteral("crackComboBox"));
-
-        gridLayout_4->addWidget(crackComboBox, 4, 1, 1, 1);
-
-        label_9 = new QLabel(tab_3);
-        label_9->setObjectName(QStringLiteral("label_9"));
-
-        gridLayout_4->addWidget(label_9, 4, 0, 1, 1);
 
         digestField = new QTextEdit(tab_3);
         digestField->setObjectName(QStringLiteral("digestField"));
@@ -287,6 +276,9 @@ public:
         dictSymbolsCheckBox = new QCheckBox(tab_2);
         dictSymbolsCheckBox->setObjectName(QStringLiteral("dictSymbolsCheckBox"));
         dictSymbolsCheckBox->setGeometry(QRect(150, 60, 201, 22));
+        completeModeCheckBox = new QCheckBox(tab_2);
+        completeModeCheckBox->setObjectName(QStringLiteral("completeModeCheckBox"));
+        completeModeCheckBox->setGeometry(QRect(10, 90, 141, 22));
         crackTabWidget->addTab(tab_2, QString());
 
         verticalLayout->addWidget(crackTabWidget);
@@ -326,11 +318,6 @@ public:
         crackPointCountSpinBox->setValue(5);
 
         gridLayout_4->addWidget(crackPointCountSpinBox, 9, 1, 1, 1);
-
-        crackButton = new QPushButton(tab_3);
-        crackButton->setObjectName(QStringLiteral("crackButton"));
-
-        gridLayout_4->addWidget(crackButton, 4, 2, 1, 1);
 
         randomSaltButton = new QPushButton(tab_3);
         randomSaltButton->setObjectName(QStringLiteral("randomSaltButton"));
@@ -372,6 +359,11 @@ public:
         hashLogScaleCheckBox->setObjectName(QStringLiteral("hashLogScaleCheckBox"));
 
         gridLayout_4->addWidget(hashLogScaleCheckBox, 10, 1, 1, 1);
+
+        crackButton = new QPushButton(tab_3);
+        crackButton->setObjectName(QStringLiteral("crackButton"));
+
+        gridLayout_4->addWidget(crackButton, 4, 1, 1, 1);
 
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
@@ -499,8 +491,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
-        crackTabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(1);
+        crackTabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -513,12 +505,6 @@ public:
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
         label_2->setText(QApplication::translate("MainWindow", "Hash Function", 0));
-        crackComboBox->clear();
-        crackComboBox->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Brute force", 0)
-         << QApplication::translate("MainWindow", "Dictionary attack", 0)
-        );
-        label_9->setText(QApplication::translate("MainWindow", "Crack algorithm", 0));
         label_6->setText(QApplication::translate("MainWindow", "Hashed text:", 0));
         label_3->setText(QApplication::translate("MainWindow", "Your Text:", 0));
         label_8->setText(QApplication::translate("MainWindow", "Salt:", 0));
@@ -528,7 +514,7 @@ public:
         numbersCheckBox->setText(QApplication::translate("MainWindow", "Numbers", 0));
         customCheckBox->setText(QApplication::translate("MainWindow", "Custom alphabet:", 0));
         symbolsCheckBox->setText(QApplication::translate("MainWindow", "Symbols", 0));
-        crackTabWidget->setTabText(crackTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Brute force settings", 0));
+        crackTabWidget->setTabText(crackTabWidget->indexOf(tab), QApplication::translate("MainWindow", "Brute force cracking", 0));
         label_5->setText(QApplication::translate("MainWindow", "Number of words:", 0));
         label_11->setText(QApplication::translate("MainWindow", "Add numbers to end", 0));
         appendCheckBox->setText(QString());
@@ -537,10 +523,10 @@ public:
         label_13->setText(QApplication::translate("MainWindow", "Digits:", 0));
         capCheckBox->setText(QApplication::translate("MainWindow", "Capitalize letters", 0));
         dictSymbolsCheckBox->setText(QApplication::translate("MainWindow", "Replace letters with symbols", 0));
-        crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary crack settings", 0));
+        completeModeCheckBox->setText(QApplication::translate("MainWindow", "All combinations", 0));
+        crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary attack", 0));
         label_4->setText(QApplication::translate("MainWindow", "Result:", 0));
         crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
-        crackButton->setText(QApplication::translate("MainWindow", "Reverse!", 0));
         randomSaltButton->setText(QApplication::translate("MainWindow", "Random", 0));
         hashButton->setText(QApplication::translate("MainWindow", "Hash!", 0));
         hashComboBox->clear();
@@ -554,6 +540,7 @@ public:
         pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
         charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
         hashLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
+        crackButton->setText(QApplication::translate("MainWindow", "Reverse!", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
         timeLabel->setText(QApplication::translate("MainWindow", "Time: ", 0));
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
