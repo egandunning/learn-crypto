@@ -28,10 +28,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    std::cout<<"Start the game."<<std::endl;
+   // std::cout<<"Start the game."<<std::endl;
 
-    std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
-    std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
+   // std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
+    //std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
 
     /*if(buttonPtrs){
         delete buttonPtrs;
@@ -46,7 +46,7 @@ void MainWindow::on_pushButton_clicked()
           delete button->widget();
            //delete button;
            //QLayoutItem::~QLayoutItem();
-        std::cout<<"Deleting button number: " << i<<std::endl;
+        //std::cout<<"Deleting button number: " << i<<std::endl;
        }
 
 
