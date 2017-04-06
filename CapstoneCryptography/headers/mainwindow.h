@@ -62,6 +62,8 @@ private slots:
 
     void on_factorLogScaleCheckBox_clicked();
 
+    void on_cancelCrackButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;

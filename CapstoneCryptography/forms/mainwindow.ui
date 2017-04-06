@@ -505,7 +505,37 @@
             </property>
            </widget>
           </item>
+          <item row="4" column="2">
+           <widget class="QPushButton" name="cancelCrackButton">
+            <property name="text">
+             <string>Cancel</string>
+            </property>
+           </widget>
+          </item>
          </layout>
+         <zorder>cancelCrackButton</zorder>
+         <zorder>label_2</zorder>
+         <zorder>crackGraphicsView</zorder>
+         <zorder>digestField</zorder>
+         <zorder>label_6</zorder>
+         <zorder>label_3</zorder>
+         <zorder>label_8</zorder>
+         <zorder>charCountSpinBox_2</zorder>
+         <zorder>saltField</zorder>
+         <zorder>crackedField</zorder>
+         <zorder>label_4</zorder>
+         <zorder>crackPlotLabel</zorder>
+         <zorder>plaintextField</zorder>
+         <zorder>crackPointCountSpinBox</zorder>
+         <zorder>randomSaltButton</zorder>
+         <zorder>hashButton</zorder>
+         <zorder>hashComboBox</zorder>
+         <zorder>crackTimeLabel</zorder>
+         <zorder>plotCrackButton</zorder>
+         <zorder>pointCountLabel</zorder>
+         <zorder>charCountLabel</zorder>
+         <zorder>hashLogScaleCheckBox</zorder>
+         <zorder>crackButton</zorder>
         </widget>
         <widget class="QWidget" name="tab_4">
          <attribute name="title">

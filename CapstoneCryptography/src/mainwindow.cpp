@@ -116,6 +116,8 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     threadFactor.setFactor(pf, composite);
     threadFactor.work();
+
+    ui->factorPrimesButton->setDisabled(true);
 }
 
 void MainWindow::on_random_composite_clicked()
@@ -193,6 +195,8 @@ void MainWindow::on_crackButton_clicked()
 
     threadCrack.setCrackType(c);
     threadCrack.work();
+
+    ui->crackButton->setDisabled(true);
 }
 
 void MainWindow::update_crack_result() {
@@ -213,6 +217,8 @@ void MainWindow::update_crack_result() {
 
     string s = "Time: " + std::to_string(elapsed) + " ms";
     ui->crackTimeLabel->setText(QString::fromStdString(s));
+
+    ui->crackButton->setDisabled(false);
 }
 
 void MainWindow::update_factor_result() {
@@ -225,6 +231,8 @@ void MainWindow::update_factor_result() {
 
     s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
     ui->resultLabel->setText(QString::fromStdString(s));
+
+    ui->factorPrimesButton->setDisabled(false);
 }
 
 std::string MainWindow::bruteForceAlphabet() {
@@ -393,4 +401,9 @@ void MainWindow::on_factorLogScaleCheckBox_clicked()
     fg->addLabels("Milliseconds", "Number of characters");
 
     fg->view->show();
+}
+
+void MainWindow::on_cancelCrackButton_clicked()
+{
+    threadCrack.stop();
 }

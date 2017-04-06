@@ -18,7 +18,7 @@ public:
     ~WorkerThreadCrack();
 
     void work();
-
+    void stop();
     void setCrackType(Crack* c);
     long getResult();
     Crack* getCrack();
@@ -30,7 +30,7 @@ private:
     void run();
     QMutex mutex;
     long elapsed;
-    bool stop;
+    bool kill;
     Crack* c;
 };
 
