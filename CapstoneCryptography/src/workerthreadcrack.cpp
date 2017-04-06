@@ -2,19 +2,24 @@
 
 WorkerThreadCrack::WorkerThreadCrack(QObject *parent) : QThread(parent) {
     elapsed = -1;
-    stop = false;
+    kill = false;
 }
 
 WorkerThreadCrack::~WorkerThreadCrack() {
     QMutexLocker locker(&mutex);
     delete c;
-    stop = true;
+    kill = true;
+    c->stop();
 }
 
 void WorkerThreadCrack::work() {
     if(!isRunning()) {
         start();
     }
+}
+
+void WorkerThreadCrack::stop() {
+    c->stop();
 }
 
 void WorkerThreadCrack::run() {

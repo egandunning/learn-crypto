@@ -94,6 +94,7 @@ public:
     QLabel *charCountLabel;
     QCheckBox *hashLogScaleCheckBox;
     QPushButton *crackButton;
+    QPushButton *cancelCrackButton;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
     QLabel *timeLabel;
@@ -365,7 +366,35 @@ public:
 
         gridLayout_4->addWidget(crackButton, 4, 1, 1, 1);
 
+        cancelCrackButton = new QPushButton(tab_3);
+        cancelCrackButton->setObjectName(QStringLiteral("cancelCrackButton"));
+
+        gridLayout_4->addWidget(cancelCrackButton, 4, 2, 1, 1);
+
         tabWidget->addTab(tab_3, QString());
+        cancelCrackButton->raise();
+        label_2->raise();
+        crackGraphicsView->raise();
+        digestField->raise();
+        label_6->raise();
+        label_3->raise();
+        label_8->raise();
+        charCountSpinBox_2->raise();
+        saltField->raise();
+        crackedField->raise();
+        label_4->raise();
+        crackPlotLabel->raise();
+        plaintextField->raise();
+        crackPointCountSpinBox->raise();
+        randomSaltButton->raise();
+        hashButton->raise();
+        hashComboBox->raise();
+        crackTimeLabel->raise();
+        plotCrackButton->raise();
+        pointCountLabel->raise();
+        charCountLabel->raise();
+        hashLogScaleCheckBox->raise();
+        crackButton->raise();
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
         gridLayout_2 = new QGridLayout(tab_4);
@@ -541,6 +570,7 @@ public:
         charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
         hashLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
         crackButton->setText(QApplication::translate("MainWindow", "Reverse!", 0));
+        cancelCrackButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
         timeLabel->setText(QApplication::translate("MainWindow", "Time: ", 0));
         random_composite->setText(QApplication::translate("MainWindow", "Random", 0));

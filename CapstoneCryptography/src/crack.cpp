@@ -14,6 +14,7 @@ Crack& Crack::operator=(const Crack& c) {
 }
 
 Crack::~Crack() {
+    kill=true;
     delete hashType;
 }
 
@@ -37,4 +38,8 @@ QString Crack::getDigest() {
 
 QString Crack::getPlaintext() {
     return QString::fromStdString(plaintext);
+}
+
+void Crack::stop() {
+    kill = true;
 }

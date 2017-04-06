@@ -118,9 +118,13 @@ QPointF DictionaryCrack::reverse() {
         unsigned int guessSize;
         std::vector<char> binString;
         std::vector<char> binString2;
-        bool noSymbolSub = false;
 
         while(true) {   //symbol substitution and digits at beginning and end of string
+
+            if(kill) {
+                return QPointF(0,0);
+            }
+
             guess = getNextWord();
             temp = guess;
             temp2 = guess;
@@ -129,6 +133,10 @@ QPointF DictionaryCrack::reverse() {
             binString2 = binString;
 
             while(true) {
+
+                if(kill) {
+                    return QPointF(0,0);
+                }
 
                 temp = guess;
 
@@ -147,7 +155,12 @@ QPointF DictionaryCrack::reverse() {
                             elapsed = timer.elapsed();
                             return QPointF(plaintextLength, elapsed);
                         }
-                        while(!noSymbolSub) {
+                        while(true) {
+
+                            if(kill) {
+                                return QPointF(0,0);
+                            }
+
                             temp2 = temp;
 
                             for(unsigned int j = 0; j < guessSize; j++) {
@@ -159,7 +172,6 @@ QPointF DictionaryCrack::reverse() {
 
                                             break;
                                         }
-                                        noSymbolSub = true;
                                     }
 
                                     hashType->plaintext = temp2;
@@ -171,7 +183,6 @@ QPointF DictionaryCrack::reverse() {
                                     }
                                 }
                             }
-
                             if(allOnes(binString2)) {
                                 break;
                             }
@@ -189,6 +200,10 @@ QPointF DictionaryCrack::reverse() {
     } else { //not "complete mode"
 
         for(mpz_class i = 0; i < mpz_class(pow(words.size(), numWords)); i++) {
+
+            if(kill) {
+                return QPointF(0,0);
+            }
 
             //std::string guess = getWordCombo(i);
             std::string guess = getNextWord();
