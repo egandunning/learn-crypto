@@ -11,28 +11,33 @@
 std::string foundValue;
 bool finished;
 
-std::string incrementStringW(std::string in){
+std::string incrementStringW(std::string in, std::string alpha){
 
-    char z = 'z';
+    char z = alpha[alpha.size()-1];
 
     if(!in.compare("")){
         return in.append("a");
     }
     else if(in[in.length()-1] == z){
         in.resize(in.length()-1);
-        in = ::incrementStringW(in);
+        in = ::incrementStringW(in, alpha);
         in.append("a");
         return in;
 
     }
     else{
-        char r = in[in.length()-1] +1;
+        char r = in[in.length()-1];
+
+        int i = alpha.find(r);
+
+        r = alpha[ i + 1 ];
+
         in[in.length()-1] = r;
         return in;
     }
 }
 
-void worker(std::string begin, std::string end, Hash *whash, std::string d){
+void worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
 
     std::string plaintextGuess = begin;
 
@@ -46,7 +51,7 @@ void worker(std::string begin, std::string end, Hash *whash, std::string d){
             finished = true;
             break;
         }
-        plaintextGuess = incrementStringW(plaintextGuess);
+        plaintextGuess = incrementStringW(plaintextGuess, alpha);
         std::cout<<plaintextGuess<<std::endl;
 
         if(plaintextGuess.compare(end) == 0){
@@ -123,7 +128,7 @@ QPointF BruteForceCrack::reverse() {
 
         Hash* newH = new Md5();
 
-        /*QFuture<void> temp = */QtConcurrent::run(::worker, a, b, newH ,digest);
+        /*QFuture<void> temp = */QtConcurrent::run(::worker, a, b, newH ,digest, alphabet);
 
         //t.assign(1, temp);
 
