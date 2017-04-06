@@ -15,7 +15,9 @@ Crack& Crack::operator=(const Crack& c) {
 
 Crack::~Crack() {
     kill=true;
-    delete hashType;
+    if(hashType != NULL) {
+        delete hashType;
+    }
 }
 
 void Crack::setDigest(QString d) {

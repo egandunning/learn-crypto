@@ -8,6 +8,10 @@ Hash::Hash(CryptoPP::HashTransformation* h){
     salt = "";
 }
 
+Hash::Hash(){
+    this->hashType = new CryptoPP::SHA1();
+}
+
 Hash::Hash(const Hash &h) {
     saltlen = h.saltlen;
     salt = h.salt;
@@ -27,9 +31,7 @@ Hash& Hash::operator=(const Hash& h) {
     return *this;
 }
 
-Hash::~Hash() {
-    delete hashType;
-}
+Hash::~Hash() {}
 
 void Hash::compute() {
 
