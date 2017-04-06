@@ -170,6 +170,7 @@ std::string BruteForceCrack::baseTenToBaseN(unsigned long num, unsigned int base
 
 void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap, bool complete) {
     std::cout << "Incorrect usage of crack class. This method is for DictionaryCrack." << std::endl;
+}
 
 /**
  * Increments a stirng by the next lowercase character.
