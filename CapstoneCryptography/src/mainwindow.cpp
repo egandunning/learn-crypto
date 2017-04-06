@@ -4,6 +4,8 @@
 #include "QPushButton"
 #include <QLayoutItem>
 #include <QMessageBox>
+#include <QtConcurrent/QtConcurrent>
+#include <QFuture>
 #include "headers/buttonarray.h"
 #include "headers/labelarray.h"
 
@@ -187,7 +189,7 @@ void MainWindow::on_crackButton_clicked()
         break;}
     }
 
-    c->digest = digest.toStdString();
+    c->setDigest(digest);
 
     threadCrack.setCrackType(c);
     threadCrack.work();
@@ -202,8 +204,9 @@ void MainWindow::update_crack_result() {
     Crack* c = threadCrack.getCrack();
     success = c->getPlaintext().length();
 
+
     if(success) {
-        ui->crackedField->setText(c->getPlaintext());
+        ui->crackedField->setText(threadCrack.getCrack()->getPlaintext());
     } else {
         ui->crackedField->setText("\"Uncrackable!!\"");
     }

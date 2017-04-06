@@ -17,6 +17,7 @@ class BruteForceCrack : public Crack {
 public:    
     BruteForceCrack(Hash*, std::string, int);
     std::string baseTenToBaseN(unsigned long, unsigned int);
+    std::string incrementString(std::string in);
     virtual QPointF reverse() override;
     void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap, bool complete) override;
     void setMin(int);
@@ -26,7 +27,14 @@ public:
     void createAlphabet(int, int);
 
     std::string alphabet;
+    std::string begin;
+    std::string end;
     int charCount;
+
+    unsigned long n;
+
+    static std::string incrementStringW(std::string);
+    static void worker(std::string, std::string, Hash*, std::string);
 };
 
 #endif // BRUTEFORCE_H

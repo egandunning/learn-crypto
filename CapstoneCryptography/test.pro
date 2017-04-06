@@ -39,7 +39,8 @@ SOURCES  += testcipher.cpp \
     src/bruteforcefactor.cpp \
     src/cipher.cpp \
     src/buttonarray.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    bfctest.cpp
 
 
 unix:{  LIBS	 += -L/usr/local/lib \
