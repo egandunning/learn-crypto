@@ -44,13 +44,16 @@ std::string incrementStringW(std::string in, std::string alpha, int increase){
     }
 }
 
-void worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
+void worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha/*, Crack* parent*/){
 
     std::string plaintextGuess = begin;
 
     while(!finished) {
+        /*if(parent->kill) {
+            return;
+        }*/
         whash->plaintext = plaintextGuess;
-        std::cout<<plaintextGuess<<std::endl;
+        //std::cout<<plaintextGuess<<std::endl;
 
         whash->compute();
 
@@ -118,7 +121,7 @@ QPointF BruteForceCrack::reverse() {
 
     //Thread stuff starts here.
     int threads = QThread::idealThreadCount();
-    threads = 100;
+    //threads = 100;
     int totalThreads = threads;
 
     std::string a = "";
@@ -152,7 +155,11 @@ QPointF BruteForceCrack::reverse() {
 
     timer.start();
 
-    while(!finished);
+    while(!finished) {
+        if(kill) {
+            return QPointF(0,0);
+        }
+    }
 
 
     elapsed = timer.elapsed();
