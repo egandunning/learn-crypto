@@ -17,7 +17,7 @@ class BruteForceCrack : public Crack {
 public:    
     BruteForceCrack(Hash*, std::string, int);
     std::string baseTenToBaseN(unsigned long, unsigned int);
-    std::string incrementString(std::string in);
+    std::string incrementString(std::string in, std::string alpha);
     virtual QPointF reverse() override;
     void setOptions(unsigned int words, unsigned int endDigits, unsigned int preDigits, bool symb, bool cap, bool complete) override;
     void setMin(int);

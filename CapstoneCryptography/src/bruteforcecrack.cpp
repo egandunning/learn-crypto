@@ -12,22 +12,24 @@
 
 std::string foundValue;
 bool finished;
+int totalThreads;
 
-std::string incrementStringW(std::string in, std::string alpha){
+std::string incrementStringW(std::string in, std::string alpha, int increase){
 
     char z = alpha[alpha.size()-1];
 
     if(!in.compare("")){
-        return in.append("a");
+        in += alpha[0];
+        return in;
     }
     else if(in[in.length()-1] == z){
         in.resize(in.length()-1);
-        in = ::incrementStringW(in, alpha);
+        in = ::incrementStringW(in, alpha, increase);
         in.append("a");
         return in;
 
     }
-    else{
+    else if(increase == 0){
         char r = in[in.length()-1];
 
         int i = alpha.find(r);
@@ -37,6 +39,9 @@ std::string incrementStringW(std::string in, std::string alpha){
         in[in.length()-1] = r;
         return in;
     }
+    else {
+        return incrementStringW(in, alpha, increase -1);
+    }
 }
 
 void worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
@@ -45,6 +50,7 @@ void worker(std::string begin, std::string end, Hash *whash, std::string d, std:
 
     while(!finished) {
         whash->plaintext = plaintextGuess;
+        std::cout<<plaintextGuess<<std::endl;
 
         whash->compute();
 
@@ -53,8 +59,8 @@ void worker(std::string begin, std::string end, Hash *whash, std::string d, std:
             finished = true;
             break;
         }
-        plaintextGuess = incrementStringW(plaintextGuess, alpha);
-        std::cout<<plaintextGuess<<std::endl;
+        plaintextGuess = incrementStringW(plaintextGuess, alpha, totalThreads);
+
 
         if(plaintextGuess.compare(end) == 0){
             break;
@@ -112,21 +118,16 @@ QPointF BruteForceCrack::reverse() {
 
     //Thread stuff starts here.
     int threads = QThread::idealThreadCount();
+    threads = 100;
+    int totalThreads = threads;
 
-    std::vector<QFuture<void>> t;
-
-    int tot = threads;
-    std::cout<<threads<<std::endl;
-    int amtChar = range / threads;
-    std::string a = "a";
+    std::string a = "";
+    char t = alphabet[0];
+    a += t;
 
     while(threads != 0){
 
         std::string b = "";
-
-        for( int i = 0; i < amtChar; i++){
-            b = b + "a";
-        }
 
         Hash* newH ;
 
@@ -144,9 +145,9 @@ QPointF BruteForceCrack::reverse() {
 
         //t.assign(1, temp);
 
-        a = b;
-
         threads--;
+
+        a = incrementString(a, alphabet);
     }
 
     timer.start();
@@ -195,22 +196,27 @@ void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, uns
  * @param in
  * @return
  */
-std::string BruteForceCrack::incrementString(std::string in){
+std::string BruteForceCrack::incrementString(std::string in, std::string alpha){
 
-    char z = 'z';
+    char z = alpha[alpha.size()-1];
 
     if(!in.compare("")){
         return in.append("a");
     }
     else if(in[in.length()-1] == z){
         in.resize(in.length()-1);
-        in = BruteForceCrack::incrementString(in);
+        in = incrementString(in, alpha);
         in.append("a");
         return in;
 
     }
     else{
-        char r = in[in.length()-1] +1;
+        char r = in[in.length()-1];
+
+        int i = alpha.find(r);
+
+        r = alpha[ i + 1 ];
+
         in[in.length()-1] = r;
         return in;
     }
