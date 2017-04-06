@@ -177,7 +177,7 @@ void MainWindow::on_crackButton_clicked()
     }
 
 
-    switch(ui->crackComboBox->currentIndex()) {
+    switch(ui->crackTabWidget->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
         c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
@@ -263,8 +263,9 @@ void MainWindow::dictionaryOptions(Crack* d) {
 
     bool cap = ui->capCheckBox->isChecked();
     bool symbols = ui->dictSymbolsCheckBox->isChecked();
+    bool complete = ui->completeModeCheckBox->isChecked();
 
-    d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap);
+    d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap,complete);
 }
 
 void MainWindow::on_drawFactoring_clicked()
@@ -311,7 +312,7 @@ void MainWindow::on_plotCrackButton_clicked()
         return;
     }
 
-    switch(ui->crackComboBox->currentIndex()) {
+    switch(ui->crackTabWidget->currentIndex()) {
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
         c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
@@ -321,8 +322,6 @@ void MainWindow::on_plotCrackButton_clicked()
         {c = new DictionaryCrack(hashAlg, "../dictionary.txt");
         break;}
     }
-
-
 
     //generate data
     int beginChars = ui->charCountSpinBox_2->text().toInt();
@@ -369,7 +368,6 @@ void MainWindow::on_hashLogScaleCheckBox_clicked()
     cg->addLabels("Milliseconds", "Number of characters");
 
     cg->view->show();
-
 }
 
 void MainWindow::on_factorLogScaleCheckBox_clicked()

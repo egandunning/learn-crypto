@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -72,27 +72,6 @@
               <width>600</width>
               <height>0</height>
              </size>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QComboBox" name="crackComboBox">
-            <item>
-             <property name="text">
-              <string>Brute force</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Dictionary attack</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Crack algorithm</string>
             </property>
            </widget>
           </item>
@@ -148,11 +127,11 @@
             <item>
              <widget class="QTabWidget" name="crackTabWidget">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="tab">
                <attribute name="title">
-                <string>Brute force settings</string>
+                <string>Brute force cracking</string>
                </attribute>
                <widget class="QLabel" name="label_10">
                 <property name="geometry">
@@ -264,7 +243,7 @@
               </widget>
               <widget class="QWidget" name="tab_2">
                <attribute name="title">
-                <string>Dictionary crack settings</string>
+                <string>Dictionary attack</string>
                </attribute>
                <widget class="QLabel" name="label_5">
                 <property name="geometry">
@@ -393,6 +372,19 @@
                  <string>Replace letters with symbols</string>
                 </property>
                </widget>
+               <widget class="QCheckBox" name="completeModeCheckBox">
+                <property name="geometry">
+                 <rect>
+                  <x>10</x>
+                  <y>90</y>
+                  <width>141</width>
+                  <height>22</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>All combinations</string>
+                </property>
+               </widget>
               </widget>
              </widget>
             </item>
@@ -429,13 +421,6 @@
            <widget class="QSpinBox" name="crackPointCountSpinBox">
             <property name="value">
              <number>5</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QPushButton" name="crackButton">
-            <property name="text">
-             <string>Reverse!</string>
             </property>
            </widget>
           </item>
@@ -510,6 +495,13 @@
            <widget class="QCheckBox" name="hashLogScaleCheckBox">
             <property name="text">
              <string>Use log scale</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QPushButton" name="crackButton">
+            <property name="text">
+             <string>Reverse!</string>
             </property>
            </widget>
           </item>
