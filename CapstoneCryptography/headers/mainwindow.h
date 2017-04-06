@@ -69,6 +69,8 @@ private slots:
 
     void on_cancelCrackButton_clicked();
 
+    void on_stopFactorPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;

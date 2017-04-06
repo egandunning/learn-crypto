@@ -22,7 +22,9 @@ void WorkerThreadCrack::work() {
 }
 
 void WorkerThreadCrack::stop() {
-    c->stop();
+    if(isRunning()) {
+        c->stop();
+    }
 }
 
 void WorkerThreadCrack::run() {

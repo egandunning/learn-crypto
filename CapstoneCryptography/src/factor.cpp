@@ -12,3 +12,7 @@ QPointF Factor::factor(mpz_class) {
     std::cout << "Incorrect usage of Factor. Needs \"Crack* c = new X\" where X is a subclass of Crack." << std::endl;
     return QPointF(-1,-1);
 }
+
+void Factor::stop() {
+    kill = true;
+}

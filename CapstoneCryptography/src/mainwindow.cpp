@@ -457,3 +457,8 @@ void MainWindow::on_cancelCrackButton_clicked()
 {
     threadCrack.stop();
 }
+
+void MainWindow::on_stopFactorPushButton_clicked()
+{
+    threadFactor.stop();
+}
