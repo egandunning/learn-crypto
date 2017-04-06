@@ -1,5 +1,7 @@
 #include <headers/bruteforcecrack.h>
 #include <headers/md5.h>
+#include <headers/pbkdf2.h>
+#include <headers/sha512.h>
 #include <QFuture>
 #include <QThread>
 #include <QtConcurrent/QtConcurrent>
@@ -114,7 +116,7 @@ QPointF BruteForceCrack::reverse() {
     std::vector<QFuture<void>> t;
 
     int tot = threads;
-    //threads = 1;
+    std::cout<<threads<<std::endl;
     int amtChar = range / threads;
     std::string a = "a";
 
@@ -126,7 +128,17 @@ QPointF BruteForceCrack::reverse() {
             b = b + "a";
         }
 
-        Hash* newH = new Md5();
+        Hash* newH ;
+
+        if(hashType->name == "MD5"){
+            newH = new Md5();
+        }
+        else if(hashType->name == "PBKDF2"){
+            newH = new Pbkdf2();
+        }
+        else{
+            newH = new Sha512();
+        }
 
         /*QFuture<void> temp = */QtConcurrent::run(::worker, a, b, newH ,digest, alphabet);
 
