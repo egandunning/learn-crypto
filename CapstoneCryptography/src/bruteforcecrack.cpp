@@ -11,6 +11,7 @@
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
 std::string foundValue;
+int charCount;
 bool finished;
 int totalThreads;
 
@@ -168,7 +169,7 @@ QPointF BruteForceCrack::reverse() {
 
     std::cout<<"Hi"<<std::endl;
 
-    return QPointF(charCount, elapsed);
+    return QPointF(plaintext.size(), elapsed);
 
 }
 

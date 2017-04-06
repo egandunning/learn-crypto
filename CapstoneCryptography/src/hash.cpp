@@ -31,7 +31,11 @@ Hash& Hash::operator=(const Hash& h) {
     return *this;
 }
 
-Hash::~Hash() {}
+Hash::~Hash() {
+    if(hashType != NULL) {
+        delete hashType;
+    }
+}
 
 void Hash::compute() {
 

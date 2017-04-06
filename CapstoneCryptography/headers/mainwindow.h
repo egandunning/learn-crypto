@@ -74,12 +74,12 @@ private slots:
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
-    Factor* factorAlg;
-    Hash *hashAlg;
+    Factor* factorAlg=0;
+    Hash *hashAlg=0;
     QString digest;
     QString guessedWord;
-    GraphWindow* fg; //for factoring
-    GraphWindow* cg; //for hash cracking
+    GraphWindow* fg=0; //for factoring
+    GraphWindow* cg=0; //for hash cracking
     WorkerThreadCrack threadCrack;
     WorkerThreadFactor threadFactor;
     WorkerThreadGenerate threadCrackData;
