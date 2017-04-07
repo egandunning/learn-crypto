@@ -127,7 +127,9 @@ QPointF DictionaryCrack::reverse() {
         while(true) {   //symbol substitution and digits at beginning and end of string
 
             if(kill) {
-                return QPointF(0,0);
+                plaintext = "Cancelled";
+                elapsed = timer.elapsed();
+                return QPointF(0, elapsed);
             }
 
             guess = getNextWord();
@@ -141,7 +143,9 @@ QPointF DictionaryCrack::reverse() {
             while(true) {
 
                 if(kill) {
-                    return QPointF(0,0);
+                    plaintext = "Cancelled";
+                    elapsed = timer.elapsed();
+                    return QPointF(0, elapsed);
                 }
 
                 temp = guess;
@@ -157,7 +161,9 @@ QPointF DictionaryCrack::reverse() {
                         while(true) {
 
                             if(kill) {
-                                return QPointF(0,0);
+                                plaintext = "Cancelled";
+                                elapsed = timer.elapsed();
+                                return QPointF(0, elapsed);
                             }
 
                             temp2 = temp;
@@ -207,7 +213,9 @@ QPointF DictionaryCrack::reverse() {
         for(mpz_class i = 0; i < mpz_class(pow(words.size(), numWords)); i++) {
 
             if(kill) {
-                return QPointF(0,0);
+                plaintext = "Cancelled";
+                elapsed = timer.elapsed();
+                return QPointF(0, elapsed);
             }
 
             //std::string guess = getWordCombo(i);
