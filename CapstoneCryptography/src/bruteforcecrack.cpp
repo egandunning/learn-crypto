@@ -10,41 +10,6 @@
 
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
-//std::string foundValue;
-int charCount;
-
-int totalThreads;
-
-std::string BruteForceCrack::incrementStringW(std::string in, std::string alpha, int increase){
-
-    char z = alpha[alpha.size()-1];
-
-    if(!in.compare("")){
-        in += alpha[0];
-        return in;
-    }
-    else if(in[in.length()-1] == z){
-        in.resize(in.length()-1);
-        in = incrementStringW(in, alpha, increase);
-        in.append("a");
-        return in;
-
-    }
-    else if(increase == 0){
-        char r = in[in.length()-1];
-
-        int i = alpha.find(r);
-
-        r = alpha[ i + 1 ];
-
-        in[in.length()-1] = r;
-        return in;
-    }
-    else {
-        return incrementStringW(in, alpha, increase -1);
-    }
-}
-
 bool BruteForceCrack::worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
 
     std::string plaintextGuess = begin;
@@ -65,7 +30,9 @@ bool BruteForceCrack::worker(std::string begin, std::string end, Hash *whash, st
             finished = true;
             break;
         }
-        plaintextGuess = incrementStringW(plaintextGuess, alpha, totalThreads);
+        for(unsigned int i = 0; i < threadCount; i++) {
+            plaintextGuess = incrementString(plaintextGuess, alpha);
+        }
 
 
         if(plaintextGuess.compare(end) == 0){
@@ -74,8 +41,6 @@ bool BruteForceCrack::worker(std::string begin, std::string end, Hash *whash, st
     }
     return 0;
 }
-
-
 
 /**
  * Set the desired hash method.
@@ -113,7 +78,7 @@ QPointF BruteForceCrack::reverse() {
     long elapsed;
 
     //Thread stuff starts here.
-    int threads = QThread::idealThreadCount();
+    threadCount = QThread::idealThreadCount();
     //threads = 100;
 
     std::string a = "";
@@ -121,8 +86,8 @@ QPointF BruteForceCrack::reverse() {
     a += t;
 
     QFuture<bool> temp;
-    while(threads != 0){
-
+    //while(threads != 0){
+    for(unsigned int i = 0; i < threadCount; i++) {
         Hash* newH ;
         if(hashType->name == "MD5"){
             newH = new Md5();
@@ -134,16 +99,8 @@ QPointF BruteForceCrack::reverse() {
             newH = new Sha512();
         }
 
-
-
         std::string b = "";
         temp = QtConcurrent::run(this, &BruteForceCrack::worker, a, b, newH ,digest, alphabet);
-
-
-
-        //t.assign(1, temp);
-
-        threads--;
 
         a = incrementString(a, alphabet);
     }
