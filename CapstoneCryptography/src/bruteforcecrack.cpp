@@ -50,7 +50,6 @@ void worker(std::string begin, std::string end, Hash *whash, std::string d, std:
 
     while(!finished) {
         whash->plaintext = plaintextGuess;
-        std::cout<<plaintextGuess<<std::endl;
 
         whash->compute();
 
@@ -118,7 +117,7 @@ QPointF BruteForceCrack::reverse() {
 
     //Thread stuff starts here.
     int threads = QThread::idealThreadCount();
-    threads = 100;
+    threads = 1;
     int totalThreads = threads;
 
     std::string a = "";
