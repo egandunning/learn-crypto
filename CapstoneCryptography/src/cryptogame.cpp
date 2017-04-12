@@ -22,6 +22,17 @@ cryptogame::cryptogame()
         int index = rand() % lines.size();
         d_message = lines.at(index);
 
+        std::ifstream hintsFile;
+        hintsFile.open("../hints.txt");
+        std::vector<std::string> allTheHints;
+
+        while(getline(hintsFile,line)){
+            allTheHints.push_back(line);
+        }
+
+        hint = allTheHints.at(index);
+
+
     } catch (int e) {
         std::cout << "File io execption occurred: " << e << std::endl;
     }
@@ -44,6 +55,14 @@ std::string cryptogame::getEncryptedMessage(){
 }
 
 /**
+ * @brief cryptogame::getHint
+ * @return
+ */
+std::string cryptogame::getHint(){
+    return hint;
+}
+
+/**
  * @brief cryptogame::sendCurrentGuess
  * @param g
  */
@@ -57,15 +76,6 @@ bool cryptogame::sendCurrentGuess(std::string g){
     }
 }
 
-/**
- * Code to grab a random message for the constructor.
- * @brief cryptogame::getRandomMessage
- * @return
- */
-std::string cryptogame::getRandomMessage(){
-    int randomNumber = rand()*2000;
-    return "";
-}
 
 /**
  * @brief cryptogame::~cryptogame
