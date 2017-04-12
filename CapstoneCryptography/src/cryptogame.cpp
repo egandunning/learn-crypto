@@ -20,7 +20,6 @@ cryptogame::cryptogame()
         }
 
         int index = rand() % lines.size();
-        //std::cout << "index is"  << index << std::endl;
         d_message = lines.at(index);
 
     } catch (int e) {
@@ -32,7 +31,6 @@ cryptogame::cryptogame()
 
     //Encrypt the message and add it to the e_message
     e_message = messageCipher.encrypt(d_message);
-    currentGuess = e_message;
 
 
 }
@@ -50,8 +48,6 @@ std::string cryptogame::getEncryptedMessage(){
  * @param g
  */
 bool cryptogame::sendCurrentGuess(std::string g){
-
-    currentGuess = g;
 
     if(0 == d_message.compare(g)){
         return true;

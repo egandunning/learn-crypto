@@ -16,7 +16,6 @@ public:
     std::string getEncryptedMessage();
     bool sendCurrentGuess(std::string g);
     std::string d_message;
-    std::string currentGuess;
 
 
 
