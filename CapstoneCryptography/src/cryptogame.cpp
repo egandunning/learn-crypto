@@ -52,16 +52,6 @@ std::string cryptogame::getEncryptedMessage(){
 bool cryptogame::sendCurrentGuess(std::string g){
 
     currentGuess = g;
-    int t = 0;
-    for(char& c : currentGuess){
-        if(c == d_message[t]){
-            currentGuess[t] = toupper(c);
-        }
-        else{
-            currentGuess[t] = tolower(c);
-        }
-        t+= 1;
-    }
 
     if(0 == d_message.compare(g)){
         return true;
