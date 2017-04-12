@@ -70,9 +70,6 @@ void ButtonArray::makeGuess(QString original, QString guess){
 
 }
 
-QString ButtonArray::checkGuess(){
-    return newWord;
-}
 
 QPushButton* ButtonArray::get(int i){
     return buttonPointerVector.at(i);
@@ -90,6 +87,8 @@ void ButtonArray::show_input_box(int index){
     if(changed && !letter.isEmpty() && letter.at(0).isLetter()){
         //Make QString size one
         letter.resize(1);
+        //Make letter upper case
+        letter = letter.toUpper();
         for(int i=0; i<scrambledWord.length(); i++){
             if(buttonPointerVector.at(i)->text().at(0) == letter){
                 QMessageBox invalidEntry;

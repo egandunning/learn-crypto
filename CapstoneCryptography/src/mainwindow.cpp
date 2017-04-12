@@ -61,6 +61,9 @@ void MainWindow::on_pushButton_clicked()
            //QLayoutItem::~QLayoutItem();
         //std::cout<<"Deleting button number: " << i<<std::endl;
        }
+      /* if(button){
+           std::cout<<"Button Wrapper is still active"<<std::endl;
+       } */
 
 
         QLayoutItem *label = ui->gameGrid->itemAtPosition(0,i);
@@ -81,8 +84,6 @@ void MainWindow::on_pushButton_clicked()
         ui->gameGrid->addWidget(lptr->get(i), 0, i);
         ui->gameGrid->addWidget(buttonPtrs->get(i), 1, i);
     }
-    guessedWord.clear();
-    guessedWord = buttonPtrs->checkGuess();
 
 }
 
