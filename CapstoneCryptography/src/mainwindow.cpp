@@ -86,18 +86,17 @@ void MainWindow::on_pushButton_clicked()
     }
 
     //Delete all buttons that represent a space in the gameGrid
-   for(int i=0; i<ui->gameGrid->columnCount(); i++){
+   /*for(int i=0; i<ui->gameGrid->columnCount(); i++){
 
        QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
        if(button->widget()->text() == " "){
           delete button->widget();
        }
 
-    }
+    }*/
 
 }
 
-void MainWindow::on_pushButton_2_clicked(){}
 
 void MainWindow::on_pushButton_3_clicked()
 {
