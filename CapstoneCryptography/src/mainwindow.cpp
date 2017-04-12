@@ -100,11 +100,9 @@ void MainWindow::on_pushButton_2_clicked(){}
 void MainWindow::on_pushButton_3_clicked()
 {
     //Somehow give a hint to the player.
-    QMessageBox winningMessage;
-    //Note: there are tabs in the QString in the next sentence
-    winningMessage.setText("Here's a hint: There are no hints                                             ");
-    winningMessage.exec();
-   // ui->textEdit->setText("Here's a hint: There are no hints");
+    QMessageBox hintMessage;
+    hintMessage.setText(QString::fromStdString(agame->getHint()));
+    hintMessage.exec();
 }
 
 void MainWindow::on_factorPrimesButton_clicked()
