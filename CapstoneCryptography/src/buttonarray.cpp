@@ -20,7 +20,6 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui, cryptogame *agame){
     scrambledWord = qS;
     parent = ui;
     mapper = new QSignalMapper(this);
-    newWord.append(" ");
     game = agame;
 
     for(int i=0; i<qS.length(); i++){
@@ -54,7 +53,7 @@ void ButtonArray::makeGuess(QString original, QString guess){
     //Make QString size one
     original.resize(1);
     guess.resize(1);
-    newWord.clear();
+    QString newWord;
     for(int i=0; i<scrambledWord.length(); i++){
         if(scrambledWord.at(i) == original){
            buttonPointerVector.at(i)->setText(guess);
