@@ -56,22 +56,17 @@ void MainWindow::on_pushButton_clicked()
 
        QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
        if(button){
+           ui->gameGrid->removeItem(button);
           delete button->widget();
-           //delete button;
-           //QLayoutItem::~QLayoutItem();
-        //std::cout<<"Deleting button number: " << i<<std::endl;
        }
-      /* if(button){
-           std::cout<<"Button Wrapper is still active"<<std::endl;
-       } */
 
 
         QLayoutItem *label = ui->gameGrid->itemAtPosition(0,i);
         if(label){
+            ui->gameGrid->removeItem(label);
+
             delete label->widget();
         }
-       /* delete label->widget();
-        delete label;*/
 
     }
 
@@ -97,6 +92,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
+//void MainWindow::on_pushButton_2_clicked(){}
 
 void MainWindow::on_pushButton_3_clicked()
 {

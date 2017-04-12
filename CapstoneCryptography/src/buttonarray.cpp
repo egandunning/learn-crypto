@@ -24,13 +24,16 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui, cryptogame *agame){
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
-        QString qSTemp = " ";//QChar(qS.at(i));
+        QString qSTemp = " ";
         //Make QString size one
         qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
         QPushButton *p = new QPushButton(qSTemp, ui);
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
+        if(qS.at(i) == ' '){
+            p->setEnabled(false);
+        }
         //Object, then related signal, object, then related slot
         connect(p, SIGNAL(clicked(bool)), mapper, SLOT(map()));
         mapper->setMapping(p, i);
