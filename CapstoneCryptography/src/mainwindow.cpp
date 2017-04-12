@@ -50,16 +50,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-   // std::cout<<"Start the game."<<std::endl;
 
-   // std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
-    //std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
-
-    /*if(buttonPtrs){
-        delete buttonPtrs;
-    } */
-
-    //QLayoutItem *nullLayout = NULL;
     //Delete all buttons in the and labels in the gameGrid
    for(int i=0; i<ui->gameGrid->columnCount(); i++){
 
