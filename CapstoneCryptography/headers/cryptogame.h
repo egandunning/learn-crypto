@@ -26,7 +26,6 @@ private:
     Cipher messageCipher;
     std::string d_message;
     std::string hint;
-    std::string getRandomMessage();
 
 };
 

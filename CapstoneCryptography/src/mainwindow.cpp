@@ -86,7 +86,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    //Give a hint to the player.
+    //Give a hint to the player
     QMessageBox hintMessage;
     hintMessage.setText(QString::fromStdString(agame->getHint()));
     hintMessage.exec();
