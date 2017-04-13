@@ -53,20 +53,23 @@ void MainWindow::on_pushButton_clicked()
 
     //Delete all buttons in the and labels in the gameGrid
    for(int i=0; i<ui->gameGrid->columnCount(); i++){
+       for(int j = 0; j<ui->gameGrid->rowCount(); j++){
 
-       QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
+       QLayoutItem *button = ui->gameGrid->itemAtPosition(j,i);
        if(button){
            ui->gameGrid->removeItem(button);
           delete button->widget();
        }
 
 
-        QLayoutItem *label = ui->gameGrid->itemAtPosition(0,i);
+        QLayoutItem *label = ui->gameGrid->itemAtPosition(j,i);
         if(label){
             ui->gameGrid->removeItem(label);
 
             delete label->widget();
         }
+
+       }
 
     }
 
@@ -75,9 +78,19 @@ void MainWindow::on_pushButton_clicked()
     //ui->label->setText(q);
     LabelArray *lptr = new LabelArray(q, ui->tabWidget);
     ButtonArray *buttonPtrs = new ButtonArray(q, ui->tabWidget, agame);
-    for(int i=0; i<q.size(); i++){
-        ui->gameGrid->addWidget(lptr->get(i), 0, i);
-        ui->gameGrid->addWidget(buttonPtrs->get(i), 1, i);
+    int j = 0;
+    int i = 0;
+    int counter = 0;
+    while(counter < q.length()){
+        if(i >= 3 && q.at(i) == ' '){
+            j += 2;
+            i = 0;
+        } else {
+        ui->gameGrid->addWidget(lptr->get(counter), j, i);
+        ui->gameGrid->addWidget(buttonPtrs->get(counter), j+1, i);
+        i++;
+        }
+        counter++;
     }
 
 

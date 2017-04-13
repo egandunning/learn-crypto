@@ -75,7 +75,6 @@ private:
     Factor* factorAlg=0;
     Hash *hashAlg=0;
     QString digest;
-    QString guessedWord;
     GraphWindow* fg=0; //for factoring
     GraphWindow* cg=0; //for hash cracking
     WorkerThreadCrack threadCrack;
