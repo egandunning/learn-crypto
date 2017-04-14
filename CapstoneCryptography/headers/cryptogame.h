@@ -14,9 +14,9 @@ public:
     cryptogame();
     ~cryptogame();
     std::string getEncryptedMessage();
+    std::string getHint();
     bool sendCurrentGuess(std::string g);
-    std::string d_message;
-    std::string currentGuess;
+
 
 
 
@@ -24,7 +24,8 @@ private:
     //std::string d_message;
     std::string e_message;
     Cipher messageCipher;
-    std::string getRandomMessage();
+    std::string d_message;
+    std::string hint;
 
 };
 

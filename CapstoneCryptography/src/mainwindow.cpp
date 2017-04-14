@@ -50,34 +50,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-   // std::cout<<"Start the game."<<std::endl;
 
-   // std::cout<<"Rows: " << ui->gameGrid->rowCount()<<std::endl;
-    //std::cout<<"Columns: " << ui->gameGrid->columnCount()<<std::endl;
-
-    /*if(buttonPtrs){
-        delete buttonPtrs;
-    } */
-
-    //QLayoutItem *nullLayout = NULL;
     //Delete all buttons in the and labels in the gameGrid
    for(int i=0; i<ui->gameGrid->columnCount(); i++){
+       for(int j = 0; j<ui->gameGrid->rowCount(); j++){
 
-       QLayoutItem *button = ui->gameGrid->itemAtPosition(1,i);
+       QLayoutItem *button = ui->gameGrid->itemAtPosition(j,i);
        if(button){
+           ui->gameGrid->removeItem(button);
           delete button->widget();
-           //delete button;
-           //QLayoutItem::~QLayoutItem();
-        //std::cout<<"Deleting button number: " << i<<std::endl;
        }
 
 
-        QLayoutItem *label = ui->gameGrid->itemAtPosition(0,i);
+        QLayoutItem *label = ui->gameGrid->itemAtPosition(j,i);
         if(label){
+            ui->gameGrid->removeItem(label);
+
             delete label->widget();
         }
-       /* delete label->widget();
-        delete label;*/
+
+       }
 
     }
 
@@ -86,25 +78,31 @@ void MainWindow::on_pushButton_clicked()
     //ui->label->setText(q);
     LabelArray *lptr = new LabelArray(q, ui->tabWidget);
     ButtonArray *buttonPtrs = new ButtonArray(q, ui->tabWidget, agame);
-    for(int i=0; i<q.size(); i++){
-        ui->gameGrid->addWidget(lptr->get(i), 0, i);
-        ui->gameGrid->addWidget(buttonPtrs->get(i), 1, i);
+    int j = 0;
+    int i = 0;
+    int counter = 0;
+    while(counter < q.length()){
+        if(i >= 3 && q.at(i) == ' '){
+            j += 2;
+            i = 0;
+        } else {
+        ui->gameGrid->addWidget(lptr->get(counter), j, i);
+        ui->gameGrid->addWidget(buttonPtrs->get(counter), j+1, i);
+        i++;
+        }
+        counter++;
     }
-    guessedWord.clear();
-    guessedWord = buttonPtrs->checkGuess();
+
 
 }
 
-void MainWindow::on_pushButton_2_clicked(){}
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    //Somehow give a hint to the player.
-    QMessageBox winningMessage;
-    //Note: there are tabs in the QString in the next sentence
-    winningMessage.setText("Here's a hint: There are no hints                                             ");
-    winningMessage.exec();
-   // ui->textEdit->setText("Here's a hint: There are no hints");
+    //Give a hint to the player
+    QMessageBox hintMessage;
+    hintMessage.setText(QString::fromStdString(agame->getHint()));
+    hintMessage.exec();
 }
 
 void MainWindow::on_factorPrimesButton_clicked()

@@ -30,7 +30,6 @@ private:
     QString scrambledWord;
     QWidget *parent;
     QSignalMapper *mapper;
-    QString newWord;
     cryptogame *game;
 };
 
