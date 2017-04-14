@@ -82,7 +82,7 @@ void MainWindow::on_pushButton_clicked()
     int i = 0;
     int counter = 0;
     while(counter < q.length()){
-        if(i >= 3 && q.at(i) == ' '){
+        if(i >= 3 && q.at(counter) == ' '){
             j += 2;
             i = 0;
         } else {
