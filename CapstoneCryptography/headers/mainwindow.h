@@ -19,6 +19,7 @@
 #include <headers/generatedata.h>
 #include <headers/workerthreadcrack.h>
 #include <headers/workerthreadfactor.h>
+#include <headers/workerthreadgenerate.h>
 #include <headers/buttonarray.h>
 
 namespace Ui {
@@ -56,7 +57,11 @@ private slots:
 
     void on_drawFactoring_clicked();
 
+    void update_factor_graph();
+
     void on_plotCrackButton_clicked();
+
+    void update_crack_graph();
 
     void on_hashLogScaleCheckBox_clicked();
 
@@ -64,16 +69,21 @@ private slots:
 
     void on_cancelCrackButton_clicked();
 
+    void on_stopFactorPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
-    Hash *hashAlg;
+    Factor* factorAlg=0;
+    Hash *hashAlg=0;
     QString digest;
     QString guessedWord;
-    GraphWindow* fg; //for factoring
-    GraphWindow* cg; //for hash cracking
+    GraphWindow* fg=0; //for factoring
+    GraphWindow* cg=0; //for hash cracking
     WorkerThreadCrack threadCrack;
     WorkerThreadFactor threadFactor;
+    WorkerThreadGenerate threadCrackData;
+    WorkerThreadGenerate threadFactorData;
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;

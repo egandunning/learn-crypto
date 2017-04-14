@@ -28,6 +28,8 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
     }
 
     //symbol replacement
+
+
     symbolConversion[0].first = 's';
     symbolConversion[0].second = '$';
 
@@ -55,7 +57,10 @@ DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
     symbolConversion[8].first = 'a';
     symbolConversion[8].second = '@';
 
-    symbolArraySize = 8;
+    symbolConversion[9].first = 'S';
+    symbolConversion[9].second = '$';
+
+    symbolArraySize = 10;
 }
 
 /**
@@ -122,10 +127,13 @@ QPointF DictionaryCrack::reverse() {
         while(true) {   //symbol substitution and digits at beginning and end of string
 
             if(kill) {
-                return QPointF(0,0);
+                plaintext = "Cancelled";
+                elapsed = timer.elapsed();
+                return QPointF(0, elapsed);
             }
 
             guess = getNextWord();
+
             temp = guess;
             temp2 = guess;
             guessSize = guess.size();
@@ -135,7 +143,9 @@ QPointF DictionaryCrack::reverse() {
             while(true) {
 
                 if(kill) {
-                    return QPointF(0,0);
+                    plaintext = "Cancelled";
+                    elapsed = timer.elapsed();
+                    return QPointF(0, elapsed);
                 }
 
                 temp = guess;
@@ -147,18 +157,13 @@ QPointF DictionaryCrack::reverse() {
                             //convert to uppercase
                             temp[i] = temp[i] - 32;
                         }
-                        hashType->plaintext = temp;
 
-                        int plaintextLength = verifyGuess();
-                        if(plaintextLength != 0) {
-                            std::cout << "here" << std::endl;
-                            elapsed = timer.elapsed();
-                            return QPointF(plaintextLength, elapsed);
-                        }
                         while(true) {
 
                             if(kill) {
-                                return QPointF(0,0);
+                                plaintext = "Cancelled";
+                                elapsed = timer.elapsed();
+                                return QPointF(0, elapsed);
                             }
 
                             temp2 = temp;
@@ -169,13 +174,11 @@ QPointF DictionaryCrack::reverse() {
                                     for(unsigned int k = 0; k < symbolArraySize; k++) {
                                         if(temp2[j] == symbolConversion[k].first) {
                                             temp2[j] = symbolConversion[k].second;
-
                                             break;
                                         }
                                     }
 
                                     hashType->plaintext = temp2;
-
                                     int plaintextLength = verifyGuess();
                                     if(plaintextLength != 0) {
                                         elapsed = timer.elapsed();
@@ -191,6 +194,14 @@ QPointF DictionaryCrack::reverse() {
                     }
                 }
 
+                hashType->plaintext = temp;
+
+                int plaintextLength = verifyGuess();
+                if(plaintextLength != 0) {
+                    elapsed = timer.elapsed();
+                    return QPointF(plaintextLength, elapsed);
+                }
+
                 if(allOnes(binString)) {
                     break;
                 }
@@ -202,7 +213,9 @@ QPointF DictionaryCrack::reverse() {
         for(mpz_class i = 0; i < mpz_class(pow(words.size(), numWords)); i++) {
 
             if(kill) {
-                return QPointF(0,0);
+                plaintext = "Cancelled";
+                elapsed = timer.elapsed();
+                return QPointF(0, elapsed);
             }
 
             //std::string guess = getWordCombo(i);

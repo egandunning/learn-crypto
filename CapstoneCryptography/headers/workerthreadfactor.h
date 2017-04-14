@@ -18,6 +18,7 @@ public:
     ~WorkerThreadFactor();
 
     void work();
+    void stop();
 
     void setFactor(Factor* factor, mpz_class num);
     long getResult();
@@ -30,7 +31,6 @@ private:
     void run();
     QMutex mutex;
     long elapsed;
-    bool stop;
     Factor* f;
     mpz_class number;
 };

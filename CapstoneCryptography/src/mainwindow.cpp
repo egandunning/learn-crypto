@@ -17,15 +17,35 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     connect(&threadCrack, SIGNAL(finished()), this, SLOT(update_crack_result()));
     connect(&threadFactor, SIGNAL(finished()), this, SLOT(update_factor_result()));
+    connect(&threadCrackData, SIGNAL(finished()), this, SLOT(update_crack_graph()));
+    connect(&threadFactorData, SIGNAL(finished()), this, SLOT(update_factor_graph()));
     ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    threadCrack.quit();
-    threadFactor.quit();
-    //delete hashAlg;
+
+    if(threadCrack.isRunning()) {
+        threadCrack.quit();
+    }
+    if(threadFactor.isRunning()) {
+        threadFactor.quit();
+    }
+
+    if(factorAlg != NULL) {
+        delete factorAlg;
+    }
+    if(hashAlg != NULL) {
+        delete hashAlg;
+    }
+
+    if(fg != NULL) {
+        delete fg;
+    }
+    if(cg != NULL) {
+        delete cg;
+    }
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -97,11 +117,10 @@ void MainWindow::on_factorPrimesButton_clicked()
 
     //set algorithm
     int algChoice = ui->factorAlgChooser->currentIndex();
-    Factor* pf;
 
     switch(algChoice) {
     case 0:
-        pf = new BruteForceFactor();
+        factorAlg = new BruteForceFactor();
         break;
     case 1:
         //Quadratic sieve here
@@ -114,10 +133,24 @@ void MainWindow::on_factorPrimesButton_clicked()
     string s = ui->compositeTextField->text().toStdString();
     composite.set_str(s, 10);
 
-    threadFactor.setFactor(pf, composite);
+    threadFactor.setFactor(factorAlg, composite);
     threadFactor.work();
 
     ui->factorPrimesButton->setDisabled(true);
+}
+
+void MainWindow::update_factor_result() {
+
+    long elapsed = threadFactor.getResult();
+    Factor* pf = threadFactor.getFactor();
+
+    string s = "Time: " + std::to_string(elapsed) + " ms";
+    ui->timeLabel->setText(QString::fromStdString(s));
+
+    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
+    ui->resultLabel->setText(QString::fromStdString(s));
+
+    ui->factorPrimesButton->setDisabled(false);
 }
 
 void MainWindow::on_random_composite_clicked()
@@ -221,20 +254,6 @@ void MainWindow::update_crack_result() {
     ui->crackButton->setDisabled(false);
 }
 
-void MainWindow::update_factor_result() {
-
-    long elapsed = threadFactor.getResult();
-    Factor* pf = threadFactor.getFactor();
-
-    string s = "Time: " + std::to_string(elapsed) + " ms";
-    ui->timeLabel->setText(QString::fromStdString(s));
-
-    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
-    ui->resultLabel->setText(QString::fromStdString(s));
-
-    ui->factorPrimesButton->setDisabled(false);
-}
-
 std::string MainWindow::bruteForceAlphabet() {
 
     std::string alph = " ";//weird bug "fix"
@@ -278,11 +297,32 @@ void MainWindow::dictionaryOptions(Crack* d) {
 
 void MainWindow::on_drawFactoring_clicked()
 {
+    //set algorithm
+    int algChoice = ui->factorAlgChooser->currentIndex();
+
+    switch(algChoice) {
+    case 0:
+        factorAlg = new BruteForceFactor();
+        break;
+    case 1:
+        //Quadratic sieve here
+        std::cout<<"Quadratic sieve feature is in progress!"<<std::endl;
+        return;
+        break;
+    }
+
     //generate data
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
-    int count = ui->dataPointsSpinBox->text().toInt();
-    std::vector<mpz_class> comps = GenerateData::composites(beginDigits, count);
-    factorDataPoints = GenerateData::factor(comps, new BruteForceFactor);
+    unsigned int count = ui->dataPointsSpinBox->text().toInt();
+
+    threadFactorData.factorData(beginDigits, count, factorAlg);
+
+    ui->drawFactoring->setDisabled(true);
+}
+
+void MainWindow::update_factor_graph() {
+
+    factorDataPoints = threadFactorData.getResult();
 
     //draw points
     fg = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
@@ -297,6 +337,8 @@ void MainWindow::on_drawFactoring_clicked()
     fg->addLabels("Milliseconds", "Number of digits");
 
     fg->view->show();
+
+    ui->drawFactoring->setDisabled(false);
 }
 
 void MainWindow::on_plotCrackButton_clicked()
@@ -334,9 +376,15 @@ void MainWindow::on_plotCrackButton_clicked()
     //generate data
     int beginChars = ui->charCountSpinBox_2->text().toInt();
     int count = ui->crackPointCountSpinBox->text().toInt();
-    std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
-    std::vector<std::string> digests = GenerateData::getHashes(strings, hashAlg);
-    crackDataPoints = GenerateData::crack(digests, c);
+
+    threadCrackData.crackData(beginChars, count, hashAlg, c);
+
+    ui->plotCrackButton->setEnabled(false);
+}
+
+void MainWindow::update_crack_graph() {
+
+    crackDataPoints = threadCrackData.getResult();
 
     //begin graphing
     cg = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
@@ -351,6 +399,8 @@ void MainWindow::on_plotCrackButton_clicked()
     cg->addLabels("Milliseconds", "Number of characters");
 
     cg->view->show();
+
+    ui->plotCrackButton->setEnabled(true);
 }
 
 void MainWindow::on_hashLogScaleCheckBox_clicked()
@@ -406,4 +456,9 @@ void MainWindow::on_factorLogScaleCheckBox_clicked()
 void MainWindow::on_cancelCrackButton_clicked()
 {
     threadCrack.stop();
+}
+
+void MainWindow::on_stopFactorPushButton_clicked()
+{
+    threadFactor.stop();
 }

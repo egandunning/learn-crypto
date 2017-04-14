@@ -3,18 +3,25 @@
 WorkerThreadFactor::WorkerThreadFactor(QObject *parent) : QThread(parent) {
     elapsed = -1;
     number = 0;
-    stop = false;
+    f=0;
 }
 
 WorkerThreadFactor::~WorkerThreadFactor() {
     QMutexLocker locker(&mutex);
-    delete f;
-    stop = true;
+    if(f != NULL) {
+        delete f;
+    }
 }
 
 void WorkerThreadFactor::work() {
     if(!isRunning()) {
         start();
+    }
+}
+
+void WorkerThreadFactor::stop() {
+    if(isRunning()) {
+        f->stop();
     }
 }
 

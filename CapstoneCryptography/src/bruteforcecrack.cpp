@@ -10,64 +10,37 @@
 
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
-std::string foundValue;
-bool finished;
-int totalThreads;
-
-std::string incrementStringW(std::string in, std::string alpha, int increase){
-
-    char z = alpha[alpha.size()-1];
-
-    if(!in.compare("")){
-        in += alpha[0];
-        return in;
-    }
-    else if(in[in.length()-1] == z){
-        in.resize(in.length()-1);
-        in = ::incrementStringW(in, alpha, increase);
-        in.append("a");
-        return in;
-
-    }
-    else if(increase == 0){
-        char r = in[in.length()-1];
-
-        int i = alpha.find(r);
-
-        r = alpha[ i + 1 ];
-
-        in[in.length()-1] = r;
-        return in;
-    }
-    else {
-        return incrementStringW(in, alpha, increase -1);
-    }
-}
-
-void worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
+bool BruteForceCrack::worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
 
     std::string plaintextGuess = begin;
 
     while(!finished) {
+        if(kill) {
+            finished = true;
+            plaintext = "Cancelled";
+            return 1;
+        }
         whash->plaintext = plaintextGuess;
 
         whash->compute();
 
         if(d.compare(whash->digest) == 0) {
-            foundValue = plaintextGuess;
+            //foundValue = plaintextGuess;
+            plaintext = plaintextGuess;
             finished = true;
             break;
         }
-        plaintextGuess = incrementStringW(plaintextGuess, alpha, totalThreads);
+        for(unsigned int i = 0; i < threadCount; i++) {
+            plaintextGuess = incrementString(plaintextGuess, alpha);
+        }
 
 
         if(plaintextGuess.compare(end) == 0){
             break;
         }
     }
+    return 0;
 }
-
-
 
 /**
  * Set the desired hash method.
@@ -94,42 +67,29 @@ QPointF BruteForceCrack::reverse() {
 
     plaintext = "";
 
-    foundValue = "";
+    //foundValue = "";
     finished = false;
 
 	if(hashType == NULL) {
         return QPointF(-1,-1);
 	}
 
-    int range = alphabet.length();
-
-    //watch out for overflow errors here
-    n = (unsigned long)pow(range, charCount);
-    if(n == 0) {
-        std::cout << "Avoiding overflow error! Setting n to max value: " << std::numeric_limits<unsigned long>::max() << std::endl;
-        n = std::numeric_limits<unsigned long>::max();
-    }
-
-    std::string plaintextGuess = begin;
-
     QElapsedTimer timer;
     long elapsed;
 
     //Thread stuff starts here.
-    int threads = QThread::idealThreadCount();
-    threads = 1;
-    int totalThreads = threads;
+    threadCount = QThread::idealThreadCount();
+    //threads = 100;
+
 
     std::string a = "";
     char t = alphabet[0];
     a += t;
 
-    while(threads != 0){
-
-        std::string b = "";
-
+    QFuture<bool> temp;
+    //while(threads != 0){
+    for(unsigned int i = 0; i < threadCount; i++) {
         Hash* newH ;
-
         if(hashType->name == "MD5"){
             newH = new Md5();
         }
@@ -140,27 +100,21 @@ QPointF BruteForceCrack::reverse() {
             newH = new Sha512();
         }
 
-        /*QFuture<void> temp = */QtConcurrent::run(::worker, a, b, newH ,digest, alphabet);
-
-        //t.assign(1, temp);
-
-        threads--;
+        std::string b = "";
+        temp = QtConcurrent::run(this, &BruteForceCrack::worker, a, b, newH ,digest, alphabet);
 
         a = incrementString(a, alphabet);
     }
 
     timer.start();
 
-    while(!finished);
-
+    bool exitStatus = temp.result();
 
     elapsed = timer.elapsed();
 
-    plaintext = foundValue;
+    std::cout<<"BruteForceCrack::worker exited with code " << exitStatus <<std::endl;
 
-    std::cout<<"Hi"<<std::endl;
-
-    return QPointF(charCount, elapsed);
+    return QPointF(plaintext.size(), elapsed);
 
 }
 

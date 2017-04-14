@@ -25,7 +25,7 @@ public:
     CryptoPP::HashTransformation* hashType;
 
     Hash(CryptoPP::HashTransformation*);
-    Hash(){}
+    Hash();
     Hash(const Hash& h);
     Hash& operator=(const Hash& h);
     virtual ~Hash();

@@ -22,6 +22,13 @@ QPointF BruteForceFactor::factor(mpz_class composite) {
     QElapsedTimer timer;
     timer.start();
     for(i = 2; i < upperBound; i++ ) {
+        if(kill) {
+            p1 = 0;
+            p2 = 0;
+            long elapsed = timer.elapsed();
+
+            return QPointF(composite.get_str(10).length(), elapsed);
+        }
         if(composite % i == 0) {
             p1 = i;
             p2 = composite / i;

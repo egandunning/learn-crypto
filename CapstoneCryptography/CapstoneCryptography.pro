@@ -37,7 +37,8 @@ SOURCES += src/main.cpp\
 	src/generatedata.cpp \
     src/labelarray.cpp \
     src/workerthreadcrack.cpp \
-    src/workerthreadfactor.cpp
+    src/workerthreadfactor.cpp \
+    src/workerthreadgenerate.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -59,7 +60,8 @@ HEADERS  += headers/mainwindow.h\
     headers/graphing.h \
     headers/labelarray.h \
     headers/workerthreadcrack.h \
-    headers/workerthreadfactor.h
+    headers/workerthreadfactor.h \
+    headers/workerthreadgenerate.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

@@ -30,11 +30,12 @@ public:
     std::string begin;
     std::string end;
     int charCount;
+    unsigned int threadCount;
+    bool finished;
 
     unsigned long n;
 
-    static std::string incrementStringW(std::string);
-    static void worker(std::string, std::string, Hash*, std::string);
+    bool worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha);
 };
 
 #endif // BRUTEFORCE_H
