@@ -38,7 +38,8 @@ SOURCES += src/main.cpp\
     src/labelarray.cpp \
     src/workerthreadcrack.cpp \
     src/workerthreadfactor.cpp \
-    src/workerthreadgenerate.cpp
+    src/workerthreadgenerate.cpp \
+    src/qspolyworker.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -61,7 +62,8 @@ HEADERS  += headers/mainwindow.h\
     headers/labelarray.h \
     headers/workerthreadcrack.h \
     headers/workerthreadfactor.h \
-    headers/workerthreadgenerate.h
+    headers/workerthreadgenerate.h \
+    headers/qspolyworker.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

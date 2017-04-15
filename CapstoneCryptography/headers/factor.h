@@ -2,6 +2,7 @@
 #define __FACTOR_H_INCLUDED__
 
 #include <headers/generateprimes.h>
+
 #include <QPointF>
 #include <QElapsedTimer>
 #include <gmpxx.h>
