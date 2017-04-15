@@ -39,8 +39,6 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
-
     void on_pushButton_3_clicked();
 
     void on_random_composite_clicked();
@@ -77,7 +75,6 @@ private:
     Factor* factorAlg=0;
     Hash *hashAlg=0;
     QString digest;
-    QString guessedWord;
     GraphWindow* fg=0; //for factoring
     GraphWindow* cg=0; //for hash cracking
     WorkerThreadCrack threadCrack;

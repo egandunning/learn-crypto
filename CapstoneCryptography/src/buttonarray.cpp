@@ -20,18 +20,20 @@ ButtonArray::ButtonArray(QString qS, QWidget* ui, cryptogame *agame){
     scrambledWord = qS;
     parent = ui;
     mapper = new QSignalMapper(this);
-    newWord.append(" ");
     game = agame;
 
     for(int i=0; i<qS.length(); i++){
         //Convert i character of s to a QString
-        QString qSTemp = " ";//QChar(qS.at(i));
+        QString qSTemp = " ";
         //Make QString size one
         qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
         QPushButton *p = new QPushButton(qSTemp, ui);
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
+        if(qS.at(i) == ' '){
+            p->setEnabled(false);
+        }
         //Object, then related signal, object, then related slot
         connect(p, SIGNAL(clicked(bool)), mapper, SLOT(map()));
         mapper->setMapping(p, i);
@@ -54,7 +56,7 @@ void ButtonArray::makeGuess(QString original, QString guess){
     //Make QString size one
     original.resize(1);
     guess.resize(1);
-    newWord.clear();
+    QString newWord;
     for(int i=0; i<scrambledWord.length(); i++){
         if(scrambledWord.at(i) == original){
            buttonPointerVector.at(i)->setText(guess);
@@ -70,9 +72,6 @@ void ButtonArray::makeGuess(QString original, QString guess){
 
 }
 
-QString ButtonArray::checkGuess(){
-    return newWord;
-}
 
 QPushButton* ButtonArray::get(int i){
     return buttonPointerVector.at(i);
@@ -90,6 +89,8 @@ void ButtonArray::show_input_box(int index){
     if(changed && !letter.isEmpty() && letter.at(0).isLetter()){
         //Make QString size one
         letter.resize(1);
+        //Make letter upper case
+        letter = letter.toUpper();
         for(int i=0; i<scrambledWord.length(); i++){
             if(buttonPointerVector.at(i)->text().at(0) == letter){
                 QMessageBox invalidEntry;
