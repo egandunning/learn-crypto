@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
 void init() {
     cout << "Begin initialization" << endl;
-    int lowerBound = 500000;
+    int lowerBound = 0;
     int upperBound = 10000000;
     GeneratePrimes gp = GeneratePrimes(lowerBound, upperBound);
     gp.generate();

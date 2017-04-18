@@ -11,13 +11,14 @@
 class Factor {
 
 public:
-    Factor(){}
+    Factor();
     virtual ~Factor(){}
     virtual QPointF factor(mpz_class);
     void stop();
     bool kill = false;
 	mpz_class p1;
-	mpz_class p2;
+    mpz_class p2;
+    unsigned int threadCount;
     mpz_class getPrime1();
     mpz_class getPrime2();
 };

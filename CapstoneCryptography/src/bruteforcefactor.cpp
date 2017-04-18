@@ -16,11 +16,12 @@ BruteForceFactor::BruteForceFactor(bool bigToSmall) {
  */
 QPointF BruteForceFactor::factor(mpz_class composite) {
 
+    QElapsedTimer timer;
+    timer.start();
+
     mpz_class i, upperBound;
     upperBound = sqrt(composite);
 
-    QElapsedTimer timer;
-    timer.start();
     for(i = 2; i < upperBound; i++ ) {
         if(kill) {
             p1 = 0;

@@ -1,5 +1,11 @@
 #include <headers/factor.h>
 
+Factor::Factor() :
+    p1(0),
+    p2(0),
+    threadCount(1)
+{}
+
 mpz_class Factor::getPrime1() {
     return p1;
 }

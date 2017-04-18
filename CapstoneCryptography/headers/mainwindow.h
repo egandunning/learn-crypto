@@ -12,6 +12,7 @@
 #include <headers/pbkdf2.h>
 #include <headers/generateprimes.h>
 #include <headers/bruteforcefactor.h>
+#include <headers/qsfactor.h>
 #include <headers/crack.h>
 #include <headers/bruteforcecrack.h>
 #include <headers/dictionarycrack.h>

@@ -1,10 +1,11 @@
 #include <headers/workerthreadfactor.h>
 
-WorkerThreadFactor::WorkerThreadFactor(QObject *parent) : QThread(parent) {
-    elapsed = -1;
-    number = 0;
-    f=0;
-}
+WorkerThreadFactor::WorkerThreadFactor(QObject *parent) :
+    QThread(parent),
+    elapsed(-1),
+    f(0),
+    number(0)
+{}
 
 WorkerThreadFactor::~WorkerThreadFactor() {
     QMutexLocker locker(&mutex);
@@ -32,6 +33,7 @@ void WorkerThreadFactor::run() {
 
 void WorkerThreadFactor::setFactor(Factor* factor, mpz_class num) {
     QMutexLocker locker(&mutex);
+    std::cout << "here" <<std::endl;
     f = factor;
     number = num;
 }

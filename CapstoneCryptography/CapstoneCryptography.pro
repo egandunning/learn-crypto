@@ -39,6 +39,7 @@ SOURCES += src/main.cpp\
     src/workerthreadcrack.cpp \
     src/workerthreadfactor.cpp \
     src/workerthreadgenerate.cpp \
+    src/qsfactor.cpp \
     src/qspolyworker.cpp
 
 
@@ -63,6 +64,7 @@ HEADERS  += headers/mainwindow.h\
     headers/workerthreadcrack.h \
     headers/workerthreadfactor.h \
     headers/workerthreadgenerate.h \
+    headers/qsfactor.h \
     headers/qspolyworker.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
