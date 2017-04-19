@@ -14,7 +14,7 @@ QPointF QSFactor::factor(mpz_class composite) {
     int numDigits = composite.get_str(10).length();
     B = pow(2,(.75)*sqrt(numDigits*log(numDigits)));
     if(B < 60) {
-        B = 20;
+        B = 60;
     }
     std::cout << "B=" << B << std::endl;
 
@@ -116,7 +116,7 @@ QPointF QSFactor::factor(mpz_class composite) {
     }
     std::cout << "starting lin. algebra step" << std::endl;
 
-    expVectors.sort();
+    //expVectors.sort();
 
     std::cout << "sorted vectors:" << std::endl;
     for(std::list<std::pair<long,std::vector<mpz_class>>>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
@@ -127,7 +127,9 @@ QPointF QSFactor::factor(mpz_class composite) {
         std::cout << std::endl;
     }
 
-    //"psuedo-gaussian elimination"
+    expVectors = gaussElim(expVectors);
+
+   /* //"psuedo-gaussian elimination"
     long index = 1;
 
     for(std::list<std::pair<long,std::vector<mpz_class>>>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
@@ -145,9 +147,11 @@ QPointF QSFactor::factor(mpz_class composite) {
                     it2->second.push_back(it->second.at(index));
                 }
             }
+            if(it2->first == 0) {
+                break;
+            }
         }
-
-    }
+    }*/
 
 
     std::cout << std::endl;
@@ -230,4 +234,41 @@ mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
     mpz_class result = 0;
     mpz_gcd(result.get_mpz_t(), a.get_mpz_t(), b.get_mpz_t());
     return result;
+}
+
+std::list<std::pair<long, std::vector<mpz_class>>> QSFactor::gaussElim(std::list<std::pair<long, std::vector<mpz_class> > > rows) {
+    rows.sort(std::greater<std::pair<long,std::vector<mpz_class>>>());
+        //std::cout << std::endl;
+        /*for(std::list<std::pair<long,mpz_class>>::iterator it = rows.begin(); it != rows.end(); it++) {
+            std::cout << std::bitset<12>(it->first) << " " << it->second << std::endl;
+        }*/
+
+    long index = 1;
+
+    //std::cout << "index: " << std::bitset<12>(index) << std::endl;
+    for(std::list<std::pair<long,std::vector<mpz_class>>>::reverse_iterator it = rows.rbegin(); it != rows.rend(); it++) {
+
+        //find new index
+        while(it->first > index<<1) {
+            index = index << 1;
+        }
+        //std::cout << "index: " << std::bitset<12>(index) << " " << it->second << std::endl;
+
+        std::list<std::pair<long,std::vector<mpz_class>>>::reverse_iterator it2 = it;
+        it2++;
+        for(it2; it2 != rows.rend(); it2++) {
+            if(it2->first == it->first) { //if(it2->first <= index) {
+                it2->first = it2->first ^ it->first; //addition mod 2
+                //it2->second = it2->second * it->second;
+                for(size_t index = 0; index < it->second.size(); index++) {
+                    it2->second.push_back(it->second.at(index));
+                }
+                if(it2->first == 0) { //exponent vector is the 0 vector
+                    break;
+                }
+            }
+        }
+
+    }
+    return rows;
 }

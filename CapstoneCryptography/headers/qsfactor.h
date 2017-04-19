@@ -30,6 +30,7 @@ private:
     std::vector<mpz_class> primes;
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
     mpz_class gcd(mpz_class, mpz_class);
+    std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
 };
 
 #endif // QSFACTOR
