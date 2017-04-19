@@ -8,12 +8,7 @@
 class BruteForceFactor : public Factor {
 public:
     BruteForceFactor();
-    BruteForceFactor(bool);
     virtual QPointF factor(mpz_class) override;
-private:
-    bool decreasing;
-    QPointF bruteForceFactorIncreasing(mpz_class);
-    QPointF bruteForceFactorDecreasing(mpz_class);
 };
 
 #endif // BRUTEFORCEFACTOR_H

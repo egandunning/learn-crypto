@@ -33,7 +33,6 @@ void WorkerThreadFactor::run() {
 
 void WorkerThreadFactor::setFactor(Factor* factor, mpz_class num) {
     QMutexLocker locker(&mutex);
-    std::cout << "here" <<std::endl;
     f = factor;
     number = num;
 }
