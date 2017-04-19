@@ -470,5 +470,5 @@ void MainWindow::on_stopFactorPushButton_clicked()
 }
 
 void MainWindow::on_HELPBUTTONCLICKED(){
-    bool hi = QDesktopServices::openUrl(QUrl("https://www.google.com"));
+    bool hi = QDesktopServices::openUrl(QUrl("https://cryptowiki.herokuapp.com/"));
 }
