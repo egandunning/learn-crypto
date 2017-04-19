@@ -8,6 +8,7 @@
 #include <QFuture>
 #include "headers/buttonarray.h"
 #include "headers/labelarray.h"
+#include <QtWebKitWidgets/QWebView>
 
 #include "iostream" //for debugging
 
@@ -20,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&threadCrackData, SIGNAL(finished()), this, SLOT(update_crack_graph()));
     connect(&threadFactorData, SIGNAL(finished()), this, SLOT(update_factor_graph()));
     ui->setupUi(this);
+
+    QWebView *view = new QWebView(parent);
+    view->load(QUrl("https://www.google.com"));
+    view->show();
 }
 
 MainWindow::~MainWindow()

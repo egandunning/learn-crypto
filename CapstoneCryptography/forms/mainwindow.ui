@@ -15,12 +15,12 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
+    <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -105,10 +105,20 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="saltField"/>
+          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>Salt:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="crackedField">
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -119,8 +129,8 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="saltField"/>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="plaintextField"/>
           </item>
           <item row="11" column="0" colspan="3">
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -393,13 +403,6 @@
             </item>
            </layout>
           </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="crackedField">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_4">
             <property name="text">
@@ -414,27 +417,10 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="plaintextField"/>
-          </item>
           <item row="9" column="1">
            <widget class="QSpinBox" name="crackPointCountSpinBox">
             <property name="value">
              <number>5</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="randomSaltButton">
-            <property name="text">
-             <string>Random</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="hashButton">
-            <property name="text">
-             <string>Hash!</string>
             </property>
            </widget>
           </item>
@@ -461,6 +447,20 @@
               <string>PBKDF2</string>
              </property>
             </item>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="randomSaltButton">
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="hashButton">
+            <property name="text">
+             <string>Hash!</string>
+            </property>
            </widget>
           </item>
           <item row="5" column="2">
@@ -580,7 +580,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2" rowspan="31">
+          <item row="0" column="1" rowspan="31">
            <widget class="QGraphicsView" name="factoringGraphicsView">
             <property name="minimumSize">
              <size>
@@ -680,6 +680,11 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="help">
+         <attribute name="title">
+          <string>Page</string>
+         </attribute>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -692,7 +697,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
