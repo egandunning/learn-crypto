@@ -29,6 +29,7 @@ private:
     std::vector<QSPolyWorker*> polyThreads;
     std::vector<mpz_class> primes;
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
+    mpz_class gcd(mpz_class, mpz_class);
 };
 
 #endif // QSFACTOR
