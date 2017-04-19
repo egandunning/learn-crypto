@@ -8,6 +8,8 @@
 #include <QFuture>
 #include "headers/buttonarray.h"
 #include "headers/labelarray.h"
+#include <QtWebKit>
+#include <QUrl>
 
 #include "iostream" //for debugging
 
@@ -20,6 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&threadCrackData, SIGNAL(finished()), this, SLOT(update_crack_graph()));
     connect(&threadFactorData, SIGNAL(finished()), this, SLOT(update_factor_graph()));
     ui->setupUi(this);
+
+    QAction *act = new QAction(QString("Help"), this);
+
+    connect(act, &QAction::triggered, this, &MainWindow::on_HELPBUTTONCLICKED);
+
+    ui->menuBar->addAction(act);
+
 }
 
 MainWindow::~MainWindow()
@@ -458,4 +467,8 @@ void MainWindow::on_cancelCrackButton_clicked()
 void MainWindow::on_stopFactorPushButton_clicked()
 {
     threadFactor.stop();
+}
+
+void MainWindow::on_HELPBUTTONCLICKED(){
+    bool hi = QDesktopServices::openUrl(QUrl("https://cryptowiki.herokuapp.com/"));
 }

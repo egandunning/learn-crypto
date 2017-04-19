@@ -6,7 +6,8 @@
 
 QT       += core gui\
         testlib \
-        concurrent
+        concurrent \
+        webkit
 
 CONFIG   += c++11
 

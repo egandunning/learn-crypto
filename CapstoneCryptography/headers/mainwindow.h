@@ -5,6 +5,7 @@
 #include <QElapsedTimer>
 #include <QStringRef>
 #include <QInputDialog>
+#include <QtWebKitWidgets/QWebView>
 #include <headers/cryptogame.h>
 #include <headers/hash.h>
 #include <headers/md5.h>
@@ -70,6 +71,8 @@ private slots:
 
     void on_stopFactorPushButton_clicked();
 
+    void on_HELPBUTTONCLICKED();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
@@ -82,6 +85,7 @@ private:
     WorkerThreadFactor threadFactor;
     WorkerThreadGenerate threadCrackData;
     WorkerThreadGenerate threadFactorData;
+    QWebView *qweb;
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;

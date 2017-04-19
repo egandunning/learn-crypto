@@ -81,6 +81,7 @@ QPointF BruteForceCrack::reverse() {
     threadCount = QThread::idealThreadCount();
     //threads = 100;
 
+
     std::string a = "";
     char t = alphabet[0];
     a += t;
