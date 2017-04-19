@@ -87,7 +87,7 @@ void MainWindow::on_pushButton_clicked()
     int i = 0;
     int counter = 0;
     while(counter < q.length()){
-        if(i >= 3 && q.at(i) == ' '){
+        if(i >= 3 && q.at(counter) == ' '){
             j += 2;
             i = 0;
         } else {
@@ -122,14 +122,13 @@ void MainWindow::on_factorPrimesButton_clicked()
     int algChoice = ui->factorAlgChooser->currentIndex();
 
     switch(algChoice) {
-    case 0:
+    case 0:{
         factorAlg = new BruteForceFactor();
-        break;
-    case 1:
-        //Quadratic sieve here
+        break;}
+    case 1:{
+        factorAlg = new QSFactor();
         std::cout<<"Quadratic sieve feature is in progress!"<<std::endl;
-        return;
-        break;
+        break;}
     }
 	
     mpz_class composite;
@@ -209,7 +208,7 @@ void MainWindow::on_crackButton_clicked()
     ui->crackedField->setText("");
     ui->crackedField->repaint();
 
-    Crack* c;
+    Crack* c = new Crack();
     if(hashAlg == NULL) {
     	return;
     }
@@ -360,7 +359,7 @@ void MainWindow::on_plotCrackButton_clicked()
         break;
     }
 
-    Crack* c;
+    Crack* c = new Crack();
     if(hashAlg == NULL) {
         return;
     }
