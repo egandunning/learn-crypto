@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -684,6 +684,21 @@
          <attribute name="title">
           <string>Page</string>
          </attribute>
+         <widget class="QWidget" name="verticalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>-1</x>
+            <y>-1</y>
+            <width>1011</width>
+            <height>541</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QWidget" name="webview" native="true"/>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
       </item>
@@ -697,7 +712,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>27</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
