@@ -5,7 +5,6 @@
 #include <QElapsedTimer>
 #include <QStringRef>
 #include <QInputDialog>
-#include <QtWebKitWidgets/QWebView>
 #include <headers/cryptogame.h>
 #include <headers/hash.h>
 #include <headers/md5.h>
@@ -85,7 +84,6 @@ private:
     WorkerThreadFactor threadFactor;
     WorkerThreadGenerate threadCrackData;
     WorkerThreadGenerate threadFactorData;
-    QWebView *qweb;
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;

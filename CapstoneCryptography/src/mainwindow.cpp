@@ -8,8 +8,8 @@
 #include <QFuture>
 #include "headers/buttonarray.h"
 #include "headers/labelarray.h"
-#include <QtWebKit>
 #include <QUrl>
+#include <QDesktopServices>
 
 #include "iostream" //for debugging
 
