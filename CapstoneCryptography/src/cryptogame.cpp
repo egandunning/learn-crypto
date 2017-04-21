@@ -22,6 +22,7 @@ cryptogame::cryptogame()
         int index = rand() % lines.size();
         d_message = lines.at(index);
 
+        /*
         std::ifstream hintsFile;
         hintsFile.open("../hints.txt");
         std::vector<std::string> allTheHints;
@@ -31,7 +32,7 @@ cryptogame::cryptogame()
         }
 
         hint = allTheHints.at(index);
-
+        */
 
     } catch (int e) {
         std::cout << "File io execption occurred: " << e << std::endl;
@@ -42,6 +43,13 @@ cryptogame::cryptogame()
 
     //Encrypt the message and add it to the e_message
     e_message = messageCipher.encrypt(d_message);
+
+    //Make the hint
+
+  /* hint.append(1, e_message.at(0));
+    hint.append(" is equal to ");
+   hint.append(1, d_message.at(0));
+    hint.append(" in this game."); */
 
 
 }
