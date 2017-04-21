@@ -7,6 +7,9 @@
 
 #include <bitset>
 #include <iomanip>
+#include <vector>
+#include <list>
+#include <map>
 
 class QSFactor : public Factor {
 
@@ -16,21 +19,26 @@ public:
 
     QPointF factor(mpz_class);
 
-    struct solution {
-        int primeIndex;
-        int power;
-        mpz_class modulus;
-        mpz_class x1;
-        mpz_class x2;
+    //represents a row in an exponent vector: the vector v that represents num and x1,x2,.. where num = (x1^2-n)(x2^2-n)...
+    struct row {
+        long vec = 0;
+        std::vector<mpz_class> xVals;
     };
 
 private:
-    long B;
-    std::vector<QSPolyWorker*> polyThreads;
+    long B; //smoothness bound
     std::vector<mpz_class> primes;
+    std::map<mpz_class,row> expVectors;
+    mpz_class composite;
+    mpz_class x;
+
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
     mpz_class gcd(mpz_class, mpz_class);
     std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
+    void quadraticSieve();
+    std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
+    void printVectors();
+
 };
 
 #endif // QSFACTOR

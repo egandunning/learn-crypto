@@ -34,6 +34,7 @@ public:
 	bool writePrimes(char*);
 	long readRandomPrime(char*);
 	void generate();
+    std::vector<mpz_class> generate(mpz_class);
 	long randomPrime();
     static mpz_class randomPrime(unsigned int numDigits);
 	void printPrimes();

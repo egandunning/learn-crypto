@@ -4,8 +4,14 @@
 #include "headers/generateprimes.h"
 
 
-GeneratePrimes::GeneratePrimes() {
-	srand(time(NULL));
+GeneratePrimes::GeneratePrimes() :
+    primes(),
+    lowerBound(0),
+    upperBound(0),
+    composites(0)
+{
+    srand(time(NULL));
+    std::cout << "here" <<std::endl;
 }
 
 GeneratePrimes::GeneratePrimes(long floor, long ceiling) {
@@ -17,7 +23,7 @@ GeneratePrimes::GeneratePrimes(long floor, long ceiling) {
 	srand(time(NULL));
     composites = vector<bool>(upperBound, 0); //keeps track of composite numbers. If i is prime,
                                              //then composites[i]=false
-    composites.at(0) = 1; //pretend 0 and 1 are prime for simplicity
+    composites.at(0) = 1; //0 and 1 are not prime
     composites.at(1) = 1;
 }
 
@@ -90,6 +96,36 @@ void GeneratePrimes::generate() {
 			}
 		}
 	}
+}
+
+std::vector<mpz_class> GeneratePrimes::generate(mpz_class ceiling) {
+
+    std::vector<mpz_class> primeNums = std::vector<mpz_class>();
+    if(!ceiling.fits_slong_p()) {
+        std::cout << "number is too big to generate primes. exiting generate(mpz_class)" << std::endl;
+        return primeNums;
+    }
+    long bound = ceiling.get_si();
+    std::vector<bool> comps = std::vector<bool>(bound, 0);
+    comps.at(0) = 1;
+    comps.at(1) = 1;
+
+    for(long i = 0; i < bound; i++) {
+
+        if(!comps.at(i)) {
+
+            primeNums.push_back(i);
+
+            for(long j = 0; j < bound; j++) {
+                long product = j * i; //find composite numbers
+                if( product >= bound ) { //out of bounds
+                    break;
+                }
+                comps.at(j*i) = 1;
+            }
+        }
+    }
+    return primeNums;
 }
 
 long GeneratePrimes::randomPrime() {
