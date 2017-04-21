@@ -17,3 +17,6 @@ command (assuming the learn-crypto project is in the home folder):
 
 `$ cat /usr/share/dict/words | grep -v .*\'s > ~/learn-crypto/dictionary.txt`
 
+
+Cryptowiki: https://cryptowiki.herokuapp.com/
+
