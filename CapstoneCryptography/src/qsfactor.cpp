@@ -16,10 +16,8 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     composite = comp;
     int numDigits = composite.get_str(10).length();
-    B = pow(2,(.75)*sqrt(numDigits*log(numDigits)));
+    B = pow(2,(.75)*sqrt(numDigits*log(numDigits))) + 5;
     std::cout << "B=" << B << std::endl;
-
-    B = 12;
 
     x = sqrt(composite) + 1;
 
@@ -81,7 +79,9 @@ QPointF QSFactor::factor(mpz_class comp) {
                 continue;
             }
 
+            std::cout << "composite: " << composite.get_str() << " square1: " << square1.get_str() << " square2: " << square2.get_str() << std::endl;
             if(square1 % composite == square2 % composite && sqrt(square1) % composite != sqrt(square2) % composite) {
+                std::cout << "made it" << std::endl;
                 std::cout << "square1: " << square1.get_str() << " square2: " << square2.get_str() << std::endl;
                 p1 = gcd(sqrt(square1)+sqrt(square2),composite);
                 p2 = gcd(sqrt(square1)-sqrt(square2),composite);
@@ -122,6 +122,9 @@ mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
     std::cout << a.get_str() << " " << b.get_str() << std::endl;
 
     mpz_class result = 0;
+    if(a == 0 || b == 0) {
+        return result;
+    }
     mpz_gcd(result.get_mpz_t(), a.get_mpz_t(), b.get_mpz_t());
     return result;
 }
@@ -176,10 +179,11 @@ void QSFactor::quadraticSieve() {
         //solve x^2-n=0 mod p for x
         std::pair<mpz_class,mpz_class> solution = solveQuadratic(primes.at(pIndex));
 
-        for(mpz_class x1 = solution.first; x1 < 100; x1 += primes.at(pIndex)) {
+        for(mpz_class x1 = solution.first; x1 < 10*B*B; x1 += primes.at(pIndex)) {
             if(x1 < x) {
                 continue;
             }
+            std::cout << "in qs: x1: " << x1.get_str() << std::endl;
             row currentVector = expVectors[x1];
             currentVector.vec = currentVector.vec ^ (1 << pIndex);
             expVectors[x1] = currentVector;
@@ -187,14 +191,15 @@ void QSFactor::quadraticSieve() {
             std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x1.get_str() << std::endl;
         }
 
-        if(solution.first!=solution.second || pIndex == 0) { //one solution
+        if(solution.first != solution.second || pIndex == 0) { //one solution
             continue;
         }
 
-        for(mpz_class x2 = solution.second; x2 < 100; x2 += primes.at(pIndex)) {
+        for(mpz_class x2 = solution.second; x2 < 10*B*B; x2 += primes.at(pIndex)) {
             if(x2 < x) {
                 continue;
             }
+            std::cout << "in qs: x2: " << x2.get_str() << std::endl;
             row currentVector = expVectors[x2];
             currentVector.vec = currentVector.vec ^ (1 << pIndex);
             expVectors[x2] = currentVector;
