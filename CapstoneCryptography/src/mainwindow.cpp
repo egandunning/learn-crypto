@@ -474,7 +474,11 @@ void MainWindow::on_stopFactorPushButton_clicked()
 }
 
 void MainWindow::on_HELPBUTTONCLICKED(){
-    bool hi = QDesktopServices::openUrl(QUrl("https://cryptowiki.herokuapp.com/"));
+    QString url = "https://cryptowiki.herokuapp.com/";
+    bool hi = QDesktopServices::openUrl(QUrl(url));
+    if(!hi) {
+        std::cout << "Error opening webpage: " << url.toStdString() << std::endl;
+    }
 }
 
 /**
