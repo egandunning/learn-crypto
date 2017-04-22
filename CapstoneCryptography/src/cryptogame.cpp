@@ -46,10 +46,10 @@ cryptogame::cryptogame()
 
     //Make the hint
 
-  /* hint.append(1, e_message.at(0));
+  hint.append(1, e_message.at(0));
     hint.append(" is equal to ");
    hint.append(1, d_message.at(0));
-    hint.append(" in this game."); */
+    hint.append(" in this game.");
 
 
 }
