@@ -91,6 +91,8 @@ private:
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);
+    mpz_class evaluateExpression(std::string);
+    bool isDigit(char);
 };
 
 #endif // MAINWINDOW_H

@@ -137,7 +137,11 @@ void MainWindow::on_factorPrimesButton_clicked()
 	
     mpz_class composite;
     string s = ui->compositeTextField->text().toStdString();
-    composite.set_str(s, 10);
+    //composite.set_str(s, 10);
+
+    composite = evaluateExpression(s);
+
+    ui->compositeTextField->setText(QString::fromStdString(composite.get_str()));
 
     threadFactor.setFactor(factorAlg, composite);
     threadFactor.work();
@@ -471,4 +475,49 @@ void MainWindow::on_stopFactorPushButton_clicked()
 
 void MainWindow::on_HELPBUTTONCLICKED(){
     bool hi = QDesktopServices::openUrl(QUrl("https://cryptowiki.herokuapp.com/"));
+}
+
+/**
+ * Given a string containing two numbers a,b separated by any character,
+ * evaluate a*b. Example: expressionEvaluator("2 7") returns 14.
+ * @brief MainWindow::expressionEvaluator
+ * @param inString
+ * @return
+ */
+mpz_class MainWindow::evaluateExpression(std::string input) {
+
+    size_t index = 0;
+    std::string num1="";
+    std::string num2="";
+    while(index < input.size() && isDigit(input.at(index))) {
+        num1.append(1,input.at(index));
+        index++;
+    }
+    while(index < input.size() && !isDigit(input.at(index))) {
+        index++;
+    }
+    if(index >= input.size()) {
+        return mpz_class(num1);
+    }
+    while(index < input.size() && isDigit(input.at(index))) {
+        num2.append(1,input.at(index));
+        index++;
+    }
+
+    mpz_class a(num1);
+    mpz_class b(num2);
+    return a*b;
+}
+
+/**
+ * Helper method for evaluateExpression.
+ * @brief MainWindow::isDigit
+ * @param c character to check if digit
+ * @return true if c is a digit
+ */
+bool MainWindow::isDigit(char c) {
+    if(c <= '9' && c >= '0') {
+        return true;
+    }
+    return false;
 }
