@@ -16,7 +16,7 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     composite = comp;
     int numDigits = composite.get_str(10).length();
-    B = pow(2,(.75)*sqrt(numDigits*log(numDigits))) + 5;
+    B = computeB();
     std::cout << "B=" << B << std::endl;
 
     x = sqrt(composite) + 1;
@@ -69,8 +69,6 @@ QPointF QSFactor::factor(mpz_class comp) {
                 mpz_class temp = (xTerms.at(xTerm))*(xTerms.at(xTerm));
                 square1 *= temp;
                 square2 *= (temp - composite);
-                //std::cout << square1.get_str() << " " << square2.get_str() << std::endl;
-
             }
             std::cout << std::endl;
 
@@ -98,24 +96,6 @@ QPointF QSFactor::factor(mpz_class comp) {
     return QPointF(numDigits, elapsed);
 }
 
-/**
- * @brief QSFactor::solveQuadraticModN find x: x^2-c = 0 (mod 4modulus)
- * @param c
- * @param modulus
- * @return -1 if no solution
- */
-mpz_class QSFactor::solveQuadraticModN(mpz_class c, mpz_class modulus) {
-
-    modulus *= 4;
-    c = c % modulus;
-
-    for(mpz_class i = 0; i < 4*modulus; i++) {
-        if( (i*i-c) % modulus == 0 ) {
-            return i;
-        }
-    }
-    return -1;
-}
 
 mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
 
@@ -127,42 +107,6 @@ mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
     }
     mpz_gcd(result.get_mpz_t(), a.get_mpz_t(), b.get_mpz_t());
     return result;
-}
-
-std::list<std::pair<long, std::vector<mpz_class>>> QSFactor::gaussElim(std::list<std::pair<long, std::vector<mpz_class> > > rows) {
-    rows.sort(std::greater<std::pair<long,std::vector<mpz_class>>>());
-        //std::cout << std::endl;
-        /*for(std::list<std::pair<long,mpz_class>>::iterator it = rows.begin(); it != rows.end(); it++) {
-            std::cout << std::bitset<12>(it->first) << " " << it->second << std::endl;
-        }*/
-
-    long index = 1;
-
-    //std::cout << "index: " << std::bitset<12>(index) << std::endl;
-    for(std::list<std::pair<long,std::vector<mpz_class>>>::reverse_iterator it = rows.rbegin(); it != rows.rend(); it++) {
-
-        //find new index
-        while(it->first > index<<1) {
-            index = index << 1;
-        }
-        //std::cout << "index: " << std::bitset<12>(index) << " " << it->second << std::endl;
-
-        std::list<std::pair<long,std::vector<mpz_class>>>::reverse_iterator it2 = it;
-        it2++;
-        for( ; it2 != rows.rend(); it2++) {
-            if(it2->first == it->first) { //if(it2->first <= index) {
-                it2->first = it2->first ^ it->first; //addition mod 2
-                //it2->second = it2->second * it->second;
-                for(size_t index = 0; index < it->second.size(); index++) {
-                    it2->second.push_back(it->second.at(index));
-                }
-                if(it2->first == 0) { //exponent vector is the 0 vector
-                    break;
-                }
-            }
-        }
-    }
-    return rows;
 }
 
 /**
@@ -206,9 +150,6 @@ void QSFactor::quadraticSieve() {
 
             std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x2.get_str() << std::endl;
         }
-        /*if(expVectors.size() > B) {
-            return;
-        }*/
     }
 }
 
@@ -243,4 +184,42 @@ void QSFactor::printVectors() {
         }
         std::cout << std::endl;
     }
+}
+
+/**
+ * Approximates logarithm using the fact: ln(ab) = ln(a) + ln(b)
+ * @brief QSFactor::log
+ * @return
+ */
+mpz_class QSFactor::bigLog(mpz_class x) {
+
+    if(x==1) {
+        return 0;
+    }
+    if(x < 1) {
+        return -1;
+    }
+    long maxLong = std::numeric_limits<long>::max()-1;
+
+    mpz_class logarithm = 0;
+
+    while(x / maxLong > maxLong) {
+        x /= maxLong;
+        logarithm += log(maxLong);
+    }
+    logarithm += log(x.get_si());
+    return logarithm;
+}
+
+/**
+ * Compute the smoothness bound B
+ * @brief QSFactor::computeB
+ * @return
+ */
+long QSFactor::computeB() {
+    long b = 0;
+    mpz_class temp = sqrt(bigLog(composite)*bigLog(bigLog(composite)));
+    long exp = (.75)*(temp.get_si());
+    b = pow(2,exp) + 5;
+    return b;
 }

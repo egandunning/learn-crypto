@@ -33,12 +33,14 @@ private:
     mpz_class x;
 
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
-    mpz_class gcd(mpz_class, mpz_class);
+
     std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
     void quadraticSieve();
     std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
     void printVectors();
-
+    mpz_class bigLog(mpz_class);
+    mpz_class gcd(mpz_class, mpz_class);
+    long computeB();
 };
 
 #endif // QSFACTOR
