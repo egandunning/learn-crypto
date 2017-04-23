@@ -136,12 +136,12 @@ void MainWindow::on_factorPrimesButton_clicked()
     }
 	
     mpz_class composite;
-    string s = ui->compositeTextField->text().toStdString();
+    string s = ui->compositeTextField->toPlainText().toStdString();
     //composite.set_str(s, 10);
 
     composite = evaluateExpression(s);
 
-    ui->compositeTextField->setText(QString::fromStdString(composite.get_str()));
+    ui->compositeTextField->document()->setPlainText(QString::fromStdString(composite.get_str()));
 
     threadFactor.setFactor(factorAlg, composite);
     threadFactor.work();
@@ -155,10 +155,10 @@ void MainWindow::update_factor_result() {
     Factor* pf = threadFactor.getFactor();
 
     string s = "Time: " + std::to_string(elapsed) + " ms";
-    ui->timeLabel->setText(QString::fromStdString(s));
+    ui->timeLabel->setText(QString("Time: ")+smartTime(elapsed));
 
-    s = "Result: " + pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
-    ui->resultLabel->setText(QString::fromStdString(s));
+    s = pf->p1.get_str(10) + " * " + pf->p2.get_str(10);
+    ui->resultField->document()->setPlainText(QString::fromStdString(s));
 
     ui->factorPrimesButton->setDisabled(false);
 }
@@ -171,7 +171,7 @@ void MainWindow::on_random_composite_clicked()
     q = gp.readRandomPrime((char*)"primes.txt");
     composite = p * q;
     string s = composite.get_str(10);
-    ui->compositeTextField->setText(QString::fromStdString(s));
+    ui->compositeTextField->document()->setPlainText(QString::fromStdString(s));
 }
 
 void MainWindow::on_hashButton_clicked()
@@ -259,7 +259,7 @@ void MainWindow::update_crack_result() {
     }
 
     string s = "Time: " + std::to_string(elapsed) + " ms";
-    ui->crackTimeLabel->setText(QString::fromStdString(s));
+    ui->crackTimeLabel->setText(QString("Time: " + smartTime(elapsed)));
 
     ui->crackButton->setDisabled(false);
 }
@@ -524,4 +524,33 @@ bool MainWindow::isDigit(char c) {
         return true;
     }
     return false;
+}
+
+/**
+ * Adjusts units of time based on magnitude.
+ * @brief MainWindow::smartTime
+ * @param ms
+ * @return
+ */
+QString MainWindow::smartTime(long ms) {
+
+    std::string output = "";
+
+    if(ms >= 8640000) {
+        double days = ms / 8640000.0;
+        return QString::number(days,'f',2) + QString(" days");
+    }
+    if(ms >= 360000) {
+        double hours = ms / 360000.0;
+        return QString::number(hours,'f',2) + QString(" hours");
+    }
+    if(ms >= 60000) {
+        double minutes = ms / 60000.0;
+        return QString::number(minutes,'f',2) + QString(" minutes");
+    }
+    if(ms >= 1000) {
+        double seconds = ms / 1000.0;
+        return QString::number(seconds,'f',2) + QString(" seconds");
+    }
+    return QString::number(ms) + QString(" milliseconds");
 }

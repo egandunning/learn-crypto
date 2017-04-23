@@ -542,14 +542,7 @@
           <string>Factoring</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="3" column="0">
-           <widget class="QPushButton" name="random_composite">
-            <property name="text">
-             <string>Random</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
+          <item row="13" column="0">
            <widget class="QLabel" name="timeLabel">
             <property name="text">
              <string>Time: </string>
@@ -557,7 +550,14 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLineEdit" name="compositeTextField"/>
+           <widget class="QPlainTextEdit" name="compositeTextField">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item row="0" column="0">
            <widget class="QComboBox" name="factorAlgChooser">
@@ -573,14 +573,7 @@
             </item>
            </widget>
           </item>
-          <item row="4" column="0" rowspan="2">
-           <widget class="QPushButton" name="factorPrimesButton">
-            <property name="text">
-             <string>Factor</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" rowspan="31">
+          <item row="0" column="1" rowspan="36">
            <widget class="QGraphicsView" name="factoringGraphicsView">
             <property name="minimumSize">
              <size>
@@ -590,10 +583,13 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
+          <item row="11" column="0">
            <widget class="QLabel" name="resultLabel">
             <property name="text">
              <string>Result:</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -604,7 +600,7 @@
             </property>
            </widget>
           </item>
-          <item row="14" column="0" rowspan="2">
+          <item row="19" column="0" rowspan="2">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
              <widget class="QLabel" name="dataCountLabel">
@@ -625,7 +621,7 @@
             </item>
            </layout>
           </item>
-          <item row="12" column="0">
+          <item row="17" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <widget class="QLabel" name="dataStartLabel">
@@ -646,14 +642,14 @@
             </item>
            </layout>
           </item>
-          <item row="11" column="0">
+          <item row="16" column="0">
            <widget class="QLabel" name="plotLabel">
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Plot data points&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
-          <item row="17" column="0">
+          <item row="22" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QPushButton" name="drawFactoring">
@@ -671,10 +667,34 @@
             </item>
            </layout>
           </item>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="random_composite">
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QPushButton" name="factorPrimesButton">
+            <property name="text">
+             <string>Factor</string>
+            </property>
+           </widget>
+          </item>
           <item row="6" column="0">
            <widget class="QPushButton" name="stopFactorPushButton">
             <property name="text">
              <string>Cancel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="0">
+           <widget class="QPlainTextEdit" name="resultField">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -712,7 +732,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

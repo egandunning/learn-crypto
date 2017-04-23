@@ -223,3 +223,4 @@ long QSFactor::computeB() {
     b = pow(2,exp) + 5;
     return b;
 }
+

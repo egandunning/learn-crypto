@@ -93,6 +93,7 @@ private:
     void dictionaryOptions(Crack *);
     mpz_class evaluateExpression(std::string);
     bool isDigit(char);
+    QString smartTime(long);
 };
 
 #endif // MAINWINDOW_H
