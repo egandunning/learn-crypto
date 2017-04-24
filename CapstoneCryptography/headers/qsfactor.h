@@ -2,7 +2,7 @@
 #define QSFACTOR
 
 #include <headers/factor.h>
-#include <headers/qspolyworker.h>
+#include <headers/qsworker.h>
 #include <headers/generateprimes.h>
 
 #include <bitset>

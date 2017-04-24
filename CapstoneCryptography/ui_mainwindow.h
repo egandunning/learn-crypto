@@ -118,10 +118,6 @@ public:
     QPushButton *factorPrimesButton;
     QPushButton *stopFactorPushButton;
     QPlainTextEdit *resultField;
-    QWidget *help;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout_2;
-    QWidget *webview;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -130,7 +126,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1014, 648);
+        MainWindow->resize(1014, 709);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -516,26 +512,11 @@ public:
         resultField = new QPlainTextEdit(tab_4);
         resultField->setObjectName(QStringLiteral("resultField"));
         resultField->setMaximumSize(QSize(16777215, 60));
+        resultField->setReadOnly(true);
 
         gridLayout_2->addWidget(resultField, 12, 0, 1, 1);
 
         tabWidget->addTab(tab_4, QString());
-        help = new QWidget();
-        help->setObjectName(QStringLiteral("help"));
-        verticalLayoutWidget = new QWidget(help);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(-1, -1, 1011, 541));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        webview = new QWidget(verticalLayoutWidget);
-        webview->setObjectName(QStringLiteral("webview"));
-
-        verticalLayout_2->addWidget(webview);
-
-        tabWidget->addTab(help, QString());
 
         horizontalLayout->addWidget(tabWidget);
 
@@ -625,7 +606,6 @@ public:
         factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));
         stopFactorPushButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Factoring", 0));
-        tabWidget->setTabText(tabWidget->indexOf(help), QApplication::translate("MainWindow", "Page", 0));
     } // retranslateUi
 
 };

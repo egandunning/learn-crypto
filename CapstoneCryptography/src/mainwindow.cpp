@@ -137,7 +137,6 @@ void MainWindow::on_factorPrimesButton_clicked()
 	
     mpz_class composite;
     string s = ui->compositeTextField->toPlainText().toStdString();
-    //composite.set_str(s, 10);
 
     composite = evaluateExpression(s);
 
@@ -501,16 +500,28 @@ mpz_class MainWindow::evaluateExpression(std::string input) {
         index++;
     }
     if(index >= input.size()) {
-        return mpz_class(num1);
+        try {
+            return mpz_class(num1);
+        } catch(std::invalid_argument e) {
+            std::cout << "incorrect format: " << input << std::endl;
+            std::cout << "format should be: [number] or [number][anything][number]" << std::endl;
+            return mpz_class(0);
+        }
     }
     while(index < input.size() && isDigit(input.at(index))) {
         num2.append(1,input.at(index));
         index++;
     }
 
-    mpz_class a(num1);
-    mpz_class b(num2);
-    return a*b;
+    try{
+        mpz_class a(num1);
+        mpz_class b(num2);
+        return a*b;
+    } catch (std::invalid_argument e) {
+        std::cout << "incorrect format: " << input << std::endl;
+        std::cout << "format should be: [number] or [number][anything][number]" << std::endl;
+        return mpz_class(0);
+    }
 }
 
 /**

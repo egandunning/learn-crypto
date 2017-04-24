@@ -41,7 +41,7 @@ SOURCES += src/main.cpp\
     src/workerthreadfactor.cpp \
     src/workerthreadgenerate.cpp \
     src/qsfactor.cpp \
-    src/qspolyworker.cpp
+    src/qsworker.cpp
 
 
 HEADERS  += headers/mainwindow.h\
@@ -66,7 +66,7 @@ HEADERS  += headers/mainwindow.h\
     headers/workerthreadfactor.h \
     headers/workerthreadgenerate.h \
     headers/qsfactor.h \
-    headers/qspolyworker.h
+    headers/qsworker.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

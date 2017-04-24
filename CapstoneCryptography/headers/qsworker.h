@@ -1,5 +1,5 @@
-#ifndef QSPOLYWORKER_H
-#define QSPOLYWORKER_H
+#ifndef QSWORKER_H
+#define QSWORKER_H
 
 #include <QThread>
 #include <QMutex>
@@ -11,15 +11,15 @@
 
 #include <gmpxx.h>
 
-class QSPolyWorker : public QThread {
+class QSWorker : public QThread {
 
     Q_OBJECT
 
 public:
-    QSPolyWorker();
-    QSPolyWorker(mpz_class,mpz_class,unsigned int,unsigned int);
-    QSPolyWorker(const QSPolyWorker&);
-    ~QSPolyWorker();
+    QSWorker();
+    QSWorker(mpz_class,mpz_class,unsigned int,unsigned int);
+    QSWorker(const QSWorker&);
+    ~QSWorker();
     void stop();
     std::vector<std::pair<mpz_class,mpz_class>> getOutput();
 
@@ -35,5 +35,5 @@ private:
     void run();
 };
 
-#endif // QSPOLYWORKER_H
+#endif // QSWORKER_H
 

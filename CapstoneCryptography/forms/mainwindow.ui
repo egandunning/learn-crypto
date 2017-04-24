@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1014</width>
-    <height>648</height>
+    <height>709</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -696,29 +696,12 @@
               <height>60</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
-        </widget>
-        <widget class="QWidget" name="help">
-         <attribute name="title">
-          <string>Page</string>
-         </attribute>
-         <widget class="QWidget" name="verticalLayoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>-1</x>
-            <y>-1</y>
-            <width>1011</width>
-            <height>541</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QWidget" name="webview" native="true"/>
-           </item>
-          </layout>
-         </widget>
         </widget>
        </widget>
       </item>
