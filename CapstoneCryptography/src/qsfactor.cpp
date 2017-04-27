@@ -5,7 +5,8 @@ QSFactor::QSFactor() :
     composite(0),
     x(0),
     threads(),
-    primes()
+    primes(),
+    expVectors()
 {
     int idealThreadCount = QThread::idealThreadCount();
     if(idealThreadCount < 1) {
@@ -23,6 +24,7 @@ QPointF QSFactor::factor(mpz_class comp) {
     timer.start();
 
     composite = comp;
+    std::cout << "number to factor: " << composite.get_str() << std::endl;
     int numDigits = composite.get_str(10).length();
     B = computeB();
     std::cout << "B=" << B << std::endl;
@@ -32,24 +34,22 @@ QPointF QSFactor::factor(mpz_class comp) {
     //generate primes less than B
     GeneratePrimes gen = GeneratePrimes();
 
-    primes = new std::vector<mpz_class>(gen.generate(B+1));
-
-    initThreads(threadCount);
+    primes = gen.generate(B+1);
 
     std::cout << "starting exponent vector generation" << std::endl;
 
     //quadratic sieve step
     quadraticSieve();
 
-    std::cout << "starting lin. algebra step with " << expVectors->size() << " rows." << std::endl;
+    std::cout << "starting lin. algebra step with " << expVectors.size() << " rows." << std::endl;
 
-    //printVectors();
+    printVectors();
 
-    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
+    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
 
         std::map<mpz_class,row>::iterator it2 = it;
         it2++;
-        for(; it2 != expVectors->end(); it2++) {
+        for(; it2 != expVectors.end(); it2++) {
             if(it2->second.vec != 0 && it2->second.vec == it->second.vec) {
                 it2->second.vec = it2->second.vec ^ it->second.vec; //addition mod 2
                 it2->second.xVals.push_back(it->first);
@@ -63,7 +63,9 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     mpz_class square1 = 1;
     mpz_class square2 = 1;
-    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
+    int power = 1;
+    tryagain:
+    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
         if(it->second.vec == 0) { //number is square
             std::vector<mpz_class> xTerms = it->second.xVals;
             xTerms.push_back(it->first);
@@ -75,10 +77,10 @@ QPointF QSFactor::factor(mpz_class comp) {
                 square1 *= temp;
                 square2 *= (temp - composite);
             }
-            std::cout << std::endl;
-
+            //std::cout << std::endl;
+            //std::cout << square2.get_str() << " " << std::bitset<64>(it->second.vec) << std::endl;
             if(!mpz_perfect_square_p(square2.get_mpz_t())) {
-                std::cout << "exponent vector 0, but number is not square" << std::endl;
+                //std::cout << "exponent vector 0, but number is not square" << std::endl;
                 continue;
             }
 
@@ -94,7 +96,18 @@ QPointF QSFactor::factor(mpz_class comp) {
                 p1 = p2 = 0;
 
             }
+        }  
+    }
+
+    if(p1 == 0 || p2 == 0) {
+        power++;
+        std::cout << "power = " << power << std::endl;
+        if(power > 100) {
+            long elapsed = timer.elapsed();
+            return QPointF(numDigits, elapsed);
         }
+        quadraticSieve(power);
+        goto tryagain;
     }
 
     long elapsed = timer.elapsed();
@@ -121,19 +134,26 @@ mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
  * expVectors[i] =
  * @brief QSFactor::quadraticSieve
  */
-void QSFactor::quadraticSieve() {
+void QSFactor::quadraticSieve(int power) {
 
     int numDigits = composite.get_str(10).length();
 
-    std::cout << primes->size() << " primes." << std::endl;
-    for(size_t pIndex = 0; pIndex < primes->size(); pIndex++) {
+    std::cout << primes.size() << " primes." << std::endl;
+    for(size_t pIndex = 0; pIndex < primes.size(); pIndex++) {
 
-        jobList.push(pIndex);
+        mpz_class modulus = primes.at(pIndex);
+        for(int i = 1; i < power; i++) {
+            modulus *= primes.at(pIndex);
+            if(modulus > 10000) {
+                std::cout << "modulus too big: " << modulus << std::endl;
+                return;
+            }
+        }
 
-        /*//solve x^2-n=0 mod p for x
-        std::pair<mpz_class,mpz_class> solution = solveQuadratic(primes.at(pIndex));
+        //solve x^2-n=0 mod p for x
+        std::pair<mpz_class,mpz_class> solution = solveQuadratic(modulus);
 
-        for(mpz_class x1 = solution.first; x1 < 2*x+B*B; x1 += primes.at(pIndex)) {
+        for(mpz_class x1 = solution.first; x1 < x+2*B; x1 += modulus) {
             if(x1 < x) {
                 continue;
             }
@@ -149,7 +169,7 @@ void QSFactor::quadraticSieve() {
             continue;
         }
 
-        for(mpz_class x2 = solution.second; x2 < 2*x+B*B; x2 += primes.at(pIndex)) {
+        for(mpz_class x2 = solution.second; x2 < x+2*B; x2 += modulus) {
             if(x2 < x) {
                 continue;
             }
@@ -159,13 +179,6 @@ void QSFactor::quadraticSieve() {
             expVectors[x2] = currentVector;
 
             //std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x2.get_str() << std::endl;
-        }*/
-    }
-
-    for(unsigned int id = 0; id < threadCount; id++) {
-        if(!threads.at(id)->isRunning()) {
-            threads.at(id)->work(jobList.top());
-            jobList.pop();
         }
     }
 
@@ -195,7 +208,7 @@ std::pair<mpz_class, mpz_class> QSFactor::solveQuadratic(mpz_class p) {
  * @brief QSFactor::printVectors
  */
 void QSFactor::printVectors() {
-    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
+    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
         std::cout << it->first.get_str() << " " << std::bitset<64>(it->second.vec);
         for(size_t i = 0; i < it->second.xVals.size(); i++) {
             std::cout << " " << it->second.xVals.at(i).get_str();
@@ -244,22 +257,21 @@ long QSFactor::computeB() {
 
 void QSFactor::initThreads(unsigned int count) {
 
-    threadCount = count;
+    /*threadCount = count;
 
     for(unsigned int i = 0; i < count; i++) {
         row temp = row();
         temp.vec = 0;
         temp.xVals = std::vector<mpz_class>();
-        threads.push_back(new QSWorker(composite, expVectors, primes, i, count));
+        // expVectors, primes must be pointers to enable this code threads.push_back(new QSWorker(composite, expVectors, primes, i, count));
         connect(threads.at(i), SIGNAL(finished(unsigned int)), this, SLOT(assignJob(unsigned int)));
-    }
+    }*/
 
 }
 
 void QSFactor::assignJob(unsigned int id) {
     std::cout << "thread " << id << "finished, starting new job" << std::endl;
     if(jobList.size() == 0) {
-        threads.at(id)->work(0);
         return;
     }
     threads.at(id)->work(jobList.top());

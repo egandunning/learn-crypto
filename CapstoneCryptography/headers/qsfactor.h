@@ -36,14 +36,14 @@ private:
     mpz_class composite;
     mpz_class x;
 
-    std::vector<mpz_class>* primes;
-    std::map<mpz_class, row>* expVectors;
+    std::vector<mpz_class> primes;
+    std::map<mpz_class, row> expVectors;
     std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> jobList;
     std::vector<QSWorker*> threads;
 
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
     std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
-    void quadraticSieve();
+    void quadraticSieve(int pow = 0);
     std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
     void printVectors();
     mpz_class bigLog(mpz_class);

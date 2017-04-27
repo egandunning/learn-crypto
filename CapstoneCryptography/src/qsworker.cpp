@@ -47,7 +47,7 @@ void QSWorker::stop() {
 }
 
 void QSWorker::work(size_t index) {
-    std::cout << "in thread " << threadId << std::endl;
+    //std::cout << "in thread " << threadId << std::endl;
     pIndex = index;
     if(index == 0) {
         sleep(1);
@@ -59,7 +59,7 @@ void QSWorker::work(size_t index) {
 
 void QSWorker::run() {
 
-    std::cout << "in thread " << threadId << ": prime count: " << primes.size() << std::endl;
+    //std::cout << "in thread " << threadId << ": prime count: " << primes.size() << std::endl;
 
     lock.lockForRead();
     const mpz_class prime = primes.at(pIndex);
