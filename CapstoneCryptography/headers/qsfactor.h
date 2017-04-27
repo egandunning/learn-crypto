@@ -36,8 +36,8 @@ private:
     mpz_class composite;
     mpz_class x;
 
-    std::vector<mpz_class> primes;
-    std::map<mpz_class, row> expVectors;
+    std::vector<mpz_class>* primes;
+    std::map<mpz_class, row>* expVectors;
     std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> jobList;
     std::vector<QSWorker*> threads;
 

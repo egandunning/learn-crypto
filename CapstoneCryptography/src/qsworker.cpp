@@ -12,15 +12,15 @@ QSWorker::QSWorker() :
     primes( *(new std::vector<mpz_class>()) )
 {}
 
-QSWorker::QSWorker(mpz_class num, std::map<mpz_class, row>& expVecRef, std::vector<mpz_class> p, unsigned int id, unsigned int count) :
+QSWorker::QSWorker(mpz_class num, std::map<mpz_class, row>* expVecRef, std::vector<mpz_class>* p, unsigned int id, unsigned int count) :
     n(num),
     threadId(id),
     threadCount(count),
     kill(false),
     currentRow(),
-    primes(p),
+    primes(*p),
     pIndex(0),
-    expVecRef(expVecRef),
+    expVecRef(*expVecRef),
     mutex()
 {
     std::cout << "thread " << threadId << " constructor: " << primes.size() << " prime numbers" << std::endl;

@@ -21,7 +21,7 @@ class QSWorker : public QThread {
 public:
 
     QSWorker();
-    QSWorker(mpz_class, std::map<mpz_class, row>&, std::vector<mpz_class>, unsigned int, unsigned int);
+    QSWorker(mpz_class, std::map<mpz_class, row>*, std::vector<mpz_class>*, unsigned int, unsigned int);
     QSWorker(const QSWorker&);
     ~QSWorker();
     void stop();

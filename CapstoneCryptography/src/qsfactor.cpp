@@ -31,7 +31,8 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     //generate primes less than B
     GeneratePrimes gen = GeneratePrimes();
-    primes = gen.generate(B+1);
+
+    primes = new std::vector<mpz_class>(gen.generate(B+1));
 
     initThreads(threadCount);
 
@@ -40,15 +41,15 @@ QPointF QSFactor::factor(mpz_class comp) {
     //quadratic sieve step
     quadraticSieve();
 
-    std::cout << "starting lin. algebra step with " << expVectors.size() << " rows." << std::endl;
+    std::cout << "starting lin. algebra step with " << expVectors->size() << " rows." << std::endl;
 
     //printVectors();
 
-    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
+    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
 
         std::map<mpz_class,row>::iterator it2 = it;
         it2++;
-        for(; it2 != expVectors.end(); it2++) {
+        for(; it2 != expVectors->end(); it2++) {
             if(it2->second.vec != 0 && it2->second.vec == it->second.vec) {
                 it2->second.vec = it2->second.vec ^ it->second.vec; //addition mod 2
                 it2->second.xVals.push_back(it->first);
@@ -62,7 +63,7 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     mpz_class square1 = 1;
     mpz_class square2 = 1;
-    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
+    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
         if(it->second.vec == 0) { //number is square
             std::vector<mpz_class> xTerms = it->second.xVals;
             xTerms.push_back(it->first);
@@ -124,8 +125,8 @@ void QSFactor::quadraticSieve() {
 
     int numDigits = composite.get_str(10).length();
 
-    std::cout << primes.size() << " primes." << std::endl;
-    for(size_t pIndex = 0; pIndex < primes.size(); pIndex++) {
+    std::cout << primes->size() << " primes." << std::endl;
+    for(size_t pIndex = 0; pIndex < primes->size(); pIndex++) {
 
         jobList.push(pIndex);
 
@@ -194,7 +195,7 @@ std::pair<mpz_class, mpz_class> QSFactor::solveQuadratic(mpz_class p) {
  * @brief QSFactor::printVectors
  */
 void QSFactor::printVectors() {
-    for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
+    for(std::map<mpz_class,row>::iterator it = expVectors->begin(); it != expVectors->end(); it++) {
         std::cout << it->first.get_str() << " " << std::bitset<64>(it->second.vec);
         for(size_t i = 0; i < it->second.xVals.size(); i++) {
             std::cout << " " << it->second.xVals.at(i).get_str();
