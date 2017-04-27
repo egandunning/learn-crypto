@@ -5,10 +5,11 @@
 
 #include <QPointF>
 #include <QElapsedTimer>
+#include <QObject>
 #include <gmpxx.h>
 #include <iostream>
 
-class Factor {
+class Factor : public QObject {
 
 public:
     Factor();

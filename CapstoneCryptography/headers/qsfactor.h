@@ -10,8 +10,11 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <queue>
 
 class QSFactor : public Factor {
+
+    Q_OBJECT
 
 public:
     QSFactor();
@@ -20,20 +23,25 @@ public:
     QPointF factor(mpz_class);
 
     //represents a row in an exponent vector: the vector v that represents num and x1,x2,.. where num = (x1^2-n)(x2^2-n)...
-    struct row {
+    /*struct row {
         long vec = 0;
         std::vector<mpz_class> xVals;
-    };
+    };*/
+
+public slots:
+    void assignJob(unsigned int);
 
 private:
     long B; //smoothness bound
-    std::vector<mpz_class> primes;
-    std::map<mpz_class,row> expVectors;
     mpz_class composite;
     mpz_class x;
 
-    mpz_class solveQuadraticModN(mpz_class, mpz_class);
+    std::vector<mpz_class> primes;
+    std::map<mpz_class, row> expVectors;
+    std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> jobList;
+    std::vector<QSWorker*> threads;
 
+    mpz_class solveQuadraticModN(mpz_class, mpz_class);
     std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
     void quadraticSieve();
     std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
@@ -41,6 +49,7 @@ private:
     mpz_class bigLog(mpz_class);
     mpz_class gcd(mpz_class, mpz_class);
     long computeB();
+    void initThreads(unsigned int);
 };
 
 #endif // QSFACTOR

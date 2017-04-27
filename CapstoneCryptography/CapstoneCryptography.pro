@@ -66,7 +66,8 @@ HEADERS  += headers/mainwindow.h\
     headers/workerthreadfactor.h \
     headers/workerthreadgenerate.h \
     headers/qsfactor.h \
-    headers/qsworker.h
+    headers/qsworker.h \
+    headers/row.h
 
 unix:{  LIBS	 += -L/usr/local/lib \
                     -lgmp \

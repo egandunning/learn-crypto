@@ -4,8 +4,16 @@ QSFactor::QSFactor() :
     B(0),
     composite(0),
     x(0),
+    threads(),
     primes()
-{}
+{
+    int idealThreadCount = QThread::idealThreadCount();
+    if(idealThreadCount < 1) {
+        threadCount = 1;
+    } else {
+        threadCount = idealThreadCount;
+    }
+}
 
 QSFactor::~QSFactor() {}
 
@@ -24,6 +32,8 @@ QPointF QSFactor::factor(mpz_class comp) {
     //generate primes less than B
     GeneratePrimes gen = GeneratePrimes();
     primes = gen.generate(B+1);
+
+    initThreads(threadCount);
 
     std::cout << "starting exponent vector generation" << std::endl;
 
@@ -116,7 +126,10 @@ void QSFactor::quadraticSieve() {
 
     std::cout << primes.size() << " primes." << std::endl;
     for(size_t pIndex = 0; pIndex < primes.size(); pIndex++) {
-        //solve x^2-n=0 mod p for x
+
+        jobList.push(pIndex);
+
+        /*//solve x^2-n=0 mod p for x
         std::pair<mpz_class,mpz_class> solution = solveQuadratic(primes.at(pIndex));
 
         for(mpz_class x1 = solution.first; x1 < 2*x+B*B; x1 += primes.at(pIndex)) {
@@ -145,8 +158,16 @@ void QSFactor::quadraticSieve() {
             expVectors[x2] = currentVector;
 
             //std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x2.get_str() << std::endl;
+        }*/
+    }
+
+    for(unsigned int id = 0; id < threadCount; id++) {
+        if(!threads.at(id)->isRunning()) {
+            threads.at(id)->work(jobList.top());
+            jobList.pop();
         }
     }
+
 }
 
 /**
@@ -220,3 +241,26 @@ long QSFactor::computeB() {
     return b;
 }
 
+void QSFactor::initThreads(unsigned int count) {
+
+    threadCount = count;
+
+    for(unsigned int i = 0; i < count; i++) {
+        row temp = row();
+        temp.vec = 0;
+        temp.xVals = std::vector<mpz_class>();
+        threads.push_back(new QSWorker(composite, expVectors, primes, i, count));
+        connect(threads.at(i), SIGNAL(finished(unsigned int)), this, SLOT(assignJob(unsigned int)));
+    }
+
+}
+
+void QSFactor::assignJob(unsigned int id) {
+    std::cout << "thread " << id << "finished, starting new job" << std::endl;
+    if(jobList.size() == 0) {
+        threads.at(id)->work(0);
+        return;
+    }
+    threads.at(id)->work(jobList.top());
+    jobList.pop();
+}
