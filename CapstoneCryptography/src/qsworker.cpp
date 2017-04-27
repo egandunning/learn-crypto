@@ -1,6 +1,7 @@
 #include <headers/qsworker.h>
 
 QSWorker::QSWorker() :
+    n(0),
     threadId(0),
     threadCount(0),
     kill(false),
@@ -9,12 +10,10 @@ QSWorker::QSWorker() :
     pIndex(0),
     expVecRef( *(new std::map<mpz_class,row>()) ),
     primes( *(new std::vector<mpz_class>()) )
-{
-    currentRow.vec = 0;
-    currentRow.xVals = std::vector<mpz_class>();
-}
+{}
 
 QSWorker::QSWorker(mpz_class num, std::map<mpz_class, row>& expVecRef, std::vector<mpz_class> p, unsigned int id, unsigned int count) :
+    n(num),
     threadId(id),
     threadCount(count),
     kill(false),
