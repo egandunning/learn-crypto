@@ -110,17 +110,16 @@ void MainWindow::on_pushButton_clicked()
     int counter = 0;
     while(counter < q.length()){
         if(i >= 10 && q.at(counter) == ' '){
-            j += 2;
+            j += 3;
             i = 0;
         } else {
         ui->gameGrid->addWidget(lptr->get(counter), j, i);
         ui->gameGrid->addWidget(buttonPtrs->get(counter), j+1, i);
+        ui->gameGrid->addWidget(new QLabel(""), j+2, i);
         i++;
         }
         counter++;
     }
-
-
 }
 
 

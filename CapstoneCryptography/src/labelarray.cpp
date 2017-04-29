@@ -24,7 +24,9 @@ LabelArray::LabelArray(QString qS, QWidget* ui){
         //Make QString size one
         qSTemp.resize(1);
         //Make new pushbutton, have pointer p point to it
-        QLabel *p = new QLabel(qSTemp, ui);
+        //Offset the character to center the character over the button
+        QLabel *p = new QLabel("  "+qSTemp, ui);
+
         //Set Maximum Width to 25
         p->setMaximumWidth(25);
         //Add pointer p to the QVector
