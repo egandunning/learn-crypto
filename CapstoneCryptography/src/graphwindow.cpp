@@ -74,7 +74,6 @@ void GraphWindow::draw() {
 
 void GraphWindow::drawNewLayer(std::vector<QPointF> pts, Qt::GlobalColor color) {
     std::vector<QPointF> scaledPoints = getScaledPoints(pts,yLimit);
-std::cout << "GraphWindow::drawNewLayer" << std::endl;
     QPointF previous;
     int i = 0;
     for(std::vector<QPointF>::iterator it = scaledPoints.begin(); it != scaledPoints.end(); it++) {

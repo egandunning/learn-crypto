@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     threadFactorData(),
     crackDataPoints(),
     factorDataPoints(),
-    colors({Qt::blue, Qt::red, Qt::magenta, Qt::cyan, Qt::green, Qt::yellow}),
+    colors({Qt::blue, Qt::red, Qt::magenta, Qt::darkCyan, Qt::darkGreen, Qt::darkYellow}),
     currentColor(colors.begin()),
     factorLegendCounter(0),
     crackLegendCounter(0)
@@ -410,6 +410,7 @@ void MainWindow::update_factor_graph() {
         }
         fg->addLabels("Milliseconds", "Number of digits");
         fg->addTitle("Number of digits vs. time to find two factors.");
+        factorLegendCounter = 0;
         fg->addLegend("Legend:", Qt::black, factorLegendCounter);
         factorLegendCounter++;
         fg->addLegend(threadFactorData.getFactorAlgName(), Qt::black, factorLegendCounter);
@@ -489,6 +490,7 @@ void MainWindow::update_crack_graph() {
         }
         cg->addLabels("Milliseconds", "Number of characters");
         cg->addTitle("Length of password vs time to crack.");
+        crackLegendCounter = 0;
         cg->addLegend("Legend: ", Qt::black, crackLegendCounter);
         crackLegendCounter++;
         cg->addLegend(threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName(), Qt::black, crackLegendCounter);
@@ -513,11 +515,13 @@ void MainWindow::addToGraph(GraphWindow* graph, std::vector<QPointF> pts, QStrin
         return;
     }
 
-    if(currentColor == colors.end()) {
+    if(currentColor == colors.end()-1) {
+        std::cout << *currentColor << std::endl;
         currentColor = colors.begin();
     } else {
         currentColor++;
     }
+
     graph->drawNewLayer(pts, *currentColor);
     graph->addLegend(legendText, *currentColor, legendPosition);
 }
