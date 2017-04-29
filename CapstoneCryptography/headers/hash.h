@@ -21,7 +21,7 @@ public:
     std::string salt;
     std::string plaintext;
     std::string digest;
-    std::string name;
+    QString name;
     CryptoPP::HashTransformation* hashType;
 
     Hash(CryptoPP::HashTransformation*);

@@ -22,6 +22,7 @@ public:
     unsigned int threadCount;
     mpz_class getPrime1();
     mpz_class getPrime2();
+    QString name;
 };
 
 #endif

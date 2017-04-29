@@ -1,6 +1,6 @@
 #include <headers/hash.h>
 
-Hash::Hash(CryptoPP::HashTransformation* h){
+Hash::Hash(CryptoPP::HashTransformation* h) {
     this->hashType = h;
     plaintext = "";
     digest = "";
@@ -10,6 +10,7 @@ Hash::Hash(CryptoPP::HashTransformation* h){
 
 Hash::Hash(){
     this->hashType = new CryptoPP::SHA1();
+    name = "SHA 1";
 }
 
 Hash::Hash(const Hash &h) {

@@ -1,6 +1,8 @@
 #include <headers/bruteforcefactor.h>
 
-BruteForceFactor::BruteForceFactor() {}
+BruteForceFactor::BruteForceFactor() {
+    name = "Brute force";
+}
 
 
 /**

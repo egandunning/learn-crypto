@@ -1,5 +1,5 @@
 #include <headers/sha512.h>
 
 Sha512::Sha512(CryptoPP::HashTransformation* h):Hash(h){
-    name = "SHA512";
+    name = "SHA 512";
 }

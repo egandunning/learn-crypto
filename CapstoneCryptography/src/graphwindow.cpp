@@ -371,7 +371,7 @@ void GraphWindow::addTitle(std::string title) {
 void GraphWindow::addLegend(QString legendText, Qt::GlobalColor color, int count) {
 
     QGraphicsTextItem *text = scene->addText(legendText);
-    text->setY(-450 + 10*count);
+    text->setY(-450 + 12*count);
     text->setX(10);
     text->setDefaultTextColor(color);
 }

@@ -12,7 +12,7 @@
 class Crack {
 
 public:
-    Crack(){}
+    Crack();
     Crack(const Crack&);
     Crack& operator=(const Crack&);
     virtual ~Crack();
@@ -27,6 +27,7 @@ public:
     QString getPlaintext();
     Hash* hashType;
     bool kill = false;
+    QString name;
 };
 
 #endif // CRACK_H

@@ -52,7 +52,7 @@ BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
     hashType = h;
     alphabet = alph;
     charCount = chCount;
-
+    name = "Brute force";
 }
 
 /**

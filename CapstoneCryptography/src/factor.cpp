@@ -3,7 +3,8 @@
 Factor::Factor() :
     p1(0),
     p2(0),
-    threadCount(1)
+    threadCount(1),
+    name("Empty factor class")
 {}
 
 mpz_class Factor::getPrime1() {

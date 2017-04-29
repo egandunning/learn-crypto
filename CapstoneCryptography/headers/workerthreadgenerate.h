@@ -21,6 +21,9 @@ public:
     void factorData(int, int, Factor*);
     void stop();
     std::vector<QPointF> getResult();
+    QString getFactorAlgName();
+    QString getCrackAlgName();
+    QString getHashAlgName();
 
 signals:
     void finished(std::vector<QPointF>);

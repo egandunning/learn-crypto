@@ -1,4 +1,4 @@
-#include <headers/workerthreadgenerate.h>
+﻿#include <headers/workerthreadgenerate.h>
 
 WorkerThreadGenerate::WorkerThreadGenerate() {
     kill = false;
@@ -75,4 +75,16 @@ void WorkerThreadGenerate::run() {
         dataPoints = GenerateData::factor(comps, factorAlg);
         break;}
     }
+}
+
+QString WorkerThreadGenerate::getFactorAlgName() {
+    return factorAlg->name;
+}
+
+QString WorkerThreadGenerate::getCrackAlgName() {
+    return crackAlg->name;
+}
+
+QString WorkerThreadGenerate::getHashAlgName() {
+    return hashType->name;
 }

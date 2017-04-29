@@ -411,11 +411,11 @@ void MainWindow::update_factor_graph() {
         fg->addLabels("Milliseconds", "Number of digits");
         fg->addTitle("Number of digits vs. time to find two factors.");
         fg->addLegend("Legend:", Qt::black, factorLegendCounter);
-        //factorLegendCounter++;
-        //fg->addLegend(threadFactorData.factorAlg.name
+        factorLegendCounter++;
+        fg->addLegend(threadFactorData.getFactorAlgName(), Qt::black, factorLegendCounter);
     } else {
         factorLegendCounter++;
-        addToGraph(fg, factorDataPoints, "Like for a free iPad", factorLegendCounter);
+        addToGraph(fg, factorDataPoints, threadFactorData.getFactorAlgName(), factorLegendCounter);
     }
 
     fg->view->show();
@@ -489,10 +489,12 @@ void MainWindow::update_crack_graph() {
         }
         cg->addLabels("Milliseconds", "Number of characters");
         cg->addTitle("Length of password vs time to crack.");
-        cg->addLegend("legend", Qt::black, crackLegendCounter);
+        cg->addLegend("Legend: ", Qt::black, crackLegendCounter);
+        crackLegendCounter++;
+        cg->addLegend(threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName(), Qt::black, crackLegendCounter);
     } else {
         crackLegendCounter++;
-        addToGraph(cg, crackDataPoints, "sample text", crackLegendCounter);
+        addToGraph(cg, crackDataPoints, threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName(), crackLegendCounter);
     }
     cg->view->show();
 

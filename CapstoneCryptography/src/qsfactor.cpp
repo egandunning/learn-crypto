@@ -8,6 +8,7 @@ QSFactor::QSFactor() :
     primes(),
     expVectors()
 {
+    name = "Quadratic sieve";
     int idealThreadCount = QThread::idealThreadCount();
     if(idealThreadCount < 1) {
         threadCount = 1;

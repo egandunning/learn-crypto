@@ -1,15 +1,25 @@
 #include <headers/crack.h>
 
-Crack::Crack(const Crack& c) {
-    plaintext = c.plaintext;
-    digest = c.digest;
-    hashType = c.hashType;
-}
+Crack::Crack() :
+    plaintext(),
+    digest(),
+    DIGEST(),
+    hashType(),
+    name("Empty crack class")
+{}
+
+Crack::Crack(const Crack& c) :
+    plaintext(c.plaintext),
+    digest(c.digest),
+    hashType(c.hashType),
+    name(c.name)
+{}
 
 Crack& Crack::operator=(const Crack& c) {
     plaintext = c.plaintext;
     digest = c.digest;
     hashType = c.hashType;
+    name = c.name;
     return *this;
 }
 
