@@ -29,7 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     crackDataPoints(),
     factorDataPoints(),
     colors({Qt::blue, Qt::red, Qt::magenta, Qt::cyan, Qt::green, Qt::yellow}),
-    currentColor(colors.begin())
+    currentColor(colors.begin()),
+    factorLegendCounter(0),
+    crackLegendCounter(0)
 {
     connect(&threadCrack, SIGNAL(finished()), this, SLOT(update_crack_result()));
     connect(&threadFactor, SIGNAL(finished()), this, SLOT(update_factor_result()));
@@ -407,8 +409,13 @@ void MainWindow::update_factor_graph() {
             fg->draw();
         }
         fg->addLabels("Milliseconds", "Number of digits");
+        fg->addTitle("Number of digits vs. time to find two factors.");
+        fg->addLegend("Legend:", Qt::black, factorLegendCounter);
+        //factorLegendCounter++;
+        //fg->addLegend(threadFactorData.factorAlg.name
     } else {
-        addToGraph(fg, factorDataPoints);
+        factorLegendCounter++;
+        addToGraph(fg, factorDataPoints, "Like for a free iPad", factorLegendCounter);
     }
 
     fg->view->show();
@@ -481,21 +488,36 @@ void MainWindow::update_crack_graph() {
             cg->draw();
         }
         cg->addLabels("Milliseconds", "Number of characters");
+        cg->addTitle("Length of password vs time to crack.");
+        cg->addLegend("legend", Qt::black, crackLegendCounter);
     } else {
-        addToGraph(cg, crackDataPoints);
+        crackLegendCounter++;
+        addToGraph(cg, crackDataPoints, "sample text", crackLegendCounter);
     }
     cg->view->show();
 
     ui->plotCrackButton->setEnabled(true);
 }
 
-void MainWindow::addToGraph(GraphWindow* graph, std::vector<QPointF> pts) {
-    graph->drawNewLayer(pts, *currentColor);
+/**
+ * @brief MainWindow::addToGraph
+ * @param graph to add points to
+ * @param pts points to plot
+ */
+void MainWindow::addToGraph(GraphWindow* graph, std::vector<QPointF> pts, QString legendText, int legendPosition) {
+
+    if(graph == nullptr) {
+        std::cout << "In MainWindow::addToGraph : graph object is null! Nothing to draw on." << std::endl;
+        return;
+    }
+
     if(currentColor == colors.end()) {
         currentColor = colors.begin();
     } else {
         currentColor++;
     }
+    graph->drawNewLayer(pts, *currentColor);
+    graph->addLegend(legendText, *currentColor, legendPosition);
 }
 
 /**

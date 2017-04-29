@@ -93,8 +93,11 @@ private:
     std::vector<QPointF> factorDataPoints;
     std::vector<Qt::GlobalColor> colors;
     std::vector<Qt::GlobalColor>::iterator currentColor;
+    int factorLegendCounter;
+    int crackLegendCounter;
 
-    void addToGraph(GraphWindow*, std::vector<QPointF>);
+
+    void addToGraph(GraphWindow*, std::vector<QPointF>, QString, int);
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);

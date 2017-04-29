@@ -356,3 +356,22 @@ std::vector<QPointF> GraphWindow::getLogPoints() {
     }
     return logPoints;
 }
+
+/**
+ * Add a centered title to graph.
+ * @brief GraphWindow::addTitle
+ * @param title the title to add.
+ */
+void GraphWindow::addTitle(std::string title) {
+    QGraphicsTextItem *text = scene->addText(QString::fromStdString(title));
+    text->setX(250 - (title.size()*5 / 2));
+    text->setY(-550);
+}
+
+void GraphWindow::addLegend(QString legendText, Qt::GlobalColor color, int count) {
+
+    QGraphicsTextItem *text = scene->addText(legendText);
+    text->setY(-450 + 10*count);
+    text->setX(10);
+    text->setDefaultTextColor(color);
+}

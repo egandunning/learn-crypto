@@ -41,6 +41,8 @@ public:
     void addTicksX(std::vector<QString>);
     void addLabels(std::string ylabel, std::string xlabel);
     void logScaleDraw();
+    void addTitle(std::string);
+    void addLegend(QString, Qt::GlobalColor, int);
 
 private:
     std::vector<QPointF> points;
