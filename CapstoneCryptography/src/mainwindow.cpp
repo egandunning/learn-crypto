@@ -114,6 +114,10 @@ void MainWindow::on_pushButton_3_clicked()
     hintMessage.exec();
 }
 
+/**
+ * Factor number in text field with the selected algorithm.
+ * @brief MainWindow::on_factorPrimesButton_clicked
+ */
 void MainWindow::on_factorPrimesButton_clicked()
 {
     //reset label text
@@ -148,6 +152,10 @@ void MainWindow::on_factorPrimesButton_clicked()
     ui->factorPrimesButton->setDisabled(true);
 }
 
+/**
+ * Updates gui to show result of factoring. Called when worker thread finishes.
+ * @brief MainWindow::update_factor_result
+ */
 void MainWindow::update_factor_result() {
 
     long elapsed = threadFactor.getResult();
@@ -162,6 +170,10 @@ void MainWindow::update_factor_result() {
     ui->factorPrimesButton->setDisabled(false);
 }
 
+/**
+ * Generate two random prime numbers, display the product.
+ * @brief MainWindow::on_random_composite_clicked
+ */
 void MainWindow::on_random_composite_clicked()
 {
     mpz_class composite, p, q;
@@ -173,6 +185,10 @@ void MainWindow::on_random_composite_clicked()
     ui->compositeTextField->document()->setPlainText(QString::fromStdString(s));
 }
 
+/**
+ * Hash the text in the text field with the selected algorithm.
+ * @brief MainWindow::on_hashButton_clicked
+ */
 void MainWindow::on_hashButton_clicked()
 {
     switch(ui->hashComboBox->currentIndex()) {
@@ -200,6 +216,10 @@ void MainWindow::on_hashButton_clicked()
     //hashAlg->salt = "";
 }
 
+/**
+ * Generate a random salt.
+ * @brief MainWindow::on_randomSaltButton_clicked
+ */
 void MainWindow::on_randomSaltButton_clicked()
 {
     Hash h;
@@ -207,6 +227,10 @@ void MainWindow::on_randomSaltButton_clicked()
     ui->saltField->setText(h.getSalt());
 }
 
+/**
+ * Crack the hash with the selected algorithm.
+ * @brief MainWindow::on_crackButton_clicked
+ */
 void MainWindow::on_crackButton_clicked()
 {
     //reset label text
@@ -241,6 +265,10 @@ void MainWindow::on_crackButton_clicked()
     ui->crackButton->setDisabled(true);
 }
 
+/**
+ * Displays the result of the cracked hash, called when worker thread finishes.
+ * @brief MainWindow::update_crack_result
+ */
 void MainWindow::update_crack_result() {
 
     long elapsed;
@@ -263,6 +291,11 @@ void MainWindow::update_crack_result() {
     ui->crackButton->setDisabled(false);
 }
 
+/**
+ * Retrieve the alphabet to be used for brute force hash cracking.
+ * @brief MainWindow::bruteForceAlphabet
+ * @return the alphabet selected by the user.
+ */
 std::string MainWindow::bruteForceAlphabet() {
 
     std::string alph = " ";//weird bug "fix"
@@ -285,6 +318,11 @@ std::string MainWindow::bruteForceAlphabet() {
     return alph;
 }
 
+/**
+ * Retrieve options for dictionary crack.
+ * @brief MainWindow::dictionaryOptions
+ * @param d
+ */
 void MainWindow::dictionaryOptions(Crack* d) {
 
     unsigned int numWords = ui->wordCountSpinBox->text().toInt();
@@ -304,6 +342,10 @@ void MainWindow::dictionaryOptions(Crack* d) {
     d->setOptions(numWords,appendedDigits,prependedDigits,symbols,cap,complete);
 }
 
+/**
+ * Generate points to plot.
+ * @brief MainWindow::on_drawFactoring_clicked
+ */
 void MainWindow::on_drawFactoring_clicked()
 {
     //set algorithm
@@ -329,6 +371,10 @@ void MainWindow::on_drawFactoring_clicked()
     ui->drawFactoring->setDisabled(true);
 }
 
+/**
+ * Draw points, called when worker thread finishes.
+ * @brief MainWindow::update_factor_graph
+ */
 void MainWindow::update_factor_graph() {
 
     factorDataPoints = threadFactorData.getResult();
@@ -350,6 +396,10 @@ void MainWindow::update_factor_graph() {
     ui->drawFactoring->setDisabled(false);
 }
 
+/**
+ * Generate data points to plot.
+ * @brief MainWindow::on_plotCrackButton_clicked
+ */
 void MainWindow::on_plotCrackButton_clicked()
 {
     //grab hashing and cracking algorithms
@@ -391,6 +441,10 @@ void MainWindow::on_plotCrackButton_clicked()
     ui->plotCrackButton->setEnabled(false);
 }
 
+/**
+ * Draw points, called when worker thread exits
+ * @brief MainWindow::update_crack_graph
+ */
 void MainWindow::update_crack_graph() {
 
     crackDataPoints = threadCrackData.getResult();
@@ -412,6 +466,10 @@ void MainWindow::update_crack_graph() {
     ui->plotCrackButton->setEnabled(true);
 }
 
+/**
+ * Updates graph to show log scale for hash cracking data points.
+ * @brief MainWindow::on_hashLogScaleCheckBox_clicked
+ */
 void MainWindow::on_hashLogScaleCheckBox_clicked()
 {
     if(cg == NULL) {
@@ -437,6 +495,10 @@ void MainWindow::on_hashLogScaleCheckBox_clicked()
     cg->view->show();
 }
 
+/**
+ * Updates graph to show log scale for factoring data points.
+ * @brief MainWindow::on_factorLogScaleCheckBox_clicked
+ */
 void MainWindow::on_factorLogScaleCheckBox_clicked()
 {
     if(fg == NULL) {
@@ -462,16 +524,28 @@ void MainWindow::on_factorLogScaleCheckBox_clicked()
     fg->view->show();
 }
 
+/**
+ * Cancel hash cracking - the cracking algorithm decides how to handle this.
+ * @brief MainWindow::on_cancelCrackButton_clicked
+ */
 void MainWindow::on_cancelCrackButton_clicked()
 {
     threadCrack.stop();
 }
 
+/**
+ * Cancel factoring - the factoring algorithm decides how to handle this.
+ * @brief MainWindow::on_stopFactorPushButton_clicked
+ */
 void MainWindow::on_stopFactorPushButton_clicked()
 {
     threadFactor.stop();
 }
 
+/**
+ * Launch help website.
+ * @brief MainWindow::on_HELPBUTTONCLICKED
+ */
 void MainWindow::on_HELPBUTTONCLICKED(){
     QString url = "https://cryptowiki.herokuapp.com/";
     bool hi = QDesktopServices::openUrl(QUrl(url));
