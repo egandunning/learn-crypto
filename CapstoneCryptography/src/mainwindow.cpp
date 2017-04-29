@@ -15,7 +15,21 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    agame(),
+    factorAlg(),
+    hashAlg(),
+    digest(),
+    fg(),
+    cg(),
+    threadCrack(),
+    threadFactor(),
+    threadCrackData(),
+    threadFactorData(),
+    crackDataPoints(),
+    factorDataPoints(),
+    colors({Qt::blue, Qt::red, Qt::magenta, Qt::cyan, Qt::green, Qt::yellow}),
+    currentColor(colors.begin())
 {
     connect(&threadCrack, SIGNAL(finished()), this, SLOT(update_crack_result()));
     connect(&threadFactor, SIGNAL(finished()), this, SLOT(update_factor_result()));
@@ -34,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    delete agame;
 
     if(threadCrack.isRunning()) {
         threadCrack.quit();
@@ -379,17 +395,21 @@ void MainWindow::update_factor_graph() {
 
     factorDataPoints = threadFactorData.getResult();
 
-    //draw points
-    fg = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
-    fg->vSize = 600;
-    fg->hSize = 600;
+    if(fg == nullptr) {
+        //draw points
+        fg = new GraphWindow(ui->factoringGraphicsView, factorDataPoints);
+        fg->vSize = 600;
+        fg->hSize = 600;
 
-    if(ui->factorLogScaleCheckBox->isChecked()) {
-        fg->logScaleDraw();
+        if(ui->factorLogScaleCheckBox->isChecked()) {
+            fg->logScaleDraw();
+        } else {
+            fg->draw();
+        }
+        fg->addLabels("Milliseconds", "Number of digits");
     } else {
-        fg->draw();
+        addToGraph(fg, factorDataPoints);
     }
-    fg->addLabels("Milliseconds", "Number of digits");
 
     fg->view->show();
 
@@ -449,21 +469,33 @@ void MainWindow::update_crack_graph() {
 
     crackDataPoints = threadCrackData.getResult();
 
-    //begin graphing
-    cg = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
-    cg->vSize = 600;
-    cg->hSize = 600;
+    if(cg == nullptr) {
+        //begin graphing new graph
+        cg = new GraphWindow(ui->crackGraphicsView, crackDataPoints);
+        cg->vSize = 600;
+        cg->hSize = 600;
 
-    if(ui->hashLogScaleCheckBox->isChecked()) {
-        cg->logScaleDraw();
+        if(ui->hashLogScaleCheckBox->isChecked()) {
+            cg->logScaleDraw();
+        } else {
+            cg->draw();
+        }
+        cg->addLabels("Milliseconds", "Number of characters");
     } else {
-        cg->draw();
+        addToGraph(cg, crackDataPoints);
     }
-    cg->addLabels("Milliseconds", "Number of characters");
-
     cg->view->show();
 
     ui->plotCrackButton->setEnabled(true);
+}
+
+void MainWindow::addToGraph(GraphWindow* graph, std::vector<QPointF> pts) {
+    graph->drawNewLayer(pts, *currentColor);
+    if(currentColor == colors.end()) {
+        currentColor = colors.begin();
+    } else {
+        currentColor++;
+    }
 }
 
 /**
@@ -472,7 +504,7 @@ void MainWindow::update_crack_graph() {
  */
 void MainWindow::on_hashLogScaleCheckBox_clicked()
 {
-    if(cg == NULL) {
+    if(cg == nullptr) {
         std::cout << "graphwindow object not initialized. No action to take." << std::endl;
         return;
     }
@@ -501,7 +533,7 @@ void MainWindow::on_hashLogScaleCheckBox_clicked()
  */
 void MainWindow::on_factorLogScaleCheckBox_clicked()
 {
-    if(fg == NULL) {
+    if(fg == nullptr) {
         std::cout << "graphwindow object not initialized. No action to take." << std::endl;
         return;
     }

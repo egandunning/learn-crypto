@@ -5,9 +5,26 @@
 #include <headers/md5.h>
 
 #include <iostream>
-GraphWindow::GraphWindow(QGraphicsView* graphicsView, std::vector<QPointF> pts)
+
+GraphWindow::GraphWindow() :
+    hSize(0),
+    vSize(0),
+    xLimit(0),
+    yLimit(0),
+    yLogLimit(0),
+    logMax(0),
+    logLabelsY(),
+    labelsY(),
+    labelsX(),
+    maximum(0,0)
+{}
+
+GraphWindow::GraphWindow(QGraphicsView* graphicsView, std::vector<QPointF> pts) :
+    points(pts),
+    view(graphicsView),
+    hSize(600),
+    vSize(600)
 {
-    points = pts;
     setMaxPoint();
     setLimits();
     yLogLimit = log(yLimit);
@@ -16,11 +33,7 @@ GraphWindow::GraphWindow(QGraphicsView* graphicsView, std::vector<QPointF> pts)
     setLabelsY();
 
     //Set up graph GUI
-    view = graphicsView;
     scene = new QGraphicsScene();
-
-    hSize = 600;
-    vSize = 600;
 
     scene->setSceneRect(0,0,hSize-50,-vSize+50);
     view->setScene(scene);
@@ -34,16 +47,6 @@ void GraphWindow::draw() {
     QLine xAxis(QPoint(0,0),QPoint(hSize - 100,0));
     scene->addLine(yAxis);
     scene->addLine(xAxis);
-
-    //Add the tick marks to the line.
-    int xLimit = (int)points.at(points.size()-1).x();
-    //find largest y-value
-    double yLimit = 0;
-    for(unsigned int i = 0; i < points.size(); i++) {
-        if(points.at(i).y() > yLimit) {
-            yLimit = points.at(i).y();
-        }
-    }
 
     std::vector<QPointF> scaledPoints = getScaledPoints(points,yLimit);
 
@@ -62,6 +65,27 @@ void GraphWindow::draw() {
             QPoint a((int)current.x(), (int)current.y());
             QPoint b((int)previous.x(), (int)previous.y());
             scene->addLine(QLine(a,b));
+        }
+        i++;
+        previous = current;
+    }
+    std::cout<<std::endl;
+}
+
+void GraphWindow::drawNewLayer(std::vector<QPointF> pts, Qt::GlobalColor color) {
+    std::vector<QPointF> scaledPoints = getScaledPoints(pts,yLimit);
+std::cout << "GraphWindow::drawNewLayer" << std::endl;
+    QPointF previous;
+    int i = 0;
+    for(std::vector<QPointF>::iterator it = scaledPoints.begin(); it != scaledPoints.end(); it++) {
+        QPointF current = transform(*it);
+
+        scene->addEllipse((int)current.x()-3, (int)current.y()-3, 6, 6, QPen(color), QBrush(color));
+        std::cout<<"("<<pts.at(i).x()<<","<<pts.at(i).y()<<"),  ";
+        if(!previous.isNull()) {
+            QPoint a((int)current.x(), (int)current.y());
+            QPoint b((int)previous.x(), (int)previous.y());
+            scene->addLine(QLine(a,b), QPen(color));
         }
         i++;
         previous = current;
@@ -179,7 +203,7 @@ void GraphWindow::addLabels(std::string ylabel, std::string xlabel){
 }
 
 /**
- * Make sure all points fit in the window, and draw the x axis labels.
+ * Make sure all points fit in the window.
  * @brief GraphWindow::scalePoints
  * @param points
  * @return

@@ -75,11 +75,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
-    Factor* factorAlg=0;
-    Hash *hashAlg=0;
+    Factor* factorAlg;
+    Hash *hashAlg;
     QString digest;
-    GraphWindow* fg=0; //for factoring
-    GraphWindow* cg=0; //for hash cracking
+    GraphWindow* fg; //for factoring
+    GraphWindow* cg; //for hash cracking
     WorkerThreadCrack threadCrack;
     WorkerThreadFactor threadFactor;
     WorkerThreadGenerate threadCrackData;
@@ -87,7 +87,10 @@ private:
 
     std::vector<QPointF> crackDataPoints;
     std::vector<QPointF> factorDataPoints;
+    std::vector<Qt::GlobalColor> colors;
+    std::vector<Qt::GlobalColor>::iterator currentColor;
 
+    void addToGraph(GraphWindow*, std::vector<QPointF>);
 
     std::string bruteForceAlphabet();
     void dictionaryOptions(Crack *);

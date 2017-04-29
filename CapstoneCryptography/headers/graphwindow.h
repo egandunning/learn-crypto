@@ -15,6 +15,7 @@
 class GraphWindow
 {
 public:
+    GraphWindow();
     GraphWindow(QGraphicsView*, std::vector<QPointF> pts);
 
     int hSize;
@@ -35,6 +36,7 @@ public:
     QGraphicsScene* scene;
 
     void draw();
+    void drawNewLayer(std::vector<QPointF> pts, Qt::GlobalColor color);
     void addTicksY(std::vector<QString>);
     void addTicksX(std::vector<QString>);
     void addLabels(std::string ylabel, std::string xlabel);
