@@ -122,6 +122,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLabel *dataStartLabel;
     QSpinBox *startDigitsSpinBox;
+    QProgressBar *factorProgressBar;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -555,6 +556,13 @@ public:
 
         gridLayout_2->addLayout(horizontalLayout_2, 13, 0, 1, 1);
 
+        factorProgressBar = new QProgressBar(tab_4);
+        factorProgressBar->setObjectName(QStringLiteral("factorProgressBar"));
+        factorProgressBar->setValue(0);
+        factorProgressBar->setTextVisible(false);
+
+        gridLayout_2->addWidget(factorProgressBar, 16, 0, 1, 1);
+
         tabWidget->addTab(tab_4, QString());
 
         horizontalLayout->addWidget(tabWidget);
@@ -576,7 +584,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
         crackTabWidget->setCurrentIndex(0);
 
 

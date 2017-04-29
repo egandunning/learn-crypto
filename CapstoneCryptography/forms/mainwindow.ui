@@ -35,7 +35,7 @@
          <enum>QTabWidget::West</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -768,6 +768,16 @@
              </widget>
             </item>
            </layout>
+          </item>
+          <item row="16" column="0">
+           <widget class="QProgressBar" name="factorProgressBar">
+            <property name="value">
+             <number>0</number>
+            </property>
+            <property name="textVisible">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

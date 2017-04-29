@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&threadCrackData, SIGNAL(finished()), this, SLOT(update_crack_graph()));
     connect(&threadFactorData, SIGNAL(finished()), this, SLOT(update_factor_graph()));
     connect(&threadCrackData, SIGNAL(updateProgressBar(int)), this, SLOT(updateCrackProgressBar(int)));
+    connect(&threadFactorData, SIGNAL(updateProgressBar(int)), this, SLOT(updateFactorProgressBar(int)));
     ui->setupUi(this);
 
     QAction *act = new QAction(QString("Help"), this);
@@ -385,6 +386,12 @@ void MainWindow::on_drawFactoring_clicked()
     int beginDigits = ui->startDigitsSpinBox->text().toInt();
     unsigned int count = ui->dataPointsSpinBox->text().toInt();
 
+    ui->factorProgressBar->reset();
+    ui->factorProgressBar->setMinimum(0);
+    ui->factorProgressBar->setMaximum(count-1);
+
+    ui->factorProgressBar->setValue(0);
+
     threadFactorData.factorData(beginDigits, count, factorAlg);
 
     ui->drawFactoring->setDisabled(true);
@@ -468,8 +475,8 @@ void MainWindow::on_plotCrackButton_clicked()
     ui->crackProgressBar->reset();
     ui->crackProgressBar->setMinimum(0);
     ui->crackProgressBar->setMaximum(count-1);
-
     ui->crackProgressBar->setValue(0);
+
     threadCrackData.crackData(beginChars, count, hashAlg, c);
 
     ui->plotCrackButton->setEnabled(false);
@@ -707,7 +714,7 @@ QString MainWindow::smartTime(long ms) {
 }
 
 /**
- * Clear the factoring graph.
+ * Clear the factoring graph and progress bar.
  * @brief MainWindow::on_clearFactorGraph_clicked
  */
 void MainWindow::on_clearFactorGraph_clicked()
@@ -717,10 +724,12 @@ void MainWindow::on_clearFactorGraph_clicked()
         fg->view->update();
         fg = 0;
     }
+
+    ui->factorProgressBar->reset();
 }
 
 /**
- * Clear the hash cracking graph.
+ * Clear the hash cracking graph and progress bar.
  * @brief MainWindow::on_clearFactorGraph_2_clicked
  */
 void MainWindow::on_clearCrackGraph_clicked()
@@ -730,9 +739,23 @@ void MainWindow::on_clearCrackGraph_clicked()
         cg->view->update();
         cg = 0;
     }
+    ui->crackProgressBar->reset();
 }
 
-void MainWindow::updateCrackProgressBar(int value)
-{
+/**
+ * Updates the progress bar for generating factoring data points.
+ * @brief MainWindow::updateFactorProgressBar
+ * @param value
+ */
+void MainWindow::updateFactorProgressBar(int value) {
+    ui->factorProgressBar->setValue(value);
+}
+
+/**
+ * Update the progress bar for generating hash cracking data points.
+ * @brief MainWindow::updateCrackProgressBar
+ * @param value
+ */
+void MainWindow::updateCrackProgressBar(int value) {
     ui->crackProgressBar->setValue(value);
 }

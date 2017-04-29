@@ -78,6 +78,8 @@ private slots:
 
     void updateCrackProgressBar(int value);
 
+    void updateFactorProgressBar(int value);
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;
