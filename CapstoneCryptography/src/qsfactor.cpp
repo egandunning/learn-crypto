@@ -39,13 +39,22 @@ QPointF QSFactor::factor(mpz_class comp) {
     std::cout << "starting exponent vector generation" << std::endl;
 
     //quadratic sieve step
-    quadraticSieve();
+    mpz_class lBound = x;
+    mpz_class uBound = x+3*B;
+    quadraticSieve(uBound);
 
     std::cout << "starting lin. algebra step with " << expVectors.size() << " rows." << std::endl;
 
     printVectors();
 
+    int power = 1;
+    tryagain:
+
     for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
+
+        if(it->second.xVals.at(0) > primes.back()) { //number is not smooth
+            continue;
+        }
 
         std::map<mpz_class,row>::iterator it2 = it;
         it2++;
@@ -59,19 +68,19 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     std::cout << "lin alg done. " << std::endl;
 
-    //printVectors();
+    printVectors();
 
     mpz_class square1 = 1;
     mpz_class square2 = 1;
-    int power = 1;
-    tryagain:
+
+
     for(std::map<mpz_class,row>::iterator it = expVectors.begin(); it != expVectors.end(); it++) {
         if(it->second.vec == 0) { //number is square
             std::vector<mpz_class> xTerms = it->second.xVals;
             xTerms.push_back(it->first);
             square1 = 1;
             square2 = 1;
-            for(int xTerm = 0; xTerm < xTerms.size(); xTerm++) {
+            for(int xTerm = 1; xTerm < xTerms.size(); xTerm++) {
                 //std::cout << xTerms.at(xTerm).get_str() << " ";
                 mpz_class temp = (xTerms.at(xTerm))*(xTerms.at(xTerm));
                 square1 *= temp;
@@ -102,11 +111,13 @@ QPointF QSFactor::factor(mpz_class comp) {
     if(p1 == 0 || p2 == 0) {
         power++;
         std::cout << "power = " << power << std::endl;
-        if(power > 100) {
+        if(power > 9) {
             long elapsed = timer.elapsed();
             return QPointF(numDigits, elapsed);
         }
-        quadraticSieve(power);
+        //lBound += B;
+        uBound += 2*B;
+        quadraticSieve(uBound, power);
         goto tryagain;
     }
 
@@ -134,7 +145,9 @@ mpz_class QSFactor::gcd(mpz_class a, mpz_class b) {
  * expVectors[i] =
  * @brief QSFactor::quadraticSieve
  */
-void QSFactor::quadraticSieve(int power) {
+void QSFactor::quadraticSieve(mpz_class upperBound, int power) {
+
+    std::cout << "upperBound: " << upperBound << std::endl;
 
     int numDigits = composite.get_str(10).length();
 
@@ -144,44 +157,65 @@ void QSFactor::quadraticSieve(int power) {
         mpz_class modulus = primes.at(pIndex);
         for(int i = 1; i < power; i++) {
             modulus *= primes.at(pIndex);
-            if(modulus > 10000) {
+            //printVectors();
+            if(modulus > 5000) {
                 std::cout << "modulus too big: " << modulus << std::endl;
-                return;
+                break;
             }
+        }
+
+        if(modulus > 5000) {
+            continue;
         }
 
         //solve x^2-n=0 mod p for x
         std::pair<mpz_class,mpz_class> solution = solveQuadratic(modulus);
+        if(solution.first == -1 && solution.second == -1) {
+            continue;
+        }
 
-        for(mpz_class x1 = solution.first; x1 < x+2*B; x1 += modulus) {
+        for(mpz_class x1 = solution.first; x1 < upperBound; x1 += modulus) {
             if(x1 < x) {
                 continue;
             }
             //std::cout << "in qs: x1: " << x1.get_str() << std::endl;
             row currentVector = expVectors[x1];
             currentVector.vec = currentVector.vec ^ (1 << pIndex);
+            if(currentVector.xVals.size() == 0) {
+                mpz_class temp = ((x1*x1)-composite) / modulus;//primes.at(pIndex);
+                currentVector.xVals.push_back(temp);
+            } else {
+                currentVector.xVals.at(0) = currentVector.xVals.at(0) / primes.at(pIndex);
+            }
+           // currentVector.xVals.push_back(modulus);
             expVectors[x1] = currentVector;
 
-            //std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x1.get_str() << std::endl;
+            //std::cout << std::bitset<32>(currentVector.vec) << " "primes.at(pIndex) << pIndex << " " << x1.get_str() << std::endl;
         }
 
         if(solution.first != solution.second || pIndex == 0) { //one solution
             continue;
         }
 
-        for(mpz_class x2 = solution.second; x2 < x+2*B; x2 += modulus) {
+        for(mpz_class x2 = solution.second; x2 < upperBound; x2 += modulus) {
             if(x2 < x) {
                 continue;
             }
             //std::cout << "in qs: x2: " << x2.get_str() << std::endl;
             row currentVector = expVectors[x2];
             currentVector.vec = currentVector.vec ^ (1 << pIndex);
+            if(currentVector.xVals.size() == 0) {
+                mpz_class temp = ((x2*x2)-composite) / modulus;//primes.at(pIndex);
+                currentVector.xVals.push_back(temp);
+            } else {
+                currentVector.xVals.at(0) = currentVector.xVals.at(0) / primes.at(pIndex);
+            }
+         //   currentVector.xVals.push_back(modulus);
             expVectors[x2] = currentVector;
 
             //std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x2.get_str() << std::endl;
         }
     }
-
 }
 
 /**
@@ -200,7 +234,7 @@ std::pair<mpz_class, mpz_class> QSFactor::solveQuadratic(mpz_class p) {
              return std::pair<mpz_class,mpz_class>(i,p-i);
          }
      }
-     return std::pair<mpz_class,mpz_class>(0,0);
+     return std::pair<mpz_class,mpz_class>(-1,-1);
 }
 
 /**
@@ -250,7 +284,7 @@ mpz_class QSFactor::bigLog(mpz_class x) {
 long QSFactor::computeB() {
     long b = 0;
     mpz_class temp = sqrt(bigLog(composite)*bigLog(bigLog(composite)));
-    long exp = (.75)*(temp.get_si());
+    long exp = (.8)*(temp.get_si());
     b = pow(2,exp) + 5;
     return b;
 }
