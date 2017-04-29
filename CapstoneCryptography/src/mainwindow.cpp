@@ -82,21 +82,21 @@ void MainWindow::on_pushButton_clicked()
    for(int i=0; i<ui->gameGrid->columnCount(); i++){
        for(int j = 0; j<ui->gameGrid->rowCount(); j++){
 
-       QLayoutItem *button = ui->gameGrid->itemAtPosition(j,i);
-       if(button){
-           ui->gameGrid->removeItem(button);
-          delete button->widget();
-       }
+           QLayoutItem *button = ui->gameGrid->itemAtPosition(j,i);
+           if(button){
+               ui->gameGrid->removeItem(button);
+              delete button->widget();
+           }
 
 
-        QLayoutItem *label = ui->gameGrid->itemAtPosition(j,i);
-        if(label){
-            ui->gameGrid->removeItem(label);
+            QLayoutItem *label = ui->gameGrid->itemAtPosition(j,i);
+            if(label){
+                ui->gameGrid->removeItem(label);
 
-            delete label->widget();
+                delete label->widget();
+            }
+
         }
-
-       }
 
     }
 
@@ -109,12 +109,13 @@ void MainWindow::on_pushButton_clicked()
     int i = 0;
     int counter = 0;
     while(counter < q.length()){
-        if(i >= 10 && q.at(counter) == ' '){
+        if(i >= 15 && q.at(counter) == ' '){
             j += 3;
             i = 0;
         } else {
         ui->gameGrid->addWidget(lptr->get(counter), j, i);
         ui->gameGrid->addWidget(buttonPtrs->get(counter), j+1, i);
+        //add a line of blank labels to create a blank line
         ui->gameGrid->addWidget(new QLabel(""), j+2, i);
         i++;
         }
