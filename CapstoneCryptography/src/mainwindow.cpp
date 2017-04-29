@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&threadFactor, SIGNAL(finished()), this, SLOT(update_factor_result()));
     connect(&threadCrackData, SIGNAL(finished()), this, SLOT(update_crack_graph()));
     connect(&threadFactorData, SIGNAL(finished()), this, SLOT(update_factor_graph()));
+    connect(&threadCrackData, SIGNAL(updateProgressBar(int)), this, SLOT(updateCrackProgressBar(int)));
     ui->setupUi(this);
 
     QAction *act = new QAction(QString("Help"), this);
@@ -376,7 +377,7 @@ void MainWindow::on_drawFactoring_clicked()
     case 1:
         //Quadratic sieve here
         std::cout<<"Quadratic sieve feature is in progress!"<<std::endl;
-        return;
+        factorAlg = new QSFactor();
         break;
     }
 
@@ -464,6 +465,11 @@ void MainWindow::on_plotCrackButton_clicked()
     int beginChars = ui->charCountSpinBox_2->text().toInt();
     int count = ui->crackPointCountSpinBox->text().toInt();
 
+    ui->crackProgressBar->reset();
+    ui->crackProgressBar->setMinimum(0);
+    ui->crackProgressBar->setMaximum(count-1);
+
+    ui->crackProgressBar->setValue(0);
     threadCrackData.crackData(beginChars, count, hashAlg, c);
 
     ui->plotCrackButton->setEnabled(false);
@@ -717,11 +723,16 @@ void MainWindow::on_clearFactorGraph_clicked()
  * Clear the hash cracking graph.
  * @brief MainWindow::on_clearFactorGraph_2_clicked
  */
-void MainWindow::on_clearFactorGraph_2_clicked()
+void MainWindow::on_clearCrackGraph_clicked()
 {
     if(cg != nullptr) {
         cg->scene->clear();
         cg->view->update();
         cg = 0;
     }
+}
+
+void MainWindow::updateCrackProgressBar(int value)
+{
+    ui->crackProgressBar->setValue(value);
 }

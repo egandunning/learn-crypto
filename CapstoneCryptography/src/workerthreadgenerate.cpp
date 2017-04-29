@@ -1,6 +1,6 @@
 ﻿#include <headers/workerthreadgenerate.h>
 
-WorkerThreadGenerate::WorkerThreadGenerate() {
+WorkerThreadGenerate::WorkerThreadGenerate() : genData() {
     kill = false;
     crackAlg = 0;
     factorAlg = 0;
@@ -63,18 +63,28 @@ std::vector<QPointF> WorkerThreadGenerate::getResult() {
 
 void WorkerThreadGenerate::run() {
     QMutexLocker locker(&mutex);
+    if(genData == nullptr) {
+        genData = new GenerateData();
+    }
+    connect(genData, SIGNAL(point(int)), this, SLOT(pointGenerated(int)));
 
     switch(typeOfData) {
     case 0:{
         std::vector<std::string> strings = GenerateData::plaintexts(beginChars, count);
+        std::cout << "number of strings : " << strings.size() << std::endl;
         std::vector<std::string> digests = GenerateData::getHashes(strings, hashType);
-        dataPoints = GenerateData::crack(digests, crackAlg);
+        std::cout << "number of digests : " << digests.size() << std::endl;
+        dataPoints = genData->crackMember(digests, crackAlg);
         break;}
     case 1:{
         std::vector<mpz_class> comps = GenerateData::composites(beginDigits, countFactor);
-        dataPoints = GenerateData::factor(comps, factorAlg);
+        dataPoints = genData->factorMember(comps, factorAlg);
         break;}
     }
+}
+
+void WorkerThreadGenerate::pointGenerated(int progress) {
+    emit updateProgressBar(progress);
 }
 
 QString WorkerThreadGenerate::getFactorAlgName() {

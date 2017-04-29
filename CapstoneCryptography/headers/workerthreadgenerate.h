@@ -11,7 +11,7 @@
 
 class WorkerThreadGenerate : public QThread {
 
-    Q_OBJECT;
+    Q_OBJECT
 
 public:
     WorkerThreadGenerate();
@@ -25,8 +25,14 @@ public:
     QString getCrackAlgName();
     QString getHashAlgName();
 
+    GenerateData* genData;
+
 signals:
     void finished(std::vector<QPointF>);
+    void updateProgressBar(int);
+
+public slots:
+    void pointGenerated(int);
 
 private:
     void run();

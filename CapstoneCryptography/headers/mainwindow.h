@@ -74,7 +74,9 @@ private slots:
 
     void on_clearFactorGraph_clicked();
 
-    void on_clearFactorGraph_2_clicked();
+    void on_clearCrackGraph_clicked();
+
+    void updateCrackProgressBar(int value);
 
 private:
     Ui::MainWindow *ui;

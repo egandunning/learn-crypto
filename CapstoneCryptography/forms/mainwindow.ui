@@ -31,6 +31,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QTabWidget" name="tabWidget">
+        <property name="tabPosition">
+         <enum>QTabWidget::West</enum>
+        </property>
         <property name="currentIndex">
          <number>1</number>
         </property>
@@ -123,13 +126,6 @@
             </item>
            </widget>
           </item>
-          <item row="5" column="2">
-           <widget class="QLabel" name="crackTimeLabel">
-            <property name="text">
-             <string>Time:</string>
-            </property>
-           </widget>
-          </item>
           <item row="11" column="0">
            <widget class="QPushButton" name="plotCrackButton">
             <property name="text">
@@ -137,17 +133,10 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="pointCountLabel">
+          <item row="5" column="2">
+           <widget class="QLabel" name="crackTimeLabel">
             <property name="text">
-             <string>Number of points</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="charCountLabel">
-            <property name="text">
-             <string>Starting characters</string>
+             <string>Time:</string>
             </property>
            </widget>
           </item>
@@ -158,6 +147,13 @@
             </property>
            </widget>
           </item>
+          <item row="9" column="0">
+           <widget class="QLabel" name="pointCountLabel">
+            <property name="text">
+             <string>Number of points</string>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="1">
            <widget class="QPushButton" name="crackButton">
             <property name="text">
@@ -165,20 +161,33 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
+          <item row="8" column="0">
+           <widget class="QLabel" name="charCountLabel">
             <property name="text">
-             <string>Hash Function</string>
+             <string>Starting characters</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="3" rowspan="13">
+          <item row="0" column="3" rowspan="14">
            <widget class="QGraphicsView" name="crackGraphicsView">
             <property name="minimumSize">
              <size>
               <width>600</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>650</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Hash Function</string>
             </property>
            </widget>
           </item>
@@ -198,17 +207,17 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Hashed text:</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Your Text:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Hashed text:</string>
             </property>
            </widget>
           </item>
@@ -219,10 +228,30 @@
             </property>
            </widget>
           </item>
-          <item row="12" column="0" colspan="3">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Result:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="crackedField">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="0" colspan="3">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QTabWidget" name="crackTabWidget">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>150</height>
+               </size>
+              </property>
               <property name="currentIndex">
                <number>0</number>
               </property>
@@ -490,20 +519,6 @@
             </item>
            </layout>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Result:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="crackedField">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="1">
            <widget class="QLineEdit" name="saltField"/>
           </item>
@@ -525,9 +540,22 @@
            </widget>
           </item>
           <item row="11" column="2">
-           <widget class="QPushButton" name="clearFactorGraph_2">
+           <widget class="QPushButton" name="clearCrackGraph">
             <property name="text">
              <string>Clear graph</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="0" colspan="3">
+           <widget class="QProgressBar" name="crackProgressBar">
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+            <property name="textVisible">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -555,7 +583,8 @@
          <zorder>charCountLabel</zorder>
          <zorder>hashLogScaleCheckBox</zorder>
          <zorder>crackButton</zorder>
-         <zorder>clearFactorGraph_2</zorder>
+         <zorder>clearCrackGraph</zorder>
+         <zorder>crackProgressBar</zorder>
         </widget>
         <widget class="QWidget" name="tab_4">
          <attribute name="title">

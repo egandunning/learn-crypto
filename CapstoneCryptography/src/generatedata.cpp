@@ -119,3 +119,38 @@ std::vector<QPointF> GenerateData::crack(std::vector<std::string> strings, Crack
     return points;
 
 }
+
+std::vector<QPointF> GenerateData::factorMember(std::vector<mpz_class> nums, Factor* alg) {
+    std::vector<QPointF> points;
+
+    if(alg == NULL) {
+        std::cout << "Null pointer in GenerateData::factor()" << std::endl;
+        return points;
+    }
+
+    int i = 0;
+    for(std::vector<mpz_class>::iterator it = nums.begin(); it != nums.end(); it++) {
+
+        points.push_back(alg->factor(*it));
+        emit point(i);
+        i++;
+    }
+    return points;
+}
+
+std::vector<QPointF> GenerateData::crackMember(std::vector<std::string> strings, Crack* alg) {
+    std::vector<QPointF> points;
+
+    if(alg == NULL) {
+        std::cout << "Null pointer in GenerateData::crack()" << std::endl;
+        return points;
+    }
+
+    for(unsigned int i = 0; i < strings.size(); i++) {
+        alg->digest = strings.at(i);
+        points.push_back(alg->reverse());
+        emit point(i);
+    }
+
+    return points;
+}
