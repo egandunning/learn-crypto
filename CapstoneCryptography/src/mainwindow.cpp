@@ -671,3 +671,29 @@ QString MainWindow::smartTime(long ms) {
     }
     return QString::number(ms) + QString(" milliseconds");
 }
+
+/**
+ * Clear the factoring graph.
+ * @brief MainWindow::on_clearFactorGraph_clicked
+ */
+void MainWindow::on_clearFactorGraph_clicked()
+{
+    if(fg != nullptr) {
+        fg->scene->clear();
+        fg->view->update();
+        fg = 0;
+    }
+}
+
+/**
+ * Clear the hash cracking graph.
+ * @brief MainWindow::on_clearFactorGraph_2_clicked
+ */
+void MainWindow::on_clearFactorGraph_2_clicked()
+{
+    if(cg != nullptr) {
+        cg->scene->clear();
+        cg->view->update();
+        cg = 0;
+    }
+}

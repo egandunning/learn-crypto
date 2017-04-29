@@ -72,6 +72,10 @@ private slots:
 
     void on_HELPBUTTONCLICKED();
 
+    void on_clearFactorGraph_clicked();
+
+    void on_clearFactorGraph_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     cryptogame *agame;

@@ -49,16 +49,23 @@ public:
     QGridLayout *gameGrid;
     QWidget *tab_3;
     QGridLayout *gridLayout_4;
+    QLabel *crackPlotLabel;
+    QSpinBox *crackPointCountSpinBox;
+    QPushButton *hashButton;
+    QPushButton *randomSaltButton;
+    QComboBox *hashComboBox;
+    QLabel *crackTimeLabel;
+    QPushButton *plotCrackButton;
+    QLabel *pointCountLabel;
+    QLabel *charCountLabel;
+    QCheckBox *hashLogScaleCheckBox;
+    QPushButton *crackButton;
     QLabel *label_2;
     QGraphicsView *crackGraphicsView;
     QTextEdit *digestField;
     QLabel *label_6;
     QLabel *label_3;
-    QLineEdit *saltField;
-    QLabel *label_8;
-    QLineEdit *crackedField;
-    QSpinBox *charCountSpinBox_2;
-    QLineEdit *plaintextField;
+    QPushButton *cancelCrackButton;
     QVBoxLayout *verticalLayout;
     QTabWidget *crackTabWidget;
     QWidget *tab;
@@ -84,40 +91,35 @@ public:
     QCheckBox *completeModeCheckBox;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
-    QLabel *crackPlotLabel;
-    QSpinBox *crackPointCountSpinBox;
-    QComboBox *hashComboBox;
-    QPushButton *randomSaltButton;
-    QPushButton *hashButton;
-    QLabel *crackTimeLabel;
-    QPushButton *plotCrackButton;
-    QLabel *pointCountLabel;
-    QLabel *charCountLabel;
-    QCheckBox *hashLogScaleCheckBox;
-    QPushButton *crackButton;
-    QPushButton *cancelCrackButton;
+    QLineEdit *crackedField;
+    QLineEdit *saltField;
+    QLabel *label_8;
+    QLineEdit *plaintextField;
+    QSpinBox *charCountSpinBox_2;
+    QPushButton *clearFactorGraph_2;
     QWidget *tab_4;
     QGridLayout *gridLayout_2;
-    QLabel *timeLabel;
-    QPlainTextEdit *compositeTextField;
-    QComboBox *factorAlgChooser;
-    QGraphicsView *factoringGraphicsView;
-    QLabel *resultLabel;
-    QLabel *label_7;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *dataCountLabel;
-    QSpinBox *dataPointsSpinBox;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *dataStartLabel;
-    QSpinBox *startDigitsSpinBox;
-    QLabel *plotLabel;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *drawFactoring;
     QCheckBox *factorLogScaleCheckBox;
-    QPushButton *random_composite;
+    QPushButton *clearFactorGraph;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *dataCountLabel;
+    QSpinBox *dataPointsSpinBox;
     QPushButton *factorPrimesButton;
+    QLabel *timeLabel;
+    QLabel *plotLabel;
+    QLabel *resultLabel;
+    QComboBox *factorAlgChooser;
+    QPlainTextEdit *compositeTextField;
+    QGraphicsView *factoringGraphicsView;
+    QLabel *label_7;
     QPushButton *stopFactorPushButton;
+    QPushButton *random_composite;
     QPlainTextEdit *resultField;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *dataStartLabel;
+    QSpinBox *startDigitsSpinBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -126,7 +128,13 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1014, 709);
+        MainWindow->resize(1014, 742);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMaximumSize(QSize(16777215, 900));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -168,6 +176,63 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        crackPlotLabel = new QLabel(tab_3);
+        crackPlotLabel->setObjectName(QStringLiteral("crackPlotLabel"));
+
+        gridLayout_4->addWidget(crackPlotLabel, 7, 0, 1, 1);
+
+        crackPointCountSpinBox = new QSpinBox(tab_3);
+        crackPointCountSpinBox->setObjectName(QStringLiteral("crackPointCountSpinBox"));
+        crackPointCountSpinBox->setValue(5);
+
+        gridLayout_4->addWidget(crackPointCountSpinBox, 9, 1, 1, 1);
+
+        hashButton = new QPushButton(tab_3);
+        hashButton->setObjectName(QStringLiteral("hashButton"));
+
+        gridLayout_4->addWidget(hashButton, 1, 2, 1, 1);
+
+        randomSaltButton = new QPushButton(tab_3);
+        randomSaltButton->setObjectName(QStringLiteral("randomSaltButton"));
+
+        gridLayout_4->addWidget(randomSaltButton, 2, 2, 1, 1);
+
+        hashComboBox = new QComboBox(tab_3);
+        hashComboBox->setObjectName(QStringLiteral("hashComboBox"));
+        hashComboBox->setMaximumSize(QSize(100, 16777215));
+
+        gridLayout_4->addWidget(hashComboBox, 0, 1, 1, 1);
+
+        crackTimeLabel = new QLabel(tab_3);
+        crackTimeLabel->setObjectName(QStringLiteral("crackTimeLabel"));
+
+        gridLayout_4->addWidget(crackTimeLabel, 5, 2, 1, 1);
+
+        plotCrackButton = new QPushButton(tab_3);
+        plotCrackButton->setObjectName(QStringLiteral("plotCrackButton"));
+
+        gridLayout_4->addWidget(plotCrackButton, 11, 0, 1, 1);
+
+        pointCountLabel = new QLabel(tab_3);
+        pointCountLabel->setObjectName(QStringLiteral("pointCountLabel"));
+
+        gridLayout_4->addWidget(pointCountLabel, 9, 0, 1, 1);
+
+        charCountLabel = new QLabel(tab_3);
+        charCountLabel->setObjectName(QStringLiteral("charCountLabel"));
+
+        gridLayout_4->addWidget(charCountLabel, 8, 0, 1, 1);
+
+        hashLogScaleCheckBox = new QCheckBox(tab_3);
+        hashLogScaleCheckBox->setObjectName(QStringLiteral("hashLogScaleCheckBox"));
+
+        gridLayout_4->addWidget(hashLogScaleCheckBox, 11, 1, 1, 1);
+
+        crackButton = new QPushButton(tab_3);
+        crackButton->setObjectName(QStringLiteral("crackButton"));
+
+        gridLayout_4->addWidget(crackButton, 4, 1, 1, 1);
+
         label_2 = new QLabel(tab_3);
         label_2->setObjectName(QStringLiteral("label_2"));
 
@@ -177,7 +242,7 @@ public:
         crackGraphicsView->setObjectName(QStringLiteral("crackGraphicsView"));
         crackGraphicsView->setMinimumSize(QSize(600, 0));
 
-        gridLayout_4->addWidget(crackGraphicsView, 0, 3, 12, 1);
+        gridLayout_4->addWidget(crackGraphicsView, 0, 3, 13, 1);
 
         digestField = new QTextEdit(tab_3);
         digestField->setObjectName(QStringLiteral("digestField"));
@@ -196,32 +261,10 @@ public:
 
         gridLayout_4->addWidget(label_3, 1, 0, 1, 1);
 
-        saltField = new QLineEdit(tab_3);
-        saltField->setObjectName(QStringLiteral("saltField"));
+        cancelCrackButton = new QPushButton(tab_3);
+        cancelCrackButton->setObjectName(QStringLiteral("cancelCrackButton"));
 
-        gridLayout_4->addWidget(saltField, 2, 1, 1, 1);
-
-        label_8 = new QLabel(tab_3);
-        label_8->setObjectName(QStringLiteral("label_8"));
-
-        gridLayout_4->addWidget(label_8, 2, 0, 1, 1);
-
-        crackedField = new QLineEdit(tab_3);
-        crackedField->setObjectName(QStringLiteral("crackedField"));
-        crackedField->setReadOnly(true);
-
-        gridLayout_4->addWidget(crackedField, 5, 1, 1, 1);
-
-        charCountSpinBox_2 = new QSpinBox(tab_3);
-        charCountSpinBox_2->setObjectName(QStringLiteral("charCountSpinBox_2"));
-        charCountSpinBox_2->setValue(1);
-
-        gridLayout_4->addWidget(charCountSpinBox_2, 8, 1, 1, 1);
-
-        plaintextField = new QLineEdit(tab_3);
-        plaintextField->setObjectName(QStringLiteral("plaintextField"));
-
-        gridLayout_4->addWidget(plaintextField, 1, 1, 1, 1);
+        gridLayout_4->addWidget(cancelCrackButton, 4, 2, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
@@ -305,74 +348,44 @@ public:
         verticalLayout->addLayout(horizontalLayout_5);
 
 
-        gridLayout_4->addLayout(verticalLayout, 11, 0, 1, 3);
+        gridLayout_4->addLayout(verticalLayout, 12, 0, 1, 3);
 
         label_4 = new QLabel(tab_3);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         gridLayout_4->addWidget(label_4, 5, 0, 1, 1);
 
-        crackPlotLabel = new QLabel(tab_3);
-        crackPlotLabel->setObjectName(QStringLiteral("crackPlotLabel"));
+        crackedField = new QLineEdit(tab_3);
+        crackedField->setObjectName(QStringLiteral("crackedField"));
+        crackedField->setReadOnly(true);
 
-        gridLayout_4->addWidget(crackPlotLabel, 7, 0, 1, 1);
+        gridLayout_4->addWidget(crackedField, 5, 1, 1, 1);
 
-        crackPointCountSpinBox = new QSpinBox(tab_3);
-        crackPointCountSpinBox->setObjectName(QStringLiteral("crackPointCountSpinBox"));
-        crackPointCountSpinBox->setValue(5);
+        saltField = new QLineEdit(tab_3);
+        saltField->setObjectName(QStringLiteral("saltField"));
 
-        gridLayout_4->addWidget(crackPointCountSpinBox, 9, 1, 1, 1);
+        gridLayout_4->addWidget(saltField, 2, 1, 1, 1);
 
-        hashComboBox = new QComboBox(tab_3);
-        hashComboBox->setObjectName(QStringLiteral("hashComboBox"));
-        hashComboBox->setMaximumSize(QSize(100, 16777215));
+        label_8 = new QLabel(tab_3);
+        label_8->setObjectName(QStringLiteral("label_8"));
 
-        gridLayout_4->addWidget(hashComboBox, 0, 1, 1, 1);
+        gridLayout_4->addWidget(label_8, 2, 0, 1, 1);
 
-        randomSaltButton = new QPushButton(tab_3);
-        randomSaltButton->setObjectName(QStringLiteral("randomSaltButton"));
+        plaintextField = new QLineEdit(tab_3);
+        plaintextField->setObjectName(QStringLiteral("plaintextField"));
 
-        gridLayout_4->addWidget(randomSaltButton, 2, 2, 1, 1);
+        gridLayout_4->addWidget(plaintextField, 1, 1, 1, 1);
 
-        hashButton = new QPushButton(tab_3);
-        hashButton->setObjectName(QStringLiteral("hashButton"));
+        charCountSpinBox_2 = new QSpinBox(tab_3);
+        charCountSpinBox_2->setObjectName(QStringLiteral("charCountSpinBox_2"));
+        charCountSpinBox_2->setValue(1);
 
-        gridLayout_4->addWidget(hashButton, 1, 2, 1, 1);
+        gridLayout_4->addWidget(charCountSpinBox_2, 8, 1, 1, 1);
 
-        crackTimeLabel = new QLabel(tab_3);
-        crackTimeLabel->setObjectName(QStringLiteral("crackTimeLabel"));
+        clearFactorGraph_2 = new QPushButton(tab_3);
+        clearFactorGraph_2->setObjectName(QStringLiteral("clearFactorGraph_2"));
 
-        gridLayout_4->addWidget(crackTimeLabel, 5, 2, 1, 1);
-
-        plotCrackButton = new QPushButton(tab_3);
-        plotCrackButton->setObjectName(QStringLiteral("plotCrackButton"));
-
-        gridLayout_4->addWidget(plotCrackButton, 10, 0, 1, 1);
-
-        pointCountLabel = new QLabel(tab_3);
-        pointCountLabel->setObjectName(QStringLiteral("pointCountLabel"));
-
-        gridLayout_4->addWidget(pointCountLabel, 9, 0, 1, 1);
-
-        charCountLabel = new QLabel(tab_3);
-        charCountLabel->setObjectName(QStringLiteral("charCountLabel"));
-
-        gridLayout_4->addWidget(charCountLabel, 8, 0, 1, 1);
-
-        hashLogScaleCheckBox = new QCheckBox(tab_3);
-        hashLogScaleCheckBox->setObjectName(QStringLiteral("hashLogScaleCheckBox"));
-
-        gridLayout_4->addWidget(hashLogScaleCheckBox, 10, 1, 1, 1);
-
-        crackButton = new QPushButton(tab_3);
-        crackButton->setObjectName(QStringLiteral("crackButton"));
-
-        gridLayout_4->addWidget(crackButton, 4, 1, 1, 1);
-
-        cancelCrackButton = new QPushButton(tab_3);
-        cancelCrackButton->setObjectName(QStringLiteral("cancelCrackButton"));
-
-        gridLayout_4->addWidget(cancelCrackButton, 4, 2, 1, 1);
+        gridLayout_4->addWidget(clearFactorGraph_2, 11, 2, 1, 1);
 
         tabWidget->addTab(tab_3, QString());
         cancelCrackButton->raise();
@@ -398,44 +411,33 @@ public:
         charCountLabel->raise();
         hashLogScaleCheckBox->raise();
         crackButton->raise();
+        clearFactorGraph_2->raise();
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
         gridLayout_2 = new QGridLayout(tab_4);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        timeLabel = new QLabel(tab_4);
-        timeLabel->setObjectName(QStringLiteral("timeLabel"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        drawFactoring = new QPushButton(tab_4);
+        drawFactoring->setObjectName(QStringLiteral("drawFactoring"));
 
-        gridLayout_2->addWidget(timeLabel, 13, 0, 1, 1);
+        horizontalLayout_3->addWidget(drawFactoring);
 
-        compositeTextField = new QPlainTextEdit(tab_4);
-        compositeTextField->setObjectName(QStringLiteral("compositeTextField"));
-        compositeTextField->setMaximumSize(QSize(16777215, 50));
+        factorLogScaleCheckBox = new QCheckBox(tab_4);
+        factorLogScaleCheckBox->setObjectName(QStringLiteral("factorLogScaleCheckBox"));
 
-        gridLayout_2->addWidget(compositeTextField, 2, 0, 1, 1);
+        horizontalLayout_3->addWidget(factorLogScaleCheckBox);
 
-        factorAlgChooser = new QComboBox(tab_4);
-        factorAlgChooser->setObjectName(QStringLiteral("factorAlgChooser"));
+        clearFactorGraph = new QPushButton(tab_4);
+        clearFactorGraph->setObjectName(QStringLiteral("clearFactorGraph"));
 
-        gridLayout_2->addWidget(factorAlgChooser, 0, 0, 1, 1);
+        horizontalLayout_3->addWidget(clearFactorGraph);
 
-        factoringGraphicsView = new QGraphicsView(tab_4);
-        factoringGraphicsView->setObjectName(QStringLiteral("factoringGraphicsView"));
-        factoringGraphicsView->setMinimumSize(QSize(600, 0));
 
-        gridLayout_2->addWidget(factoringGraphicsView, 0, 1, 36, 1);
-
-        resultLabel = new QLabel(tab_4);
-        resultLabel->setObjectName(QStringLiteral("resultLabel"));
-        resultLabel->setWordWrap(true);
-
-        gridLayout_2->addWidget(resultLabel, 11, 0, 1, 1);
-
-        label_7 = new QLabel(tab_4);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        gridLayout_2->addWidget(label_7, 1, 0, 1, 1);
+        gridLayout_2->addLayout(horizontalLayout_3, 15, 0, 1, 1);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
@@ -453,7 +455,73 @@ public:
         horizontalLayout_4->addWidget(dataPointsSpinBox);
 
 
-        gridLayout_2->addLayout(horizontalLayout_4, 19, 0, 2, 1);
+        gridLayout_2->addLayout(horizontalLayout_4, 14, 0, 1, 1);
+
+        factorPrimesButton = new QPushButton(tab_4);
+        factorPrimesButton->setObjectName(QStringLiteral("factorPrimesButton"));
+
+        gridLayout_2->addWidget(factorPrimesButton, 5, 0, 1, 1);
+
+        timeLabel = new QLabel(tab_4);
+        timeLabel->setObjectName(QStringLiteral("timeLabel"));
+
+        gridLayout_2->addWidget(timeLabel, 9, 0, 1, 1);
+
+        plotLabel = new QLabel(tab_4);
+        plotLabel->setObjectName(QStringLiteral("plotLabel"));
+
+        gridLayout_2->addWidget(plotLabel, 12, 0, 1, 1);
+
+        resultLabel = new QLabel(tab_4);
+        resultLabel->setObjectName(QStringLiteral("resultLabel"));
+        resultLabel->setWordWrap(true);
+
+        gridLayout_2->addWidget(resultLabel, 7, 0, 1, 1);
+
+        factorAlgChooser = new QComboBox(tab_4);
+        factorAlgChooser->setObjectName(QStringLiteral("factorAlgChooser"));
+
+        gridLayout_2->addWidget(factorAlgChooser, 0, 0, 1, 1);
+
+        compositeTextField = new QPlainTextEdit(tab_4);
+        compositeTextField->setObjectName(QStringLiteral("compositeTextField"));
+        compositeTextField->setMaximumSize(QSize(16777215, 50));
+
+        gridLayout_2->addWidget(compositeTextField, 2, 0, 1, 1);
+
+        factoringGraphicsView = new QGraphicsView(tab_4);
+        factoringGraphicsView->setObjectName(QStringLiteral("factoringGraphicsView"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(factoringGraphicsView->sizePolicy().hasHeightForWidth());
+        factoringGraphicsView->setSizePolicy(sizePolicy1);
+        factoringGraphicsView->setMinimumSize(QSize(600, 0));
+        factoringGraphicsView->setMaximumSize(QSize(16777215, 800));
+
+        gridLayout_2->addWidget(factoringGraphicsView, 0, 1, 35, 1);
+
+        label_7 = new QLabel(tab_4);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        gridLayout_2->addWidget(label_7, 1, 0, 1, 1);
+
+        stopFactorPushButton = new QPushButton(tab_4);
+        stopFactorPushButton->setObjectName(QStringLiteral("stopFactorPushButton"));
+
+        gridLayout_2->addWidget(stopFactorPushButton, 6, 0, 1, 1);
+
+        random_composite = new QPushButton(tab_4);
+        random_composite->setObjectName(QStringLiteral("random_composite"));
+
+        gridLayout_2->addWidget(random_composite, 4, 0, 1, 1);
+
+        resultField = new QPlainTextEdit(tab_4);
+        resultField->setObjectName(QStringLiteral("resultField"));
+        resultField->setMaximumSize(QSize(16777215, 60));
+        resultField->setReadOnly(true);
+
+        gridLayout_2->addWidget(resultField, 8, 0, 1, 1);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
@@ -471,50 +539,7 @@ public:
         horizontalLayout_2->addWidget(startDigitsSpinBox);
 
 
-        gridLayout_2->addLayout(horizontalLayout_2, 17, 0, 1, 1);
-
-        plotLabel = new QLabel(tab_4);
-        plotLabel->setObjectName(QStringLiteral("plotLabel"));
-
-        gridLayout_2->addWidget(plotLabel, 16, 0, 1, 1);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        drawFactoring = new QPushButton(tab_4);
-        drawFactoring->setObjectName(QStringLiteral("drawFactoring"));
-
-        horizontalLayout_3->addWidget(drawFactoring);
-
-        factorLogScaleCheckBox = new QCheckBox(tab_4);
-        factorLogScaleCheckBox->setObjectName(QStringLiteral("factorLogScaleCheckBox"));
-
-        horizontalLayout_3->addWidget(factorLogScaleCheckBox);
-
-
-        gridLayout_2->addLayout(horizontalLayout_3, 22, 0, 1, 1);
-
-        random_composite = new QPushButton(tab_4);
-        random_composite->setObjectName(QStringLiteral("random_composite"));
-
-        gridLayout_2->addWidget(random_composite, 4, 0, 1, 1);
-
-        factorPrimesButton = new QPushButton(tab_4);
-        factorPrimesButton->setObjectName(QStringLiteral("factorPrimesButton"));
-
-        gridLayout_2->addWidget(factorPrimesButton, 5, 0, 1, 1);
-
-        stopFactorPushButton = new QPushButton(tab_4);
-        stopFactorPushButton->setObjectName(QStringLiteral("stopFactorPushButton"));
-
-        gridLayout_2->addWidget(stopFactorPushButton, 6, 0, 1, 1);
-
-        resultField = new QPlainTextEdit(tab_4);
-        resultField->setObjectName(QStringLiteral("resultField"));
-        resultField->setMaximumSize(QSize(16777215, 60));
-        resultField->setReadOnly(true);
-
-        gridLayout_2->addWidget(resultField, 12, 0, 1, 1);
+        gridLayout_2->addLayout(horizontalLayout_2, 13, 0, 1, 1);
 
         tabWidget->addTab(tab_4, QString());
 
@@ -537,7 +562,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
         crackTabWidget->setCurrentIndex(0);
 
 
@@ -550,10 +575,25 @@ public:
         pushButton_3->setText(QApplication::translate("MainWindow", "Hint", 0));
         pushButton->setText(QApplication::translate("MainWindow", "New Game", 0));
         tabWidget->setTabText(tabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0));
+        crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
+        hashButton->setText(QApplication::translate("MainWindow", "Hash!", 0));
+        randomSaltButton->setText(QApplication::translate("MainWindow", "Random", 0));
+        hashComboBox->clear();
+        hashComboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "MD5", 0)
+         << QApplication::translate("MainWindow", "SHA-512", 0)
+         << QApplication::translate("MainWindow", "PBKDF2", 0)
+        );
+        crackTimeLabel->setText(QApplication::translate("MainWindow", "Time:", 0));
+        plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
+        pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
+        charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
+        hashLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
+        crackButton->setText(QApplication::translate("MainWindow", "Reverse!", 0));
         label_2->setText(QApplication::translate("MainWindow", "Hash Function", 0));
         label_6->setText(QApplication::translate("MainWindow", "Hashed text:", 0));
         label_3->setText(QApplication::translate("MainWindow", "Your Text:", 0));
-        label_8->setText(QApplication::translate("MainWindow", "Salt:", 0));
+        cancelCrackButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
         label_10->setText(QApplication::translate("MainWindow", "Character Count:", 0));
         lettersCheckBox->setText(QApplication::translate("MainWindow", "Letters", 0));
         upCaseCheckBox->setText(QApplication::translate("MainWindow", "Include uppercase", 0));
@@ -572,39 +612,26 @@ public:
         completeModeCheckBox->setText(QApplication::translate("MainWindow", "All combinations", 0));
         crackTabWidget->setTabText(crackTabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Dictionary attack", 0));
         label_4->setText(QApplication::translate("MainWindow", "Result:", 0));
-        crackPlotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
-        hashComboBox->clear();
-        hashComboBox->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "MD5", 0)
-         << QApplication::translate("MainWindow", "SHA-512", 0)
-         << QApplication::translate("MainWindow", "PBKDF2", 0)
-        );
-        randomSaltButton->setText(QApplication::translate("MainWindow", "Random", 0));
-        hashButton->setText(QApplication::translate("MainWindow", "Hash!", 0));
-        crackTimeLabel->setText(QApplication::translate("MainWindow", "Time:", 0));
-        plotCrackButton->setText(QApplication::translate("MainWindow", "Draw points", 0));
-        pointCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
-        charCountLabel->setText(QApplication::translate("MainWindow", "Starting characters", 0));
-        hashLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
-        crackButton->setText(QApplication::translate("MainWindow", "Reverse!", 0));
-        cancelCrackButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
+        label_8->setText(QApplication::translate("MainWindow", "Salt:", 0));
+        clearFactorGraph_2->setText(QApplication::translate("MainWindow", "Clear graph", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Hash", 0));
+        drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));
+        factorLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
+        clearFactorGraph->setText(QApplication::translate("MainWindow", "Clear graph", 0));
+        dataCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
+        factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));
         timeLabel->setText(QApplication::translate("MainWindow", "Time: ", 0));
+        plotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
+        resultLabel->setText(QApplication::translate("MainWindow", "Result:", 0));
         factorAlgChooser->clear();
         factorAlgChooser->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Brute force (trial division)", 0)
          << QApplication::translate("MainWindow", "Quadratic sieve", 0)
         );
-        resultLabel->setText(QApplication::translate("MainWindow", "Result:", 0));
         label_7->setText(QApplication::translate("MainWindow", "Enter a product of two primes:", 0));
-        dataCountLabel->setText(QApplication::translate("MainWindow", "Number of points", 0));
-        dataStartLabel->setText(QApplication::translate("MainWindow", "Starting digits", 0));
-        plotLabel->setText(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Plot data points</span></p></body></html>", 0));
-        drawFactoring->setText(QApplication::translate("MainWindow", "Draw points", 0));
-        factorLogScaleCheckBox->setText(QApplication::translate("MainWindow", "Use log scale", 0));
-        random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
-        factorPrimesButton->setText(QApplication::translate("MainWindow", "Factor", 0));
         stopFactorPushButton->setText(QApplication::translate("MainWindow", "Cancel", 0));
+        random_composite->setText(QApplication::translate("MainWindow", "Random", 0));
+        dataStartLabel->setText(QApplication::translate("MainWindow", "Starting digits", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Factoring", 0));
     } // retranslateUi
 
