@@ -33,7 +33,6 @@ public:
     const unsigned int threadId;
     const unsigned int threadCount;
     std::vector<mpz_class>& primes;
-    std::vector<std::pair<mpz_class,mpz_class>> output;
     std::map<mpz_class, row>& expVecRef;
     bool kill;
     QMutex mutex;
@@ -50,10 +49,6 @@ private:
 signals:
 
     void finished(unsigned int);
-
-
 };
 
-
 #endif // QSWORKER_H
-

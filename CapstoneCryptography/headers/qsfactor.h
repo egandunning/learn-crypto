@@ -4,6 +4,7 @@
 #include <headers/factor.h>
 #include <headers/qsworker.h>
 #include <headers/generateprimes.h>
+#include <headers/row.h>
 
 #include <bitset>
 #include <iomanip>
@@ -11,6 +12,8 @@
 #include <list>
 #include <map>
 #include <queue>
+#include <utility>
+#include <cstring>
 
 class QSFactor : public Factor {
 
@@ -33,6 +36,9 @@ private:
     std::vector<mpz_class> primes;
     std::map<mpz_class, row> expVectors;
     std::map<mpz_class, row> smoothVectors;
+    //std::list<std::pair<long, std::vector<mpz_class>>> vectors;
+    std::list<row> vectors;
+    std::vector<std::vector<mpz_class>> squares;
     std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> jobList;
     std::vector<QSWorker*> threads;
 
@@ -47,7 +53,7 @@ private:
     std::vector<factorBase> fb;
 
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
-    std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
+    //std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
     void sieve();
     void quadraticSieve(mpz_class upperBound, int pow = 0);
     std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
@@ -57,6 +63,10 @@ private:
     long computeB();
     void initThreads(unsigned int);
     void generateFactorBase();
+
+    //methods for manipulating exponent vectors
+    void insert(long (&arr)[5], int index);
+    void printVec(long (&arr)[5], int length);
 };
 
 #endif // QSFACTOR

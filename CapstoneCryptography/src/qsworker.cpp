@@ -4,12 +4,14 @@ QSWorker::QSWorker() :
     n(0),
     threadId(0),
     threadCount(0),
+    primes( *(new std::vector<mpz_class>()) ),
+    expVecRef( *(new std::map<mpz_class,row>()) ),
     kill(false),
     mutex(),
     currentRow(),
-    pIndex(0),
-    expVecRef( *(new std::map<mpz_class,row>()) ),
-    primes( *(new std::vector<mpz_class>()) )
+    pIndex(0)
+
+
 {}
 
 QSWorker::QSWorker(mpz_class num, std::map<mpz_class, row>* expVecRef, std::vector<mpz_class>* p, unsigned int id, unsigned int count) :
@@ -27,15 +29,15 @@ QSWorker::QSWorker(mpz_class num, std::map<mpz_class, row>* expVecRef, std::vect
 }
 
 QSWorker::QSWorker(const QSWorker & other) :
+    n(other.n),
     threadId(other.threadId),
     threadCount(other.threadCount),
-    output(other.output),
-    kill(other.kill),
-    currentRow(other.currentRow),
-    pIndex(other.pIndex),
-    expVecRef(other.expVecRef),
     primes(other.primes),
-    mutex()
+    expVecRef(other.expVecRef),
+    kill(other.kill),
+    mutex(),
+    currentRow(other.currentRow),
+    pIndex(other.pIndex)
 {}
 
 QSWorker::~QSWorker() {
@@ -60,7 +62,7 @@ void QSWorker::work(size_t index) {
 void QSWorker::run() {
 
     //std::cout << "in thread " << threadId << ": prime count: " << primes.size() << std::endl;
-
+/*
     lock.lockForRead();
     const mpz_class prime = primes.at(pIndex);
     const mpz_class B = primes.back();
@@ -108,7 +110,7 @@ void QSWorker::run() {
         //std::cout << std::bitset<32>(currentVector.vec) << " " << pIndex << " " << x2.get_str() << std::endl;
     }
 
-    emit finished(threadId);
+    emit finished(threadId);*/
 }
 
 /**
