@@ -413,11 +413,13 @@ void MainWindow::update_factor_graph() {
 
         if(ui->factorLogScaleCheckBox->isChecked()) {
             fg->logScaleDraw();
+            fg->addTitle("Time to find two factors vs. number of digits. (logarithmic scale)");
         } else {
+            fg->addTitle("Time to find two factors vs. number of digits.");
             fg->draw();
         }
         fg->addLabels("Milliseconds", "Number of digits");
-        fg->addTitle("Number of digits vs. time to find two factors.");
+
         factorLegendCounter = 0;
         fg->addLegend("Legend:", Qt::black, factorLegendCounter);
         factorLegendCounter++;
@@ -498,11 +500,13 @@ void MainWindow::update_crack_graph() {
 
         if(ui->hashLogScaleCheckBox->isChecked()) {
             cg->logScaleDraw();
+            cg->addTitle("Time to crack password vs length of password. (logarithmic scale)");
         } else {
             cg->draw();
+            cg->addTitle("Time to crack password vs length of password.");
         }
         cg->addLabels("Milliseconds", "Number of characters");
-        cg->addTitle("Length of password vs time to crack.");
+
         crackLegendCounter = 0;
         cg->addLegend("Legend: ", Qt::black, crackLegendCounter);
         crackLegendCounter++;
@@ -560,9 +564,12 @@ void MainWindow::on_hashLogScaleCheckBox_clicked()
 
     if(ui->hashLogScaleCheckBox->isChecked()) {
         cg->logScaleDraw();
+        cg->addTitle("Time to crack password vs length of password. (logarithmic scale)");
     } else {
         cg->draw();
+        cg->addTitle("Time to crack password vs length of password.");
     }
+
     cg->addLabels("Milliseconds", "Number of characters");
 
     cg->view->show();
@@ -589,10 +596,13 @@ void MainWindow::on_factorLogScaleCheckBox_clicked()
 
     if(ui->factorLogScaleCheckBox->isChecked()) {
         fg->logScaleDraw();
+        fg->addTitle("Time to find two factors vs. number of digits. (logarithmic scale)");
     } else {
         fg->draw();
+        fg->addTitle("Time to find two factors vs. number of digits.");
     }
-    fg->addLabels("Milliseconds", "Number of characters");
+
+    fg->addLabels("Milliseconds", "Number of digits");
 
     fg->view->show();
 }
