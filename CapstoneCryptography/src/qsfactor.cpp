@@ -99,7 +99,7 @@ QPointF QSFactor::factor(mpz_class comp) {
                         squares.push_back(temp.xVals);
                         break;
                     }
-
+                    break;
                 }
             }
         }
