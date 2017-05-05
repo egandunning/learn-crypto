@@ -18,6 +18,13 @@ std::string CipherType;
 //that is in the message.
 std::map<char, char> Key;
 
+/**
+ * @brief Cipher::Cipher
+ * @param keyword
+ * @param name
+ *
+ * Cipher constructor for a predetermined cipher, the user of this method will have to determine the type of cipher.
+ */
 Cipher::Cipher(std::string keyword, std::string name){
 	  //Set the name of the Cipher
 	  CipherType = name;
@@ -40,6 +47,12 @@ Cipher::Cipher(std::string keyword, std::string name){
 
 
 }
+
+/**
+ * @brief Cipher::Cipher
+ * Constructor for the Cipher class, this is the random Cipher type constructor. It generates a random Cipher.
+ *
+ */
 Cipher::Cipher(){
     CipherType = "Random";
     char currentLetter = 'A';
@@ -73,7 +86,13 @@ Cipher::Cipher(){
   char Cipher::getChar(char in){
     return Key[in];
   }
-
+  /**
+   * @brief Cipher::encrypt
+   * @param in
+   * @return
+   *
+   * Method to encrypt some string, returns a string with the encrypted text. The input string must be lowercase!
+   */
   std::string Cipher::encrypt(std::string in){
     std::string ret = "";
     for(int i = 0; i< in.size(); i++){

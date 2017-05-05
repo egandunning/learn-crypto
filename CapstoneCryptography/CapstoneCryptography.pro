@@ -88,12 +88,11 @@ macx:{
 
 win32:{
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/cryptopp/Win32/Output/release/ -lcryptlib
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/cryptopp/Win32/Output/debug/ -lcryptlib
 
-    win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/release/ -lcryptlib
-    else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/crypto/Win32/Output/debug/ -lcryptlib
-
-    INCLUDEPATH += $$PWD/../../../../../../lib/crypto
-    DEPENDPATH += $$PWD/../../../../../../lib/crypto
+INCLUDEPATH += $$PWD/../../../../../../lib/crypto/cryptopp/Win32/Output/Release
+DEPENDPATH += $$PWD/../../../../../../lib/crypto/cryptopp/Win32/Output/Release
 
     win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmp
     else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../lib/gmp-6.1.1/.libs/ -lgmp
