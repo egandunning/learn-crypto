@@ -48,6 +48,8 @@ private:
         int power;
         mpz_class s1;
         mpz_class s2;
+        mpz_class beginIndex1;
+        mpz_class beginIndex2;
     };
 
     std::vector<factorBase> fb;
@@ -55,11 +57,12 @@ private:
     mpz_class solveQuadraticModN(mpz_class, mpz_class);
     //std::list<std::pair<long, std::vector<mpz_class>>> gaussElim(std::list<std::pair<long,std::vector<mpz_class>>>);
     void sieve();
+    void sieve2();
     void quadraticSieve(mpz_class upperBound, int pow = 0);
     std::pair<mpz_class,mpz_class> solveQuadratic(mpz_class);
     void printVectors();
     mpz_class bigLog(mpz_class);
-    mpz_class gcd(mpz_class, mpz_class);
+    mpz_class gcd(const mpz_class &, const mpz_class &);
     long computeB();
     void initThreads(unsigned int);
     void generateFactorBase();
