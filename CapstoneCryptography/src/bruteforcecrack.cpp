@@ -10,6 +10,22 @@
 
 //base conversion: http://stackoverflow.com/questions/8870121/c-template-for-conversion-between-decimal-and-arbitrary-base#8870154
 
+/**
+ * @brief BruteForceCrack::worker
+ * @param begin
+ * @param end
+ * @param whash
+ * @param d
+ * @param alpha
+ * @return
+ *
+ * Worker method that takes a string where to begin, and where to end, and a selected hash and it increments the recommended ammount of times,
+ * determined by the variable threadCount. Continues to search for the answer until the global boolean finished is marked true either by the worker
+ * or by another instance.
+ *
+ * When found the solution is put in plaintext, which is then returned to the view.
+ *
+ */
 bool BruteForceCrack::worker(std::string begin, std::string end, Hash *whash, std::string d, std::string alpha){
 
     std::string plaintextGuess = begin;
@@ -144,7 +160,7 @@ void BruteForceCrack::setOptions(unsigned int words, unsigned int endDigits, uns
 }
 
 /**
- * Increments a stirng by the next lowercase character.
+ * Increments a stirng by the next lowercase character. Takes into account the given alphabet and when to add an extra character.
  * @brief BruteForceCrack::incrementString
  * @param in
  * @return
