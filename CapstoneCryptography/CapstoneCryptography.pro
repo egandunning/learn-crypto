@@ -77,7 +77,8 @@ unix:{  LIBS	 += -L/usr/local/lib \
 
 
 INCLUDEPATH += "/usr/local/include/"
-FORMS    += forms/mainwindow.ui
+FORMS    += \
+    forms/mainwindow.ui
 macx:{
  INCLUDEPATH += "gmp/include"
  LIBS += -L../CapstoneCryptography/gmp/lib -lgmp -lgmpxx
