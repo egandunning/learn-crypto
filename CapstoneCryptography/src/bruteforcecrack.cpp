@@ -69,6 +69,7 @@ BruteForceCrack::BruteForceCrack(Hash* h, std::string alph, int chCount) {
     alphabet = alph;
     charCount = chCount;
     name = "Brute force";
+    threadCount = QThread::idealThreadCount();
 }
 
 /**
@@ -94,7 +95,7 @@ QPointF BruteForceCrack::reverse() {
     long elapsed;
 
     //Thread stuff starts here.
-    threadCount = QThread::idealThreadCount();
+
     //threads = 100;
 
 

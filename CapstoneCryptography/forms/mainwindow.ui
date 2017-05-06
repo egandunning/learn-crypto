@@ -35,7 +35,7 @@
          <enum>QTabWidget::West</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="gameTab">
          <attribute name="title">
@@ -126,6 +126,13 @@
             </item>
            </widget>
           </item>
+          <item row="11" column="1">
+           <widget class="QCheckBox" name="hashLogScaleCheckBox">
+            <property name="text">
+             <string>Use log scale</string>
+            </property>
+           </widget>
+          </item>
           <item row="11" column="0">
            <widget class="QPushButton" name="plotCrackButton">
             <property name="text">
@@ -140,20 +147,6 @@
             </property>
            </widget>
           </item>
-          <item row="11" column="1">
-           <widget class="QCheckBox" name="hashLogScaleCheckBox">
-            <property name="text">
-             <string>Use log scale</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="pointCountLabel">
-            <property name="text">
-             <string>Number of points</string>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QPushButton" name="crackButton">
             <property name="text">
@@ -161,10 +154,10 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="charCountLabel">
+          <item row="9" column="0">
+           <widget class="QLabel" name="pointCountLabel">
             <property name="text">
-             <string>Starting characters</string>
+             <string>Number of points</string>
             </property>
            </widget>
           </item>
@@ -184,10 +177,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
+          <item row="8" column="0">
+           <widget class="QLabel" name="charCountLabel">
             <property name="text">
-             <string>Hash Function</string>
+             <string>Starting characters</string>
             </property>
            </widget>
           </item>
@@ -207,10 +200,10 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Your Text:</string>
+             <string>Hash Function</string>
             </property>
            </widget>
           </item>
@@ -218,6 +211,13 @@
            <widget class="QLabel" name="label_6">
             <property name="text">
              <string>Hashed text:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Your Text:</string>
             </property>
            </widget>
           </item>
@@ -242,6 +242,16 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="saltField"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Salt:</string>
+            </property>
+           </widget>
+          </item>
           <item row="13" column="0" colspan="3">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
@@ -249,7 +259,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>150</height>
+                <height>160</height>
                </size>
               </property>
               <property name="currentIndex">
@@ -364,6 +374,29 @@
                   <width>173</width>
                   <height>27</height>
                  </rect>
+                </property>
+               </widget>
+               <widget class="QSpinBox" name="threadSpinBox">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>100</y>
+                  <width>44</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label">
+                <property name="geometry">
+                 <rect>
+                  <x>20</x>
+                  <y>100</y>
+                  <width>121</width>
+                  <height>21</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Number of threads:</string>
                 </property>
                </widget>
               </widget>
@@ -518,16 +551,6 @@
              <layout class="QHBoxLayout" name="horizontalLayout_5"/>
             </item>
            </layout>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="saltField"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Salt:</string>
-            </property>
-           </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="plaintextField"/>

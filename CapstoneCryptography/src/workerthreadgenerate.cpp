@@ -98,3 +98,7 @@ QString WorkerThreadGenerate::getCrackAlgName() {
 QString WorkerThreadGenerate::getHashAlgName() {
     return hashType->name;
 }
+
+unsigned int WorkerThreadGenerate::getCrackThreadCount() {
+    return crackAlg->threadCount;
+}

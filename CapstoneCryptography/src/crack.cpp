@@ -12,6 +12,7 @@ Crack::Crack(const Crack& c) :
     plaintext(c.plaintext),
     digest(c.digest),
     hashType(c.hashType),
+    threadCount(c.threadCount),
     name(c.name)
 {}
 
@@ -19,6 +20,7 @@ Crack& Crack::operator=(const Crack& c) {
     plaintext = c.plaintext;
     digest = c.digest;
     hashType = c.hashType;
+    threadCount = c.threadCount;
     name = c.name;
     return *this;
 }

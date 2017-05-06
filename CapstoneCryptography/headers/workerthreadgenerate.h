@@ -24,6 +24,7 @@ public:
     QString getFactorAlgName();
     QString getCrackAlgName();
     QString getHashAlgName();
+    unsigned int getCrackThreadCount();
 
     GenerateData* genData;
 

@@ -30,7 +30,6 @@ public:
     std::string begin;
     std::string end;
     int charCount;
-    unsigned int threadCount;
     bool finished;
 
     unsigned long n;

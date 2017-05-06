@@ -80,6 +80,10 @@ QPointF QSFactor::factor(mpz_class comp) {
     vectors.sort();
     vectors.reverse();
 
+    for(row vec : vectors) {
+        vec.print(primes.size());
+    }
+
     for(std::list<row>::iterator it = vectors.begin(); it != vectors.end(); it++) {
         if(kill) {
             return QPointF(0,0);
@@ -90,16 +94,18 @@ QPointF QSFactor::factor(mpz_class comp) {
             std::list<row>::iterator it2 = it;
             it2++;
             for(; it2 != vectors.end(); it2++) {
-                if(temp.at(index) == 1 && temp.at(index) == it2->at(index)) {
+                if(index <= 0) {
+                    break;
+                }
+                if(temp.at(index) == 1 && it2->at(index) == 1) {
                     temp = temp + *it2;
                     temp.insert(it2->xVals.at(0));
-
+                    index--;
                     if(temp.zeroVector()) {
                         //temp.print(primes.size());
                         squares.push_back(temp.xVals);
                         break;
                     }
-                    break;
                 }
             }
         }
@@ -118,7 +124,7 @@ QPointF QSFactor::factor(mpz_class comp) {
 
     std::cout << "lin alg done. " << std::endl;
 
-    printVectors();
+    //printVectors();
 
     mpz_class square1 = 1;
     mpz_class square2 = 1;
@@ -133,11 +139,12 @@ QPointF QSFactor::factor(mpz_class comp) {
             mpz_class temp = (it->at(xTerm))*(it->at(xTerm));
             square1 *= temp;
             square2 *= (temp - composite);
-            std::cout << "Square1: " << square1.get_str() << " " << mpz_perfect_square_p(square1.get_mpz_t()) << std::endl;
-            std::cout << "Square2: " << square2.get_str() << " " << mpz_perfect_square_p(square2.get_mpz_t()) << std::endl;
+
         }
+        std::cout << "Square1: " << square1.get_str() << " " << mpz_perfect_square_p(square1.get_mpz_t()) << std::endl;
+        std::cout << "Square2: " << square2.get_str() << " " << mpz_perfect_square_p(square2.get_mpz_t()) << std::endl;
         if(!mpz_perfect_square_p(square2.get_mpz_t())) {
-            continue;
+            //continue;
         }
 
         std::cout << "composite: " << composite.get_str() << " square1: " << square1.get_str() << " square2: " << square2.get_str() << std::endl;
@@ -173,7 +180,7 @@ mpz_class QSFactor::gcd(const mpz_class& a, const mpz_class& b) {
 
 void QSFactor::sieve() {
     std::cout << "factor base size: " << fb.size() << std::endl;
-    for(mpz_class i = 0; i < 2*x+B; i++) {
+    for(mpz_class i = 0; i < 2*x + 2*B; i++) {
         for(factorBase factor : fb) {
 
             if(kill) {
@@ -432,7 +439,7 @@ mpz_class QSFactor::bigLog(mpz_class x) {
 long QSFactor::computeB() {
     long b = 0;
     mpz_class temp = sqrt(bigLog(composite)*bigLog(bigLog(composite)));
-    long exp = (1.2)*(temp.get_si());
+    long exp = temp.get_si();
     b = pow(2,exp) + 5;
     return b;
 }

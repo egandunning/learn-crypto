@@ -47,6 +47,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->menuBar->addAction(act);
 
+    ui->threadSpinBox->setMaximum(QThread::idealThreadCount());
+    ui->threadSpinBox->setMinimum(1);
+    ui->threadSpinBox->setValue(QThread::idealThreadCount());
+
 }
 
 MainWindow::~MainWindow()
@@ -278,6 +282,7 @@ void MainWindow::on_crackButton_clicked()
     }
 
     c->setDigest(digest);
+    c->threadCount = ui->threadSpinBox->text().toInt();
 
     threadCrack.setCrackType(c);
     threadCrack.work();
@@ -463,6 +468,7 @@ void MainWindow::on_plotCrackButton_clicked()
     case 0:
         {int maxLength = ui->charCountSpinBox->text().toInt();
         c = new BruteForceCrack(hashAlg,bruteForceAlphabet(), maxLength);
+        c->threadCount = ui->threadSpinBox->text().toInt();
         break;}
 
     case 1:
@@ -491,6 +497,13 @@ void MainWindow::on_plotCrackButton_clicked()
 void MainWindow::update_crack_graph() {
 
     crackDataPoints = threadCrackData.getResult();
+    QString threadInfo = "";
+    if(threadCrackData.getCrackAlgName().compare("Brute force") == 0){
+        threadInfo = ", " + QString::number(threadCrackData.getCrackThreadCount()) + " thread";
+        if(threadCrackData.getCrackThreadCount() != 1) {
+            threadInfo += "s";
+        }
+    }
 
     if(cg == nullptr) {
         //begin graphing new graph
@@ -510,10 +523,10 @@ void MainWindow::update_crack_graph() {
         crackLegendCounter = 0;
         cg->addLegend("Legend: ", Qt::black, crackLegendCounter);
         crackLegendCounter++;
-        cg->addLegend(threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName(), Qt::black, crackLegendCounter);
+        cg->addLegend(threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName() + threadInfo , Qt::black, crackLegendCounter);
     } else {
         crackLegendCounter++;
-        addToGraph(cg, crackDataPoints, threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName(), crackLegendCounter);
+        addToGraph(cg, crackDataPoints, threadCrackData.getHashAlgName() + ", " + threadCrackData.getCrackAlgName() + threadInfo, crackLegendCounter);
     }
     cg->view->show();
 

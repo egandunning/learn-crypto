@@ -2,6 +2,8 @@
 
 DictionaryCrack::DictionaryCrack(Hash* h, std::string file) {
 	
+    name = "Dictionary attack";
+
 	hashType = h;
     filename = file;
 

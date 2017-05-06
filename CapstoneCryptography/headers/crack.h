@@ -26,6 +26,7 @@ public:
     QString getDigest();
     QString getPlaintext();
     Hash* hashType;
+    unsigned int threadCount;
     bool kill = false;
     QString name;
 };
