@@ -9,6 +9,13 @@
 
 #define VECTOR_SIZE 5
 
+/**
+ * Represents a row in a matrix. Each entry is 0 or 1. Rows are stored as
+ * an array of long ints. Each row represents the exponent vector (mod 2) of
+ * a product of integers. This product is stored in a std::vector of big
+ * integers.
+ * @brief The row class
+ */
 class row {
 
 public:
@@ -27,12 +34,12 @@ public:
     }
 
     bool operator>(const row& other) {
-        for(size_t i = 0; i < VECTOR_SIZE; i++) {
-            if(this->vec[i] > other.vec[i]) {
-                return 1;
+        for(int i = VECTOR_SIZE-1; i >= 0; i--) {
+            if(this->vec[i] <= other.vec[i]) {
+                return 0;
             }
         }
-        return 0;
+        return 1;
     }
 
     bool operator<(const row& other) {
@@ -52,10 +59,12 @@ public:
     }
 
     bool operator>=(const row& other) {
-        if(*this > other || *this == other) {
-            return 1;
+        for(int i = VECTOR_SIZE-1; i >= 0; i--) {
+            if(this->vec[i] < other.vec[i]) {
+                return 0;
+            }
         }
-        return 0;
+        return 1;
     }
 
     row operator+(const row& other) {
@@ -73,7 +82,7 @@ public:
     void print(int length) {
         std::stringstream ss;
         for(int i = VECTOR_SIZE-1; i >= 0; i--) {
-            ss << std::bitset<64>(vec[i]);
+            ss << std::bitset<64>(vec[i]) << " ";
         }
         std::string printStr = ss.str();
         printStr = printStr.substr(printStr.size() - length, printStr.size()-1);
@@ -101,6 +110,11 @@ public:
         }
     }
 
+    /**
+     * @brief at
+     * @param index
+     * @return
+     */
     bool at(int index) {
         for(int i = 0; i < VECTOR_SIZE; i++) {
             if(index < 64) {
@@ -111,6 +125,11 @@ public:
         return 0;
     }
 
+    /**
+     * Check if a row contains all zero entries
+     * @brief zeroVector
+     * @return true if a row only contains zeros
+     */
     bool zeroVector() {
         for(int i = 0; i < VECTOR_SIZE; i++) {
             if(vec[i] != 0) {

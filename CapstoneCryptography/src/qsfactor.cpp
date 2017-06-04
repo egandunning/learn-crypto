@@ -102,7 +102,6 @@ QPointF QSFactor::factor(mpz_class comp) {
                     temp.insert(it2->xVals.at(0));
                     index--;
                     if(temp.zeroVector()) {
-                        //temp.print(primes.size());
                         squares.push_back(temp.xVals);
                         break;
                     }
@@ -440,7 +439,8 @@ long QSFactor::computeB() {
     long b = 0;
     mpz_class temp = sqrt(bigLog(composite)*bigLog(bigLog(composite)));
     long exp = temp.get_si();
-    b = pow(2,exp) + 5;
+    std::cout << "in QSFactor::computeB() " << temp.get_str() << " = " << exp << std::endl;
+    b = pow(2,exp);
     return b;
 }
 
@@ -504,13 +504,13 @@ void QSFactor::generateFactorBase() {
         eraseMe.clear();
     }
 
-    if(primes.size() < ogB/log(ogB) - 3) {
+    /*if(primes.size() < ogB/log(ogB) - 3) {
         std::cout << "not enough primes: " << primes.size() << " number of tries: " << tryCount <<std::endl;
         fb.clear();
         B += 30*tryCount;
         tryCount++;
         goto tryagain;
-    }
+    }*/
 
     // for squares of most primes
     primeIndex = 0;
