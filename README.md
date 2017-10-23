@@ -4,9 +4,9 @@ PLU Computer Science Capstone project 2016-2017.
 A cryptography learning tool.
 
 
-###Contributors: Quinton Teas, Egan Dunning, Philip Passantino
+# Contributors: Quinton Teas, Egan Dunning, Philip Passantino
 
-###Dependencies:
+# Dependencies:
 Gnu Multi Precision Arithmetic Library https://gmplib.org/
 
 Crypto++ Library https://www.cryptopp.com/
